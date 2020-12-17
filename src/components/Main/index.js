@@ -1,47 +1,43 @@
-import React from "react";
-import {Container, Content} from "native-base";
-import {MODES} from "../../constants";
-import Articles from '../Articles'
-import Podcasts from '../Podcasts'
-import Faq from '../Faq'
-import PropTypes from "prop-types";
-import {StyleSheet} from "react-native";
+import React from 'react';
+import {Container, Content} from 'native-base';
+import {MODES} from '../../constants';
+import Articles from '../Articles';
+import Podcasts from '../Podcasts';
+import Faq from '../Faq';
+import PropTypes from 'prop-types';
+import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
-    container: {
-        paddingTop: 20,
-        paddingBottom: 20,
-    },
+  container: {
+    paddingTop: 20,
+    paddingBottom: 20,
+  },
 });
 
 const AppFooter = ({mode = MODES.ARTICLES}) => {
-
-    const renderPage = () => {
-        switch (mode) {
-            case "PODCAST": {
-                return <Podcasts/>
-            }
-            case "FAQ": {
-                return <Faq/>
-            }
-            default: {
-                return <Articles/>
-            }
-        }
-
+  const renderPage = () => {
+    switch (mode) {
+      case 'PODCAST': {
+        return <Podcasts />;
+      }
+      case 'FAQ': {
+        return <Faq />;
+      }
+      default: {
+        return <Articles />;
+      }
     }
+  };
 
-    return (
-        <Container style={styles.container}>
-            <Content>
-                {renderPage()}
-            </Content>
-        </Container>
-    )
+  return (
+    <Container style={styles.container}>
+      <Content>{renderPage()}</Content>
+    </Container>
+  );
 };
 
 AppFooter.propTypes = {
-    mode: PropTypes.string,
-    setMode: PropTypes.func,
+  mode: PropTypes.string,
+  setMode: PropTypes.func,
 };
 export default AppFooter;

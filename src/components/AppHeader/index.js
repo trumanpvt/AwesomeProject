@@ -1,44 +1,39 @@
-import React, {useState} from "react";
-import {Body, Button, Header, Icon, Left, Right, Title} from "native-base";
+import React, {useState} from 'react';
+import {Body, Button, Header, Icon, Left, Right, Title} from 'native-base';
 
-import MenuPopup from "../Popup/menu";
+import MenuPopup from '../Popup/menu';
 
-import styles from "./style.js";
+import styles from './style.js';
 
 const AppHeader = () => {
+  const [showMenu, setShowMenu] = useState(false);
 
-    const [showMenu, setShowMenu] = useState(false);
+  const handleMenuClick = () => {
+    setShowMenu(!showMenu);
+  };
 
-    const handleMenuClick = () => {
-        setShowMenu(!showMenu);
-    }
-
-    return (
-        <Header style={styles.header}>
-            <Left style={styles.headerLeft}>
-                <Button
-                    transparent
-                    onPress={handleMenuClick}
-                    style={styles.menuBtn}
-                >
-                    <Icon name='menu'/>
-                </Button>
-                {showMenu ? (<MenuPopup handleMenuClick={handleMenuClick}/>) : null}
-            </Left>
-            <Body>
-                <Title>Header</Title>
-            </Body>
-            <Right>
-                <Button transparent>
-                    <Icon name='person'/>
-                </Button>
-            </Right>
-        </Header>
-    )
+  return (
+    <Header style={styles.header}>
+      <Left style={styles.headerLeft}>
+        <Button transparent onPress={handleMenuClick} style={styles.menuBtn}>
+          <Icon name="menu" />
+        </Button>
+        {showMenu ? <MenuPopup handleMenuClick={handleMenuClick} /> : null}
+      </Left>
+      <Body>
+        <Title>Header</Title>
+      </Body>
+      <Right>
+        <Button transparent>
+          <Icon name="person" />
+        </Button>
+      </Right>
+    </Header>
+  );
 };
 
 AppHeader.propTypes = {
-    // mode: PropTypes.string,
-    // setMode: PropTypes.func,
+  // mode: PropTypes.string,
+  // setMode: PropTypes.func,
 };
 export default AppHeader;
