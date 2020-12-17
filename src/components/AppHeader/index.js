@@ -16,7 +16,7 @@ const AppHeader = () => {
     <Header style={styles.header}>
       <Left style={styles.headerLeft}>
         <Button transparent onPress={handleMenuClick} style={styles.menuBtn}>
-          <Icon name="menu" />
+          <Icon type="MaterialIcons" name="menu" />
         </Button>
         {showMenu ? <MenuPopup handleMenuClick={handleMenuClick} /> : null}
       </Left>
@@ -25,7 +25,7 @@ const AppHeader = () => {
       </Body>
       <Right>
         <Button transparent>
-          <Icon name="person" />
+          <Icon type="MaterialIcons" name="person" />
         </Button>
       </Right>
     </Header>
