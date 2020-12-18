@@ -2,20 +2,22 @@ import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
   container: {
+    paddingTop: 20,
+    flex: 1,
     position: 'absolute',
-    borderWidth: 1,
-    borderStyle: 'solid',
-    borderColor: '#000',
-    top: 0,
-    left: -6,
-    padding: 0,
   },
-  content: {
-    padding: 0,
+  navItemStyle: {
+    padding: 10,
   },
-  btn: {},
-  icon: {
-    fontSize: 40,
-    lineHeight: 40,
+  navSectionStyle: {
+    backgroundColor: 'lightgrey',
+  },
+  sectionHeadingStyle: {
+    paddingVertical: 10,
+    paddingHorizontal: 5,
+  },
+  footerContainer: {
+    padding: 20,
+    backgroundColor: 'lightgrey',
   },
 });
