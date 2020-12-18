@@ -1,24 +1,45 @@
-import React, {useState} from 'react';
-import {Body, Button, Header, Icon, Left, Right, Title} from 'native-base';
+import React, {useRef, useState} from 'react';
+import {
+  Body,
+  Button,
+  Content,
+  Drawer,
+  Header,
+  Icon,
+  Left,
+  Right,
+  Title,
+  Text,
+} from 'native-base';
 
-import MenuPopup from '../Popup/menu';
+import SideMenu from '../Popup/sideMenu';
 
 import styles from './style.js';
 
-const AppHeader = () => {
+const AppHeader = (props) => {
   const [showMenu, setShowMenu] = useState(false);
 
-  const handleMenuClick = () => {
-    setShowMenu(!showMenu);
+  let drawer = useRef(null);
+
+  const openDrawer = () => {
+    drawer._root.open();
+  };
+
+  const closeDrawer = () => {
+    drawer._root.close();
   };
 
   return (
     <Header style={styles.header}>
       <Left style={styles.headerLeft}>
-        <Button transparent onPress={handleMenuClick} style={styles.menuBtn}>
-          <Icon type="MaterialIcons" name="menu" />
-        </Button>
-        {showMenu ? <MenuPopup handleMenuClick={handleMenuClick} /> : null}
+        <Content>
+          <Button
+            transparent
+            onPress={props.navigation.openDrawer}
+            style={styles.menuBtn}>
+            <Icon type="MaterialIcons" name="menu" />
+          </Button>
+        </Content>
       </Left>
       <Body>
         <Title>Header</Title>

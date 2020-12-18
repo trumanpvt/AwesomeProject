@@ -13,4 +13,7 @@ export default StyleSheet.create({
     // margin: 0,
     // padding: 0,
   },
+  drawer: {
+    // position: 'absolute',
+  },
 });

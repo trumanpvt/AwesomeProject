@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const AppFooter = ({mode = MODES.ARTICLES}) => {
+const HomeScreen = ({mode = MODES.ARTICLES}) => {
   const renderPage = () => {
     switch (mode) {
       case 'PODCAST': {
@@ -36,8 +36,8 @@ const AppFooter = ({mode = MODES.ARTICLES}) => {
   );
 };
 
-AppFooter.propTypes = {
+HomeScreen.propTypes = {
   mode: PropTypes.string,
   setMode: PropTypes.func,
 };
-export default AppFooter;
+export default HomeScreen;
