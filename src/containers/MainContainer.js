@@ -1,5 +1,5 @@
 import React from 'react';
-import Main from '../components/Main';
+import Main from '../components/HomeScreen';
 import {useSelector} from 'react-redux';
 import PropTypes from 'prop-types';
 
