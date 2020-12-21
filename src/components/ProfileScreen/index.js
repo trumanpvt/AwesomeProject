@@ -32,7 +32,7 @@ const ProfileScreen = ({mode = MODES.ARTICLES}) => {
   return (
     <Container style={styles.container}>
       <Content>
-        <Text>ChatScreen</Text>
+        <Text>ProfileScreen</Text>
       </Content>
     </Container>
   );

@@ -1,11 +1,11 @@
 import React from 'react';
 import {Container, Content} from 'native-base';
-import {MODES} from '../../constants';
 import Articles from '../Articles';
 import Podcasts from '../Podcasts';
 import Faq from '../Faq';
 import PropTypes from 'prop-types';
 import {StyleSheet} from 'react-native';
+import {useSelector} from 'react-redux';
 
 const styles = StyleSheet.create({
   container: {
@@ -14,7 +14,9 @@ const styles = StyleSheet.create({
   },
 });
 
-const HomeScreen = ({mode = MODES.ARTICLES}) => {
+const HomeScreen = () => {
+  const mode = useSelector((state) => state.mode);
+
   const renderPage = () => {
     switch (mode) {
       case 'PODCAST': {

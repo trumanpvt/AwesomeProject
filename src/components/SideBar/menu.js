@@ -1,15 +1,7 @@
 import React from 'react';
-import {AppRegistry, Image, StatusBar} from 'react-native';
-import {
-  Button,
-  Text,
-  Container,
-  List,
-  ListItem,
-  Content,
-  Icon,
-} from 'native-base';
-const routes = ['Home', 'Chat', 'Profile'];
+import {Image} from 'react-native';
+import {Container, Content, List, ListItem, Text} from 'native-base';
+
 const SideBar = (props) => {
   console.log(props);
   return (
@@ -42,13 +34,11 @@ const SideBar = (props) => {
           }}
         />
         <List
-          dataArray={routes}
+          dataArray={props.state.routeNames}
           contentContainerStyle={{marginTop: 120}}
           renderRow={(data) => {
             return (
-              <ListItem
-                button
-                onPress={() => this.props.navigation.navigate(data)}>
+              <ListItem button onPress={() => props.navigation.navigate(data)}>
                 <Text>{data}</Text>
               </ListItem>
             );

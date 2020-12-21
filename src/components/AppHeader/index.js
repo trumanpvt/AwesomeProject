@@ -1,24 +1,9 @@
-import React, {useRef, useState} from 'react';
-// import { useNavigation } from '@react-navigation/native';
-import {
-  Body,
-  Button,
-  Content,
-  Drawer,
-  Header,
-  Icon,
-  Left,
-  Right,
-  Title,
-  Text,
-} from 'native-base';
-
-import SideMenu from '../SideBar/menu';
+import React from 'react';
+import {Body, Button, Header, Icon, Left, Right, Title} from 'native-base';
 
 import styles from './style.js';
 
 const AppHeader = (props) => {
-  console.log(props);
   return (
     <Header style={styles.header}>
       <Left style={styles.headerLeft}>
