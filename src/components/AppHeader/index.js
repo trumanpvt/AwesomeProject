@@ -1,4 +1,5 @@
 import React, {useRef, useState} from 'react';
+// import { useNavigation } from '@react-navigation/native';
 import {
   Body,
   Button,
@@ -17,19 +18,16 @@ import SideMenu from '../SideBar/menu';
 import styles from './style.js';
 
 const AppHeader = (props) => {
-  const [showMenu, setShowMenu] = useState(false);
-
+  console.log(props);
   return (
     <Header style={styles.header}>
       <Left style={styles.headerLeft}>
-        <Content>
-          <Button
-            transparent
-            // onPress={props.navigation.openDrawer}
-            style={styles.menuBtn}>
-            <Icon type="MaterialIcons" name="menu" />
-          </Button>
-        </Content>
+        <Button
+          transparent
+          onPress={props.scene.descriptor.navigation.openDrawer}
+          style={styles.menuBtn}>
+          <Icon type="MaterialIcons" name="menu" />
+        </Button>
       </Left>
       <Body>
         <Title>Header</Title>

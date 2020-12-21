@@ -1,5 +1,5 @@
 import React from 'react';
-import {Container, Content} from 'native-base';
+import {Container, Content, Text} from 'native-base';
 import {MODES} from '../../constants';
 import Articles from '../Articles';
 import Podcasts from '../Podcasts';
@@ -15,23 +15,25 @@ const styles = StyleSheet.create({
 });
 
 const ChatScreen = ({mode = MODES.ARTICLES}) => {
-  const renderPage = () => {
-    switch (mode) {
-      case 'PODCAST': {
-        return <Podcasts />;
-      }
-      case 'FAQ': {
-        return <Faq />;
-      }
-      default: {
-        return <Articles />;
-      }
-    }
-  };
+  // const renderPage = () => {
+  //   switch (mode) {
+  //     case 'PODCAST': {
+  //       return <Podcasts />;
+  //     }
+  //     case 'FAQ': {
+  //       return <Faq />;
+  //     }
+  //     default: {
+  //       return <Articles />;
+  //     }
+  //   }
+  // };
 
   return (
     <Container style={styles.container}>
-      <Content>{renderPage()}</Content>
+      <Content>
+        <Text>ChatScreen</Text>
+      </Content>
     </Container>
   );
 };

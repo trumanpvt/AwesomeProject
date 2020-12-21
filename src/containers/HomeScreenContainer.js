@@ -1,15 +1,15 @@
 import React from 'react';
-import Main from '../components/HomeScreen';
+import HomeScreen from '../components/HomeScreen';
 import {useSelector} from 'react-redux';
 import PropTypes from 'prop-types';
 
-const MainContainer = () => {
+const HomeScreenContainer = () => {
   const mode = useSelector((state) => state.mode);
-  return <Main mode={mode} />;
+  return <HomeScreen mode={mode} />;
 };
 
-MainContainer.propTypes = {
+HomeScreenContainer.propTypes = {
   mode: PropTypes.string,
   setMode: PropTypes.func,
 };
-export default MainContainer;
+export default HomeScreenContainer;
