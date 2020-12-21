@@ -12,22 +12,12 @@ import {
   Text,
 } from 'native-base';
 
-import SideMenu from '../Popup/sideMenu';
+import SideMenu from '../SideBar/menu';
 
 import styles from './style.js';
 
 const AppHeader = (props) => {
   const [showMenu, setShowMenu] = useState(false);
-
-  let drawer = useRef(null);
-
-  const openDrawer = () => {
-    drawer._root.open();
-  };
-
-  const closeDrawer = () => {
-    drawer._root.close();
-  };
 
   return (
     <Header style={styles.header}>
@@ -35,7 +25,7 @@ const AppHeader = (props) => {
         <Content>
           <Button
             transparent
-            onPress={props.navigation.openDrawer}
+            // onPress={props.navigation.openDrawer}
             style={styles.menuBtn}>
             <Icon type="MaterialIcons" name="menu" />
           </Button>

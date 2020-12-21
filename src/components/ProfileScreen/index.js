@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const HomeScreen = ({mode = MODES.ARTICLES}) => {
+const ProfileScreen = ({mode = MODES.ARTICLES}) => {
   const renderPage = () => {
     switch (mode) {
       case 'PODCAST': {
@@ -36,8 +36,8 @@ const HomeScreen = ({mode = MODES.ARTICLES}) => {
   );
 };
 
-HomeScreen.propTypes = {
+ProfileScreen.propTypes = {
   mode: PropTypes.string,
   setMode: PropTypes.func,
 };
-export default HomeScreen;
+export default ProfileScreen;

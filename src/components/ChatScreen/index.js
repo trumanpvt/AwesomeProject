@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const HomeScreen = ({mode = MODES.ARTICLES}) => {
+const ChatScreen = ({mode = MODES.ARTICLES}) => {
   const renderPage = () => {
     switch (mode) {
       case 'PODCAST': {
@@ -36,8 +36,8 @@ const HomeScreen = ({mode = MODES.ARTICLES}) => {
   );
 };
 
-HomeScreen.propTypes = {
+ChatScreen.propTypes = {
   mode: PropTypes.string,
   setMode: PropTypes.func,
 };
-export default HomeScreen;
+export default ChatScreen;
