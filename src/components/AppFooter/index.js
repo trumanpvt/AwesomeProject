@@ -12,7 +12,7 @@ const AppFooter = () => {
 
   const dispatch = useDispatch();
 
-  const setScreenMode = (mode) => dispatch(setMode(mode));
+  const setScreenMode = (screenMode) => dispatch(setMode(screenMode));
 
   return (
     <Footer>

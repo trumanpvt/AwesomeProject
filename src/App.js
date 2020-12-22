@@ -19,25 +19,23 @@ const Drawer = createDrawerNavigator();
 const App = () => {
   return (
     <Provider store={store}>
-      <Container>
-        <NavigationContainer>
-          <Drawer.Navigator
-            initialRouteName="HomeScreen"
-            screenOptions={{
-              header: ({scene}) => <AppHeader scene={scene} />,
-              headerShown: true,
-            }}
-            drawerContent={(props) => <SideBar {...props} />}>
-            <Drawer.Screen
-              name="HomeScreen"
-              component={HomeScreen}
-              options={{title: 'My profile'}}
-            />
-            <Drawer.Screen name="ChatScreen" component={ChatScreen} />
-            <Drawer.Screen name="ProfileScreen" component={ProfileScreen} />
-          </Drawer.Navigator>
-        </NavigationContainer>
-      </Container>
+      <NavigationContainer>
+        <Drawer.Navigator
+          initialRouteName="HomeScreen"
+          screenOptions={{
+            header: ({scene}) => <AppHeader scene={scene} />,
+            headerShown: true,
+          }}
+          drawerContent={(props) => <SideBar {...props} />}>
+          <Drawer.Screen
+            name="HomeScreen"
+            component={HomeScreen}
+            options={{title: 'My profile'}}
+          />
+          <Drawer.Screen name="ChatScreen" component={ChatScreen} />
+          <Drawer.Screen name="ProfileScreen" component={ProfileScreen} />
+        </Drawer.Navigator>
+      </NavigationContainer>
     </Provider>
   );
 };
