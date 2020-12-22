@@ -1,25 +1,27 @@
 import React from 'react';
-import {Image, View} from 'react-native';
-import {Container, Content, List, ListItem, Text} from 'native-base';
+import {List, ListItem, Text} from 'native-base';
 import User from './user';
+import {SafeAreaView} from 'react-native-safe-area-context';
+
+import styles from './style.js';
 
 const SideBar = (props) => {
   console.log(props);
   return (
-    <Container>
+    <SafeAreaView>
       <User />
       <List
         dataArray={props.state.routeNames}
         renderRow={(data) => {
           return (
-            <ListItem button onPress={() => props.navigation.navigate(data)}>
+            <ListItem style={styles.listItem} button onPress={() => props.navigation.navigate(data)}>
               <Text>{data}</Text>
             </ListItem>
           );
         }}
         keyExtractor={(item, index) => index.toString()}
       />
-    </Container>
+    </SafeAreaView>
   );
 };
 

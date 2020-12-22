@@ -1,12 +1,23 @@
-import React from 'react';
-import {View, Text} from 'react-native';
-import {Container, Content} from 'native-base';
+import React, {useState} from 'react';
+import {View, Image, Modal} from 'react-native';
+import {Container, Content, Button, Text} from 'native-base';
+import ModalAuth from '../Modal/auth';
 import styles from './style.js';
 
-const User = () => (
-  <Content>
-    <Text style={styles.text}>User TEXT</Text>
-  </Content>
-);
+const User = () => {
+  const [showModal, setShowModal] = useState(false);
+
+  // const handlePressLogin = () => {};
+
+  return (
+    <View style={styles.userContent}>
+      <Button onPress={() => setShowModal(!showModal)}>
+        <Text>Login/Register</Text>
+      </Button>
+      <Text>User TEXT</Text>
+      <ModalAuth showModal={showModal} setShowModal={setShowModal} />
+    </View>
+  );
+};
 
 export default User;

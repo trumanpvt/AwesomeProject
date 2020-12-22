@@ -1,23 +1,13 @@
 import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
-  container: {
-    paddingTop: 20,
-    flex: 1,
-    position: 'absolute',
+  userContent: {
+    marginTop: 20,
+    marginLeft: 17,
+    marginBottom: 20,
   },
-  navItemStyle: {
-    padding: 10,
-  },
-  navSectionStyle: {
-    backgroundColor: 'lightgrey',
-  },
-  sectionHeadingStyle: {
-    paddingVertical: 10,
-    paddingHorizontal: 5,
-  },
-  footerContainer: {
-    padding: 20,
-    backgroundColor: 'lightgrey',
+  listItem: {
+    marginLeft: 0,
+    paddingLeft: 17,
   },
 });
