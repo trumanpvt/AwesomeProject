@@ -1,14 +1,12 @@
 import React from 'react';
-import {Text} from 'react-native';
+import {View, Text} from 'react-native';
 import {Container, Content} from 'native-base';
 import styles from './style.js';
 
-const Podcasts = () => (
-  <Container>
-    <Content>
-      <Text style={styles.text}>Podcasts TEXT</Text>
-    </Content>
-  </Container>
+const User = () => (
+  <Content>
+    <Text style={styles.text}>User TEXT</Text>
+  </Content>
 );
 
-export default Podcasts;
+export default User;

@@ -3,7 +3,7 @@ import {Button, Footer, FooterTab, Text} from 'native-base';
 import {MODES} from '../../constants';
 import PropTypes from 'prop-types';
 
-import styles from './style.js';
+// import styles from './style.js';
 import {useDispatch, useSelector} from 'react-redux';
 import {setMode} from '../../actions';
 

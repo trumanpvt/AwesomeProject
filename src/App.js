@@ -2,7 +2,7 @@ import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {Container} from 'native-base';
-import AppFooter from './components/AppFooter';
+// import AppFooter from './components/AppFooter';
 import AppHeader from './components/AppHeader';
 import {createStore} from 'redux';
 import {Provider} from 'react-redux';
@@ -36,7 +36,6 @@ const App = () => {
             <Drawer.Screen name="ChatScreen" component={ChatScreen} />
             <Drawer.Screen name="ProfileScreen" component={ProfileScreen} />
           </Drawer.Navigator>
-          <AppFooter />
         </NavigationContainer>
       </Container>
     </Provider>

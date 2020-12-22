@@ -6,9 +6,10 @@ import Faq from '../Faq';
 import PropTypes from 'prop-types';
 import {StyleSheet} from 'react-native';
 import {useSelector} from 'react-redux';
+import AppFooter from '../AppFooter';
 
 const styles = StyleSheet.create({
-  container: {
+  content: {
     paddingTop: 20,
     paddingBottom: 20,
   },
@@ -33,7 +34,8 @@ const HomeScreen = () => {
 
   return (
     <Container style={styles.container}>
-      <Content>{renderPage()}</Content>
+      <Content style={styles.content}>{renderPage()}</Content>
+      <AppFooter />
     </Container>
   );
 };
