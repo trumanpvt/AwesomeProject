@@ -4,7 +4,7 @@ import {Container, Content, Button, Text} from 'native-base';
 import ModalAuth from '../Modal/auth';
 import styles from './style.js';
 
-const User = () => {
+const User = (props) => {
   const [showModal, setShowModal] = useState(false);
 
   // const handlePressLogin = () => {};
@@ -15,7 +15,7 @@ const User = () => {
         <Text>Login/Register</Text>
       </Button>
       <Text>User TEXT</Text>
-      <ModalAuth showModal={showModal} setShowModal={setShowModal} />
+      <ModalAuth navigation={props.navigation} showModal={showModal} setShowModal={setShowModal} />
     </View>
   );
 };

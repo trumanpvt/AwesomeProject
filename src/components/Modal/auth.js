@@ -1,32 +1,63 @@
 import React, {useState} from 'react';
-import {Alert, Modal, TouchableHighlight, View} from 'react-native';
-import {Container, Content, Button, Text} from 'native-base';
+import {Modal, View} from 'react-native';
+import {Button, Form, Input, Item, Text} from 'native-base';
+import auth from '@react-native-firebase/auth';
 
 import styles from './style.js';
 
 const ModalAuth = (props) => {
-  return (
-    <View style={styles.centeredView}>
-      <Modal
-        animationType="fade"
-        transparent={true}
-        visible={props.showModal}
-        onRequestClose={() => {
-          Alert.alert('Modal has been closed.');
-        }}>
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <Text style={styles.modalText}>Hello World!</Text>
+  const [userName, setUserName] = useState();
+  const [password, setPassword] = useState();
 
-            <TouchableHighlight
-              style={{...styles.openButton, backgroundColor: '#2196F3'}}
-              onPress={() => props.setShowModal(!props.showModal)}>
-              <Text style={styles.textStyle}>Hide Modal</Text>
-            </TouchableHighlight>
-          </View>
-        </View>
-      </Modal>
-    </View>
+  const handleLogin = () => {
+    auth()
+      .signInWithEmailAndPassword(userName, password)
+      .then((res) => {
+        console.log(res);
+      });
+    // props.setShowModal(!props.showModal);
+    // props.navigation.navigate('ProfileScreen');
+  };
+
+  return (
+    <Modal
+      animationType="fade"
+      transparent={true}
+      visible={props.showModal}
+      onRequestClose={() => props.setShowModal(!props.showModal)}>
+      <View style={styles.centeredView}>
+        <Form style={styles.form}>
+          <Item>
+            <Input
+              textContentType="username"
+              value={userName}
+              onChangeText={setUserName}
+              placeholder="Username"
+            />
+          </Item>
+          <Item last>
+            <Input
+              textContentType="password"
+              secureTextEntry
+              value={password}
+              onChangeText={setPassword}
+              placeholder="Password"
+            />
+          </Item>
+          <Button full rounded style={styles.button} onPress={handleLogin}>
+            <Text style={styles.textStyle}>Sign In</Text>
+          </Button>
+          <Button
+            full
+            rounded
+            danger
+            style={styles.button}
+            onPress={() => props.setShowModal(!props.showModal)}>
+            <Text style={styles.textStyle}>Cancel</Text>
+          </Button>
+        </Form>
+      </View>
+    </Modal>
   );
 };
 
