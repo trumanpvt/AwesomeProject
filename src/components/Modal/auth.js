@@ -1,41 +1,52 @@
 import React, {useState} from 'react';
+import {useDispatch} from 'react-redux';
 import {Modal, View} from 'react-native';
 import {Button, Form, Input, Item, Text} from 'native-base';
 import auth from '@react-native-firebase/auth';
+import {setUser} from '../../actions';
 
 import styles from './style.js';
 
 const ModalAuth = (props) => {
   const [userName, setUserName] = useState();
   const [password, setPassword] = useState();
+  const [error, setError] = useState(null);
+
+  const dispatch = useDispatch();
+  const setUserData = (user) => dispatch(setUser(user));
 
   const handleLogin = () => {
     auth()
       .signInWithEmailAndPassword(userName, password)
       .then((res) => {
         console.log(res);
+        setError(null);
+        setUserData(res.user);
+        props.setShowModal(false);
+      })
+      .catch((err) => {
+        setError(err.message);
       });
-    // props.setShowModal(!props.showModal);
-    // props.navigation.navigate('ProfileScreen');
   };
 
   return (
     <Modal
       animationType="fade"
       transparent={true}
-      visible={props.showModal}
+      visible={true}
       onRequestClose={() => props.setShowModal(!props.showModal)}>
       <View style={styles.centeredView}>
         <Form style={styles.form}>
-          <Item>
+          <Item style={styles.input}>
             <Input
+              autoCapitalize="none"
               textContentType="username"
               value={userName}
               onChangeText={setUserName}
               placeholder="Username"
             />
           </Item>
-          <Item last>
+          <Item style={styles.input}>
             <Input
               textContentType="password"
               secureTextEntry
@@ -44,6 +55,7 @@ const ModalAuth = (props) => {
               placeholder="Password"
             />
           </Item>
+          {error && <Text style={styles.error}>{error}</Text>}
           <Button full rounded style={styles.button} onPress={handleLogin}>
             <Text style={styles.textStyle}>Sign In</Text>
           </Button>
@@ -52,7 +64,7 @@ const ModalAuth = (props) => {
             rounded
             danger
             style={styles.button}
-            onPress={() => props.setShowModal(!props.showModal)}>
+            onPress={() => props.setShowModal(false)}>
             <Text style={styles.textStyle}>Cancel</Text>
           </Button>
         </Form>

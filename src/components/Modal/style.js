@@ -19,6 +19,11 @@ export default StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
   },
+  input: {
+    width: '100%',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+  },
   button: {
     marginTop: 20,
   },
@@ -29,6 +34,12 @@ export default StyleSheet.create({
   },
   modalText: {
     marginBottom: 15,
+    textAlign: 'center',
+  },
+  error: {
+    marginTop: 20,
+    color: 'red',
+    fontWeight: 'bold',
     textAlign: 'center',
   },
 });

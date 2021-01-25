@@ -1,12 +1,19 @@
-import {SET_MODE} from '../actions/actionTypes';
+import {SET_MODE, SET_USER} from '../actions/actionTypes';
 import {MODES} from '../constants';
 
 export const reducers = (state = [], action) => {
   switch (action.type) {
     case SET_MODE: {
-      return Object.assign({}, state, {
+      return {
+        ...state,
         mode: action.mode,
-      });
+      };
+    }
+    case SET_USER: {
+      return {
+        ...state,
+        user: action.user,
+      };
     }
     default:
       return state;

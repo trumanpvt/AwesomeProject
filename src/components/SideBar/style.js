@@ -6,6 +6,20 @@ export default StyleSheet.create({
     marginLeft: 17,
     marginBottom: 20,
   },
+  userInfo: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  userPic: {
+    width: 36,
+    height: 36,
+    borderRadius: 50,
+  },
+  userName: {
+    marginLeft: 17,
+  },
   listItem: {
     marginLeft: 0,
     paddingLeft: 17,
