@@ -22,4 +22,5 @@ export const reducers = (state = [], action) => {
 
 export const initialState = {
   mode: MODES.ARTICLES,
+  user: {},
 };

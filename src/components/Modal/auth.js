@@ -20,9 +20,9 @@ const ModalAuth = (props) => {
   const handleLogin = () => {
     auth()
       .signInWithEmailAndPassword(username, password)
-      .then((res) => {
+      .then((UserCredential) => {
         setError(null);
-        setUserData(res.user);
+        setUserData(UserCredential.user);
         props.setShowModal(false);
       })
       .catch((err) => {
@@ -34,9 +34,9 @@ const ModalAuth = (props) => {
     if (password === confirmPassword) {
       auth()
         .createUserWithEmailAndPassword(username, password)
-        .then((res) => {
+        .then((UserCredential) => {
           setError(null);
-          setUserData(res.user);
+          setUserData(UserCredential.user);
           props.setShowModal(false);
           props.navigation.navigate('ProfileScreen');
         })

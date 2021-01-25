@@ -16,7 +16,7 @@ const AppHeader = (props) => {
           </Button>
         </Left>
         <Body>
-          <Title>Пидор</Title>
+          <Title>AwesomeProject</Title>
         </Body>
         <Right>
           {/*<Button transparent>*/}

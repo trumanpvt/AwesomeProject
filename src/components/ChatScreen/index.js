@@ -1,9 +1,6 @@
 import React from 'react';
 import {Container, Content, Text} from 'native-base';
 import {MODES} from '../../constants';
-import Articles from '../Articles';
-import Podcasts from '../Podcasts';
-import Faq from '../Faq';
 import PropTypes from 'prop-types';
 import {StyleSheet} from 'react-native';
 

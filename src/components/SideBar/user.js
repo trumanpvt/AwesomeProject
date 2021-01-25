@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {View} from 'react-native';
-import {Button, Text, Thumbnail, Badge, ListItem} from 'native-base';
+import {Button, Text, Thumbnail, Badge} from 'native-base';
 import ModalAuth from '../Modal/auth';
 import styles from './style.js';
 import auth from '@react-native-firebase/auth';
