@@ -19,7 +19,6 @@ const ModalAuth = (props) => {
     auth()
       .signInWithEmailAndPassword(userName, password)
       .then((res) => {
-        console.log(res);
         setError(null);
         setUserData(res.user);
         props.setShowModal(false);
@@ -29,9 +28,18 @@ const ModalAuth = (props) => {
       });
   };
 
-  const handleClickRegister = () => {
-    props.setShowModal(false);
-    props.navigation.navigate('ProfileScreen');
+  const handleRegister = () => {
+    auth()
+      .createUserWithEmailAndPassword(userName, password)
+      .then((res) => {
+        setError(null);
+        setUserData(res.user);
+        props.setShowModal(false);
+      })
+      .catch((err) => {
+        setError(err.message);
+      });
+    // props.navigation.navigate('ProfileScreen');
   };
 
   return (
@@ -64,13 +72,18 @@ const ModalAuth = (props) => {
           <Button
             full
             rounded
+            primary
+            style={styles.button}
+            onPress={handleLogin}>
+            <Text style={styles.textStyle}>Sign In</Text>
+          </Button>
+          <Button
+            full
+            rounded
             success
             style={styles.button}
-            onPress={handleClickRegister}>
+            onPress={handleRegister}>
             <Text style={styles.textStyle}>Sign Up</Text>
-          </Button>
-          <Button full rounded style={styles.button} onPress={handleLogin}>
-            <Text style={styles.textStyle}>Sign In</Text>
           </Button>
           <Button
             full
