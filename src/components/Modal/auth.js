@@ -8,20 +8,18 @@ import {setUser} from '../../actions';
 import styles from './style.js';
 
 const ModalAuth = (props) => {
-  const [userName, setUserName] = useState();
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [signUp, setSignUp] = useState(false);
   const [error, setError] = useState(null);
 
   const dispatch = useDispatch();
   const setUserData = (user) => dispatch(setUser(user));
 
   const handleLogin = () => {
-    setShowConfirmPassword(false);
-
     auth()
-      .signInWithEmailAndPassword(userName, password)
+      .signInWithEmailAndPassword(username, password)
       .then((res) => {
         setError(null);
         setUserData(res.user);
@@ -32,10 +30,10 @@ const ModalAuth = (props) => {
       });
   };
 
-  const handleRegister = () => {
-    if (password.length > 0 && password === confirmPassword) {
+  const handleSignUp = () => {
+    if (password === confirmPassword) {
       auth()
-        .createUserWithEmailAndPassword(userName, password)
+        .createUserWithEmailAndPassword(username, password)
         .then((res) => {
           setError(null);
           setUserData(res.user);
@@ -46,11 +44,7 @@ const ModalAuth = (props) => {
           setError(err.message);
         });
     } else {
-      if (!showConfirmPassword) {
-        setShowConfirmPassword(true);
-      } else {
-        setError('Confirm Password');
-      }
+      setError('Confirm Password');
     }
   };
 
@@ -66,8 +60,8 @@ const ModalAuth = (props) => {
             <Input
               autoCapitalize="none"
               textContentType="username"
-              value={userName}
-              onChangeText={setUserName}
+              value={username}
+              onChangeText={setUsername}
               placeholder="Username"
             />
           </Item>
@@ -80,7 +74,7 @@ const ModalAuth = (props) => {
               placeholder="Password"
             />
           </Item>
-          {showConfirmPassword && (
+          {signUp && (
             <Item style={styles.input}>
               <Input
                 textContentType="password"
@@ -95,18 +89,23 @@ const ModalAuth = (props) => {
           <Button
             full
             rounded
-            primary
+            success
             style={styles.button}
-            onPress={handleLogin}>
-            <Text style={styles.textStyle}>Sign In</Text>
+            disabled={!username || !password}
+            onPress={signUp ? handleSignUp : handleLogin}>
+            <Text style={styles.textStyle}>
+              {signUp ? 'Sign Up' : 'Sign In'}
+            </Text>
           </Button>
           <Button
             full
             rounded
-            success
+            primary
             style={styles.button}
-            onPress={handleRegister}>
-            <Text style={styles.textStyle}>Sign Up</Text>
+            onPress={() => setSignUp(!signUp)}>
+            <Text style={styles.textStyle}>
+              {signUp ? 'Sign In' : 'Sign Up'}
+            </Text>
           </Button>
           <Button
             full
