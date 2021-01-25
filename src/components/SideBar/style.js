@@ -18,7 +18,7 @@ export default StyleSheet.create({
     borderRadius: 50,
   },
   userName: {
-    marginLeft: 17,
+    color: '#000',
   },
   listItem: {
     marginLeft: 0,

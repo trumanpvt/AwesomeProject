@@ -29,6 +29,11 @@ const ModalAuth = (props) => {
       });
   };
 
+  const handleClickRegister = () => {
+    props.setShowModal(false);
+    props.navigation.navigate('ProfileScreen');
+  };
+
   return (
     <Modal
       animationType="fade"
@@ -56,6 +61,14 @@ const ModalAuth = (props) => {
             />
           </Item>
           {error && <Text style={styles.error}>{error}</Text>}
+          <Button
+            full
+            rounded
+            success
+            style={styles.button}
+            onPress={handleClickRegister}>
+            <Text style={styles.textStyle}>Sign Up</Text>
+          </Button>
           <Button full rounded style={styles.button} onPress={handleLogin}>
             <Text style={styles.textStyle}>Sign In</Text>
           </Button>

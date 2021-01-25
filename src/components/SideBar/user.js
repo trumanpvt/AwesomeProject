@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {View} from 'react-native';
-import {Button, Text, Thumbnail, Badge} from 'native-base';
+import {Button, Text, Thumbnail, Badge, ListItem} from 'native-base';
 import ModalAuth from '../Modal/auth';
 import styles from './style.js';
 import auth from '@react-native-firebase/auth';
@@ -26,16 +26,22 @@ const User = (props) => {
   };
 
   const renderUser = () => {
+    const userName = user.displayName ? user.displayName : user.email;
+
     return (
       <View style={styles.userInfo}>
-        {user.photoURL ? (
-          <Thumbnail small source={{uri: user.photoURL}} />
-        ) : (
-          <Badge style={styles.userPic} primary>
-            <Text>{(user.displayName && user.displayName[0]) || 'T'}</Text>
-          </Badge>
-        )}
-        <Text style={styles.userName}>{user.displayName || 'Test User'}</Text>
+        <Button
+          transparent
+          onPress={() => props.navigation.navigate('ProfileScreen')}>
+          {user.photoURL ? (
+            <Thumbnail small source={{uri: user.photoURL}} />
+          ) : (
+            <Badge style={styles.userPic} primary>
+              <Text>{userName[0].toUpperCase()}</Text>
+            </Badge>
+          )}
+          <Text style={styles.userName}>{userName}</Text>
+        </Button>
       </View>
     );
   };
@@ -55,11 +61,7 @@ const User = (props) => {
         </>
       )}
       {showModal && (
-        <ModalAuth
-          navigation={props.navigation}
-          // showModal={showModal}
-          setShowModal={setShowModal}
-        />
+        <ModalAuth navigation={props.navigation} setShowModal={setShowModal} />
       )}
     </View>
   );
