@@ -12,6 +12,9 @@ const SideBar = (props) => {
       <List
         dataArray={props.state.routeNames}
         renderRow={(data) => {
+          if (data === 'ProfileScreen') {
+            return null;
+          }
           return (
             <ListItem
               style={styles.listItem}

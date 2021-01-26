@@ -1,14 +1,14 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Button, Container, Content, Form, Input, Item, Text} from 'native-base';
 
 import styles from './style.js';
 import {View} from 'react-native';
 import {useSelector} from 'react-redux';
 
-const ProfileScreen = () => {
-  const [user, setUser] = useState(useSelector((state) => state.user));
+const ProfileScreen = (props) => {
+  const [user] = useState(useSelector((state) => state.user));
 
-  const [username, setUsername] = useState(user.displayName);
+  const [displayName, setDisplayName] = useState(user.displayName);
   const [phoneNumber, setPhoneNumber] = useState(user.phoneNumber);
   const [photoURL, setPhotoURL] = useState(user.photoURL);
   const [password, setPassword] = useState('');
@@ -16,13 +16,34 @@ const ProfileScreen = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   // const [email, setEmail] = useState(user.email);
 
-  const handleCancel = () => {
-    setUsername(user.displayName);
+  const handleCancelDataChange = () => {
+    setDisplayName(user.displayName);
     setPhoneNumber(user.phoneNumber);
     setPhotoURL(user.photoURL);
+  };
+
+  const handleDataChange = () => {
+    user
+      .updateProfile({
+        displayName,
+        photoURL,
+        phoneNumber,
+      })
+      .then(function () {
+        // Update successful.
+      })
+      .catch(function (error) {
+        // An error happened.
+      });
+  };
+
+  const handleCancelPasswordChange = () => {
     setPassword('');
+    setNewPassword('');
     setConfirmPassword('');
   };
+
+  const handlePasswordChange = () => {};
 
   return (
     <Container style={styles.container}>
@@ -32,8 +53,8 @@ const ProfileScreen = () => {
           <Item style={styles.input}>
             <Input
               textContentType="username"
-              value={username}
-              onChangeText={setUsername}
+              value={displayName}
+              onChangeText={setDisplayName}
               placeholder="Username"
             />
             <Text>Username</Text>
@@ -48,6 +69,24 @@ const ProfileScreen = () => {
             />
             <Text>Phone</Text>
           </Item>
+          <View style={styles.buttons}>
+            <Button
+              full
+              rounded
+              primary
+              style={styles.button}
+              onPress={handleDataChange}>
+              <Text>Save</Text>
+            </Button>
+            <Button
+              full
+              rounded
+              danger
+              style={styles.button}
+              onPress={handleCancelDataChange}>
+              <Text>Cancel</Text>
+            </Button>
+          </View>
 
           <Text style={styles.heading}>Change password</Text>
           <Item style={styles.input}>
@@ -86,8 +125,7 @@ const ProfileScreen = () => {
               rounded
               primary
               style={styles.button}
-              // onPress={() => props.setShowModal(false)}
-            >
+              onPress={handlePasswordChange}>
               <Text>Save</Text>
             </Button>
             <Button
@@ -95,7 +133,7 @@ const ProfileScreen = () => {
               rounded
               danger
               style={styles.button}
-              onPress={handleCancel}>
+              onPress={handleCancelPasswordChange}>
               <Text>Cancel</Text>
             </Button>
           </View>

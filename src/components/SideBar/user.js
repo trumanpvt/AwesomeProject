@@ -17,7 +17,10 @@ const User = (props) => {
     auth()
       .signOut()
       .then(() => {
-        dispatch(setUser({}));
+        if (props.navigation.route.name === 'ProfileScreen') {
+          props.navigation.navigate('HomeScreen');
+        }
+        dispatch(setUser(null));
       })
       .catch((error) => {
         console.log(error);
