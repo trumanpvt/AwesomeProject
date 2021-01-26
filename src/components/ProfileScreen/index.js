@@ -54,6 +54,10 @@ const ProfileScreen = (props) => {
 
   const handlePasswordChange = () => {};
 
+  const formatPhone = (value) => {
+    setPhoneNumber(value);
+  };
+
   return (
     <Container style={styles.container}>
       <Content>
@@ -73,8 +77,9 @@ const ProfileScreen = (props) => {
             <Input
               textContentType="telephoneNumber"
               value={phoneNumber}
-              onChangeText={setPhoneNumber}
+              onChangeText={formatPhone}
               placeholder="Phone"
+              keyboardType="phone-pad"
             />
           </Item>
           <View style={styles.buttons}>
