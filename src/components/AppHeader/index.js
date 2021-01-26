@@ -16,7 +16,7 @@ const AppHeader = (props) => {
           </Button>
         </Left>
         <Body>
-          <Title>AwesomeProject</Title>
+          <Title>{props.scene.route.name}</Title>
         </Body>
         <Right>
           {/*<Button transparent>*/}

@@ -1,5 +1,6 @@
 import {SET_MODE, SET_USER} from '../actions/actionTypes';
 import {MODES} from '../constants';
+import auth from '@react-native-firebase/auth';
 
 export const reducers = (state = [], action) => {
   switch (action.type) {
@@ -22,5 +23,5 @@ export const reducers = (state = [], action) => {
 
 export const initialState = {
   mode: MODES.ARTICLES,
-  user: {},
+  user: auth().currentUser,
 };

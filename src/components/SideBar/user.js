@@ -1,12 +1,11 @@
 import React, {useState} from 'react';
 import {View} from 'react-native';
-import {Button, Text, Thumbnail, Badge} from 'native-base';
+import {Badge, Button, Text, Thumbnail} from 'native-base';
 import ModalAuth from '../Modal/auth';
 import styles from './style.js';
 import auth from '@react-native-firebase/auth';
 import {useDispatch, useSelector} from 'react-redux';
 import {setUser} from '../../actions';
-import {isEmpty} from 'lodash';
 
 const User = (props) => {
   const [showModal, setShowModal] = useState(false);
@@ -48,7 +47,7 @@ const User = (props) => {
 
   return (
     <View style={styles.userContent}>
-      {isEmpty(user) ? (
+      {!user ? (
         <Button onPress={() => setShowModal(!showModal)}>
           <Text>Login/Register</Text>
         </Button>
