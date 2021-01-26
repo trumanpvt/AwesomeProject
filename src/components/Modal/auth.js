@@ -59,10 +59,11 @@ const ModalAuth = (props) => {
           <Item style={styles.input}>
             <Input
               autoCapitalize="none"
-              textContentType="username"
+              textContentType="emailAddress"
               value={username}
               onChangeText={setUsername}
-              placeholder="Username"
+              placeholder="Email"
+              keyboardType="email-address"
             />
           </Item>
           <Item style={styles.input}>

@@ -1,5 +1,14 @@
-import React, {useState, useEffect} from 'react';
-import {Button, Container, Content, Form, Input, Item, Text} from 'native-base';
+import React, {useState} from 'react';
+import {
+  Button,
+  Container,
+  Content,
+  Form,
+  Input,
+  Item,
+  Label,
+  Text,
+} from 'native-base';
 
 import styles from './style.js';
 import {View} from 'react-native';
@@ -8,9 +17,9 @@ import {useSelector} from 'react-redux';
 const ProfileScreen = (props) => {
   const [user] = useState(useSelector((state) => state.user));
 
-  const [displayName, setDisplayName] = useState(user.displayName);
-  const [phoneNumber, setPhoneNumber] = useState(user.phoneNumber);
-  const [photoURL, setPhotoURL] = useState(user.photoURL);
+  const [displayName, setDisplayName] = useState(user.displayName || null);
+  const [phoneNumber, setPhoneNumber] = useState(user.phoneNumber || '');
+  const [photoURL, setPhotoURL] = useState(user.photoURL || null);
   const [password, setPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -50,24 +59,23 @@ const ProfileScreen = (props) => {
       <Content>
         <Text style={styles.heading}>Profile</Text>
         <Form style={styles.form}>
-          <Item style={styles.input}>
+          <Item style={styles.input} floatingLabel>
+            <Label>Username</Label>
             <Input
               textContentType="username"
               value={displayName}
               onChangeText={setDisplayName}
               placeholder="Username"
             />
-            <Text>Username</Text>
           </Item>
-
-          <Item style={styles.input}>
+          <Item style={styles.input} floatingLabel>
+            <Label>Phone</Label>
             <Input
               textContentType="telephoneNumber"
               value={phoneNumber}
               onChangeText={setPhoneNumber}
               placeholder="Phone"
             />
-            <Text>Phone</Text>
           </Item>
           <View style={styles.buttons}>
             <Button
@@ -89,7 +97,8 @@ const ProfileScreen = (props) => {
           </View>
 
           <Text style={styles.heading}>Change password</Text>
-          <Item style={styles.input}>
+          <Item style={styles.input} floatingLabel>
+            <Label>Old password</Label>
             <Input
               textContentType="password"
               secureTextEntry
@@ -97,9 +106,9 @@ const ProfileScreen = (props) => {
               onChangeText={setPassword}
               placeholder="Old password"
             />
-            <Text>Old password</Text>
           </Item>
-          <Item style={styles.input}>
+          <Item style={styles.input} floatingLabel>
+            <Label>New password</Label>
             <Input
               textContentType="password"
               secureTextEntry
@@ -107,9 +116,9 @@ const ProfileScreen = (props) => {
               onChangeText={setNewPassword}
               placeholder="New password"
             />
-            <Text>New password</Text>
           </Item>
-          <Item style={styles.input}>
+          <Item style={styles.input} floatingLabel>
+            <Label>Confirm password</Label>
             <Input
               textContentType="password"
               secureTextEntry
@@ -117,7 +126,6 @@ const ProfileScreen = (props) => {
               onChangeText={setConfirmPassword}
               placeholder="Confirm password"
             />
-            <Text>Confirm password</Text>
           </Item>
           <View style={styles.buttons}>
             <Button
