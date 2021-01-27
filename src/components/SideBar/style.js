@@ -24,4 +24,7 @@ export default StyleSheet.create({
     marginLeft: 0,
     paddingLeft: 17,
   },
+  buttonText: {
+    color: '#fff',
+  },
 });

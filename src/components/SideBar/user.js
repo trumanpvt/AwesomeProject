@@ -52,13 +52,13 @@ const User = (props) => {
     <View style={styles.userContent}>
       {!user ? (
         <Button onPress={() => setShowModal(!showModal)}>
-          <Text>Login/Register</Text>
+          <Text style={styles.buttonText}>Login/Register</Text>
         </Button>
       ) : (
         <>
           {renderUser()}
           <Button onPress={signOut} danger>
-            <Text>SignOut</Text>
+            <Text style={styles.buttonText}>SignOut</Text>
           </Button>
         </>
       )}
