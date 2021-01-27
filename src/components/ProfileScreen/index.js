@@ -18,16 +18,16 @@ const ProfileScreen = (props) => {
   const [user] = useState(useSelector((state) => state.user));
 
   const [displayName, setDisplayName] = useState(user.displayName || null);
-  const [phoneNumber, setPhoneNumber] = useState(user.phoneNumber || '');
   const [photoURL, setPhotoURL] = useState(user.photoURL || null);
-  const [password, setPassword] = useState('');
-  const [newPassword, setNewPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  // const [phoneNumber, setPhoneNumber] = useState(user.phoneNumber || '');
+  // const [password, setPassword] = useState('');
+  // const [newPassword, setNewPassword] = useState('');
+  // const [confirmPassword, setConfirmPassword] = useState('');
   // const [email, setEmail] = useState(user.email);
 
   const handleCancelDataChange = () => {
     setDisplayName(user.displayName);
-    setPhoneNumber(user.phoneNumber);
+    // setPhoneNumber(user.phoneNumber);
     setPhotoURL(user.photoURL);
   };
 
@@ -36,7 +36,6 @@ const ProfileScreen = (props) => {
       .updateProfile({
         displayName,
         photoURL,
-        phoneNumber,
       })
       .then(function () {
         // Update successful.
@@ -46,17 +45,17 @@ const ProfileScreen = (props) => {
       });
   };
 
-  const handleCancelPasswordChange = () => {
-    setPassword('');
-    setNewPassword('');
-    setConfirmPassword('');
-  };
+  // const handleCancelPasswordChange = () => {
+  //   setPassword('');
+  //   setNewPassword('');
+  //   setConfirmPassword('');
+  // };
 
-  const handlePasswordChange = () => {};
+  // const handlePasswordChange = () => {};
 
-  const formatPhone = (value) => {
-    setPhoneNumber(value);
-  };
+  // const formatPhone = (value) => {
+  //   setPhoneNumber(value);
+  // };
 
   return (
     <Container style={styles.container}>
@@ -72,16 +71,16 @@ const ProfileScreen = (props) => {
               placeholder="Username"
             />
           </Item>
-          <Item style={styles.input} floatingLabel>
-            <Label>Phone</Label>
-            <Input
-              textContentType="telephoneNumber"
-              value={phoneNumber}
-              onChangeText={formatPhone}
-              placeholder="Phone"
-              keyboardType="phone-pad"
-            />
-          </Item>
+          {/*<Item style={styles.input} floatingLabel>*/}
+          {/*  <Label>Phone</Label>*/}
+          {/*  <Input*/}
+          {/*    textContentType="telephoneNumber"*/}
+          {/*    value={phoneNumber}*/}
+          {/*    onChangeText={formatPhone}*/}
+          {/*    placeholder="Phone"*/}
+          {/*    keyboardType="phone-pad"*/}
+          {/*  />*/}
+          {/*</Item>*/}
           <View style={styles.buttons}>
             <Button
               full
@@ -100,56 +99,55 @@ const ProfileScreen = (props) => {
               <Text>Cancel</Text>
             </Button>
           </View>
-
-          <Text style={styles.heading}>Change password</Text>
-          <Item style={styles.input} floatingLabel>
-            <Label>Old password</Label>
-            <Input
-              textContentType="password"
-              secureTextEntry
-              value={password}
-              onChangeText={setPassword}
-              placeholder="Old password"
-            />
-          </Item>
-          <Item style={styles.input} floatingLabel>
-            <Label>New password</Label>
-            <Input
-              textContentType="password"
-              secureTextEntry
-              value={newPassword}
-              onChangeText={setNewPassword}
-              placeholder="New password"
-            />
-          </Item>
-          <Item style={styles.input} floatingLabel>
-            <Label>Confirm password</Label>
-            <Input
-              textContentType="password"
-              secureTextEntry
-              value={confirmPassword}
-              onChangeText={setConfirmPassword}
-              placeholder="Confirm password"
-            />
-          </Item>
-          <View style={styles.buttons}>
-            <Button
-              full
-              rounded
-              primary
-              style={styles.button}
-              onPress={handlePasswordChange}>
-              <Text>Save</Text>
-            </Button>
-            <Button
-              full
-              rounded
-              danger
-              style={styles.button}
-              onPress={handleCancelPasswordChange}>
-              <Text>Cancel</Text>
-            </Button>
-          </View>
+          {/*<Text style={styles.heading}>Change password</Text>*/}
+          {/*<Item style={styles.input} floatingLabel>*/}
+          {/*  <Label>Old password</Label>*/}
+          {/*  <Input*/}
+          {/*    textContentType="password"*/}
+          {/*    secureTextEntry*/}
+          {/*    value={password}*/}
+          {/*    onChangeText={setPassword}*/}
+          {/*    placeholder="Old password"*/}
+          {/*  />*/}
+          {/*</Item>*/}
+          {/*<Item style={styles.input} floatingLabel>*/}
+          {/*  <Label>New password</Label>*/}
+          {/*  <Input*/}
+          {/*    textContentType="password"*/}
+          {/*    secureTextEntry*/}
+          {/*    value={newPassword}*/}
+          {/*    onChangeText={setNewPassword}*/}
+          {/*    placeholder="New password"*/}
+          {/*  />*/}
+          {/*</Item>*/}
+          {/*<Item style={styles.input} floatingLabel>*/}
+          {/*  <Label>Confirm password</Label>*/}
+          {/*  <Input*/}
+          {/*    textContentType="password"*/}
+          {/*    secureTextEntry*/}
+          {/*    value={confirmPassword}*/}
+          {/*    onChangeText={setConfirmPassword}*/}
+          {/*    placeholder="Confirm password"*/}
+          {/*  />*/}
+          {/*</Item>*/}
+          {/*<View style={styles.buttons}>*/}
+          {/*  <Button*/}
+          {/*    full*/}
+          {/*    rounded*/}
+          {/*    primary*/}
+          {/*    style={styles.button}*/}
+          {/*    onPress={handlePasswordChange}>*/}
+          {/*    <Text>Save</Text>*/}
+          {/*  </Button>*/}
+          {/*  <Button*/}
+          {/*    full*/}
+          {/*    rounded*/}
+          {/*    danger*/}
+          {/*    style={styles.button}*/}
+          {/*    onPress={handleCancelPasswordChange}>*/}
+          {/*    <Text>Cancel</Text>*/}
+          {/*  </Button>*/}
+          {/*</View>*/}
         </Form>
       </Content>
     </Container>
