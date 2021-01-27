@@ -27,6 +27,9 @@ export default StyleSheet.create({
   button: {
     marginTop: 20,
   },
+  googleButton: {
+    width: '100%',
+  },
   textStyle: {
     color: 'white',
     fontWeight: 'bold',

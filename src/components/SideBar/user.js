@@ -16,15 +16,13 @@ const User = (props) => {
   const signOut = () => {
     auth()
       .signOut()
-      .then(() => {
-        if (props.navigation.route.name === 'ProfileScreen') {
-          props.navigation.navigate('HomeScreen');
-        }
-        dispatch(setUser(null));
-      })
+      .then(() => {})
       .catch((error) => {
         console.log(error);
       });
+
+    props.navigation.navigate('HomeScreen');
+    dispatch(setUser(null));
   };
 
   const renderUser = () => {

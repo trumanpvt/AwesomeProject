@@ -3,6 +3,12 @@ import {useDispatch} from 'react-redux';
 import {Modal, View} from 'react-native';
 import {Button, Form, Input, Item, Text} from 'native-base';
 import auth from '@react-native-firebase/auth';
+import {
+  GoogleSignin,
+  GoogleSigninButton,
+  statusCodes,
+} from '@react-native-community/google-signin';
+
 import {setUser} from '../../actions';
 
 import styles from './style.js';
@@ -38,7 +44,7 @@ const ModalAuth = (props) => {
           setError(null);
           setUserData(UserCredential.user);
           props.setShowModal(false);
-          props.navigation.navigate('ProfileScreen');
+          // props.navigation.navigate('ProfileScreen');
         })
         .catch((err) => {
           setError(err.message);
@@ -46,6 +52,20 @@ const ModalAuth = (props) => {
     } else {
       setError('Confirm Password');
     }
+  };
+
+  const onGoogleButtonPress = async () => {
+    GoogleSignin.configure();
+
+    // Get the users ID token
+    const {idToken} = await GoogleSignin.signIn();
+
+    console.log(idToken);
+    // Create a Google credential with the token
+    const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+
+    // Sign-in the user with the credential
+    return auth().signInWithCredential(googleCredential);
   };
 
   return (
@@ -56,6 +76,14 @@ const ModalAuth = (props) => {
       onRequestClose={() => props.setShowModal(!props.showModal)}>
       <View style={styles.centeredView}>
         <Form style={styles.form}>
+          {/*<Item>*/}
+          <GoogleSigninButton
+            style={styles.googleButton}
+            color={GoogleSigninButton.Color.Dark}
+            onPress={onGoogleButtonPress}
+            // disabled={isSigninInProgress}
+          />
+          {/*</Item>*/}
           <Item style={styles.input}>
             <Input
               autoCapitalize="none"
