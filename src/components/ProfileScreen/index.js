@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   Button,
   Container,
@@ -15,15 +15,23 @@ import {View} from 'react-native';
 import {useSelector} from 'react-redux';
 
 const ProfileScreen = (props) => {
-  const [user] = useState(useSelector((state) => state.user));
+  const user = useSelector((state) => state.user) || {};
+  console.log('ProfileScreen', user);
 
-  const [displayName, setDisplayName] = useState(user.displayName || null);
-  const [photoURL, setPhotoURL] = useState(user.photoURL || null);
+  const [displayName, setDisplayName] = useState(user.displayName);
+  const [photoURL, setPhotoURL] = useState(user.photoURL);
   // const [phoneNumber, setPhoneNumber] = useState(user.phoneNumber || '');
   // const [password, setPassword] = useState('');
   // const [newPassword, setNewPassword] = useState('');
   // const [confirmPassword, setConfirmPassword] = useState('');
   // const [email, setEmail] = useState(user.email);
+
+  useEffect(() => {
+    setDisplayName(user.displayName);
+    setPhotoURL(user.photoURL);
+  }, [user]);
+
+  console.log(user.displayName);
 
   const handleCancelDataChange = () => {
     setDisplayName(user.displayName);

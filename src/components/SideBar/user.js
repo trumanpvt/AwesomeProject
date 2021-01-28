@@ -11,6 +11,7 @@ const User = (props) => {
   const [showModal, setShowModal] = useState(false);
 
   const dispatch = useDispatch();
+  const setUserData = (user) => dispatch(setUser(user));
   const user = useSelector((state) => state.user);
 
   const signOut = () => {
@@ -22,7 +23,7 @@ const User = (props) => {
       });
 
     props.navigation.navigate('HomeScreen');
-    dispatch(setUser(null));
+    setUserData(null);
   };
 
   const renderUser = () => {

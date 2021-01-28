@@ -19,11 +19,14 @@ const ModalAuth = (props) => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [signUp, setSignUp] = useState(false);
   const [error, setError] = useState(null);
+  const [authProviderLoginSuccess, setAuthProviderLoginSuccess] = useState(
+    false,
+  );
 
   const dispatch = useDispatch();
   const setUserData = (user) => dispatch(setUser(user));
 
-  const handleLogin = () => {
+  const handlePasswordLogin = () => {
     auth()
       .signInWithEmailAndPassword(username, password)
       .then((UserCredential) => {
@@ -54,18 +57,35 @@ const ModalAuth = (props) => {
     }
   };
 
-  const onGoogleButtonPress = async () => {
-    GoogleSignin.configure();
+  const handleGoogleLogin = async () => {
+    GoogleSignin.configure({
+      webClientId:
+        '329478636497-ejlmt7p7gshlti1dql63s1jjg5s7b22l.apps.googleusercontent.com',
+    });
 
-    // Get the users ID token
-    const {idToken} = await GoogleSignin.signIn();
+    try {
+      await GoogleSignin.hasPlayServices();
+      const {idToken} = await GoogleSignin.signIn();
+      const googleCredential = auth.GoogleAuthProvider.credential(idToken);
 
-    console.log(idToken);
-    // Create a Google credential with the token
-    const googleCredential = auth.GoogleAuthProvider.credential(idToken);
-
-    // Sign-in the user with the credential
-    return auth().signInWithCredential(googleCredential);
+      auth()
+        .signInWithCredential(googleCredential)
+        .then((UserCredential) => {
+          setError(null);
+          setUserData(UserCredential.user);
+          props.setShowModal(false);
+        });
+    } catch (error) {
+      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+        // user cancelled the login flow
+      } else if (error.code === statusCodes.IN_PROGRESS) {
+        // operation (e.g. sign in) is in progress already
+      } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+        // play services not available or outdated
+      } else {
+        // some other error happened
+      }
+    }
   };
 
   return (
@@ -80,7 +100,7 @@ const ModalAuth = (props) => {
           <GoogleSigninButton
             style={styles.googleButton}
             color={GoogleSigninButton.Color.Dark}
-            onPress={onGoogleButtonPress}
+            onPress={handleGoogleLogin}
             // disabled={isSigninInProgress}
           />
           {/*</Item>*/}
@@ -121,7 +141,7 @@ const ModalAuth = (props) => {
             success
             style={styles.button}
             disabled={!username || !password}
-            onPress={signUp ? handleSignUp : handleLogin}>
+            onPress={signUp ? handleSignUp : handlePasswordLogin}>
             <Text style={styles.textStyle}>
               {signUp ? 'Sign Up' : 'Sign In'}
             </Text>

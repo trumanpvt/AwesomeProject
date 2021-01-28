@@ -11,6 +11,7 @@ export const reducers = (state = [], action) => {
       };
     }
     case SET_USER: {
+      console.log(action);
       return {
         ...state,
         user: action.user,
