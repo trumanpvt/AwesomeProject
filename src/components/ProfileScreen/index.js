@@ -14,7 +14,7 @@ import styles from './style.js';
 import {View} from 'react-native';
 import {useSelector} from 'react-redux';
 
-const ProfileScreen = (props) => {
+const ProfileScreen = () => {
   const user = useSelector((state) => state.user) || {};
   console.log('ProfileScreen', user);
 

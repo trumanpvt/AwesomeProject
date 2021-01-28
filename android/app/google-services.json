@@ -13,12 +13,7 @@
           "package_name": "com.awesomeproject"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "329478636497-ejlmt7p7gshlti1dql63s1jjg5s7b22l.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
           "current_key": "AIzaSyBvuy9MPXGg9eGYcTh-U5xwVr9KOEfjmLE"
@@ -27,10 +22,6 @@
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
-            {
-              "client_id": "329478636497-ejlmt7p7gshlti1dql63s1jjg5s7b22l.apps.googleusercontent.com",
-              "client_type": 3
-            },
             {
               "client_id": "329478636497-1113ca4bg13kru99jq0u10g68q3g62e2.apps.googleusercontent.com",
               "client_type": 2,
