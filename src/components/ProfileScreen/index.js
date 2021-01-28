@@ -12,11 +12,12 @@ import {
 
 import styles from './style.js';
 import {View} from 'react-native';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
+import {setUser} from '../../actions';
+import auth from '@react-native-firebase/auth';
 
 const ProfileScreen = () => {
   const user = useSelector((state) => state.user) || {};
-  console.log('ProfileScreen', user);
 
   const [displayName, setDisplayName] = useState(user.displayName);
   const [photoURL, setPhotoURL] = useState(user.photoURL);
@@ -31,7 +32,8 @@ const ProfileScreen = () => {
     setPhotoURL(user.photoURL);
   }, [user]);
 
-  console.log(user.displayName);
+  const dispatch = useDispatch();
+  const setUserData = (userData) => dispatch(setUser(userData));
 
   const handleCancelDataChange = () => {
     setDisplayName(user.displayName);
@@ -46,10 +48,10 @@ const ProfileScreen = () => {
         photoURL,
       })
       .then(function () {
-        // Update successful.
+        setUserData(auth().currentUser);
       })
       .catch(function (error) {
-        // An error happened.
+        console.log('updateProfile error', error);
       });
   };
 
