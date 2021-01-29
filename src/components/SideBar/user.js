@@ -34,13 +34,7 @@ const User = (props) => {
         <Button
           transparent
           onPress={() => props.navigation.navigate('ProfileScreen')}>
-          {user.photoURL ? (
-            <Thumbnail small source={{uri: user.photoURL}} />
-          ) : (
-            <Badge style={styles.userPic} primary>
-              <Text>{userName[0].toUpperCase()}</Text>
-            </Badge>
-          )}
+          <Thumbnail small source={{uri: user.photoURL}} />
           <Text style={styles.userName}>{userName}</Text>
         </Button>
       </View>

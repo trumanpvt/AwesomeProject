@@ -16,6 +16,8 @@ import {useDispatch, useSelector} from 'react-redux';
 import {setUser} from '../../actions';
 import auth from '@react-native-firebase/auth';
 
+import Avatar from './avatar';
+
 const ProfileScreen = () => {
   const user = useSelector((state) => state.user) || {};
   const isPasswordProvider =
@@ -89,6 +91,7 @@ const ProfileScreen = () => {
     <Container style={styles.container}>
       <Content>
         <Text style={styles.heading}>Profile</Text>
+        <Avatar user={user} />
         <Form style={styles.form}>
           <Item style={styles.input} floatingLabel>
             <Label>Username</Label>
