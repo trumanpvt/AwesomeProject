@@ -60,7 +60,7 @@ const ModalAuth = (props) => {
   const handleGoogleLogin = async () => {
     GoogleSignin.configure({
       webClientId:
-        '329478636497-1113ca4bg13kru99jq0u10g68q3g62e2.apps.googleusercontent.com',
+        '329478636497-lr706hc6gc427vluu1uak88tgpemaluo.apps.googleusercontent.com',
     });
 
     try {
