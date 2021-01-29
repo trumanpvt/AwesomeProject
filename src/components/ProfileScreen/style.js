@@ -32,10 +32,13 @@ export default StyleSheet.create({
     marginRight: 'auto',
   },
   imageChange: {
-    padding: 0,
+    paddingLeft: 0,
+    paddingRight: 0,
     position: 'absolute',
     bottom: -5,
     right: -5,
+    width: 27,
+    height: 27,
     borderRadius: 50,
     display: 'flex',
     justifyContent: 'center',
@@ -44,7 +47,6 @@ export default StyleSheet.create({
   imageChangePlus: {
     color: '#fff',
     fontSize: 20,
-    lineHeight: 20,
     fontWeight: 'bold',
   },
 });
