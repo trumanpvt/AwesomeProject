@@ -48,16 +48,18 @@ const ProfileScreen = () => {
     setPhotoURL(user.photoURL);
   };
 
-  const handleDataChange = () => {
+  const handleDataChange = (dataType, data) => {
+    console.log(dataType);
+    console.log(data);
     user
       .updateProfile({
-        displayName,
-        photoURL,
+        [dataType]: data,
       })
-      .then(function () {
+      .then((res) => {
+        console.log('updateProfile success', res);
         setUserData(auth().currentUser);
       })
-      .catch(function (error) {
+      .catch((error) => {
         console.log('updateProfile error', error);
       });
   };
@@ -91,7 +93,11 @@ const ProfileScreen = () => {
     <Container style={styles.container}>
       <Content>
         <Text style={styles.heading}>Profile</Text>
-        <Avatar user={user} />
+        <Avatar
+          user={user}
+          photoURL={user.photoURL}
+          handleDataChange={handleDataChange}
+        />
         <Form style={styles.form}>
           <Item style={styles.input} floatingLabel>
             <Label>Username</Label>
