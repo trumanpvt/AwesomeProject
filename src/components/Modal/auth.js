@@ -9,6 +9,8 @@ import {
   statusCodes,
 } from '@react-native-community/google-signin';
 
+import {webClientId} from '../../constants';
+
 import {setUser} from '../../actions';
 
 import styles from './style.js';
@@ -59,8 +61,7 @@ const ModalAuth = (props) => {
 
   const handleGoogleLogin = async () => {
     GoogleSignin.configure({
-      webClientId:
-        '329478636497-lr706hc6gc427vluu1uak88tgpemaluo.apps.googleusercontent.com',
+      webClientId,
     });
 
     try {
