@@ -49,8 +49,6 @@ const ProfileScreen = () => {
   };
 
   const handleDataChange = (dataType, data) => {
-    console.log(dataType);
-    console.log(data);
     user
       .updateProfile({
         [dataType]: data,
