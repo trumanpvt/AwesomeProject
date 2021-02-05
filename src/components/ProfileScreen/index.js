@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+
 import {
   Button,
   Container,
@@ -15,9 +16,10 @@ import {View} from 'react-native';
 import auth from '@react-native-firebase/auth';
 
 import Avatar from './avatar';
+import {observer} from 'mobx-react-lite';
 import {useDataStore} from '../../store/context';
 
-const ProfileScreen = () => {
+const ProfileScreen = observer(() => {
   const userStore = useDataStore().userStore;
   const {user, setUser} = userStore;
 
@@ -184,7 +186,7 @@ const ProfileScreen = () => {
       </Content>
     </Container>
   );
-};
+});
 
 ProfileScreen.propTypes = {};
 export default ProfileScreen;

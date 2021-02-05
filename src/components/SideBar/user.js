@@ -5,8 +5,9 @@ import ModalAuth from '../Modal/auth';
 import styles from './style.js';
 import auth from '@react-native-firebase/auth';
 import {useDataStore} from '../../store/context';
+import {observer} from 'mobx-react-lite';
 
-const User = (props) => {
+const User = observer((props) => {
   const [showModal, setShowModal] = useState(false);
 
   const userStore = useDataStore().userStore;
@@ -58,6 +59,6 @@ const User = (props) => {
       )}
     </View>
   );
-};
+});
 
 export default User;
