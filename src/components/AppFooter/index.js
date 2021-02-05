@@ -1,6 +1,5 @@
 import React from 'react';
 import {Button, Footer, FooterTab, Text} from 'native-base';
-import PropTypes from 'prop-types';
 
 import {useDataStore} from '../../store/context';
 
@@ -29,5 +28,4 @@ const AppFooter = () => {
   );
 };
 
-AppFooter.propTypes = {};
 export default AppFooter;

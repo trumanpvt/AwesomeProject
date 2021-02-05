@@ -19,7 +19,7 @@ import Avatar from './avatar';
 import {observer} from 'mobx-react-lite';
 import {useDataStore} from '../../store/context';
 
-const ProfileScreen = observer((props) => {
+const ProfileScreen = observer(() => {
   const userStore = useDataStore().userStore;
   const {user, setUser} = userStore;
 
@@ -189,5 +189,4 @@ const ProfileScreen = observer((props) => {
   );
 });
 
-ProfileScreen.propTypes = {};
 export default ProfileScreen;
