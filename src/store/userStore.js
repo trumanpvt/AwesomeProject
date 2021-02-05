@@ -9,7 +9,18 @@ export default class UserStore {
   }
 
   setUser = (userData) => {
-    console.log('setUser', userData);
     this.user = userData;
+  };
+
+  changeUser = (data) => {
+    this.user
+      .updateProfile(data)
+      .then((res) => {
+        console.log('updateProfile success');
+        this.user = auth().currentUser;
+      })
+      .catch((error) => {
+        console.log('updateProfile error', error);
+      });
   };
 }

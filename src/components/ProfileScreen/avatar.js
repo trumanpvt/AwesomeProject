@@ -66,7 +66,7 @@ const Avatar = (props) => {
       .ref('/' + imagePath)
       .getDownloadURL()
       .then((url) => {
-        props.handleDataChange('photoURL', url);
+        props.changeUser({photoURL: url});
       })
       .catch((e) => console.log('getting downloadURL of image error => ', e));
   };

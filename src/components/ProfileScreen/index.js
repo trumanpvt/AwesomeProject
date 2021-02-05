@@ -21,7 +21,7 @@ import {useDataStore} from '../../store/context';
 
 const ProfileScreen = observer(() => {
   const userStore = useDataStore().userStore;
-  const {user, setUser} = userStore;
+  const {user, setUser, changeUser} = userStore;
 
   const isPasswordProvider =
     user.providerData &&
@@ -38,16 +38,16 @@ const ProfileScreen = observer(() => {
     setPhotoURL(user.photoURL);
   }, [user]);
 
-  const handleCancelDataChange = () => {
+  const handleCancelChangeUser = () => {
     setDisplayName(user.displayName);
     setPhotoURL(user.photoURL);
   };
 
-  const handleDataChange = (dataType, data) => {
-    console.log('user', user);
+  const handleChangeUser = (dataType, data) => {
+    console.log('change user', user);
     user
       .updateProfile({
-        [dataType]: data,
+        displayName,
       })
       .then((res) => {
         console.log('updateProfile success', res);
@@ -87,11 +87,7 @@ const ProfileScreen = observer(() => {
     <Container style={styles.container}>
       <Content>
         <Text style={styles.heading}>Profile</Text>
-        <Avatar
-          user={user}
-          photoURL={user.photoURL}
-          handleDataChange={handleDataChange}
-        />
+        <Avatar user={user} photoURL={user.photoURL} changeUser={changeUser} />
         <Form style={styles.form}>
           <Item style={styles.input} floatingLabel>
             <Label>Username</Label>
@@ -118,7 +114,7 @@ const ProfileScreen = observer(() => {
               rounded
               primary
               style={styles.button}
-              onPress={handleDataChange}>
+              onPress={handleChangeUser}>
               <Text>Save</Text>
             </Button>
             <Button
@@ -126,7 +122,7 @@ const ProfileScreen = observer(() => {
               rounded
               danger
               style={styles.button}
-              onPress={handleCancelDataChange}>
+              onPress={handleCancelChangeUser}>
               <Text>Cancel</Text>
             </Button>
           </View>
