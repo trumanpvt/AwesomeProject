@@ -26,9 +26,6 @@ const ModalAuth = (props) => {
     false,
   );
 
-  // const dispatch = useDispatch();
-  // const setUserData = (user) => dispatch(setUser(user));
-
   const handlePasswordLogin = () => {
     auth()
       .signInWithEmailAndPassword(username, password)
@@ -74,6 +71,7 @@ const ModalAuth = (props) => {
         .signInWithCredential(googleCredential)
         .then((UserCredential) => {
           setError(null);
+          console.log('UserCredential', UserCredential);
           setUser(UserCredential.user);
           props.setShowModal(false);
         });

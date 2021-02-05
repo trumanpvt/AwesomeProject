@@ -9,6 +9,7 @@ export default class UserStore {
   }
 
   setUser = (userData) => {
+    console.log('setUser', userData);
     this.user = userData;
   };
 }

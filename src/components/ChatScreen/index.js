@@ -35,8 +35,5 @@ const ChatScreen = ({mode = MODES.ARTICLES}) => {
   );
 };
 
-ChatScreen.propTypes = {
-  mode: PropTypes.string,
-  setMode: PropTypes.func,
-};
+ChatScreen.propTypes = {};
 export default ChatScreen;

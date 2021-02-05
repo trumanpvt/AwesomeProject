@@ -6,20 +6,22 @@ import {useDataStore} from '../../store/context';
 
 const AppFooter = () => {
   const footerStore = useDataStore().footerStore;
-  const {mode, setMode} = footerStore;
+  const {mode, setFooterMode} = footerStore;
 
   return (
     <Footer>
       <FooterTab>
         <Button
           active={mode === 'ARTICLES'}
-          onPress={() => setMode('ARTICLES')}>
+          onPress={() => setFooterMode('ARTICLES')}>
           <Text>Статьи</Text>
         </Button>
-        <Button active={mode === 'PODCAST'} onPress={() => setMode('PODCAST')}>
+        <Button
+          active={mode === 'PODCAST'}
+          onPress={() => setFooterMode('PODCAST')}>
           <Text>Подкасты</Text>
         </Button>
-        <Button active={mode === 'FAQ'} onPress={() => setMode('FAQ')}>
+        <Button active={mode === 'FAQ'} onPress={() => setFooterMode('FAQ')}>
           <Text>FAQ</Text>
         </Button>
       </FooterTab>
@@ -27,8 +29,5 @@ const AppFooter = () => {
   );
 };
 
-AppFooter.propTypes = {
-  mode: PropTypes.string,
-  setMode: PropTypes.func,
-};
+AppFooter.propTypes = {};
 export default AppFooter;

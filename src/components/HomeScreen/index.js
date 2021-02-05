@@ -42,8 +42,5 @@ const HomeScreen = observer(() => {
   );
 });
 
-HomeScreen.propTypes = {
-  mode: PropTypes.string,
-  setMode: PropTypes.func,
-};
+HomeScreen.propTypes = {};
 export default HomeScreen;

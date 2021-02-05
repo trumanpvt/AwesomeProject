@@ -7,7 +7,7 @@ export default class FooterStore {
     makeAutoObservable(this);
   }
 
-  setMode = (newMode) => {
+  setFooterMode = (newMode) => {
     this.mode = newMode;
   };
 }
