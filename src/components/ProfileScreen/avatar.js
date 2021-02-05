@@ -16,7 +16,6 @@ const outputPath = null;
 
 const Avatar = (props) => {
   const handleChangePhoto = () => {
-    console.log('handleChangePhoto');
     launchImageLibrary(
       {
         mediaType: 'photo',

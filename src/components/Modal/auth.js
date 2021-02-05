@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {useDispatch} from 'react-redux';
+import {useDataStore} from '../../Store/context';
 import {Modal, View} from 'react-native';
 import {Button, Form, Input, Item, Text} from 'native-base';
 import auth from '@react-native-firebase/auth';
@@ -11,11 +11,12 @@ import {
 
 import {webClientId} from '../../constants';
 
-import {setUser} from '../../actions';
-
 import styles from './style.js';
 
 const ModalAuth = (props) => {
+  const userStore = useDataStore().userStore;
+  const {setUser} = userStore;
+
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -25,15 +26,15 @@ const ModalAuth = (props) => {
     false,
   );
 
-  const dispatch = useDispatch();
-  const setUserData = (user) => dispatch(setUser(user));
+  // const dispatch = useDispatch();
+  // const setUserData = (user) => dispatch(setUser(user));
 
   const handlePasswordLogin = () => {
     auth()
       .signInWithEmailAndPassword(username, password)
       .then((UserCredential) => {
         setError(null);
-        setUserData(UserCredential.user);
+        setUser(UserCredential.user);
         props.setShowModal(false);
       })
       .catch((err) => {
@@ -47,7 +48,7 @@ const ModalAuth = (props) => {
         .createUserWithEmailAndPassword(username, password)
         .then((UserCredential) => {
           setError(null);
-          setUserData(UserCredential.user);
+          setUser(UserCredential.user);
           props.setShowModal(false);
           // props.navigation.navigate('ProfileScreen');
         })
@@ -73,18 +74,18 @@ const ModalAuth = (props) => {
         .signInWithCredential(googleCredential)
         .then((UserCredential) => {
           setError(null);
-          setUserData(UserCredential.user);
+          setUser(UserCredential.user);
           props.setShowModal(false);
         });
-    } catch (error) {
-      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+    } catch (e) {
+      if (e.code === statusCodes.SIGN_IN_CANCELLED) {
         console.log('user cancelled the login flow');
-      } else if (error.code === statusCodes.IN_PROGRESS) {
+      } else if (e.code === statusCodes.IN_PROGRESS) {
         console.log('operation (e.g. sign in) is in progress already');
-      } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+      } else if (e.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
         console.log('play services not available or outdated');
       } else {
-        console.log('login failed:', error);
+        console.log('login failed:', e);
       }
     }
   };

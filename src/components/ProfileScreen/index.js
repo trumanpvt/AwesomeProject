@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Button,
   Container,
@@ -12,39 +12,32 @@ import {
 
 import styles from './style.js';
 import {View} from 'react-native';
-import {useDispatch, useSelector} from 'react-redux';
-import {setUser} from '../../actions';
 import auth from '@react-native-firebase/auth';
 
 import Avatar from './avatar';
+import {useDataStore} from '../../Store/context';
 
 const ProfileScreen = () => {
-  const user = useSelector((state) => state.user) || {};
+  const userStore = useDataStore().userStore;
+  const {user, setUser} = userStore;
+
   const isPasswordProvider =
     user.providerData &&
     user.providerData.some((item) => item.providerId === 'password');
 
-  console.log(user);
-
   const [displayName, setDisplayName] = useState(user.displayName);
   const [photoURL, setPhotoURL] = useState(user.photoURL);
-  // const [phoneNumber, setPhoneNumber] = useState(user.phoneNumber || '');
   const [password, setPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  // const [email, setEmail] = useState(user.email);
 
   useEffect(() => {
     setDisplayName(user.displayName);
     setPhotoURL(user.photoURL);
   }, [user]);
 
-  const dispatch = useDispatch();
-  const setUserData = (userData) => dispatch(setUser(userData));
-
   const handleCancelDataChange = () => {
     setDisplayName(user.displayName);
-    // setPhoneNumber(user.phoneNumber);
     setPhotoURL(user.photoURL);
   };
 
@@ -55,7 +48,7 @@ const ProfileScreen = () => {
       })
       .then((res) => {
         console.log('updateProfile success', res);
-        setUserData(auth().currentUser);
+        setUser(auth().currentUser);
       })
       .catch((error) => {
         console.log('updateProfile error', error);

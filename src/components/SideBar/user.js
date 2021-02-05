@@ -1,18 +1,16 @@
 import React, {useState} from 'react';
 import {View} from 'react-native';
-import {Badge, Button, Text, Thumbnail} from 'native-base';
+import {Button, Text, Thumbnail} from 'native-base';
 import ModalAuth from '../Modal/auth';
 import styles from './style.js';
 import auth from '@react-native-firebase/auth';
-import {useDispatch, useSelector} from 'react-redux';
-import {setUser} from '../../actions';
+import {useDataStore} from './../../store/context';
 
 const User = (props) => {
   const [showModal, setShowModal] = useState(false);
 
-  const dispatch = useDispatch();
-  const setUserData = (user) => dispatch(setUser(user));
-  const user = useSelector((state) => state.user);
+  const userStore = useDataStore().userStore;
+  const {user, setUser} = userStore;
 
   const signOut = () => {
     auth()
@@ -23,7 +21,7 @@ const User = (props) => {
       });
 
     props.navigation.navigate('HomeScreen');
-    setUserData(null);
+    setUser(null);
   };
 
   const renderUser = () => {

@@ -5,8 +5,8 @@ import Podcasts from '../Podcasts';
 import Faq from '../Faq';
 import PropTypes from 'prop-types';
 import {StyleSheet} from 'react-native';
-import {useSelector} from 'react-redux';
 import AppFooter from '../AppFooter';
+import {useDataStore} from '../../Store/context';
 
 const styles = StyleSheet.create({
   content: {
@@ -16,7 +16,8 @@ const styles = StyleSheet.create({
 });
 
 const HomeScreen = () => {
-  const mode = useSelector((state) => state.mode);
+  const footerStore = useDataStore().footerStore;
+  const {mode} = footerStore;
 
   const renderPage = () => {
     switch (mode) {
