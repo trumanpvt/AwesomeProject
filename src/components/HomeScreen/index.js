@@ -18,11 +18,9 @@ const styles = StyleSheet.create({
 
 const HomeScreen = observer(() => {
   const footerStore = useDataStore().footerStore;
-  console.log('footerStore', footerStore);
   const {mode} = footerStore;
 
   const renderPage = () => {
-    console.log('render');
     switch (mode) {
       case 'PODCAST': {
         return <Podcasts />;

@@ -4,7 +4,7 @@ import createStore from './store';
 
 const StoreContext = createContext();
 
-export const DataStoreProvider = ({children}: any) => {
+export const DataStoreProvider = ({children}) => {
   const store = useLocalObservable(createStore);
   return (
     <StoreContext.Provider value={store}>{children}</StoreContext.Provider>

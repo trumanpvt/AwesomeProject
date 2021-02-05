@@ -25,8 +25,10 @@ const Avatar = (props) => {
   };
 
   const resizePhoto = (data) => {
-    console.log('uploadPhoto reponse', data);
-    if (!data.uri) return null;
+    console.log('uploadPhoto response', data);
+    if (!data.uri) {
+      return null;
+    }
     ImageResizer.createResizedImage(
       data.uri,
       newWidth,
