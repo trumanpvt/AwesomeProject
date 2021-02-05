@@ -1,15 +1,13 @@
-import {action, makeAutoObservable, observable} from 'mobx';
+import {makeAutoObservable} from 'mobx';
 
 export default class FooterStore {
-  @observable mode = 'ARTICLES';
+  mode = 'ARTICLES';
 
   constructor() {
     makeAutoObservable(this);
   }
 
-  @action
   setMode = (newMode) => {
-    console.log('setMode');
     this.mode = newMode;
   };
 }

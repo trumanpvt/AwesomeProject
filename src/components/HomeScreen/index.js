@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 import {StyleSheet} from 'react-native';
 import AppFooter from '../AppFooter';
 import {useDataStore} from '../../store/context';
+import {observer} from 'mobx-react-lite';
 
 const styles = StyleSheet.create({
   content: {
@@ -15,7 +16,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const HomeScreen = () => {
+const HomeScreen = observer(() => {
   const footerStore = useDataStore().footerStore;
   console.log('footerStore', footerStore);
   const {mode} = footerStore;
@@ -41,7 +42,7 @@ const HomeScreen = () => {
       <AppFooter />
     </Container>
   );
-};
+});
 
 HomeScreen.propTypes = {
   mode: PropTypes.string,
