@@ -43,19 +43,10 @@ const ProfileScreen = observer(() => {
     setPhotoURL(user.photoURL);
   };
 
-  const handleChangeUser = (dataType, data) => {
-    console.log('change user', user);
-    user
-      .updateProfile({
-        displayName,
-      })
-      .then((res) => {
-        console.log('updateProfile success', res);
-        setUser(auth().currentUser);
-      })
-      .catch((error) => {
-        console.log('updateProfile error', error);
-      });
+  const handleChangeUser = () => {
+    changeUser({
+      displayName,
+    });
   };
 
   const handleCancelPasswordChange = () => {
