@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {useDataStore} from '../../Store/context';
+import {useDataStore} from '../../store/context';
 import {Modal, View} from 'react-native';
 import {Button, Form, Input, Item, Text} from 'native-base';
 import auth from '@react-native-firebase/auth';

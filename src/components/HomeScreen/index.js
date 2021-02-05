@@ -6,7 +6,7 @@ import Faq from '../Faq';
 import PropTypes from 'prop-types';
 import {StyleSheet} from 'react-native';
 import AppFooter from '../AppFooter';
-import {useDataStore} from '../../Store/context';
+import {useDataStore} from '../../store/context';
 
 const styles = StyleSheet.create({
   content: {
@@ -17,9 +17,11 @@ const styles = StyleSheet.create({
 
 const HomeScreen = () => {
   const footerStore = useDataStore().footerStore;
+  console.log('footerStore', footerStore);
   const {mode} = footerStore;
 
   const renderPage = () => {
+    console.log('render');
     switch (mode) {
       case 'PODCAST': {
         return <Podcasts />;

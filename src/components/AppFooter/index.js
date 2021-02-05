@@ -1,37 +1,25 @@
 import React from 'react';
 import {Button, Footer, FooterTab, Text} from 'native-base';
-import {MODES} from '../../constants';
 import PropTypes from 'prop-types';
 
-import {useDispatch, useSelector} from 'react-redux';
-import {setMode} from '../../actions';
-import {useDataStore} from '../../Store/context';
+import {useDataStore} from '../../store/context';
 
 const AppFooter = () => {
   const footerStore = useDataStore().footerStore;
-  const {setMode} = footerStore;
-  const mode = useSelector((state) => state.mode);
-
-  const dispatch = useDispatch();
-
-  const setScreenMode = (screenMode) => dispatch(setMode(screenMode));
+  const {mode, setMode} = footerStore;
 
   return (
     <Footer>
       <FooterTab>
         <Button
-          active={mode === MODES.ARTICLES}
-          onPress={() => setScreenMode(MODES.ARTICLES)}>
+          active={mode === 'ARTICLES'}
+          onPress={() => setMode('ARTICLES')}>
           <Text>Статьи</Text>
         </Button>
-        <Button
-          active={mode === MODES.PODCAST}
-          onPress={() => setScreenMode(MODES.PODCAST)}>
+        <Button active={mode === 'PODCAST'} onPress={() => setMode('PODCAST')}>
           <Text>Подкасты</Text>
         </Button>
-        <Button
-          active={mode === MODES.FAQ}
-          onPress={() => setScreenMode(MODES.FAQ)}>
+        <Button active={mode === 'FAQ'} onPress={() => setMode('FAQ')}>
           <Text>FAQ</Text>
         </Button>
       </FooterTab>

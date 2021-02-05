@@ -4,7 +4,7 @@ import {Button, Text, Thumbnail} from 'native-base';
 import ModalAuth from '../Modal/auth';
 import styles from './style.js';
 import auth from '@react-native-firebase/auth';
-import {useDataStore} from './../../store/context';
+import {useDataStore} from '../../store/context';
 
 const User = (props) => {
   const [showModal, setShowModal] = useState(false);
