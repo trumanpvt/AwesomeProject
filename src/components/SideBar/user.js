@@ -22,7 +22,7 @@ const User = observer((props) => {
       });
 
     props.navigation.navigate('HomeScreen');
-    setUser(null);
+    setUser({});
   };
 
   const renderUser = () => {
@@ -42,7 +42,7 @@ const User = observer((props) => {
 
   return (
     <View style={styles.userContent}>
-      {!user ? (
+      {!Object.keys(user).length ? (
         <Button onPress={() => setShowModal(!showModal)}>
           <Text style={styles.buttonText}>Login/Register</Text>
         </Button>

@@ -19,7 +19,7 @@ import Avatar from './avatar';
 import {observer} from 'mobx-react-lite';
 import {useDataStore} from '../../store/context';
 
-const ProfileScreen = observer(() => {
+const ProfileScreen = observer((props) => {
   const userStore = useDataStore().userStore;
   const {user, setUser} = userStore;
 
