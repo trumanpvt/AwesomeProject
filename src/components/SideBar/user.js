@@ -7,22 +7,23 @@ import auth from '@react-native-firebase/auth';
 import {useDataStore} from '../../store/context';
 import {observer} from 'mobx-react-lite';
 
+import {signOut} from '../../util/auth';
+
 const User = observer((props) => {
   const [showModal, setShowModal] = useState(false);
 
   const userStore = useDataStore().userStore;
   const {user, setUser} = userStore;
 
-  const signOut = () => {
-    auth()
-      .signOut()
-      .then(() => {})
+  const handleSignOut = () => {
+    signOut()
+      .then(() => {
+        props.navigation.navigate('HomeScreen');
+        setUser({});
+      })
       .catch((error) => {
         console.log(error);
       });
-
-    props.navigation.navigate('HomeScreen');
-    setUser({});
   };
 
   const renderUser = () => {
@@ -49,7 +50,7 @@ const User = observer((props) => {
       ) : (
         <>
           {renderUser()}
-          <Button onPress={signOut} danger>
+          <Button onPress={handleSignOut} danger>
             <Text style={styles.buttonText}>SignOut</Text>
           </Button>
         </>

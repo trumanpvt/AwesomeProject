@@ -1,7 +1,5 @@
 import React from 'react';
 import {Container, Content, Text} from 'native-base';
-import {MODES} from '../../constants';
-import PropTypes from 'prop-types';
 import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
@@ -11,7 +9,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const ChatScreen = ({mode = MODES.ARTICLES}) => {
+const ChatScreen = () => {
   // const renderPage = () => {
   //   switch (mode) {
   //     case 'PODCAST': {
