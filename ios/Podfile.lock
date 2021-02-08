@@ -367,14 +367,14 @@ PODS:
     - React-jsi (= 0.63.4)
   - RNCMaskedView (0.1.10):
     - React
-  - RNFBApp (10.6.3):
+  - RNFBApp (10.6.4):
     - Firebase/CoreOnly (~> 7.5.0)
     - React-Core
-  - RNFBAuth (10.6.3):
+  - RNFBAuth (10.6.4):
     - Firebase/Auth (~> 7.5.0)
     - React-Core
     - RNFBApp
-  - RNFBStorage (10.6.3):
+  - RNFBStorage (10.6.4):
     - Firebase/Storage (~> 7.5.0)
     - React-Core
     - RNFBApp
@@ -595,9 +595,9 @@ SPEC CHECKSUMS:
   React-jsi: a0418934cf48f25b485631deb27c64dc40fb4c31
   React-jsiexecutor: 93bd528844ad21dc07aab1c67cb10abae6df6949
   React-jsinspector: 58aef7155bc9a9683f5b60b35eccea8722a4f53a
-  react-native-image-picker: 248afb60a0c5a24153cb7c7483b257f30541323b
-  react-native-image-resizer: 00e7112ccb46f4dd27e2f0822e65e4389ac39573
-  react-native-safe-area-context: 86612d2c9a9e94e288319262d10b5f93f0b395f5
+  react-native-image-picker: 28d8d1f5a643119876b8b2c7d4d1dcfb2b232dd4
+  react-native-image-resizer: 4999a7dff8fc7fed5ed7d7c7dbfa5facbd345861
+  react-native-safe-area-context: b6e0e284002381d2ff29fa4fff42b4d8282e3c94
   React-RCTActionSheet: 89a0ca9f4a06c1f93c26067af074ccdce0f40336
   React-RCTAnimation: 1bde3ecc0c104c55df246eda516e0deb03c4e49b
   React-RCTBlob: a97d378b527740cc667e03ebfa183a75231ab0f0
@@ -608,10 +608,10 @@ SPEC CHECKSUMS:
   React-RCTText: 5c51df3f08cb9dedc6e790161195d12bac06101c
   React-RCTVibration: ae4f914cfe8de7d4de95ae1ea6cc8f6315d73d9d
   ReactCommon: 73d79c7039f473b76db6ff7c6b159c478acbbb3b
-  RNCMaskedView: f5c7d14d6847b7b44853f7acb6284c1da30a3459
-  RNFBApp: 2ea68d6e69ba19e28061c8d1b3f3c90c989a9a50
-  RNFBAuth: 05cf1e310423c6481e4a75971a8dc0c8002d1932
-  RNFBStorage: dcc694dddeed22e4897752ff32cf00cbd289fe30
+  RNCMaskedView: 5a8ec07677aa885546a0d98da336457e2bea557f
+  RNFBApp: 6664dfccd0c93a194767e1c64af14a08074a087d
+  RNFBAuth: 93150e2728871b422c9083120d075dd4e12e881f
+  RNFBStorage: 71e9120f5ea2aac82072ef25b3605d4b2111597c
   RNGestureHandler: 9b7e605a741412e20e13c512738a31bd1611759b
   RNGoogleSignin: ad866d4c4af2651e36801dd3b7771d7715353499
   RNReanimated: e03f7425cb7a38dcf1b644d680d1bfc91c3337ad
