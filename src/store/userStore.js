@@ -1,4 +1,4 @@
-import {makeObservable, observable, action, runInAction} from 'mobx';
+import {action, makeObservable, observable} from 'mobx';
 import auth from '@react-native-firebase/auth';
 
 export default class UserStore {
@@ -20,7 +20,7 @@ export default class UserStore {
   changeUser = (data) => {
     this.user
       .updateProfile(data)
-      .then((res) => {
+      .then(() => {
         this.setUser(auth().currentUser);
       })
       .catch((error) => {
