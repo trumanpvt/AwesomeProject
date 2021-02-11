@@ -59,8 +59,8 @@ const ModalAuth = (props) => {
         // props.setShowModal(false);
       })
       .catch((err) => {
-          console.log(err)
-        setError(err.message);
+        console.log('handleGoogleSignIn error', err);
+        setError(err.message || err);
       });
   };
 
