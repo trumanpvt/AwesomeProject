@@ -16,29 +16,29 @@ PODS:
     - React-Core (= 0.63.4)
     - React-jsi (= 0.63.4)
     - ReactCommon/turbomodule/core (= 0.63.4)
-  - Firebase/Auth (7.5.0):
+  - Firebase/Auth (7.6.0):
     - Firebase/CoreOnly
-    - FirebaseAuth (~> 7.5.0)
-  - Firebase/CoreOnly (7.5.0):
-    - FirebaseCore (= 7.5.0)
-  - Firebase/Storage (7.5.0):
+    - FirebaseAuth (~> 7.6.0)
+  - Firebase/CoreOnly (7.6.0):
+    - FirebaseCore (= 7.6.0)
+  - Firebase/Storage (7.6.0):
     - Firebase/CoreOnly
-    - FirebaseStorage (~> 7.5.0)
-  - FirebaseAuth (7.5.0):
+    - FirebaseStorage (~> 7.6.0)
+  - FirebaseAuth (7.6.0):
     - FirebaseCore (~> 7.0)
     - GoogleUtilities/AppDelegateSwizzler (~> 7.0)
     - GoogleUtilities/Environment (~> 7.0)
     - GTMSessionFetcher/Core (~> 1.4)
-  - FirebaseCore (7.5.0):
+  - FirebaseCore (7.6.0):
     - FirebaseCoreDiagnostics (~> 7.4)
     - GoogleUtilities/Environment (~> 7.0)
     - GoogleUtilities/Logger (~> 7.0)
-  - FirebaseCoreDiagnostics (7.5.0):
+  - FirebaseCoreDiagnostics (7.6.0):
     - GoogleDataTransport (~> 8.0)
     - GoogleUtilities/Environment (~> 7.0)
     - GoogleUtilities/Logger (~> 7.0)
     - nanopb (~> 2.30907.0)
-  - FirebaseStorage (7.5.0):
+  - FirebaseStorage (7.6.0):
     - FirebaseCore (~> 7.0)
     - GTMSessionFetcher/Core (~> 1.4)
   - Flipper (0.54.0):
@@ -301,9 +301,9 @@ PODS:
     - React-cxxreact (= 0.63.4)
     - React-jsi (= 0.63.4)
   - React-jsinspector (0.63.4)
-  - react-native-image-picker (3.1.4):
+  - react-native-image-picker (3.2.0):
     - React-Core
-  - react-native-image-resizer (1.4.2):
+  - react-native-image-resizer (1.4.3):
     - React-Core
   - react-native-safe-area-context (3.1.9):
     - React-Core
@@ -369,18 +369,18 @@ PODS:
     - React-jsi (= 0.63.4)
   - RNCMaskedView (0.1.10):
     - React
-  - RNFBApp (10.6.4):
-    - Firebase/CoreOnly (~> 7.5.0)
+  - RNFBApp (10.7.0):
+    - Firebase/CoreOnly (~> 7.6.0)
     - React-Core
-  - RNFBAuth (10.6.4):
-    - Firebase/Auth (~> 7.5.0)
-    - React-Core
-    - RNFBApp
-  - RNFBStorage (10.6.4):
-    - Firebase/Storage (~> 7.5.0)
+  - RNFBAuth (10.7.0):
+    - Firebase/Auth (~> 7.6.0)
     - React-Core
     - RNFBApp
-  - RNGestureHandler (1.9.0):
+  - RNFBStorage (10.7.0):
+    - Firebase/Storage (~> 7.6.0)
+    - React-Core
+    - RNFBApp
+  - RNGestureHandler (1.10.0):
     - React-Core
   - RNGoogleSignin (5.0.0):
     - GoogleSignIn (~> 5.0.0)
@@ -565,11 +565,11 @@ SPEC CHECKSUMS:
   DoubleConversion: cde416483dac037923206447da6e1454df403714
   FBLazyVector: 3bb422f41b18121b71783a905c10e58606f7dc3e
   FBReactNativeSpec: f2c97f2529dd79c083355182cc158c9f98f4bd6e
-  Firebase: fd5e4d2b756292c6e7ee6faac1eb320225d6e97e
-  FirebaseAuth: 13585612f93d671962682007ea8ded1d60ef0762
-  FirebaseCore: 06a2b68af8901f2244eb989419eb89edc3789b4d
-  FirebaseCoreDiagnostics: 35685db68b11fe7d19d2d8b557fd7e3a56ac81cc
-  FirebaseStorage: 9cbdff7bdcdc8289c8efc20945fc91c1066d0b43
+  Firebase: e1e089d9aac215a52442583f818ab61de3c4581b
+  FirebaseAuth: 0a1df88dc32569db509e6269c3e4bf2a168e8ae8
+  FirebaseCore: 0a43b7f1c5b36f3358cd703011ca4c7e0df55870
+  FirebaseCoreDiagnostics: ee1184d51da3293335b83355aad20f537acc24cf
+  FirebaseStorage: 47890c9607e58b3046f072538c8c1ca4db2b0940
   Flipper: be611d4b742d8c87fbae2ca5f44603a02539e365
   Flipper-DoubleConversion: 38631e41ef4f9b12861c67d17cb5518d06badc41
   Flipper-Folly: e4493b013c02d9347d5e0cb4d128680239f6c78a
@@ -597,8 +597,8 @@ SPEC CHECKSUMS:
   React-jsi: a0418934cf48f25b485631deb27c64dc40fb4c31
   React-jsiexecutor: 93bd528844ad21dc07aab1c67cb10abae6df6949
   React-jsinspector: 58aef7155bc9a9683f5b60b35eccea8722a4f53a
-  react-native-image-picker: 28d8d1f5a643119876b8b2c7d4d1dcfb2b232dd4
-  react-native-image-resizer: 4999a7dff8fc7fed5ed7d7c7dbfa5facbd345861
+  react-native-image-picker: 1173a2e4cb58f83d3aad7b45f933281403bf6933
+  react-native-image-resizer: 5dfbf934fe5788c11ed06ebbcdb6e6fb6beec20c
   react-native-safe-area-context: b6e0e284002381d2ff29fa4fff42b4d8282e3c94
   React-RCTActionSheet: 89a0ca9f4a06c1f93c26067af074ccdce0f40336
   React-RCTAnimation: 1bde3ecc0c104c55df246eda516e0deb03c4e49b
@@ -611,10 +611,10 @@ SPEC CHECKSUMS:
   React-RCTVibration: ae4f914cfe8de7d4de95ae1ea6cc8f6315d73d9d
   ReactCommon: 73d79c7039f473b76db6ff7c6b159c478acbbb3b
   RNCMaskedView: 5a8ec07677aa885546a0d98da336457e2bea557f
-  RNFBApp: 6664dfccd0c93a194767e1c64af14a08074a087d
-  RNFBAuth: 93150e2728871b422c9083120d075dd4e12e881f
-  RNFBStorage: 71e9120f5ea2aac82072ef25b3605d4b2111597c
-  RNGestureHandler: 9b7e605a741412e20e13c512738a31bd1611759b
+  RNFBApp: d75aa9756bca20df2c902a3f7e11bc276f03c65b
+  RNFBAuth: 77664661b9b75a8af2c194145cc4af52c151f2ac
+  RNFBStorage: 3d87e4ee72171f84178d76810eac26118e2b8396
+  RNGestureHandler: 03f587ba19a7e2d9fe48fb9aa6e33ace5fd07dd5
   RNGoogleSignin: ad866d4c4af2651e36801dd3b7771d7715353499
   RNReanimated: e03f7425cb7a38dcf1b644d680d1bfc91c3337ad
   RNScreens: b6c9607e6fe47c1b6e2f1910d2acd46dd7ecea3a
