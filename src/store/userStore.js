@@ -1,11 +1,15 @@
-import {makeAutoObservable} from 'mobx';
+import {makeObservable, observable, action, runInAction} from 'mobx';
 import auth from '@react-native-firebase/auth';
 
 export default class UserStore {
   user = auth().currentUser || {};
 
   constructor() {
-    makeAutoObservable(this);
+    makeObservable(this, {
+      user: observable,
+      setUser: action,
+      changeUser: action,
+    });
   }
 
   setUser = (userData) => {
@@ -17,8 +21,7 @@ export default class UserStore {
     this.user
       .updateProfile(data)
       .then((res) => {
-        console.log('updateProfile success');
-        this.user = auth().currentUser;
+        this.setUser(auth().currentUser);
       })
       .catch((error) => {
         console.log('updateProfile error', error);

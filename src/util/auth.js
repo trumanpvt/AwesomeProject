@@ -20,7 +20,7 @@ export const googleSignIn = async () => {
     const {idToken} = await GoogleSignin.signIn();
     const googleCredential = auth.GoogleAuthProvider.credential(idToken);
 
-    console.log(testicle);
+    // console.log(testicle);
     return auth().signInWithCredential(googleCredential);
   } catch (e) {
     console.log('error!!!')
