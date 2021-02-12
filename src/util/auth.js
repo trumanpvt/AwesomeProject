@@ -10,6 +10,25 @@ export const signUp = (username, password) => {
   return auth().createUserWithEmailAndPassword(username, password);
 };
 
+export const linkPasswordAccount = (password) => {
+  const matchedData = auth().currentUser.providerData.find((item) => {
+    return item.email;
+  });
+
+  const credential = auth.EmailAuthProvider.credential(
+    matchedData.email,
+    password,
+  );
+
+  return auth().currentUser.linkWithCredential(credential);
+};
+
+export const checkPasswordProvider = () => {
+  return auth().currentUser.providerData.find((item) => {
+    return item.providerId === 'password';
+  });
+};
+
 export const googleSignIn = async () => {
   GoogleSignin.configure({
     webClientId,

@@ -8,7 +8,7 @@ import ProfileScreen from './components/ProfileScreen';
 import ChatScreen from './components/ChatScreen';
 import SideBar from './components/SideBar/menu';
 import HomeScreen from './components/HomeScreen';
-import ModalContainer from "./components/Modal";
+import ModalContainer from './components/Modal';
 
 const Drawer = createDrawerNavigator();
 

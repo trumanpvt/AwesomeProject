@@ -9,16 +9,18 @@ import {observer} from 'mobx-react-lite/src/observer';
 
 const ModalContainer = observer(() => {
   const modalStore = useDataStore().modalStore;
-  const {modal, setCloseModal} = modalStore;
+  const {modal, setModal, setCloseModal} = modalStore;
 
   const renderModal = () => {
     console.log('ModalContainer', modal);
     switch (modal) {
       case 'auth': {
-        return <Auth setCloseModal={setCloseModal} />;
+        return <Auth setCloseModal={setCloseModal} setModal={setModal} />;
       }
       case 'createPassword': {
-        return <CreatePassword setCloseModal={setCloseModal} />;
+        return (
+          <CreatePassword setCloseModal={setCloseModal} setModal={setModal} />
+        );
       }
       default: {
         return null;

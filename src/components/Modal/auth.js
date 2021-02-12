@@ -2,7 +2,12 @@ import React, {useState} from 'react';
 import {useDataStore} from '../../store/context';
 import {Button, Input, Item, Text} from 'native-base';
 
-import {googleSignIn, passwordSignIn, signUp} from '../../util/auth';
+import {
+  googleSignIn,
+  passwordSignIn,
+  signUp,
+  checkPasswordProvider,
+} from '../../util/auth';
 
 import {GoogleSigninButton} from '@react-native-community/google-signin';
 
@@ -17,8 +22,6 @@ const Auth = (props) => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [isSignUp, setIsSignUp] = useState(false);
   const [error, setError] = useState(null);
-  const [isSignInInProgress, setIsSignInInProgress] = useState(false);
-  const [showCreatePasswordModal, setShowCreatePasswordModal] = useState(false);
 
   const handlePasswordSignIn = () => {
     passwordSignIn(username, password)
@@ -49,34 +52,41 @@ const Auth = (props) => {
   };
 
   const handleGoogleSignIn = async () => {
-    // setIsSignInInProgress(true);
     googleSignIn()
       .then((UserCredential) => {
         console.log('UserCredential', UserCredential);
         setError(null);
         setUser(UserCredential.user);
-        checkIsPasswordUserExists();
-        props.setCloseModal();
+        checkIsPasswordUserExists(UserCredential.user);
       })
       .catch((err) => {
         console.log('handleGoogleSignIn error', err);
         setError(err.message || err);
-        setIsSignInInProgress(false);
       });
   };
 
   const checkIsPasswordUserExists = () => {
-    props.setCloseModal();
+    if (checkPasswordProvider()) {
+      props.setCloseModal();
+    } else {
+      props.setModal('createPassword');
+    }
+  };
+
+  const changeSignMode = () => {
+    setError(null);
+    setIsSignUp(!isSignUp);
   };
 
   return (
     <>
-      <GoogleSigninButton
-        style={styles.googleButton}
-        color={GoogleSigninButton.Color.Dark}
-        onPress={handleGoogleSignIn}
-        disabled={isSignInInProgress}
-      />
+      {!isSignUp && (
+        <GoogleSigninButton
+          style={styles.googleButton}
+          color={GoogleSigninButton.Color.Dark}
+          onPress={handleGoogleSignIn}
+        />
+      )}
       <Item style={styles.input}>
         <Input
           autoCapitalize="none"
@@ -122,7 +132,7 @@ const Auth = (props) => {
         rounded
         primary
         style={styles.button}
-        onPress={() => setIsSignUp(!isSignUp)}>
+        onPress={changeSignMode}>
         <Text style={styles.textStyle}>{isSignUp ? 'Sign In' : 'Sign Up'}</Text>
       </Button>
       <Button

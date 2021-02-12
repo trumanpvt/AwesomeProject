@@ -2,29 +2,26 @@ import React, {useState} from 'react';
 import {useDataStore} from '../../store/context';
 import {Button, Input, Item, Text} from 'native-base';
 
-import {signUp} from '../../util/auth';
+import {linkPasswordAccount} from '../../util/auth';
 
 import styles from './style.js';
 
 const CreatePassword = (props) => {
   const userStore = useDataStore().userStore;
-  const {setUser} = userStore;
+  const {user, setUser} = userStore;
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [isSignUp, setIsSignUp] = useState(false);
   const [error, setError] = useState(null);
-  const [isSignInInProgress, setIsSignInInProgress] = useState(false);
-  const [showCreatePasswordModal, setShowCreatePasswordModal] = useState(false);
 
-  const handleSignUp = () => {
+  const handleCreatePassword = () => {
     if (password === confirmPassword) {
-      signUp(username, password)
+      linkPasswordAccount(password)
         .then((UserCredential) => {
           setError(null);
           setUser(UserCredential.user);
-          props.setShowModal(false);
+          props.setCloseModal();
         })
         .catch((err) => {
           setError(err.message);
@@ -45,25 +42,23 @@ const CreatePassword = (props) => {
           placeholder="Password"
         />
       </Item>
-      {isSignUp && (
-        <Item style={styles.input}>
-          <Input
-            textContentType="password"
-            secureTextEntry
-            value={confirmPassword}
-            onChangeText={setConfirmPassword}
-            placeholder="Confirm Password"
-          />
-        </Item>
-      )}
+      <Item style={styles.input}>
+        <Input
+          textContentType="password"
+          secureTextEntry
+          value={confirmPassword}
+          onChangeText={setConfirmPassword}
+          placeholder="Confirm Password"
+        />
+      </Item>
       {error && <Text style={styles.error}>{error}</Text>}
       <Button
         full
         rounded
         success
         style={styles.button}
-        disabled={!username || !password}
-        onPress={handleSignUp}>
+        disabled={!password || !confirmPassword}
+        onPress={handleCreatePassword}>
         <Text style={styles.textStyle}>Create password</Text>
       </Button>
       <Button
@@ -71,7 +66,7 @@ const CreatePassword = (props) => {
         rounded
         danger
         style={styles.button}
-        onPress={() => props.setShowModal(false)}>
+        onPress={props.setCloseModal}>
         <Text style={styles.textStyle}>Create later</Text>
       </Button>
     </>
