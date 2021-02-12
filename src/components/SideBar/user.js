@@ -1,18 +1,18 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {View} from 'react-native';
 import {Button, Text, Thumbnail} from 'native-base';
-import ModalAuth from '../Modal/auth';
 import styles from './style.js';
-import auth from '@react-native-firebase/auth';
 import {useDataStore} from '../../store/context';
 import {observer} from 'mobx-react-lite';
 
 import {signOut} from '../../util/auth';
 
 const User = observer((props) => {
-  const [showModal, setShowModal] = useState(false);
+  const store = useDataStore();
+  const modalStore = store.modalStore;
+  const {setModal} = modalStore;
 
-  const userStore = useDataStore().userStore;
+  const userStore = store.userStore;
   const {user, setUser} = userStore;
 
   const handleSignOut = () => {
@@ -44,7 +44,7 @@ const User = observer((props) => {
   return (
     <View style={styles.userContent}>
       {!Object.keys(user).length ? (
-        <Button onPress={() => setShowModal(!showModal)}>
+        <Button onPress={() => setModal('auth')}>
           <Text style={styles.buttonText}>Login/Register</Text>
         </Button>
       ) : (
@@ -55,9 +55,9 @@ const User = observer((props) => {
           </Button>
         </>
       )}
-      {showModal && (
-        <ModalAuth navigation={props.navigation} setShowModal={setShowModal} />
-      )}
+      {/*{showModal && (*/}
+      {/*  <ModalAuth navigation={props.navigation} setShowModal={setShowModal} />*/}
+      {/*)}*/}
     </View>
   );
 });

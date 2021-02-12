@@ -3,6 +3,7 @@ import {View} from 'react-native';
 import {Body, Button, Header, Icon, Left, Right, Title} from 'native-base';
 
 import styles from './style.js';
+import ModalContainer from '../Modal';
 
 const AppHeader = (props) => {
   return (
@@ -24,6 +25,7 @@ const AppHeader = (props) => {
           {/*</Button>*/}
         </Right>
       </Header>
+      {/*<ModalContainer />*/}
     </View>
   );
 };

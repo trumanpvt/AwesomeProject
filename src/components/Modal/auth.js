@@ -1,15 +1,14 @@
 import React, {useState} from 'react';
 import {useDataStore} from '../../store/context';
-import {Modal, View} from 'react-native';
-import {Button, Form, Input, Item, Text} from 'native-base';
+import {Button, Input, Item, Text} from 'native-base';
 
-import {passwordSignIn, signUp, googleSignIn} from '../../util/auth';
+import {googleSignIn, passwordSignIn, signUp} from '../../util/auth';
 
 import {GoogleSigninButton} from '@react-native-community/google-signin';
 
 import styles from './style.js';
 
-const ModalAuth = (props) => {
+const Auth = (props) => {
   const userStore = useDataStore().userStore;
   const {setUser} = userStore;
 
@@ -26,7 +25,7 @@ const ModalAuth = (props) => {
       .then((UserCredential) => {
         setError(null);
         setUser(UserCredential.user);
-        props.setShowModal(false);
+        props.setCloseModal();
       })
       .catch((err) => {
         setError(err.message);
@@ -39,7 +38,7 @@ const ModalAuth = (props) => {
         .then((UserCredential) => {
           setError(null);
           setUser(UserCredential.user);
-          props.setShowModal(false);
+          props.setCloseModal();
         })
         .catch((err) => {
           setError(err.message);
@@ -56,8 +55,8 @@ const ModalAuth = (props) => {
         console.log('UserCredential', UserCredential);
         setError(null);
         setUser(UserCredential.user);
-        // checkIsPasswordUserExists();
-        // props.setShowModal(false);
+        checkIsPasswordUserExists();
+        props.setCloseModal();
       })
       .catch((err) => {
         console.log('handleGoogleSignIn error', err);
@@ -67,97 +66,75 @@ const ModalAuth = (props) => {
   };
 
   const checkIsPasswordUserExists = () => {
-    props.setShowModal(false);
+    props.setCloseModal();
   };
 
-  const renderSign = () => {
-    return (
-      <>
-        <GoogleSigninButton
-          style={styles.googleButton}
-          color={GoogleSigninButton.Color.Dark}
-          onPress={handleGoogleSignIn}
-          disabled={isSignInInProgress}
+  return (
+    <>
+      <GoogleSigninButton
+        style={styles.googleButton}
+        color={GoogleSigninButton.Color.Dark}
+        onPress={handleGoogleSignIn}
+        disabled={isSignInInProgress}
+      />
+      <Item style={styles.input}>
+        <Input
+          autoCapitalize="none"
+          textContentType="emailAddress"
+          value={username}
+          onChangeText={setUsername}
+          placeholder="Email"
+          keyboardType="email-address"
         />
-        <Item style={styles.input}>
-          <Input
-            autoCapitalize="none"
-            textContentType="emailAddress"
-            value={username}
-            onChangeText={setUsername}
-            placeholder="Email"
-            keyboardType="email-address"
-          />
-        </Item>
+      </Item>
+      <Item style={styles.input}>
+        <Input
+          textContentType="password"
+          secureTextEntry
+          value={password}
+          onChangeText={setPassword}
+          placeholder="Password"
+        />
+      </Item>
+      {isSignUp && (
         <Item style={styles.input}>
           <Input
             textContentType="password"
             secureTextEntry
-            value={password}
-            onChangeText={setPassword}
-            placeholder="Password"
+            value={confirmPassword}
+            onChangeText={setConfirmPassword}
+            placeholder="Confirm Password"
           />
         </Item>
-        {isSignUp && (
-          <Item style={styles.input}>
-            <Input
-              textContentType="password"
-              secureTextEntry
-              value={confirmPassword}
-              onChangeText={setConfirmPassword}
-              placeholder="Confirm Password"
-            />
-          </Item>
-        )}
-        {error && <Text style={styles.error}>{error}</Text>}
-        <Button
-          full
-          rounded
-          success
-          style={styles.button}
-          disabled={!username || !password}
-          onPress={isSignUp ? handleSignUp : handlePasswordSignIn}>
-          <Text style={styles.textStyle}>
-            {isSignUp ? 'Sign Up' : 'Sign In'}
-          </Text>
-        </Button>
-        <Button
-          full
-          rounded
-          primary
-          style={styles.button}
-          onPress={() => setIsSignUp(!isSignUp)}>
-          <Text style={styles.textStyle}>
-            {isSignUp ? 'Sign In' : 'Sign Up'}
-          </Text>
-        </Button>
-        <Button
-          full
-          rounded
-          danger
-          style={styles.button}
-          onPress={() => props.setShowModal(false)}>
-          <Text style={styles.textStyle}>Cancel</Text>
-        </Button>
-      </>
-    );
-  };
-
-  const renderCreatePassword = () => {};
-
-  return (
-    <Modal
-      animationType="fade"
-      transparent={true}
-      visible={true}
-      onRequestClose={() => props.setShowModal(!props.showModal)}>
-      <View style={styles.centeredView}>
-        <Form style={styles.form}>
-          {!showCreatePasswordModal ? renderSign() : renderCreatePassword()}
-        </Form>
-      </View>
-    </Modal>
+      )}
+      {error && <Text style={styles.error}>{error}</Text>}
+      <Button
+        full
+        rounded
+        success
+        style={styles.button}
+        disabled={!username || !password}
+        onPress={isSignUp ? handleSignUp : handlePasswordSignIn}>
+        <Text style={styles.textStyle}>{isSignUp ? 'Sign Up' : 'Sign In'}</Text>
+      </Button>
+      <Button
+        full
+        rounded
+        primary
+        style={styles.button}
+        onPress={() => setIsSignUp(!isSignUp)}>
+        <Text style={styles.textStyle}>{isSignUp ? 'Sign In' : 'Sign Up'}</Text>
+      </Button>
+      <Button
+        full
+        rounded
+        danger
+        style={styles.button}
+        onPress={props.setCloseModal}>
+        <Text style={styles.textStyle}>Cancel</Text>
+      </Button>
+    </>
   );
 };
 
-export default ModalAuth;
+export default Auth;
