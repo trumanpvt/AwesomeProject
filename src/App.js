@@ -2,7 +2,6 @@ import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import AppHeader from './components/AppHeader';
-import {DataStoreProvider} from './store/context';
 
 import ProfileScreen from './components/ProfileScreen';
 import ChatScreen from './components/ChatScreen';
@@ -14,7 +13,7 @@ const Drawer = createDrawerNavigator();
 
 const App = () => {
   return (
-    <DataStoreProvider>
+    <>
       <NavigationContainer>
         <Drawer.Navigator
           initialRouteName="HomeScreen"
@@ -33,7 +32,7 @@ const App = () => {
         </Drawer.Navigator>
       </NavigationContainer>
       <ModalContainer />
-    </DataStoreProvider>
+    </>
   );
 };
 export default App;

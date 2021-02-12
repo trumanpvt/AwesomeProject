@@ -1,14 +1,13 @@
 import React, {useState} from 'react';
-import {useDataStore} from '../../store/context';
 import {Button, Input, Item, Text} from 'native-base';
 
 import {linkPasswordAccount} from '../../util/auth';
 
 import styles from './style.js';
+import {useStores} from '../../store';
 
 const CreatePassword = (props) => {
-  const userStore = useDataStore().userStore;
-  const {setUser} = userStore;
+  const {setUser} = useStores().userStore;
 
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');

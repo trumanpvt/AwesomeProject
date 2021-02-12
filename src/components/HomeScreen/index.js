@@ -6,8 +6,8 @@ import Faq from '../Faq';
 import PropTypes from 'prop-types';
 import {StyleSheet} from 'react-native';
 import AppFooter from '../AppFooter';
-import {useDataStore} from '../../store/context';
 import {observer} from 'mobx-react-lite';
+import {useStores} from '../../store';
 
 const styles = StyleSheet.create({
   content: {
@@ -17,8 +17,7 @@ const styles = StyleSheet.create({
 });
 
 const HomeScreen = observer(() => {
-  const footerStore = useDataStore().footerStore;
-  const {mode} = footerStore;
+  const {mode} = useStores().footerStore;
 
   const renderPage = () => {
     switch (mode) {

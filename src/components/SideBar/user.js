@@ -2,17 +2,15 @@ import React from 'react';
 import {View} from 'react-native';
 import {Button, Text, Thumbnail} from 'native-base';
 import styles from './style.js';
-import {useDataStore} from '../../store/context';
 import {observer} from 'mobx-react-lite';
 
 import {signOut} from '../../util/auth';
+import {useStores} from '../../store';
 
 const User = observer((props) => {
-  const store = useDataStore();
-  const modalStore = store.modalStore;
+  const {modalStore, userStore} = useStores();
   const {setModal} = modalStore;
 
-  const userStore = store.userStore;
   const {user, setUser} = userStore;
 
   const handleSignOut = () => {

@@ -1,11 +1,10 @@
 import React from 'react';
 import {Button, Footer, FooterTab, Text} from 'native-base';
 
-import {useDataStore} from '../../store/context';
+import {useStores} from '../../store/';
 
 const AppFooter = () => {
-  const footerStore = useDataStore().footerStore;
-  const {mode, setFooterMode} = footerStore;
+  const {mode, setFooterMode} = useStores().footerStore;
 
   return (
     <Footer>

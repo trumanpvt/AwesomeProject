@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import {useDataStore} from '../../store/context';
 import {Button, Input, Item, Text} from 'native-base';
 
 import {
@@ -12,10 +11,10 @@ import {
 import {GoogleSigninButton} from '@react-native-community/google-signin';
 
 import styles from './style.js';
+import {useStores} from '../../store';
 
 const Auth = (props) => {
-  const userStore = useDataStore().userStore;
-  const {setUser} = userStore;
+  const {setUser} = useStores().userStore;
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');

@@ -1,15 +1,14 @@
 import React from 'react';
-import {useDataStore} from '../../store/context';
 import {Modal, View} from 'react-native';
 import styles from './style';
 import {Form} from 'native-base';
 import CreatePassword from './createPassword';
 import Auth from './auth';
 import {observer} from 'mobx-react-lite/src/observer';
+import {useStores} from '../../store';
 
 const ModalContainer = observer(() => {
-  const modalStore = useDataStore().modalStore;
-  const {modal, setModal, setCloseModal} = modalStore;
+  const {modal, setModal, setCloseModal} = useStores().modalStore;
 
   const renderModal = () => {
     console.log('ModalContainer', modal);

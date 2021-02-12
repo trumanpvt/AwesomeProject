@@ -11,17 +11,17 @@ import {
   Text,
 } from 'native-base';
 
+import {useStores} from '../../store';
+
 import styles from './style.js';
 import {View} from 'react-native';
 
 import Avatar from './avatar';
 import {observer} from 'mobx-react-lite';
-import {useDataStore} from '../../store/context';
 import {unlinkAccount} from '../../util/auth';
 
 const ProfileScreen = observer(() => {
-  const userStore = useDataStore().userStore;
-  const {user, changeUser} = userStore;
+  const {user, changeUser} = useStores().userStore;
 
   const isPasswordProvider =
     user.providerData &&
