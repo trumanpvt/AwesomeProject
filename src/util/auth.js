@@ -10,7 +10,7 @@ export const signUp = (username, password) => {
   return auth().createUserWithEmailAndPassword(username, password);
 };
 
-export const googleSignIn = new Promise(async function (resolve, reject) {
+export const googleSignIn = async () => {
   GoogleSignin.configure({
     webClientId,
   });
@@ -20,24 +20,19 @@ export const googleSignIn = new Promise(async function (resolve, reject) {
     const {idToken} = await GoogleSignin.signIn();
     const googleCredential = auth.GoogleAuthProvider.credential(idToken);
 
-    // console.log(testicle);
-    resolve(auth().signInWithCredential(googleCredential));
+    return auth().signInWithCredential(googleCredential);
   } catch (e) {
-    let errorMessage;
-
     if (e.code === statusCodes.SIGN_IN_CANCELLED) {
-      errorMessage = 'user cancelled the login flow';
+      console.log('user cancelled the login flow');
     } else if (e.code === statusCodes.IN_PROGRESS) {
-      errorMessage = 'operation (e.g. sign in) is in progress already';
+      console.log('operation (e.g. sign in) is in progress already');
     } else if (e.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
-      errorMessage = 'play services not available or outdated';
+      console.log('play services not available or outdated');
     } else {
-      errorMessage = e;
+      console.log('googleSignIn error', e);
     }
-
-    reject(errorMessage);
   }
-});
+};
 
 export const signOut = () => {
   return auth().signOut();
