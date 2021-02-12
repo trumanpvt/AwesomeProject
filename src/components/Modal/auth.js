@@ -50,17 +50,19 @@ const ModalAuth = (props) => {
   };
 
   const handleGoogleSignIn = async () => {
-    setIsSignInInProgress(true);
+    // setIsSignInInProgress(true);
     googleSignIn()
       .then((UserCredential) => {
+        console.log('UserCredential', UserCredential);
         setError(null);
         setUser(UserCredential.user);
-        checkIsPasswordUserExists();
+        // checkIsPasswordUserExists();
         // props.setShowModal(false);
       })
       .catch((err) => {
         console.log('handleGoogleSignIn error', err);
         setError(err.message || err);
+        setIsSignInInProgress(false);
       });
   };
 
