@@ -61,3 +61,7 @@ export const googleSignIn = async () => {
 export const signOut = () => {
   return auth().signOut();
 };
+
+export const unlinkAccount = (providerId) => {
+  return auth().currentUser.unlink(providerId);
+};

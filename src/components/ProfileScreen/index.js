@@ -13,34 +13,31 @@ import {
 
 import styles from './style.js';
 import {View} from 'react-native';
-import auth from '@react-native-firebase/auth';
 
 import Avatar from './avatar';
 import {observer} from 'mobx-react-lite';
 import {useDataStore} from '../../store/context';
+import {unlinkAccount} from '../../util/auth';
 
 const ProfileScreen = observer(() => {
   const userStore = useDataStore().userStore;
-  const {user, setUser, changeUser} = userStore;
+  const {user, changeUser} = userStore;
 
   const isPasswordProvider =
     user.providerData &&
     user.providerData.some((item) => item.providerId === 'password');
 
   const [displayName, setDisplayName] = useState(user.displayName);
-  const [photoURL, setPhotoURL] = useState(user.photoURL);
   const [password, setPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
   useEffect(() => {
     setDisplayName(user.displayName);
-    setPhotoURL(user.photoURL);
   }, [user]);
 
   const handleCancelChangeUser = () => {
     setDisplayName(user.displayName);
-    setPhotoURL(user.photoURL);
   };
 
   const handleChangeUser = () => {
@@ -73,6 +70,16 @@ const ProfileScreen = observer(() => {
   // const isPasswordProvider = () => {
   //   return user.providerData.some((item) => item.providerId === 'password');
   // };
+
+  const handleUnlinkAccount = () => {
+    unlinkAccount('password')
+      .then((User) => {
+        console.log('Auth provider unlinked from account', User);
+      })
+      .catch((error) => {
+        console.log('Auth provider unlink error', error);
+      });
+  };
 
   return (
     <Container style={styles.container}>
@@ -170,6 +177,14 @@ const ProfileScreen = observer(() => {
               <Text>Cancel</Text>
             </Button>
           </View>
+          <Button
+            full
+            rounded
+            danger
+            style={styles.button}
+            onPress={handleUnlinkAccount}>
+            <Text>Unlink account</Text>
+          </Button>
         </Form>
       </Content>
     </Container>

@@ -8,9 +8,8 @@ import styles from './style.js';
 
 const CreatePassword = (props) => {
   const userStore = useDataStore().userStore;
-  const {user, setUser} = userStore;
+  const {setUser} = userStore;
 
-  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState(null);
@@ -33,6 +32,7 @@ const CreatePassword = (props) => {
 
   return (
     <>
+      <Text>You can create password to login with email and password</Text>
       <Item style={styles.input}>
         <Input
           textContentType="password"
