@@ -12,7 +12,6 @@ export default class ModalStore {
   }
 
   setModal = (modalType) => {
-    console.log('modalType', modalType);
     this.modal = modalType;
   };
 

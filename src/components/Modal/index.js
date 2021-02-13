@@ -11,7 +11,6 @@ const ModalContainer = observer(() => {
   const {modal, setModal, setCloseModal} = useStores().modalStore;
 
   const renderModal = () => {
-    console.log('ModalContainer', modal);
     switch (modal) {
       case 'auth': {
         return <Auth setCloseModal={setCloseModal} setModal={setModal} />;
