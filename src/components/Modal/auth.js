@@ -6,7 +6,6 @@ import {
   passwordSignIn,
   signUp,
   checkPasswordProvider,
-  facebookSignIn,
 } from '../../util/auth';
 
 import {GoogleSigninButton} from '@react-native-community/google-signin';
@@ -14,6 +13,7 @@ import {LoginButton, AccessToken, LoginManager} from 'react-native-fbsdk';
 
 import styles from './style.js';
 import {useStores} from '../../store';
+import auth from '@react-native-firebase/auth';
 
 const Auth = (props) => {
   const {setUser} = useStores().userStore;
@@ -67,17 +67,71 @@ const Auth = (props) => {
   };
 
   const handleFacebookSignIn = (error, result) => {
-    facebookSignIn()
-      .then((UserCredential) => {
-        console.log('UserCredential', UserCredential);
-        setError(null);
-        setUser(UserCredential.user);
-        checkIsPasswordUserExists(UserCredential.user);
-      })
-      .catch((err) => {
-        console.log('handleGoogleSignIn error', err);
-        setError(err.message || err);
-      });
+    // console.log('handleFacebookSignIn error', error);
+    // console.log('handleFacebookSignIn result', result);
+    //
+    // if (error) {
+    //   setError('login has error: ' + result.error);
+    // } else if (result.isCancelled) {
+    //   setError('user cancelled the login flow');
+    // } else {
+    //   AccessToken.getCurrentAccessToken()
+    //     .then((data) => {
+    //       console.log('AccessToken data', data);
+    //       auth()
+    //         .signInWithCredential(data.accessToken)
+    //         .then((UserCredential) => {
+    //           console.log('UserCredential', UserCredential);
+    //           setError(null);
+    //           setUser(UserCredential.user);
+    //           checkIsPasswordUserExists(UserCredential.user);
+    //         })
+    //         .catch((err) => {
+    //           console.log('handleGoogleSignIn error', err);
+    //           setError(err.message || err);
+    //         });
+    //     })
+    //     .catch((err) => {
+    //       console.log(' AccessToken.getCurrentAccessToken', err);
+    //       setError(err.message || err);
+    //     });
+    // }
+
+    LoginManager.logInWithPermissions(['public_profile']).then(
+      function (result) {
+        if (result.isCancelled) {
+          console.log('Login cancelled');
+        } else {
+          console.log('Login success with permissions: ', result);
+          AccessToken.getCurrentAccessToken()
+            .then((data) => {
+              console.log('AccessToken data', data);
+              const facebookCredential = auth.FacebookAuthProvider.credential(
+                data.accessToken,
+              );
+              auth()
+                .signInWithCredential(facebookCredential)
+                .then((UserCredential) => {
+                  console.log('UserCredential', UserCredential);
+                  setError(null);
+                  setUser(UserCredential.user);
+                  checkIsPasswordUserExists(UserCredential.user);
+                })
+                .catch((err) => {
+                  console.log('handleGoogleSignIn error', err);
+                  setError(err.message || err);
+                });
+            })
+            .catch((err) => {
+              console.log(' AccessToken.getCurrentAccessToken', err);
+              setError(err.message || err);
+            });
+        }
+      },
+      function (error) {
+        console.log('Login fail with error: ' + error);
+      },
+    );
   };
 
   const checkIsPasswordUserExists = () => {
@@ -95,7 +149,17 @@ const Auth = (props) => {
 
   return (
     <>
-      {!isSignUp && <LoginButton onLoginFinished={handleFacebookSignIn} />}
+      {!isSignUp && (
+        // <LoginButton onLoginFinished={handleFacebookSignIn} />
+        <Button
+          full
+          rounded
+          success
+          style={styles.button}
+          onPress={handleFacebookSignIn}>
+          <Text style={styles.textStyle}>Facebook</Text>
+        </Button>
+      )}
       {!isSignUp && (
         <GoogleSigninButton
           style={styles.googleButton}

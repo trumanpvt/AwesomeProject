@@ -60,20 +60,6 @@ export const googleSignIn = async () => {
   }
 };
 
-export const facebookSignIn = (error, result) => {
-  if (error) {
-    console.log('login has error: ' + result.error);
-    return Promise.reject(result.error);
-  } else if (result.isCancelled) {
-    console.log('login is cancelled.');
-    return Promise.reject(result.error);
-  } else {
-    AccessToken.getCurrentAccessToken().then((data) => {
-      auth().signInWithCredential(data.accessToken);
-    });
-  }
-};
-
 export const signOut = () => {
   return auth().signOut();
 };
