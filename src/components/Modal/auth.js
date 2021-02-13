@@ -6,9 +6,11 @@ import {
   passwordSignIn,
   signUp,
   checkPasswordProvider,
+  facebookSignIn,
 } from '../../util/auth';
 
 import {GoogleSigninButton} from '@react-native-community/google-signin';
+import {LoginButton, AccessToken, LoginManager} from 'react-native-fbsdk';
 
 import styles from './style.js';
 import {useStores} from '../../store';
@@ -64,6 +66,20 @@ const Auth = (props) => {
       });
   };
 
+  const handleFacebookSignIn = (error, result) => {
+    facebookSignIn()
+      .then((UserCredential) => {
+        console.log('UserCredential', UserCredential);
+        setError(null);
+        setUser(UserCredential.user);
+        checkIsPasswordUserExists(UserCredential.user);
+      })
+      .catch((err) => {
+        console.log('handleGoogleSignIn error', err);
+        setError(err.message || err);
+      });
+  };
+
   const checkIsPasswordUserExists = () => {
     if (checkPasswordProvider()) {
       props.setCloseModal();
@@ -79,6 +95,7 @@ const Auth = (props) => {
 
   return (
     <>
+      {!isSignUp && <LoginButton onLoginFinished={handleFacebookSignIn} />}
       {!isSignUp && (
         <GoogleSigninButton
           style={styles.googleButton}

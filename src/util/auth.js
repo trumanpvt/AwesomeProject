@@ -1,5 +1,7 @@
 import auth from '@react-native-firebase/auth';
 import {GoogleSignin, statusCodes} from '@react-native-community/google-signin';
+import {AccessToken} from 'react-native-fbsdk';
+
 import {webClientId} from '../constants';
 
 export const passwordSignIn = (username, password) => {
@@ -55,6 +57,20 @@ export const googleSignIn = async () => {
     }
 
     return Promise.reject(e);
+  }
+};
+
+export const facebookSignIn = (error, result) => {
+  if (error) {
+    console.log('login has error: ' + result.error);
+    return Promise.reject(result.error);
+  } else if (result.isCancelled) {
+    console.log('login is cancelled.');
+    return Promise.reject(result.error);
+  } else {
+    AccessToken.getCurrentAccessToken().then((data) => {
+      auth().signInWithCredential(data.accessToken);
+    });
   }
 };
 
