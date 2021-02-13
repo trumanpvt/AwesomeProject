@@ -4,7 +4,7 @@ import styles from './style';
 import {Form} from 'native-base';
 import CreatePassword from './createPassword';
 import Auth from './auth';
-import {observer} from 'mobx-react-lite/src/observer';
+import {observer} from 'mobx-react-lite';
 import {useStores} from '../../store';
 
 const ModalContainer = observer(() => {
