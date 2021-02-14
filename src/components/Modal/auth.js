@@ -13,7 +13,7 @@ import {GoogleSigninButton} from '@react-native-community/google-signin';
 
 import styles from './style.js';
 import {useStores} from '../../store';
-import auth from '@react-native-firebase/auth';
+// import auth from '@react-native-firebase/auth';
 
 const Auth = (props) => {
   const {user, setUser} = useStores().userStore;
@@ -126,7 +126,7 @@ const Auth = (props) => {
         success
         style={styles.button}
         onPress={() => {
-          console.log(auth().getUserByEmail('trumanpvt@gmail.com'));
+          // console.log(auth().getUserByEmail('trumanpvt@gmail.com'));
         }}>
         <Text style={styles.textStyle}>Show if user exists</Text>
       </Button>
@@ -136,7 +136,7 @@ const Auth = (props) => {
         success
         style={styles.button}
         onPress={() => {
-          console.log(auth().currentUser);
+          // console.log(auth().currentUser);
         }}>
         <Text style={styles.textStyle}>Show user data</Text>
       </Button>

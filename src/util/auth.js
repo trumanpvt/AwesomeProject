@@ -1,34 +1,34 @@
-import auth from '@react-native-firebase/auth';
+// import auth from '@react-native-firebase/auth';
 import {GoogleSignin, statusCodes} from '@react-native-community/google-signin';
 // import {AccessToken} from 'react-native-fbsdk';
 
 import {webClientId} from '../constants';
 
 export const passwordSignIn = (email, password) => {
-  return auth().signInWithEmailAndPassword(email, password);
+  // return auth().signInWithEmailAndPassword(email, password);
 };
 
 export const signUp = (email, password) => {
-  return auth().createUserWithEmailAndPassword(email, password);
+  // return auth().createUserWithEmailAndPassword(email, password);
 };
 
 export const linkPasswordAccount = (password) => {
-  const matchedData = auth().currentUser.providerData.find((item) => {
-    return item.email;
-  });
-
-  const credential = auth.EmailAuthProvider.credential(
-    matchedData.email,
-    password,
-  );
-
-  return auth().currentUser.linkWithCredential(credential);
+  // const matchedData = auth().currentUser.providerData.find((item) => {
+  //   return item.email;
+  // });
+  //
+  // const credential = auth.EmailAuthProvider.credential(
+  //   matchedData.email,
+  //   password,
+  // );
+  //
+  // return auth().currentUser.linkWithCredential(credential);
 };
 
 export const checkPasswordProvider = () => {
-  return auth().currentUser.providerData.find((item) => {
-    return item.providerId === 'password';
-  });
+  // return auth().currentUser.providerData.find((item) => {
+  //   return item.providerId === 'password';
+  // });
 };
 
 export const googleSignIn = async () => {
@@ -39,9 +39,9 @@ export const googleSignIn = async () => {
   try {
     await GoogleSignin.hasPlayServices({showPlayServicesUpdateDialog: true});
     const {idToken} = await GoogleSignin.signIn();
-    const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+    // const googleCredential = auth.GoogleAuthProvider.credential(idToken);
 
-    return auth().signInWithCredential(googleCredential);
+    // return auth().signInWithCredential(googleCredential);
   } catch (e) {
     if (e.code === statusCodes.SIGN_IN_CANCELLED) {
       console.log('user cancelled the login flow');
@@ -61,9 +61,9 @@ export const googleSignIn = async () => {
 };
 
 export const signOut = () => {
-  return auth().signOut();
+  // return auth().signOut();
 };
 
 export const unlinkAccount = (providerId) => {
-  return auth().currentUser.unlink(providerId);
+  // return auth().currentUser.unlink(providerId);
 };
