@@ -1,13 +1,13 @@
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createDrawerNavigator} from '@react-navigation/drawer';
-import AppHeader from './src/components/AppHeader';
+import AppHeader from './components/AppHeader';
 
-import ProfileScreen from './src/components/ProfileScreen';
-import ChatScreen from './src/components/ChatScreen';
-import SideBar from './src/components/SideBar/menu';
-import HomeScreen from './src/components/HomeScreen';
-import ModalContainer from './src/components/Modal';
+import ProfileScreen from './components/ProfileScreen';
+import ChatScreen from './components/ChatScreen';
+import SideBar from './components/SideBar/menu';
+import HomeScreen from './components/HomeScreen';
+import ModalContainer from './components/Modal';
 
 const Drawer = createDrawerNavigator();
 
