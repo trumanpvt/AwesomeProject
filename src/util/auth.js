@@ -1,15 +1,15 @@
 import auth from '@react-native-firebase/auth';
 import {GoogleSignin, statusCodes} from '@react-native-community/google-signin';
-import {AccessToken} from 'react-native-fbsdk';
+// import {AccessToken} from 'react-native-fbsdk';
 
 import {webClientId} from '../constants';
 
-export const passwordSignIn = (username, password) => {
-  return auth().signInWithEmailAndPassword(username, password);
+export const passwordSignIn = (email, password) => {
+  return auth().signInWithEmailAndPassword(email, password);
 };
 
-export const signUp = (username, password) => {
-  return auth().createUserWithEmailAndPassword(username, password);
+export const signUp = (email, password) => {
+  return auth().createUserWithEmailAndPassword(email, password);
 };
 
 export const linkPasswordAccount = (password) => {
