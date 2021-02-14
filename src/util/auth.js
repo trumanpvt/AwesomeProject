@@ -1,4 +1,3 @@
-// import auth from '@react-native-firebase/auth';
 import {GoogleSignin, statusCodes} from '@react-native-community/google-signin';
 // import {AccessToken} from 'react-native-fbsdk';
 

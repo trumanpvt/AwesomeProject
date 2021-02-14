@@ -13,7 +13,6 @@ import {GoogleSigninButton} from '@react-native-community/google-signin';
 
 import styles from './style.js';
 import {useStores} from '../../store';
-// import auth from '@react-native-firebase/auth';
 
 const Auth = (props) => {
   const {user, setUser} = useStores().userStore;
@@ -66,45 +65,6 @@ const Auth = (props) => {
       });
   };
 
-  // const handleFacebookSignIn = (error, result) => {
-  //
-  //   LoginManager.logInWithPermissions(['public_profile']).then(
-  //     function (result) {
-  //       if (result.isCancelled) {
-  //         console.log('Login cancelled');
-  //       } else {
-  //         console.log('Login success with permissions: ', result);
-  //         AccessToken.getCurrentAccessToken()
-  //           .then((data) => {
-  //             console.log('AccessToken data', data);
-  //             const facebookCredential = auth.FacebookAuthProvider.credential(
-  //               data.accessToken,
-  //             );
-  //             auth()
-  //               .signInWithCredential(facebookCredential)
-  //               .then((UserCredential) => {
-  //                 console.log('UserCredential', UserCredential);
-  //                 setError(null);
-  //                 setUser(UserCredential.user);
-  //                 checkIsPasswordUserExists(UserCredential.user);
-  //               })
-  //               .catch((err) => {
-  //                 console.log('handleGoogleSignIn error', err);
-  //                 setError(err.message || err);
-  //               });
-  //           })
-  //           .catch((err) => {
-  //             console.log(' AccessToken.getCurrentAccessToken', err);
-  //             setError(err.message || err);
-  //           });
-  //       }
-  //     },
-  //     function (error) {
-  //       console.log('Login fail with error: ' + error);
-  //     },
-  //   );
-  // };
-
   const checkIsPasswordUserExists = () => {
     if (checkPasswordProvider()) {
       props.setCloseModal();
@@ -140,17 +100,6 @@ const Auth = (props) => {
         }}>
         <Text style={styles.textStyle}>Show user data</Text>
       </Button>
-      {/*{!isSignUp && (*/}
-      {/*  // <LoginButton onLoginFinished={handleFacebookSignIn} />*/}
-      {/*  <Button*/}
-      {/*    full*/}
-      {/*    rounded*/}
-      {/*    success*/}
-      {/*    style={styles.button}*/}
-      {/*    onPress={handleFacebookSignIn}>*/}
-      {/*    <Text style={styles.textStyle}>Facebook</Text>*/}
-      {/*  </Button>*/}
-      {/*)}*/}
       {!isSignUp && (
         <GoogleSigninButton
           style={styles.googleButton}

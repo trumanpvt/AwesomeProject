@@ -3,7 +3,6 @@ import {Badge, Text, Thumbnail} from 'native-base';
 
 import styles from './style.js';
 import {Platform, TouchableOpacity} from 'react-native';
-import storage from '@react-native-firebase/storage';
 import {launchImageLibrary} from 'react-native-image-picker';
 import ImageResizer from 'react-native-image-resizer';
 
@@ -52,23 +51,23 @@ const Avatar = (props) => {
   };
 
   const uploadPhoto = (imagePath, uploadUri) => {
-    storage()
-      .ref(imagePath)
-      .putFile(uploadUri)
-      .then((snapshot) => {
-        savePhotoUrl(imagePath);
-      })
-      .catch((e) => console.log('uploading image error => ', e));
+    // storage()
+    //   .ref(imagePath)
+    //   .putFile(uploadUri)
+    //   .then((snapshot) => {
+    //     savePhotoUrl(imagePath);
+    //   })
+    //   .catch((e) => console.log('uploading image error => ', e));
   };
 
   const savePhotoUrl = (imagePath) => {
-    storage()
-      .ref('/' + imagePath)
-      .getDownloadURL()
-      .then((url) => {
-        props.changeUser({photoURL: url});
-      })
-      .catch((e) => console.log('getting downloadURL of image error => ', e));
+    // storage()
+    //   .ref('/' + imagePath)
+    //   .getDownloadURL()
+    //   .then((url) => {
+    //     props.changeUser({photoURL: url});
+    //   })
+    //   .catch((e) => console.log('getting downloadURL of image error => ', e));
   };
 
   return (
