@@ -24,7 +24,6 @@
 		3F7025CDF79940FEBCB39CBE /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A14AD0B510E14F57BD55853E /* EvilIcons.ttf */; };
 		50181C78292C41D4806A9AC3 /* FontAwesome5_Solid.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 626A53F11A2E45808AC5F827 /* FontAwesome5_Solid.ttf */; };
 		55E78EF4DCCA4E1C8FA1C706 /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 315D2D1C843E4D28B3FDAAE4 /* Foundation.ttf */; };
-		5615D1C325C2D6AA006C6FD8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5615D1C225C2D6AA006C6FD8 /* GoogleService-Info.plist */; };
 		676DF5D91A1A660B8C442C8F /* libPods-AwesomeProject-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 206B51892DB38BD173AC844D /* libPods-AwesomeProject-tvOS.a */; };
 		6BE55739B5C84177990A1A94 /* rubicon-icon-font.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 72472AFAB4634A31BDADD1A7 /* rubicon-icon-font.ttf */; };
 		7391043EEDA64E74BA7BB264 /* Roboto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 38C378509AB64DE79F3F1955 /* Roboto.ttf */; };
@@ -82,7 +81,6 @@
 		3AD37D98AB264259B3B6490F /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Brands.ttf; path = "../node_modules/native-base/Fonts/FontAwesome5_Brands.ttf"; sourceTree = "<group>"; };
 		3F5A8C8B8F12FDF94640B98A /* Pods-AwesomeProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AwesomeProject.debug.xcconfig"; path = "Target Support Files/Pods-AwesomeProject/Pods-AwesomeProject.debug.xcconfig"; sourceTree = "<group>"; };
 		4277A0CB27C44055A46C06E4 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/native-base/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
-		5615D1C225C2D6AA006C6FD8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "AwesomeProject/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5EDEFD2FE58A149F84098CED /* Pods-AwesomeProject-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AwesomeProject-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-AwesomeProject-tvOSTests/Pods-AwesomeProject-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		626A53F11A2E45808AC5F827 /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Solid.ttf; path = "../node_modules/native-base/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
 		71DE08D1E36EF8C8FA511F3E /* Pods-AwesomeProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AwesomeProject.release.xcconfig"; path = "Target Support Files/Pods-AwesomeProject/Pods-AwesomeProject.release.xcconfig"; sourceTree = "<group>"; };
@@ -168,7 +166,6 @@
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
-				5615D1C225C2D6AA006C6FD8 /* GoogleService-Info.plist */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
@@ -425,7 +422,6 @@
 				FD5639BEAE9A491382B7E4E6 /* MaterialCommunityIcons.ttf in Resources */,
 				0A9F1E813E1C432E99A83EEA /* MaterialIcons.ttf in Resources */,
 				77C58586296543BDBC17CACA /* Octicons.ttf in Resources */,
-				5615D1C325C2D6AA006C6FD8 /* GoogleService-Info.plist in Resources */,
 				B1345552058D42E5BA2175D1 /* Roboto_medium.ttf in Resources */,
 				7391043EEDA64E74BA7BB264 /* Roboto.ttf in Resources */,
 				6BE55739B5C84177990A1A94 /* rubicon-icon-font.ttf in Resources */,
