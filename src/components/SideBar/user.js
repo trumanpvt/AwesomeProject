@@ -1,6 +1,6 @@
 import React from 'react';
 import {View} from 'react-native';
-import {Button, Text, Thumbnail} from 'native-base';
+import {Button, Text, Thumbnail, Badge} from 'native-base';
 import styles from './style.js';
 import {observer} from 'mobx-react-lite';
 
@@ -25,14 +25,21 @@ const User = observer((props) => {
   };
 
   const renderUser = () => {
-    const userName = user.displayName ? user.displayName : user.email;
+    const attributes = user.attributes;
+    const userName = attributes.name ? attributes.name : attributes.email;
 
     return (
       <View style={styles.userInfo}>
         <Button
           transparent
           onPress={() => props.navigation.navigate('ProfileScreen')}>
-          <Thumbnail small source={{uri: user.photoURL}} />
+          {attributes.photoURL ? (
+            <Thumbnail small source={{uri: attributes.photoURL}} />
+          ) : (
+            <Badge style={styles.userPic}>
+              <Text>{attributes.name[0]}</Text>
+            </Badge>
+          )}
           <Text style={styles.userName}>{userName}</Text>
         </Button>
       </View>

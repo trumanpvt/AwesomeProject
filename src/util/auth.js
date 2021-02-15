@@ -5,14 +5,21 @@ import {GoogleSignin, statusCodes} from '@react-native-community/google-signin';
 import {webClientId} from '../constants';
 
 export const passwordSignIn = (email, password) => {
-  // return auth().signInWithEmailAndPassword(email, password);
+  return Auth.signIn(email, password);
 };
 
-export const signUp = (username, password, email) => {
-  // return auth().createUserWithEmailAndPassword(email, password);
-  return Auth.signUp(username, password, {
-    email,
+export const signUp = (email, password, username) => {
+  return Auth.signUp({
+    username: email,
+    password,
+    attributes: {
+      name: username,
+    },
   });
+};
+
+export const confirmSignUp = (email, code) => {
+  return Auth.confirmSignUp(email, code);
 };
 
 export const linkPasswordAccount = (password) => {

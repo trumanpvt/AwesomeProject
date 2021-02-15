@@ -28,11 +28,10 @@ const ModalAuth = (props) => {
 
   const handlePasswordSignIn = () => {
     passwordSignIn(email, password)
-      .then((user) => {
-        console.log('sign in user', user);
+      .then((UserCredential) => {
         setError(null);
-        setUser(user);
-        // props.setCloseModal();
+        setUser(UserCredential.user);
+        props.setCloseModal();
       })
       .catch((err) => {
         setError(err.message);
@@ -44,7 +43,7 @@ const ModalAuth = (props) => {
       signUp(email, password, username)
         .then((result) => {
           setError(null);
-          setUser(result.user.CognitoUser);
+          setUser(result.user);
           setIsConfirmCode(true);
           // props.setCloseModal();
         })
