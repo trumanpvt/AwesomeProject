@@ -33,7 +33,9 @@ const ModalContainer = observer(() => {
       visible={modal !== null}
       // onRequestClose={() => props.setShowModal(!props.showModal)}
     >
-      <View style={styles.centeredView}>{renderModal()}</View>
+      <View style={styles.centeredView}>
+        <View style={styles.modalWrap}>{renderModal()}</View>
+      </View>
     </Modal>
   );
 });

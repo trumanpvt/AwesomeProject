@@ -6,18 +6,21 @@ export default StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  form: {
+  modalWrap: {
     width: 250,
     borderRadius: 20,
-    padding: 35,
     backgroundColor: 'white',
     shadowColor: '#000',
     shadowOffset: {
-      width: 0,
+      width: 10,
       height: 2,
     },
-    shadowOpacity: 0.25,
+    shadowOpacity: 1,
     shadowRadius: 3.84,
+    elevation: 3,
+  },
+  form: {
+    padding: 35,
   },
   input: {
     width: '100%',
