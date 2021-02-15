@@ -1,5 +1,17 @@
 import React, {useState} from 'react';
-import {Button, Form, Input, Item, Text} from 'native-base';
+import {View} from 'react-native';
+import {
+  Container,
+  Button,
+  Form,
+  Input,
+  Item,
+  Text,
+  Header,
+  Content,
+  Tab,
+  Tabs,
+} from 'native-base';
 
 import {
   checkPasswordProvider,
@@ -108,6 +120,50 @@ const ModalAuth = (props) => {
   const changeSignMode = () => {
     setError(null);
     setIsSignUp(!isSignUp);
+    setIsConfirmCode(false);
+    setPassword('');
+    setConfirmPassword('');
+  };
+
+  const renderChangeModeTabs = () => {
+    return (
+      // <Tabs>
+      //   <Tab heading="Tab1">{/*{renderSignIn()}*/}</Tab>
+      //   <Tab heading="Tab2">{/*{renderSignUp()}*/}</Tab>
+      // </Tabs>
+      // <Container>
+      <Tabs>
+        <Tab heading="Tab1">{/*{renderSignIn()}*/}</Tab>
+        <Tab heading="Tab2">{/*{renderSignUp()}*/}</Tab>
+      </Tabs>
+      // </Container>
+    );
+  };
+
+  const renderConfirmCode = () => {
+    return (
+      <>
+        <Text style={styles.error}>Please confirm with code sent to email</Text>
+        <Item style={styles.input}>
+          <Input
+            textContentType="none"
+            value={confirmCode}
+            onChangeText={setConfirmCode}
+            placeholder="Confirm code"
+            keyboardType="number-pad"
+          />
+        </Item>
+        <Button
+          full
+          rounded
+          danger
+          style={styles.button}
+          disabled={!confirmCode}
+          onPress={handleConfirmSignUp}>
+          <Text style={styles.textStyle}>Send confirm code</Text>
+        </Button>
+      </>
+    );
   };
 
   const renderSignIn = () => {
@@ -137,6 +193,7 @@ const ModalAuth = (props) => {
             placeholder="Password"
           />
         </Item>
+        {isConfirmCode && renderConfirmCode()}
         {error && <Text style={styles.error}>{error}</Text>}
         <Button
           full
@@ -192,31 +249,7 @@ const ModalAuth = (props) => {
             placeholder="Confirm Password"
           />
         </Item>
-        {isConfirmCode && (
-          <>
-            <Text style={styles.error}>
-              Please confirm with code sent to email
-            </Text>
-            <Item style={styles.input}>
-              <Input
-                textContentType="none"
-                value={confirmCode}
-                onChangeText={setConfirmCode}
-                placeholder="Confirm code"
-                keyboardType="number-pad"
-              />
-            </Item>
-            <Button
-              full
-              rounded
-              danger
-              style={styles.button}
-              disabled={!confirmCode}
-              onPress={handleConfirmSignUp}>
-              <Text style={styles.textStyle}>Send confirm code</Text>
-            </Button>
-          </>
-        )}
+        {isConfirmCode && renderConfirmCode()}
         {error && <Text style={styles.error}>{error}</Text>}
         <Button
           full
@@ -232,38 +265,43 @@ const ModalAuth = (props) => {
   };
 
   return (
-    <Form style={styles.form}>
-      <Button full rounded success style={styles.button} onPress={() => {}}>
-        <Text style={styles.textStyle}>Show if user exists</Text>
-      </Button>
-      <Button
-        full
-        rounded
-        success
-        style={styles.button}
-        onPress={() => {
-          console.log(user);
-        }}>
-        <Text style={styles.textStyle}>Show user data</Text>
-      </Button>
-      {isSignUp ? renderSignUp() : renderSignIn()}
-      <Button
-        full
-        rounded
-        primary
-        style={styles.button}
-        onPress={changeSignMode}>
-        <Text style={styles.textStyle}>{isSignUp ? 'Sign In' : 'Sign Up'}</Text>
-      </Button>
-      <Button
-        full
-        rounded
-        danger
-        style={styles.button}
-        onPress={props.setCloseModal}>
-        <Text style={styles.textStyle}>Cancel</Text>
-      </Button>
-    </Form>
+    <>
+      {renderChangeModeTabs()}
+      <Form style={styles.form}>
+        <Button full rounded success style={styles.button} onPress={() => {}}>
+          <Text style={styles.textStyle}>Show if user exists</Text>
+        </Button>
+        <Button
+          full
+          rounded
+          success
+          style={styles.button}
+          onPress={() => {
+            console.log(user);
+          }}>
+          <Text style={styles.textStyle}>Show user data</Text>
+        </Button>
+        {isSignUp ? renderSignUp() : renderSignIn()}
+        <Button
+          full
+          rounded
+          primary
+          style={styles.button}
+          onPress={changeSignMode}>
+          <Text style={styles.textStyle}>
+            {isSignUp ? 'Sign In' : 'Sign Up'}
+          </Text>
+        </Button>
+        <Button
+          full
+          rounded
+          danger
+          style={styles.button}
+          onPress={props.setCloseModal}>
+          <Text style={styles.textStyle}>Cancel</Text>
+        </Button>
+      </Form>
+    </>
   );
 };
 
