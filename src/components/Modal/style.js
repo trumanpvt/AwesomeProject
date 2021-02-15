@@ -18,9 +18,16 @@ export default StyleSheet.create({
     shadowOpacity: 1,
     shadowRadius: 3.84,
     elevation: 3,
+    // padding: 0,
   },
   modalTabs: {
     borderRadius: 20,
+    display: 'flex',
+    flexWrap: 'nowrap',
+    flexDirection: 'row',
+  },
+  buttonTab: {
+    width: '50%',
   },
   form: {
     padding: 35,

@@ -11,6 +11,7 @@ import {
   Content,
   Tab,
   Tabs,
+  Segment,
 } from 'native-base';
 
 import {
@@ -127,16 +128,36 @@ const ModalAuth = (props) => {
 
   const renderChangeModeTabs = () => {
     return (
-      <View style={styles.modalTabs}>
-        <Tabs activeTabStyle={{borderBottomColor: '#fff'}}>
-          <Tab heading={'SignIn'}>{/* <Tab1 /> */}</Tab>
-          <Tab heading={'SignUp'}>{/* <Tab2 /> */}</Tab>
-        </Tabs>
-      </View>
-      // <Tabs>
-      //   <Tab heading="Tab1">{/*{renderSignIn()}*/}</Tab>
-      //   <Tab heading="Tab2">{/*{renderSignUp()}*/}</Tab>
-      // </Tabs>
+      // <View style={styles.modalTabs}>
+      //   <Button
+      //     full
+      //     danger
+      //     style={styles.buttonTab}
+      //     onPress={() => setIsSignUp(false)}>
+      //     <Text style={styles.textStyle}>SignIn</Text>
+      //   </Button>
+      //   <Button
+      //     full
+      //     danger
+      //     style={styles.buttonTab}
+      //     onPress={() => setIsSignUp(true)}>
+      //     <Text style={styles.textStyle}>SignUp</Text>
+      //   </Button>
+      // </View>
+      // <View style={styles.modalTabs}>
+      //   <Tabs activeTabStyle={{borderBottomColor: '#fff'}}>
+      //     <Tab heading={'SignIn'}>{/* <Tab1 /> */}</Tab>
+      //     <Tab heading={'SignUp'}>{/* <Tab2 /> */}</Tab>
+      //   </Tabs>
+      // </View>
+      <Segment>
+        <Button first>
+          <Text>Puppies</Text>
+        </Button>
+        <Button last active>
+          <Text>Cubs</Text>
+        </Button>
+      </Segment>
     );
   };
 
