@@ -127,10 +127,12 @@ const ModalAuth = (props) => {
 
   const renderChangeModeTabs = () => {
     return (
-      <Tabs activeTabStyle={{borderBottomColor: '#fff'}}>
-        <Tab heading={'1'}>{/* <Tab1 /> */}</Tab>
-        <Tab heading={'2'}>{/* <Tab2 /> */}</Tab>
-      </Tabs>
+      <View style={styles.modalTabs}>
+        <Tabs activeTabStyle={{borderBottomColor: '#fff'}}>
+          <Tab heading={'SignIn'}>{/* <Tab1 /> */}</Tab>
+          <Tab heading={'SignUp'}>{/* <Tab2 /> */}</Tab>
+        </Tabs>
+      </View>
       // <Tabs>
       //   <Tab heading="Tab1">{/*{renderSignIn()}*/}</Tab>
       //   <Tab heading="Tab2">{/*{renderSignUp()}*/}</Tab>
@@ -263,38 +265,43 @@ const ModalAuth = (props) => {
   };
 
   return (
-    <Form style={styles.form}>
-      <Button full rounded success style={styles.button} onPress={() => {}}>
-        <Text style={styles.textStyle}>Show if user exists</Text>
-      </Button>
-      <Button
-        full
-        rounded
-        success
-        style={styles.button}
-        onPress={() => {
-          console.log(user);
-        }}>
-        <Text style={styles.textStyle}>Show user data</Text>
-      </Button>
-      {isSignUp ? renderSignUp() : renderSignIn()}
-      <Button
-        full
-        rounded
-        primary
-        style={styles.button}
-        onPress={changeSignMode}>
-        <Text style={styles.textStyle}>{isSignUp ? 'Sign In' : 'Sign Up'}</Text>
-      </Button>
-      <Button
-        full
-        rounded
-        danger
-        style={styles.button}
-        onPress={props.setCloseModal}>
-        <Text style={styles.textStyle}>Cancel</Text>
-      </Button>
-    </Form>
+    <>
+      {renderChangeModeTabs()}
+      <Form style={styles.form}>
+        <Button full rounded success style={styles.button} onPress={() => {}}>
+          <Text style={styles.textStyle}>Show if user exists</Text>
+        </Button>
+        <Button
+          full
+          rounded
+          success
+          style={styles.button}
+          onPress={() => {
+            console.log(user);
+          }}>
+          <Text style={styles.textStyle}>Show user data</Text>
+        </Button>
+        {isSignUp ? renderSignUp() : renderSignIn()}
+        <Button
+          full
+          rounded
+          primary
+          style={styles.button}
+          onPress={changeSignMode}>
+          <Text style={styles.textStyle}>
+            {isSignUp ? 'Sign In' : 'Sign Up'}
+          </Text>
+        </Button>
+        <Button
+          full
+          rounded
+          danger
+          style={styles.button}
+          onPress={props.setCloseModal}>
+          <Text style={styles.textStyle}>Cancel</Text>
+        </Button>
+      </Form>
+    </>
   );
 };
 

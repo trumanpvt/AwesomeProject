@@ -19,6 +19,9 @@ export default StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 3,
   },
+  modalTabs: {
+    borderRadius: 20,
+  },
   form: {
     padding: 35,
   },
