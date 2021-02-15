@@ -22,6 +22,10 @@ export const confirmSignUp = (email, code) => {
   return Auth.confirmSignUp(email, code);
 };
 
+export const getCurrentUserInfo = () => {
+  return Auth.currentUserInfo();
+};
+
 export const linkPasswordAccount = (password) => {
   // const matchedData = auth().currentUser.providerData.find((item) => {
   //   return item.email;

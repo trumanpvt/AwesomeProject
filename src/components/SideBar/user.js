@@ -37,7 +37,7 @@ const User = observer((props) => {
             <Thumbnail small source={{uri: attributes.photoURL}} />
           ) : (
             <Badge style={styles.userPic}>
-              <Text>{attributes.name[0]}</Text>
+              <Text>{attributes.name[0].toUpperCase()}</Text>
             </Badge>
           )}
           <Text style={styles.userName}>{userName}</Text>

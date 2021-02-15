@@ -4,6 +4,7 @@ import {Button, Form, Input, Item, Text} from 'native-base';
 import {
   checkPasswordProvider,
   confirmSignUp,
+  getCurrentUserInfo,
   googleSignIn,
   passwordSignIn,
   signUp,
@@ -13,6 +14,7 @@ import {GoogleSigninButton} from '@react-native-community/google-signin';
 // import {LoginButton, AccessToken, LoginManager} from 'react-native-fbsdk';
 import styles from './style.js';
 import {useStores} from '../../store';
+import {Auth} from 'aws-amplify';
 
 const ModalAuth = (props) => {
   const {user, setUser} = useStores().userStore;
@@ -28,13 +30,17 @@ const ModalAuth = (props) => {
 
   const handlePasswordSignIn = () => {
     passwordSignIn(email, password)
-      .then((user) => {
-        console.log('sign in user', user);
+      .then((result) => {
+        console.log('sign in user', result);
         setError(null);
         setUser(user);
         // props.setCloseModal();
       })
       .catch((err) => {
+        if (err.code === 'UserNotConfirmedException') {
+          setIsConfirmCode(true);
+        }
+        console.log(err);
         setError(err.message);
       });
   };
@@ -43,10 +49,13 @@ const ModalAuth = (props) => {
     if (password === confirmPassword) {
       signUp(email, password, username)
         .then((result) => {
+          console.log('handleSignUp result', result);
+          console.log(
+            'handleSignUp result user',
+            result.user.getUserContextData(),
+          );
           setError(null);
-          setUser(result.user.CognitoUser);
           setIsConfirmCode(true);
-          // props.setCloseModal();
         })
         .catch((err) => {
           setError(err.message);
@@ -59,8 +68,14 @@ const ModalAuth = (props) => {
   const handleConfirmSignUp = () => {
     confirmSignUp(email, confirmCode)
       .then(() => {
-        // setError(null);
-        // setIsConfirmCode(false);
+        getCurrentUserInfo
+          .then((result) => {
+            console.log('Auth.currentUserInfo()', result);
+            setUser(result);
+          })
+          .catch((err) => {
+            setError(err.message);
+          });
         props.setCloseModal();
       })
       .catch((err) => {
