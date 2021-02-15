@@ -127,16 +127,14 @@ const ModalAuth = (props) => {
 
   const renderChangeModeTabs = () => {
     return (
+      <Tabs activeTabStyle={{borderBottomColor: '#fff'}}>
+        <Tab heading={'1'}>{/* <Tab1 /> */}</Tab>
+        <Tab heading={'2'}>{/* <Tab2 /> */}</Tab>
+      </Tabs>
       // <Tabs>
       //   <Tab heading="Tab1">{/*{renderSignIn()}*/}</Tab>
       //   <Tab heading="Tab2">{/*{renderSignUp()}*/}</Tab>
       // </Tabs>
-      // <Container>
-      <Tabs>
-        <Tab heading="Tab1">{/*{renderSignIn()}*/}</Tab>
-        <Tab heading="Tab2">{/*{renderSignUp()}*/}</Tab>
-      </Tabs>
-      // </Container>
     );
   };
 
@@ -266,7 +264,7 @@ const ModalAuth = (props) => {
 
   return (
     <>
-      {renderChangeModeTabs()}
+      <Content>{renderChangeModeTabs()}</Content>
       <Form style={styles.form}>
         <Button full rounded success style={styles.button} onPress={() => {}}>
           <Text style={styles.textStyle}>Show if user exists</Text>
