@@ -9,7 +9,7 @@ import SideBar from './components/SideBar/menu';
 import HomeScreen from './components/HomeScreen';
 import ModalContainer from './components/Modal';
 
-import {withAuthenticator} from 'aws-amplify-react-native';
+// import {withAuthenticator} from 'aws-amplify-react-native';
 
 const Drawer = createDrawerNavigator();
 
@@ -37,5 +37,5 @@ const App = () => {
     </>
   );
 };
-// export default App;
-export default withAuthenticator(App);
+export default App;
+// export default withAuthenticator(App);
