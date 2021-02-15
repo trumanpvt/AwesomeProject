@@ -1,3 +1,4 @@
+import {Auth} from 'aws-amplify';
 import {GoogleSignin, statusCodes} from '@react-native-community/google-signin';
 // import {AccessToken} from 'react-native-fbsdk';
 
@@ -7,8 +8,11 @@ export const passwordSignIn = (email, password) => {
   // return auth().signInWithEmailAndPassword(email, password);
 };
 
-export const signUp = (email, password) => {
+export const signUp = (username, password, email) => {
   // return auth().createUserWithEmailAndPassword(email, password);
+  return Auth.signUp(username, password, {
+    email,
+  });
 };
 
 export const linkPasswordAccount = (password) => {
@@ -61,6 +65,7 @@ export const googleSignIn = async () => {
 
 export const signOut = () => {
   // return auth().signOut();
+  return Auth.signOut();
 };
 
 export const unlinkAccount = (providerId) => {

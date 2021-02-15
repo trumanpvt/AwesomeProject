@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Button, Input, Item, Text} from 'native-base';
+import {Button, Form, Input, Item, Text} from 'native-base';
 
 import {
   googleSignIn,
@@ -10,13 +10,16 @@ import {
 
 import {GoogleSigninButton} from '@react-native-community/google-signin';
 // import {LoginButton, AccessToken, LoginManager} from 'react-native-fbsdk';
+import {Auth} from 'aws-amplify';
 
 import styles from './style.js';
 import {useStores} from '../../store';
+import {View} from 'react-native';
 
-const Auth = (props) => {
+const ModalAuth = (props) => {
   const {user, setUser} = useStores().userStore;
 
+  const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -37,11 +40,12 @@ const Auth = (props) => {
 
   const handleSignUp = () => {
     if (password === confirmPassword) {
-      signUp(email, password)
-        .then((UserCredential) => {
+      signUp(username, password, email)
+        .then((result) => {
+          console.log(result);
           setError(null);
-          setUser(UserCredential.user);
-          props.setCloseModal();
+          // setUser(UserCredential.user);
+          // props.setCloseModal();
         })
         .catch((err) => {
           setError(err.message);
@@ -78,75 +82,113 @@ const Auth = (props) => {
     setIsSignUp(!isSignUp);
   };
 
-  return (
-    <>
-      <Button
-        full
-        rounded
-        success
-        style={styles.button}
-        onPress={() => {
-          // console.log(auth().getUserByEmail('trumanpvt@gmail.com'));
-        }}>
-        <Text style={styles.textStyle}>Show if user exists</Text>
-      </Button>
-      <Button
-        full
-        rounded
-        success
-        style={styles.button}
-        onPress={() => {
-          // console.log(auth().currentUser);
-        }}>
-        <Text style={styles.textStyle}>Show user data</Text>
-      </Button>
-      {!isSignUp && (
+  const renderSignIn = () => {
+    return (
+      <>
         <GoogleSigninButton
           style={styles.googleButton}
           color={GoogleSigninButton.Color.Dark}
           onPress={handleGoogleSignIn}
         />
-      )}
-      <Item style={styles.input}>
-        <Input
-          autoCapitalize="none"
-          textContentType="emailAddress"
-          value={email}
-          onChangeText={setEmail}
-          placeholder="Email"
-          keyboardType="email-address"
-        />
-      </Item>
-      <Item style={styles.input}>
-        <Input
-          textContentType="password"
-          secureTextEntry
-          value={password}
-          onChangeText={setPassword}
-          placeholder="Password"
-        />
-      </Item>
-      {isSignUp && (
+        <Item style={styles.input}>
+          <Input
+            autoCapitalize="none"
+            textContentType="emailAddress"
+            value={email}
+            onChangeText={setEmail}
+            placeholder="Email"
+            keyboardType="email-address"
+          />
+        </Item>
         <Item style={styles.input}>
           <Input
             textContentType="password"
             secureTextEntry
-            value={confirmPassword}
-            onChangeText={setConfirmPassword}
-            placeholder="Confirm Password"
+            value={password}
+            onChangeText={setPassword}
+            placeholder="Password"
           />
         </Item>
-      )}
-      {error && <Text style={styles.error}>{error}</Text>}
-      <Button
-        full
-        rounded
-        success
-        style={styles.button}
-        disabled={!email || !password}
-        onPress={isSignUp ? handleSignUp : handlePasswordSignIn}>
-        <Text style={styles.textStyle}>{isSignUp ? 'Sign Up' : 'Sign In'}</Text>
+        {error && <Text style={styles.error}>{error}</Text>}
+        <Button
+          full
+          rounded
+          success
+          style={styles.button}
+          disabled={!email || !password}
+          onPress={handlePasswordSignIn}>
+          <Text style={styles.textStyle}>Sign In</Text>
+        </Button>
+      </>
+    );
+  };
+
+  const renderSignUp = () => {
+    return (
+      <>
+        <Item style={styles.input}>
+          <Input
+            autoCapitalize="none"
+            textContentType="name"
+            value={username}
+            onChangeText={setUsername}
+            placeholder="Username"
+            keyboardType="default"
+          />
+        </Item>
+        <Item style={styles.input}>
+          <Input
+            autoCapitalize="none"
+            textContentType="emailAddress"
+            value={email}
+            onChangeText={setEmail}
+            placeholder="Email"
+            keyboardType="email-address"
+          />
+        </Item>
+        <Item style={styles.input}>
+          <Input
+            textContentType="password"
+            secureTextEntry
+            value={password}
+            onChangeText={setPassword}
+            placeholder="Password"
+          />
+        </Item>
+        {isSignUp && (
+          <Item style={styles.input}>
+            <Input
+              textContentType="password"
+              secureTextEntry
+              value={confirmPassword}
+              onChangeText={setConfirmPassword}
+              placeholder="Confirm Password"
+            />
+          </Item>
+        )}
+        {error && <Text style={styles.error}>{error}</Text>}
+        <Button
+          full
+          rounded
+          success
+          style={styles.button}
+          disabled={!email || !password}
+          onPress={handleSignUp}>
+          <Text style={styles.textStyle}>Sign Up</Text>
+        </Button>
+      </>
+    );
+  };
+
+  return (
+    <Form style={styles.form}>
+      <Button full rounded success style={styles.button} onPress={() => {}}>
+        <Text style={styles.textStyle}>Show if user exists</Text>
       </Button>
+      <Button full rounded success style={styles.button} onPress={() => {}}>
+        <Text style={styles.textStyle}>Show user data</Text>
+      </Button>
+      {isSignUp ? renderSignUp() : renderSignIn()}
       <Button
         full
         rounded
@@ -163,8 +205,8 @@ const Auth = (props) => {
         onPress={props.setCloseModal}>
         <Text style={styles.textStyle}>Cancel</Text>
       </Button>
-    </>
+    </Form>
   );
 };
 
-export default Auth;
+export default ModalAuth;
