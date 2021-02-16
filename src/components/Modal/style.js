@@ -12,10 +12,10 @@ export default StyleSheet.create({
     backgroundColor: 'white',
     shadowColor: '#000',
     shadowOffset: {
-      width: 10,
+      width: 0,
       height: 2,
     },
-    shadowOpacity: 1,
+    shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 3,
     // padding: 0,
