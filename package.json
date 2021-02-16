@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "android": "react-native run-android --port 8999",
-    "ios": "react-native run-ios --port 8999",
+    "ios": "export RCT_METRO_PORT=9000 react-native run-ios --port 8999",
     "start": "react-native start",
     "startReset": "react-native start --reset-cache",
     "test": "jest",

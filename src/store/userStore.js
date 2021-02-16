@@ -1,7 +1,8 @@
 import {action, makeObservable, observable} from 'mobx';
+import {getCurrentUserInfo} from '../util/auth';
 
 export default class UserStore {
-  user = {};
+  user = getCurrentUserInfo() || {};
 
   constructor() {
     makeObservable(this, {

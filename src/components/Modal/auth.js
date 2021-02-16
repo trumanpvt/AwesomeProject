@@ -51,9 +51,10 @@ const ModalAuth = (props) => {
         .then((result) => {
           console.log('handleSignUp result', result);
           console.log(
-            'handleSignUp result user',
+            'handleSignUp result.user.getUserContextData()',
             result.user.getUserContextData(),
           );
+          // setUser(result.user.getUserContextData());
           setError(null);
           setIsConfirmCode(true);
         })

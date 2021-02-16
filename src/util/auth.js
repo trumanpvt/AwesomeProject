@@ -13,7 +13,7 @@ export const signUp = (email, password, username) => {
     username: email,
     password,
     attributes: {
-      name: username,
+      preferred_username: username,
     },
   });
 };
