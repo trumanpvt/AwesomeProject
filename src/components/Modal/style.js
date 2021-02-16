@@ -20,14 +20,27 @@ export default StyleSheet.create({
     elevation: 3,
     // padding: 0,
   },
+  modalTabsContainer: {
+    // borderRadius: 20,
+    display: 'flex',
+    // flexWrap: 'nowrap',
+    flexDirection: 'row',
+    backgroundColor: 'transparent',
+  },
   modalTabs: {
+    borderRadius: 20,
+    backgroundColor: 'transparent',
+  },
+  modalTab: {
     borderRadius: 20,
     display: 'flex',
     flexWrap: 'nowrap',
     flexDirection: 'row',
+    backgroundColor: 'transparent',
   },
   buttonTab: {
     width: '50%',
+    borderRadius: 50,
   },
   form: {
     padding: 35,

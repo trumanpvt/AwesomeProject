@@ -128,7 +128,7 @@ const ModalAuth = (props) => {
 
   const renderChangeModeTabs = () => {
     return (
-      // <View style={styles.modalTabs}>
+      // <View style={styles.modalTabsContainer}>
       //   <Button
       //     full
       //     danger
@@ -144,20 +144,37 @@ const ModalAuth = (props) => {
       //     <Text style={styles.textStyle}>SignUp</Text>
       //   </Button>
       // </View>
-      // <View style={styles.modalTabs}>
-      //   <Tabs activeTabStyle={{borderBottomColor: '#fff'}}>
-      //     <Tab heading={'SignIn'}>{/* <Tab1 /> */}</Tab>
-      //     <Tab heading={'SignUp'}>{/* <Tab2 /> */}</Tab>
-      //   </Tabs>
-      // </View>
-      <Segment>
-        <Button first>
-          <Text>Puppies</Text>
-        </Button>
-        <Button last active>
-          <Text>Cubs</Text>
-        </Button>
-      </Segment>
+      <View style={styles.modalTabsContainer}>
+        <Tabs
+          onChangeTab={() => setIsSignUp(!isSignUp)}
+          initialPage={0}
+          style={styles.modalTabs}>
+          <Tab
+            style={styles.modalTab}
+            heading={'SignIn'}
+            tabStyle={{
+              borderRadius: 20,
+            }}
+            disabled={!isSignUp}
+          />
+          <Tab
+            heading={'SignUp'}
+            style={styles.modalTab}
+            tabStyle={{
+              borderRadius: 20,
+            }}
+            disabled={isSignUp}
+          />
+        </Tabs>
+      </View>
+      // <Segment>
+      //   <Button first>
+      //     <Text>Puppies</Text>
+      //   </Button>
+      //   <Button last active>
+      //     <Text>Cubs</Text>
+      //   </Button>
+      // </Segment>
     );
   };
 
