@@ -1,18 +1,6 @@
 import React, {useState} from 'react';
 import {View} from 'react-native';
-import {
-  Container,
-  Button,
-  Form,
-  Input,
-  Item,
-  Text,
-  Header,
-  Content,
-  Tab,
-  Tabs,
-  Segment,
-} from 'native-base';
+import {Button, Form, Input, Item, Tab, Tabs, Text} from 'native-base';
 
 import {
   checkPasswordProvider,
@@ -27,7 +15,6 @@ import {GoogleSigninButton} from '@react-native-community/google-signin';
 // import {LoginButton, AccessToken, LoginManager} from 'react-native-fbsdk';
 import styles from './style.js';
 import {useStores} from '../../store';
-import {Auth} from 'aws-amplify';
 
 const ModalAuth = (props) => {
   const {user, setUser} = useStores().userStore;
@@ -128,53 +115,25 @@ const ModalAuth = (props) => {
 
   const renderChangeModeTabs = () => {
     return (
-      // <View style={styles.modalTabsContainer}>
-      //   <Button
-      //     full
-      //     danger
-      //     style={styles.buttonTab}
-      //     onPress={() => setIsSignUp(false)}>
-      //     <Text style={styles.textStyle}>SignIn</Text>
-      //   </Button>
-      //   <Button
-      //     full
-      //     danger
-      //     style={styles.buttonTab}
-      //     onPress={() => setIsSignUp(true)}>
-      //     <Text style={styles.textStyle}>SignUp</Text>
-      //   </Button>
-      // </View>
       <View style={styles.modalTabsContainer}>
         <Tabs
-          onChangeTab={() => setIsSignUp(!isSignUp)}
-          initialPage={0}
-          style={styles.modalTabs}>
+          scrollWithoutAnimation
+          tabContainerStyle={styles.modalTabs}
+          onChangeTab={() => setIsSignUp(!isSignUp)}>
           <Tab
-            style={styles.modalTab}
+            tabStyle={styles.modalTab}
+            activeTabStyle={styles.modalTab}
             heading={'SignIn'}
-            tabStyle={{
-              borderRadius: 20,
-            }}
             disabled={!isSignUp}
           />
           <Tab
+            tabStyle={styles.modalTab}
+            activeTabStyle={styles.modalTab}
             heading={'SignUp'}
-            style={styles.modalTab}
-            tabStyle={{
-              borderRadius: 20,
-            }}
             disabled={isSignUp}
           />
         </Tabs>
       </View>
-      // <Segment>
-      //   <Button first>
-      //     <Text>Puppies</Text>
-      //   </Button>
-      //   <Button last active>
-      //     <Text>Cubs</Text>
-      //   </Button>
-      // </Segment>
     );
   };
 
