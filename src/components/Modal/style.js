@@ -18,23 +18,17 @@ export default StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 3,
-    // padding: 0,
   },
   modalTabsContainer: {
     borderRadius: 20,
     display: 'flex',
-    // flexWrap: 'nowrap',
     flexDirection: 'row',
-    // backgroundColor: 'transparent',
   },
   modalTabs: {
-    // borderRadius: 20,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
-    // backgroundColor: 'transparent',
   },
   modalTab: {
-    // borderRadius: 20,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
   },

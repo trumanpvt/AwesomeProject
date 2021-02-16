@@ -265,30 +265,7 @@ const ModalAuth = (props) => {
     <>
       {renderChangeModeTabs()}
       <Form style={styles.form}>
-        <Button full rounded success style={styles.button} onPress={() => {}}>
-          <Text style={styles.textStyle}>Show if user exists</Text>
-        </Button>
-        <Button
-          full
-          rounded
-          success
-          style={styles.button}
-          onPress={() => {
-            console.log(user);
-          }}>
-          <Text style={styles.textStyle}>Show user data</Text>
-        </Button>
         {isSignUp ? renderSignUp() : renderSignIn()}
-        <Button
-          full
-          rounded
-          primary
-          style={styles.button}
-          onPress={changeSignMode}>
-          <Text style={styles.textStyle}>
-            {isSignUp ? 'Sign In' : 'Sign Up'}
-          </Text>
-        </Button>
         <Button
           full
           rounded
