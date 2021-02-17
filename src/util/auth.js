@@ -30,6 +30,10 @@ export const getCurrentUserInfo = () => {
   return Auth.currentAuthenticatedUser();
 };
 
+export const socialSignIn = (provider) => {
+  return Auth.federatedSignIn({provider});
+};
+
 export const googleSignIn = async () => {
   GoogleSignin.configure({
     webClientId,

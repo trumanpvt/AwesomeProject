@@ -10,6 +10,7 @@ import {
   passwordSignIn,
   resendConfirmationCode,
   signUp,
+  socialSignIn,
 } from '../../util/auth';
 
 import {GoogleSigninButton} from '@react-native-community/google-signin';
@@ -75,6 +76,17 @@ const ModalAuth = (props) => {
       })
       .catch((err) => {
         setError(err.message);
+      });
+  };
+
+  const handleSocialSignIn = (provider) => {
+    socialSignIn(provider)
+      .then((res) => {
+        // handlePasswordSignIn(email, password);
+        console.log('socialSignIn res', res);
+      })
+      .catch((err) => {
+        console.log('socialSignIn err', err);
       });
   };
 
@@ -166,6 +178,14 @@ const ModalAuth = (props) => {
           color={GoogleSigninButton.Color.Dark}
           onPress={handleGoogleSignIn}
         />
+        <Button
+          full
+          rounded
+          // danger
+          style={styles.button}
+          onPress={() => handleSocialSignIn('Google')}>
+          <Text style={styles.textStyle}>Google</Text>
+        </Button>
         <Item style={styles.input}>
           <Input
             autoCapitalize="none"
