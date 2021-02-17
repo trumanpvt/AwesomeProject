@@ -26,7 +26,7 @@ export const resendConfirmationCode = (email) => {
   return Auth.resendSignUp(email);
 };
 
-export const getCurrentUserInfo = () => {
+export const getCurrentAuthenticatedUserInfo = () => {
   return Auth.currentAuthenticatedUser();
 };
 

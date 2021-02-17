@@ -1,11 +1,11 @@
 import {action, makeObservable, observable} from 'mobx';
-import {getCurrentUserInfo} from '../util/auth';
+import {getCurrentAuthenticatedUserInfo} from '../util/auth';
 
 export default class UserStore {
   user = {};
 
   constructor() {
-    getCurrentUserInfo()
+    getCurrentAuthenticatedUserInfo()
       .then((result) => {
         console.log('Auth.currentAuthenticatedUser()', result);
         this.setUser(result);

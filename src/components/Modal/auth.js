@@ -5,6 +5,7 @@ import {Button, Form, Input, Item, Tab, Tabs, Text} from 'native-base';
 import {
   checkPasswordProvider,
   confirmSignUp,
+  getCurrentAuthenticatedUserInfo,
   getCurrentUserInfo,
   googleSignIn,
   passwordSignIn,
@@ -84,33 +85,49 @@ const ModalAuth = (props) => {
       .then((res) => {
         // handlePasswordSignIn(email, password);
         console.log('socialSignIn res', res);
+        getCurrentAuthenticatedUserInfo()
+          .then((res) => {
+            console.log(
+              'handleSocialSignIn getCurrentAuthenticatedUserInfo',
+              res,
+            );
+            setUser(res);
+          })
+          .catch((err) => {
+            console.log(
+              'handleSocialSignIn getCurrentAuthenticatedUserInfo err',
+              err,
+            );
+            setError(err.message);
+          });
       })
       .catch((err) => {
         console.log('socialSignIn err', err);
+        setError(err.message);
       });
   };
 
-  const handleGoogleSignIn = async () => {
-    googleSignIn()
-      .then((UserCredential) => {
-        console.log('UserCredential', UserCredential);
-        setError(null);
-        setUser(UserCredential.user);
-        checkIsPasswordUserExists(UserCredential.user);
-      })
-      .catch((err) => {
-        console.log('handleGoogleSignIn error', err);
-        setError(err.message || err);
-      });
-  };
+  // const handleGoogleSignIn = async () => {
+  //   googleSignIn()
+  //     .then((UserCredential) => {
+  //       console.log('UserCredential', UserCredential);
+  //       setError(null);
+  //       setUser(UserCredential.user);
+  //       checkIsPasswordUserExists(UserCredential.user);
+  //     })
+  //     .catch((err) => {
+  //       console.log('handleGoogleSignIn error', err);
+  //       setError(err.message || err);
+  //     });
+  // };
 
-  const checkIsPasswordUserExists = () => {
-    if (checkPasswordProvider()) {
-      props.setCloseModal();
-    } else {
-      props.setModal('createPassword');
-    }
-  };
+  // const checkIsPasswordUserExists = () => {
+  //   if (checkPasswordProvider()) {
+  //     props.setCloseModal();
+  //   } else {
+  //     props.setModal('createPassword');
+  //   }
+  // };
 
   const changeSignMode = () => {
     setError(null);
@@ -173,11 +190,11 @@ const ModalAuth = (props) => {
   const renderSignIn = () => {
     return (
       <>
-        <GoogleSigninButton
-          style={styles.googleButton}
-          color={GoogleSigninButton.Color.Dark}
-          onPress={handleGoogleSignIn}
-        />
+        {/*<GoogleSigninButton*/}
+        {/*  style={styles.googleButton}*/}
+        {/*  color={GoogleSigninButton.Color.Dark}*/}
+        {/*  onPress={handleGoogleSignIn}*/}
+        {/*/>*/}
         <Button
           full
           rounded
