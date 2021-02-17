@@ -25,7 +25,6 @@ const User = observer((props) => {
   };
 
   const renderUser = () => {
-    console.log('renderUser', user);
     const attributes = user.attributes;
     const userName = attributes.name || attributes.email;
 
@@ -47,7 +46,6 @@ const User = observer((props) => {
     );
   };
 
-  console.log('before render user', user);
   return (
     <View style={styles.userContent}>
       {!Object.keys(user).length ? (
@@ -62,9 +60,6 @@ const User = observer((props) => {
           </Button>
         </>
       )}
-      {/*{showModal && (*/}
-      {/*  <ModalAuth navigation={props.navigation} setShowModal={setShowModal} />*/}
-      {/*)}*/}
     </View>
   );
 });
