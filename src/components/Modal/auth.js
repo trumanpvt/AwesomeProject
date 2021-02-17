@@ -1,19 +1,16 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
+import {Hub} from 'aws-amplify';
 import {View} from 'react-native';
 import {Button, Form, Input, Item, Tab, Tabs, Text} from 'native-base';
 
 import {
-  checkPasswordProvider,
   confirmSignUp,
   getCurrentAuthenticatedUserInfo,
-  googleSignIn,
   passwordSignIn,
   resendConfirmationCode,
   signUp,
   socialSignIn,
 } from '../../util/auth';
-
-import {GoogleSigninButton} from '@react-native-community/google-signin';
 // import {LoginButton, AccessToken, LoginManager} from 'react-native-fbsdk';
 import styles from './style.js';
 import {useStores} from '../../store';
@@ -29,6 +26,21 @@ const ModalAuth = (props) => {
   const [error, setError] = useState(null);
   const [isConfirmCode, setIsConfirmCode] = useState(false);
   const [confirmCode, setConfirmCode] = useState(false);
+
+  useEffect(() => {
+    Hub.listen('auth', ({payload: {event, data}}) => {
+      switch (event) {
+        case 'signIn':
+          this.setState({user: data});
+          break;
+        case 'signOut':
+          this.setState({user: null});
+          break;
+        case 'customOAuthState':
+          this.setState({customState: data});
+      }
+    });
+  }, []);
 
   const handlePasswordSignIn = () => {
     passwordSignIn(email, password)
