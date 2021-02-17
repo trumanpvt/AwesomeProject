@@ -17,7 +17,7 @@ const User = observer((props) => {
     signOut()
       .then(() => {
         props.navigation.navigate('HomeScreen');
-        setUser({});
+        // setUser({});
       })
       .catch((error) => {
         console.log(error);

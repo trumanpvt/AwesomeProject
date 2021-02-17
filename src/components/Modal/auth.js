@@ -1,5 +1,4 @@
-import React, {useState, useEffect} from 'react';
-import {Hub} from 'aws-amplify';
+import React, {useState} from 'react';
 import {View} from 'react-native';
 import {Button, Form, Input, Item, Tab, Tabs, Text} from 'native-base';
 
@@ -13,11 +12,8 @@ import {
 } from '../../util/auth';
 // import {LoginButton, AccessToken, LoginManager} from 'react-native-fbsdk';
 import styles from './style.js';
-import {useStores} from '../../store';
 
 const ModalAuth = (props) => {
-  const {user, setUser} = useStores().userStore;
-
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -27,28 +23,10 @@ const ModalAuth = (props) => {
   const [isConfirmCode, setIsConfirmCode] = useState(false);
   const [confirmCode, setConfirmCode] = useState(false);
 
-  // useEffect(() => {
-  //   Hub.listen('auth', ({payload: {event, data}}) => {
-  //     switch (event) {
-  //       case 'signIn':
-  //         this.setState({user: data});
-  //         break;
-  //       case 'signOut':
-  //         this.setState({user: null});
-  //         break;
-  //       case 'customOAuthState':
-  //         this.setState({customState: data});
-  //     }
-  //   });
-  // }, []);
-
   const handlePasswordSignIn = () => {
     passwordSignIn(email, password)
       .then((result) => {
-        console.log('sign in user', result);
         setError(null);
-        setUser(result);
-        props.setCloseModal();
       })
       .catch((err) => {
         if (err.code === 'UserNotConfirmedException') {
@@ -92,29 +70,10 @@ const ModalAuth = (props) => {
   };
 
   const handleSocialSignIn = (provider) => {
-    socialSignIn(provider)
-      .then(() => {
-        console.log('socialSignIn success');
-        getCurrentAuthenticatedUserInfo()
-          .then((res) => {
-            console.log(
-              'handleSocialSignIn getCurrentAuthenticatedUserInfo',
-              res,
-            );
-            setUser(res);
-          })
-          .catch((err) => {
-            console.log(
-              'handleSocialSignIn getCurrentAuthenticatedUserInfo err',
-              err,
-            );
-            setError(err.message);
-          });
-      })
-      .catch((err) => {
-        console.log('socialSignIn err', err);
-        setError(err.message);
-      });
+    socialSignIn(provider).catch((err) => {
+      console.log('socialSignIn err', err);
+      setError(err.message);
+    });
   };
 
   const getUserInfo = () => {
@@ -126,28 +85,6 @@ const ModalAuth = (props) => {
         console.log('Auth.currentAuthenticatedUser() error', e);
       });
   };
-
-  // const handleGoogleSignIn = async () => {
-  //   googleSignIn()
-  //     .then((UserCredential) => {
-  //       console.log('UserCredential', UserCredential);
-  //       setError(null);
-  //       setUser(UserCredential.user);
-  //       checkIsPasswordUserExists(UserCredential.user);
-  //     })
-  //     .catch((err) => {
-  //       console.log('handleGoogleSignIn error', err);
-  //       setError(err.message || err);
-  //     });
-  // };
-
-  // const checkIsPasswordUserExists = () => {
-  //   if (checkPasswordProvider()) {
-  //     props.setCloseModal();
-  //   } else {
-  //     props.setModal('createPassword');
-  //   }
-  // };
 
   const changeSignMode = () => {
     setError(null);
