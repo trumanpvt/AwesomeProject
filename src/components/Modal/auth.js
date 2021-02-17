@@ -27,20 +27,20 @@ const ModalAuth = (props) => {
   const [isConfirmCode, setIsConfirmCode] = useState(false);
   const [confirmCode, setConfirmCode] = useState(false);
 
-  useEffect(() => {
-    Hub.listen('auth', ({payload: {event, data}}) => {
-      switch (event) {
-        case 'signIn':
-          this.setState({user: data});
-          break;
-        case 'signOut':
-          this.setState({user: null});
-          break;
-        case 'customOAuthState':
-          this.setState({customState: data});
-      }
-    });
-  }, []);
+  // useEffect(() => {
+  //   Hub.listen('auth', ({payload: {event, data}}) => {
+  //     switch (event) {
+  //       case 'signIn':
+  //         this.setState({user: data});
+  //         break;
+  //       case 'signOut':
+  //         this.setState({user: null});
+  //         break;
+  //       case 'customOAuthState':
+  //         this.setState({customState: data});
+  //     }
+  //   });
+  // }, []);
 
   const handlePasswordSignIn = () => {
     passwordSignIn(email, password)
@@ -93,9 +93,8 @@ const ModalAuth = (props) => {
 
   const handleSocialSignIn = (provider) => {
     socialSignIn(provider)
-      .then((res) => {
-        // handlePasswordSignIn(email, password);
-        console.log('socialSignIn res', res);
+      .then(() => {
+        console.log('socialSignIn success');
         getCurrentAuthenticatedUserInfo()
           .then((res) => {
             console.log(
