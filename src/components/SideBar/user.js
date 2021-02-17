@@ -25,8 +25,9 @@ const User = observer((props) => {
   };
 
   const renderUser = () => {
+    console.log('renderUser', user);
     const attributes = user.attributes;
-    const userName = attributes.name ? attributes.name : attributes.email;
+    const userName = attributes.name || attributes.email;
 
     return (
       <View style={styles.userInfo}>
@@ -37,7 +38,7 @@ const User = observer((props) => {
             <Thumbnail small source={{uri: attributes.photoURL}} />
           ) : (
             <Badge style={styles.userPic}>
-              <Text>{attributes.name[0].toUpperCase()}</Text>
+              <Text>{userName[0].toUpperCase()}</Text>
             </Badge>
           )}
           <Text style={styles.userName}>{userName}</Text>
@@ -46,6 +47,7 @@ const User = observer((props) => {
     );
   };
 
+  console.log('before render user', user);
   return (
     <View style={styles.userContent}>
       {!Object.keys(user).length ? (

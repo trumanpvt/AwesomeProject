@@ -22,27 +22,12 @@ export const confirmSignUp = (email, code) => {
   return Auth.confirmSignUp(email, code);
 };
 
+export const resendConfirmationCode = (email) => {
+  return Auth.resendSignUp(email);
+};
+
 export const getCurrentUserInfo = () => {
-  return Auth.currentUserInfo();
-};
-
-export const linkPasswordAccount = (password) => {
-  // const matchedData = auth().currentUser.providerData.find((item) => {
-  //   return item.email;
-  // });
-  //
-  // const credential = auth.EmailAuthProvider.credential(
-  //   matchedData.email,
-  //   password,
-  // );
-  //
-  // return auth().currentUser.linkWithCredential(credential);
-};
-
-export const checkPasswordProvider = () => {
-  // return auth().currentUser.providerData.find((item) => {
-  //   return item.providerId === 'password';
-  // });
+  return Auth.currentAuthenticatedUser();
 };
 
 export const googleSignIn = async () => {
@@ -75,10 +60,5 @@ export const googleSignIn = async () => {
 };
 
 export const signOut = () => {
-  // return auth().signOut();
   return Auth.signOut();
-};
-
-export const unlinkAccount = (providerId) => {
-  // return auth().currentUser.unlink(providerId);
 };

@@ -8,6 +8,7 @@ import {
   getCurrentUserInfo,
   googleSignIn,
   passwordSignIn,
+  resendConfirmationCode,
   signUp,
 } from '../../util/auth';
 
@@ -33,11 +34,18 @@ const ModalAuth = (props) => {
       .then((result) => {
         console.log('sign in user', result);
         setError(null);
-        setUser(user);
-        // props.setCloseModal();
+        setUser(result);
+        props.setCloseModal();
       })
       .catch((err) => {
         if (err.code === 'UserNotConfirmedException') {
+          resendConfirmationCode(email)
+            .then((res) => {
+              console.log('resendConfirmationCode', res);
+            })
+            .catch((err) => {
+              setError(err.message);
+            });
           setIsConfirmCode(true);
         }
         console.log(err);
@@ -48,13 +56,7 @@ const ModalAuth = (props) => {
   const handleSignUp = () => {
     if (password === confirmPassword) {
       signUp(email, password, username)
-        .then((result) => {
-          console.log('handleSignUp result', result);
-          console.log(
-            'handleSignUp result.user.getUserContextData()',
-            result.user.getUserContextData(),
-          );
-          // setUser(result.user.getUserContextData());
+        .then(() => {
           setError(null);
           setIsConfirmCode(true);
         })
@@ -69,15 +71,7 @@ const ModalAuth = (props) => {
   const handleConfirmSignUp = () => {
     confirmSignUp(email, confirmCode)
       .then(() => {
-        getCurrentUserInfo
-          .then((result) => {
-            console.log('Auth.currentUserInfo()', result);
-            setUser(result);
-          })
-          .catch((err) => {
-            setError(err.message);
-          });
-        props.setCloseModal();
+        handlePasswordSignIn(email, password);
       })
       .catch((err) => {
         setError(err.message);
@@ -120,12 +114,12 @@ const ModalAuth = (props) => {
         <Tabs
           scrollWithoutAnimation
           tabContainerStyle={styles.modalTabs}
-          onChangeTab={() => setIsSignUp(!isSignUp)}>
+          onChangeTab={changeSignMode}>
           <Tab
             tabStyle={styles.modalTab}
-            activeTabStyle={styles.modalTab}
             heading={'SignIn'}
             disabled={!isSignUp}
+            activeTabStyle={styles.modalTab}
           />
           <Tab
             tabStyle={styles.modalTab}
