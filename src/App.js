@@ -10,7 +10,7 @@ import HomeScreen from './components/HomeScreen';
 import ModalContainer from './components/Modal';
 import {Hub} from 'aws-amplify';
 import {useStores} from './store';
-import {getCurrentAuthenticatedUserInfo} from './util/auth';
+import {getCurrentAuthenticatedUser} from './util/auth';
 
 const Drawer = createDrawerNavigator();
 
@@ -23,7 +23,7 @@ const App = () => {
     Hub.listen('auth', ({payload: {event, data}}) => {
       switch (event) {
         case 'signIn':
-          getCurrentAuthenticatedUserInfo()
+          getCurrentAuthenticatedUser()
             .then((user) => {
               setUser(user);
               setCloseModal();
@@ -39,6 +39,14 @@ const App = () => {
           console.log('customOAuthState');
       }
     });
+
+    getCurrentAuthenticatedUser()
+      .then((result) => {
+        setUser(result);
+      })
+      .catch((e) => {
+        console.log('Auth.currentAuthenticatedUser() error', e);
+      });
   }, [setCloseModal, setUser]);
 
   return (

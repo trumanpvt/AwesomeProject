@@ -4,7 +4,7 @@ import {Button, Form, Input, Item, Tab, Tabs, Text} from 'native-base';
 
 import {
   confirmSignUp,
-  getCurrentAuthenticatedUserInfo,
+  getCurrentAuthenticatedUser,
   passwordSignIn,
   resendConfirmationCode,
   signUp,
@@ -30,13 +30,12 @@ const ModalAuth = (props) => {
       })
       .catch((err) => {
         if (err.code === 'UserNotConfirmedException') {
-          resendConfirmationCode(email)
-            .then((res) => {
-              console.log('resendConfirmationCode', res);
-            })
-            .catch((err) => {
-              setError(err.message);
-            });
+          resendConfirmationCode(email).then((res) => {
+            console.log('resendConfirmationCode', res);
+          });
+          // .catch((e) => {
+          //   setError(e.message);
+          // });
           setIsConfirmCode(true);
         }
         console.log(err);
@@ -77,7 +76,7 @@ const ModalAuth = (props) => {
   };
 
   const getUserInfo = () => {
-    getCurrentAuthenticatedUserInfo()
+    getCurrentAuthenticatedUser()
       .then((result) => {
         console.log('Auth.currentAuthenticatedUser()', result);
       })
