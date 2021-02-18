@@ -28,12 +28,13 @@ const ModalAuth = (props) => {
       })
       .catch((err) => {
         if (err.code === 'UserNotConfirmedException') {
-          resendConfirmationCode(email).then((res) => {
-            console.log('resendConfirmationCode', res);
-          });
-          // .catch((e) => {
-          //   setError(e.message);
-          // });
+          resendConfirmationCode(email)
+            .then((res) => {
+              console.log('resendConfirmationCode', res);
+            })
+            .catch((e) => {
+              setError(e.message);
+            });
           setIsConfirmCode(true);
         }
         console.log(err);
@@ -58,8 +59,19 @@ const ModalAuth = (props) => {
 
   const handleConfirmSignUp = () => {
     confirmSignUp(email, confirmCode)
+      .then((res) => {
+        console.log('user confirmed', res);
+        // handlePasswordSignIn();
+        return passwordSignIn(email, password);
+        // .then(() => {
+        //   setError(null);
+        // })
+        // .catch((err) => {
+        //   setError(err.message);
+        // });
+      })
       .then(() => {
-        handlePasswordSignIn(email, password);
+        setError(null);
       })
       .catch((err) => {
         setError(err.message);
