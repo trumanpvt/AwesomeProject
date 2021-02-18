@@ -9,7 +9,6 @@ import {
   signUp,
   socialSignIn,
 } from '../../util/auth';
-// import {LoginButton, AccessToken, LoginManager} from 'react-native-fbsdk';
 import styles from './style.js';
 
 const ModalAuth = (props) => {
@@ -135,15 +134,9 @@ const ModalAuth = (props) => {
   const renderSignIn = () => {
     return (
       <>
-        {/*<GoogleSigninButton*/}
-        {/*  style={styles.googleButton}*/}
-        {/*  color={GoogleSigninButton.Color.Dark}*/}
-        {/*  onPress={handleGoogleSignIn}*/}
-        {/*/>*/}
         <Button
           full
           rounded
-          // danger
           style={styles.button}
           onPress={() => handleSocialSignIn('Google')}>
           <Text style={styles.textStyle}>Google</Text>

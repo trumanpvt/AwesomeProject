@@ -11,7 +11,6 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@react-native-community/google-signin": "^5.0.0",
     "@react-native-community/masked-view": "^0.1.10",
     "@react-native-community/netinfo": "^5.9.10",
     "@react-navigation/drawer": "^5.12.3",
@@ -26,7 +25,6 @@
     "prop-types": "^15.7.2",
     "react": "16.13.1",
     "react-native": "0.63.4",
-    "react-native-fbsdk": "^3.0.0",
     "react-native-gesture-handler": "^1.9.0",
     "react-native-image-picker": "^3.1.4",
     "react-native-image-resizer": "^1.4.2",

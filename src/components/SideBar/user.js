@@ -11,13 +11,12 @@ const User = observer((props) => {
   const {modalStore, userStore} = useStores();
   const {setModal} = modalStore;
 
-  const {user, setUser} = userStore;
+  const {user} = userStore;
 
   const handleSignOut = () => {
     signOut()
       .then(() => {
         props.navigation.navigate('HomeScreen');
-        // setUser({});
       })
       .catch((error) => {
         console.log(error);

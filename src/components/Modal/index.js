@@ -1,7 +1,6 @@
 import React from 'react';
 import {Modal, View} from 'react-native';
 import styles from './style';
-import {Form} from 'native-base';
 import CreatePassword from './createPassword';
 import ModalAuth from './auth';
 import {observer} from 'mobx-react-lite';
@@ -27,12 +26,7 @@ const ModalContainer = observer(() => {
   };
 
   return (
-    <Modal
-      animationType="fade"
-      transparent={true}
-      visible={modal !== null}
-      // onRequestClose={() => props.setShowModal(!props.showModal)}
-    >
+    <Modal animationType="fade" transparent={true} visible={modal !== null}>
       <View style={styles.centeredView}>
         <View style={styles.modalWrap}>{renderModal()}</View>
       </View>

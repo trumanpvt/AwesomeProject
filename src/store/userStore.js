@@ -1,5 +1,4 @@
 import {action, makeObservable, observable} from 'mobx';
-import {getCurrentAuthenticatedUser} from '../util/auth';
 
 export default class UserStore {
   user = {};
