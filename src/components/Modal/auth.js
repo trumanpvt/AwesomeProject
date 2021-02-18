@@ -4,7 +4,6 @@ import {Button, Form, Input, Item, Tab, Tabs, Text} from 'native-base';
 
 import {
   confirmSignUp,
-  getCurrentAuthenticatedUser,
   passwordSignIn,
   resendConfirmationCode,
   signUp,
@@ -25,7 +24,7 @@ const ModalAuth = (props) => {
 
   const handlePasswordSignIn = () => {
     passwordSignIn(email, password)
-      .then((result) => {
+      .then(() => {
         setError(null);
       })
       .catch((err) => {
@@ -73,16 +72,6 @@ const ModalAuth = (props) => {
       console.log('socialSignIn err', err);
       setError(err.message);
     });
-  };
-
-  const getUserInfo = () => {
-    getCurrentAuthenticatedUser()
-      .then((result) => {
-        console.log('Auth.currentAuthenticatedUser()', result);
-      })
-      .catch((e) => {
-        console.log('Auth.currentAuthenticatedUser() error', e);
-      });
   };
 
   const changeSignMode = () => {
@@ -261,14 +250,6 @@ const ModalAuth = (props) => {
           style={styles.button}
           onPress={props.setCloseModal}>
           <Text style={styles.textStyle}>Cancel</Text>
-        </Button>
-        <Button
-          full
-          rounded
-          success
-          style={styles.button}
-          onPress={getUserInfo}>
-          <Text style={styles.textStyle}>getUserInfo</Text>
         </Button>
       </Form>
     </>
