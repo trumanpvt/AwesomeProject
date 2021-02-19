@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {View} from 'react-native';
 import {Button, Form, Input, Item, Tab, Tabs, Text} from 'native-base';
+import {SocialIcon} from 'react-native-elements';
 
 import {
   confirmSignUp,
@@ -152,20 +153,20 @@ const ModalAuth = (props) => {
   const renderSignIn = () => {
     return (
       <>
-        <Button
-          full
-          rounded
-          style={styles.button}
-          onPress={() => handleSocialSignIn('Facebook')}>
-          <Text style={styles.textStyle}>Facebook</Text>
-        </Button>
-        <Button
-          full
-          rounded
-          style={styles.button}
-          onPress={() => handleSocialSignIn('Google')}>
-          <Text style={styles.textStyle}>Google</Text>
-        </Button>
+        <SocialIcon
+          title="Google"
+          button
+          type="google"
+          // light
+          onPress={() => handleSocialSignIn('Google')}
+        />
+        <SocialIcon
+          title="Facebook"
+          button
+          type="facebook"
+          // light
+          onPress={() => handleSocialSignIn('Facebook')}
+        />
         <Item style={styles.input}>
           <Input
             autoCapitalize="none"
@@ -178,6 +179,7 @@ const ModalAuth = (props) => {
         </Item>
         <Item style={styles.input} key={'signInPassword'}>
           <Input
+            autoCapitalize="none"
             textContentType="password"
             secureTextEntry
             value={password}
@@ -225,6 +227,7 @@ const ModalAuth = (props) => {
         </Item>
         <Item style={styles.input} key={'signUpPassword'}>
           <Input
+            autoCapitalize="none"
             textContentType="password"
             secureTextEntry
             value={password}
@@ -234,6 +237,7 @@ const ModalAuth = (props) => {
         </Item>
         <Item style={styles.input}>
           <Input
+            autoCapitalize="none"
             textContentType="password"
             secureTextEntry
             value={confirmPassword}
