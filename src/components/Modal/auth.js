@@ -34,9 +34,10 @@ const ModalAuth = (props) => {
         if (err.code === 'UserNotConfirmedException') {
           handleResendConfirmCode();
           setIsConfirmCode(true);
+        } else {
+          console.log('passwordSignIn error', err);
+          setError(err.message);
         }
-        console.log(err);
-        setError(err.message);
       });
   };
 
@@ -198,7 +199,7 @@ const ModalAuth = (props) => {
           rounded
           success
           style={styles.button}
-          disabled={!email || !password}
+          disabled={!email || !password || isConfirmCode}
           onPress={handlePasswordSignIn}>
           <Text style={styles.textStyle}>Sign In</Text>
         </Button>
