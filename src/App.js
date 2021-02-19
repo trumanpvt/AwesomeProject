@@ -34,6 +34,7 @@ const App = () => {
             });
           break;
         case 'signOut':
+          console.log('signOut fired');
           setUser({});
           break;
         case 'customOAuthState':

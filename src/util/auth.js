@@ -49,7 +49,8 @@ export const urlOpener = async (url, redirectUrl) => {
   });
 
   if (type === 'success') {
-    Linking.openURL(newUrl).catch((e) => {
+    const splitUrl = `myapp://?${newUrl.split('#_=_')[0].split('?')[1] || ''}`;
+    Linking.openURL(splitUrl).catch((e) => {
       console.log('Linking.openURL error', e);
     });
   }
