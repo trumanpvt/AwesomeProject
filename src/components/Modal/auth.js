@@ -150,6 +150,13 @@ const ModalAuth = (props) => {
           full
           rounded
           style={styles.button}
+          onPress={() => handleSocialSignIn('Facebook')}>
+          <Text style={styles.textStyle}>Facebook</Text>
+        </Button>
+        <Button
+          full
+          rounded
+          style={styles.button}
           onPress={() => handleSocialSignIn('Google')}>
           <Text style={styles.textStyle}>Google</Text>
         </Button>

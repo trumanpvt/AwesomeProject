@@ -63,10 +63,6 @@ const ProfileScreen = observer(() => {
       });
   };
 
-  // const formatPhone = (value) => {
-  //   setPhoneNumber(value);
-  // };
-  //
   // const isPasswordProvider = () => {
   //   return user.providerData.some((item) => item.providerId === 'password');
   // };

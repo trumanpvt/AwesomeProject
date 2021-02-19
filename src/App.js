@@ -23,6 +23,7 @@ const App = () => {
     Hub.listen('auth', ({payload: {event, data}}) => {
       switch (event) {
         case 'signIn':
+          console.log('signIn fired');
           getCurrentAuthenticatedUser()
             .then((user) => {
               setUser(user);
