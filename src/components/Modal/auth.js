@@ -19,7 +19,7 @@ const ModalAuth = (props) => {
   const [isSignUp, setIsSignUp] = useState(false);
   const [error, setError] = useState(null);
   const [isConfirmCode, setIsConfirmCode] = useState(false);
-  const [confirmCode, setConfirmCode] = useState(false);
+  const [confirmCode, setConfirmCode] = useState('');
 
   useEffect(() => {
     setIsConfirmCode(false);
@@ -32,13 +32,7 @@ const ModalAuth = (props) => {
       })
       .catch((err) => {
         if (err.code === 'UserNotConfirmedException') {
-          resendConfirmationCode(email)
-            .then((res) => {
-              console.log('resendConfirmationCode', res);
-            })
-            .catch((e) => {
-              setError(e.message);
-            });
+          handleResendConfirmCode();
           setIsConfirmCode(true);
         }
         console.log(err);
@@ -86,6 +80,12 @@ const ModalAuth = (props) => {
     socialSignIn(provider).catch((err) => {
       console.log('socialSignIn err', err);
       setError(err.message);
+    });
+  };
+
+  const handleResendConfirmCode = () => {
+    resendConfirmationCode(email).catch((e) => {
+      console.log('resendConfirmationCode error', e);
     });
   };
 
@@ -141,7 +141,15 @@ const ModalAuth = (props) => {
           style={styles.button}
           disabled={!confirmCode}
           onPress={handleConfirmSignUp}>
-          <Text style={styles.textStyle}>Send confirm code</Text>
+          <Text style={styles.textStyle}>Confirm registration</Text>
+        </Button>
+        <Button
+          full
+          rounded
+          danger
+          style={styles.button}
+          onPress={handleResendConfirmCode}>
+          <Text style={styles.textStyle}>Resend confirm code</Text>
         </Button>
       </>
     );
