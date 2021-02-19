@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {View} from 'react-native';
 import {Button, Form, Input, Item, Tab, Tabs, Text} from 'native-base';
 
@@ -20,6 +20,10 @@ const ModalAuth = (props) => {
   const [error, setError] = useState(null);
   const [isConfirmCode, setIsConfirmCode] = useState(false);
   const [confirmCode, setConfirmCode] = useState(false);
+
+  useEffect(() => {
+    setIsConfirmCode(false);
+  }, [email]);
 
   const handlePasswordSignIn = () => {
     passwordSignIn(email, password)
@@ -87,10 +91,10 @@ const ModalAuth = (props) => {
 
   const changeSignMode = () => {
     setError(null);
-    setIsSignUp(!isSignUp);
     setIsConfirmCode(false);
     setPassword('');
     setConfirmPassword('');
+    setIsSignUp(!isSignUp);
   };
 
   const renderChangeModeTabs = () => {
@@ -170,7 +174,7 @@ const ModalAuth = (props) => {
             keyboardType="email-address"
           />
         </Item>
-        <Item style={styles.input}>
+        <Item style={styles.input} key={'signInPassword'}>
           <Input
             textContentType="password"
             secureTextEntry
@@ -217,7 +221,7 @@ const ModalAuth = (props) => {
             keyboardType="email-address"
           />
         </Item>
-        <Item style={styles.input}>
+        <Item style={styles.input} key={'signUpPassword'}>
           <Input
             textContentType="password"
             secureTextEntry
@@ -242,7 +246,7 @@ const ModalAuth = (props) => {
           rounded
           success
           style={styles.button}
-          disabled={!email || !password}
+          disabled={!email || !password || isConfirmCode}
           onPress={handleSignUp}>
           <Text style={styles.textStyle}>Sign Up</Text>
         </Button>
