@@ -60,14 +60,7 @@ const ModalAuth = (props) => {
     confirmSignUp(email, confirmCode)
       .then((res) => {
         console.log('user confirmed', res);
-        // handlePasswordSignIn();
         return passwordSignIn(email, password);
-        // .then(() => {
-        //   setError(null);
-        // })
-        // .catch((err) => {
-        //   setError(err.message);
-        // });
       })
       .then(() => {
         setError(null);
