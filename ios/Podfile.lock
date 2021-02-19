@@ -1,9 +1,4 @@
 PODS:
-  - AppAuth (1.4.0):
-    - AppAuth/Core (= 1.4.0)
-    - AppAuth/ExternalUserAgent (= 1.4.0)
-  - AppAuth/Core (1.4.0)
-  - AppAuth/ExternalUserAgent (1.4.0)
   - boost-for-react-native (1.63.0)
   - CocoaAsyncSocket (7.6.5)
   - CocoaLibEvent (1.0.0)
@@ -16,20 +11,6 @@ PODS:
     - React-Core (= 0.63.4)
     - React-jsi (= 0.63.4)
     - ReactCommon/turbomodule/core (= 0.63.4)
-  - FBSDKCoreKit (8.2.0):
-    - FBSDKCoreKit/Basics (= 8.2.0)
-    - FBSDKCoreKit/Core (= 8.2.0)
-  - FBSDKCoreKit/Basics (8.2.0)
-  - FBSDKCoreKit/Core (8.2.0):
-    - FBSDKCoreKit/Basics
-  - FBSDKLoginKit (8.2.0):
-    - FBSDKLoginKit/Login (= 8.2.0)
-  - FBSDKLoginKit/Login (8.2.0):
-    - FBSDKCoreKit (~> 8.2.0)
-  - FBSDKShareKit (8.2.0):
-    - FBSDKShareKit/Share (= 8.2.0)
-  - FBSDKShareKit/Share (8.2.0):
-    - FBSDKCoreKit (~> 8.2.0)
   - Flipper (0.54.0):
     - Flipper-Folly (~> 2.2)
     - Flipper-RSocket (~> 1.1)
@@ -86,18 +67,6 @@ PODS:
     - DoubleConversion
     - glog
   - glog (0.3.5)
-  - GoogleSignIn (5.0.2):
-    - AppAuth (~> 1.2)
-    - GTMAppAuth (~> 1.0)
-    - GTMSessionFetcher/Core (~> 1.1)
-  - GTMAppAuth (1.1.0):
-    - AppAuth/Core (~> 1.4)
-    - GTMSessionFetcher (~> 1.4)
-  - GTMSessionFetcher (1.5.0):
-    - GTMSessionFetcher/Full (= 1.5.0)
-  - GTMSessionFetcher/Core (1.5.0)
-  - GTMSessionFetcher/Full (1.5.0):
-    - GTMSessionFetcher/Core (= 1.5.0)
   - OpenSSL-Universal (1.0.2.20):
     - OpenSSL-Universal/Static (= 1.0.2.20)
   - OpenSSL-Universal/Static (1.0.2.20)
@@ -267,20 +236,6 @@ PODS:
     - React-cxxreact (= 0.63.4)
     - React-jsi (= 0.63.4)
   - React-jsinspector (0.63.4)
-  - react-native-fbsdk (3.0.0):
-    - React
-    - react-native-fbsdk/Core (= 3.0.0)
-    - react-native-fbsdk/Login (= 3.0.0)
-    - react-native-fbsdk/Share (= 3.0.0)
-  - react-native-fbsdk/Core (3.0.0):
-    - FBSDKCoreKit (~> 8.1)
-    - React
-  - react-native-fbsdk/Login (3.0.0):
-    - FBSDKLoginKit (~> 8.1)
-    - React
-  - react-native-fbsdk/Share (3.0.0):
-    - FBSDKShareKit (~> 8.1)
-    - React
   - react-native-image-picker (3.2.1):
     - React-Core
   - react-native-image-resizer (1.4.3):
@@ -353,8 +308,7 @@ PODS:
     - React
   - RNGestureHandler (1.10.1):
     - React-Core
-  - RNGoogleSignin (5.0.0):
-    - GoogleSignIn (~> 5.0.0)
+  - RNInAppBrowser (3.5.1):
     - React-Core
   - RNReanimated (1.13.2):
     - React-Core
@@ -403,7 +357,6 @@ DEPENDENCIES:
   - React-jsi (from `../node_modules/react-native/ReactCommon/jsi`)
   - React-jsiexecutor (from `../node_modules/react-native/ReactCommon/jsiexecutor`)
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
-  - react-native-fbsdk (from `../node_modules/react-native-fbsdk`)
   - react-native-image-picker (from `../node_modules/react-native-image-picker`)
   - react-native-image-resizer (from `../node_modules/react-native-image-resizer`)
   - "react-native-netinfo (from `../node_modules/@react-native-community/netinfo`)"
@@ -420,7 +373,7 @@ DEPENDENCIES:
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - "RNCMaskedView (from `../node_modules/@react-native-community/masked-view`)"
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
-  - "RNGoogleSignin (from `../node_modules/@react-native-community/google-signin`)"
+  - RNInAppBrowser (from `../node_modules/react-native-inappbrowser-reborn`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
@@ -428,13 +381,9 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
-    - AppAuth
     - boost-for-react-native
     - CocoaAsyncSocket
     - CocoaLibEvent
-    - FBSDKCoreKit
-    - FBSDKLoginKit
-    - FBSDKShareKit
     - Flipper
     - Flipper-DoubleConversion
     - Flipper-Folly
@@ -442,9 +391,6 @@ SPEC REPOS:
     - Flipper-PeerTalk
     - Flipper-RSocket
     - FlipperKit
-    - GoogleSignIn
-    - GTMAppAuth
-    - GTMSessionFetcher
     - OpenSSL-Universal
     - YogaKit
 
@@ -479,8 +425,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/jsiexecutor"
   React-jsinspector:
     :path: "../node_modules/react-native/ReactCommon/jsinspector"
-  react-native-fbsdk:
-    :path: "../node_modules/react-native-fbsdk"
   react-native-image-picker:
     :path: "../node_modules/react-native-image-picker"
   react-native-image-resizer:
@@ -513,8 +457,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-community/masked-view"
   RNGestureHandler:
     :path: "../node_modules/react-native-gesture-handler"
-  RNGoogleSignin:
-    :path: "../node_modules/@react-native-community/google-signin"
+  RNInAppBrowser:
+    :path: "../node_modules/react-native-inappbrowser-reborn"
   RNReanimated:
     :path: "../node_modules/react-native-reanimated"
   RNScreens:
@@ -525,16 +469,12 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
 SPEC CHECKSUMS:
-  AppAuth: 31bcec809a638d7bd2f86ea8a52bd45f6e81e7c7
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
   CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
   CocoaLibEvent: 2fab71b8bd46dd33ddb959f7928ec5909f838e3f
   DoubleConversion: cde416483dac037923206447da6e1454df403714
   FBLazyVector: 3bb422f41b18121b71783a905c10e58606f7dc3e
   FBReactNativeSpec: f2c97f2529dd79c083355182cc158c9f98f4bd6e
-  FBSDKCoreKit: 4afd6ff53d8133a433dbcda44451c9498f8c6ce4
-  FBSDKLoginKit: 7181765f2524d7ebf82d9629066c8e6caafc99d0
-  FBSDKShareKit: 0c0d51b3af47075a85ed9bea0e28b2fc70e3594b
   Flipper: be611d4b742d8c87fbae2ca5f44603a02539e365
   Flipper-DoubleConversion: 38631e41ef4f9b12861c67d17cb5518d06badc41
   Flipper-Folly: e4493b013c02d9347d5e0cb4d128680239f6c78a
@@ -544,9 +484,6 @@ SPEC CHECKSUMS:
   FlipperKit: ab353d41aea8aae2ea6daaf813e67496642f3d7d
   Folly: b73c3869541e86821df3c387eb0af5f65addfab4
   glog: 40a13f7840415b9a77023fbcae0f1e6f43192af3
-  GoogleSignIn: 7137d297ddc022a7e0aa4619c86d72c909fa7213
-  GTMAppAuth: 197a8dabfea5d665224aa00d17f164fc2248dab9
-  GTMSessionFetcher: b3503b20a988c4e20cc189aa798fd18220133f52
   OpenSSL-Universal: ff34003318d5e1163e9529b08470708e389ffcdd
   RCTRequired: 082f10cd3f905d6c124597fd1c14f6f2655ff65e
   RCTTypeSafety: 8c9c544ecbf20337d069e4ae7fd9a377aadf504b
@@ -558,7 +495,6 @@ SPEC CHECKSUMS:
   React-jsi: a0418934cf48f25b485631deb27c64dc40fb4c31
   React-jsiexecutor: 93bd528844ad21dc07aab1c67cb10abae6df6949
   React-jsinspector: 58aef7155bc9a9683f5b60b35eccea8722a4f53a
-  react-native-fbsdk: 8e92c7a334fd8d9c2b5d8b8fcd7ae2c314161099
   react-native-image-picker: 64d12e81f3d9dad0af107fe6536b295d51932ec0
   react-native-image-resizer: 5dfbf934fe5788c11ed06ebbcdb6e6fb6beec20c
   react-native-netinfo: 30fb89fa913c342be82a887b56e96be6d71201dd
@@ -575,7 +511,7 @@ SPEC CHECKSUMS:
   ReactCommon: 73d79c7039f473b76db6ff7c6b159c478acbbb3b
   RNCMaskedView: 5a8ec07677aa885546a0d98da336457e2bea557f
   RNGestureHandler: 5e58135436aacc1c5d29b75547d3d2b9430d052c
-  RNGoogleSignin: ad866d4c4af2651e36801dd3b7771d7715353499
+  RNInAppBrowser: 48b95ba7a4eaff5cc223bca338d3e319561dbd1b
   RNReanimated: e03f7425cb7a38dcf1b644d680d1bfc91c3337ad
   RNScreens: b6c9607e6fe47c1b6e2f1910d2acd46dd7ecea3a
   RNVectorIcons: bc69e6a278b14842063605de32bec61f0b251a59

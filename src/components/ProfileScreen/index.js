@@ -18,7 +18,7 @@ import {View} from 'react-native';
 
 import Avatar from './avatar';
 import {observer} from 'mobx-react-lite';
-import {unlinkAccount} from '../../util/auth';
+import {getCurrentAuthenticatedUser} from '../../util/auth';
 
 const ProfileScreen = observer(() => {
   const {user, changeUser} = useStores().userStore;
@@ -71,13 +71,13 @@ const ProfileScreen = observer(() => {
   //   return user.providerData.some((item) => item.providerId === 'password');
   // };
 
-  const handleUnlinkAccount = () => {
-    unlinkAccount('password')
-      .then((User) => {
-        console.log('Auth provider unlinked from account', User);
+  const handleGetCurrentAuthenticatedUser = () => {
+    getCurrentAuthenticatedUser()
+      .then((user) => {
+        console.log('getCurrentAuthenticatedUser', user);
       })
-      .catch((error) => {
-        console.log('Auth provider unlink error', error);
+      .catch((err) => {
+        console.log('getCurrentAuthenticatedUser error', err);
       });
   };
 
@@ -182,8 +182,8 @@ const ProfileScreen = observer(() => {
             rounded
             danger
             style={styles.button}
-            onPress={handleUnlinkAccount}>
-            <Text>Unlink account</Text>
+            onPress={handleGetCurrentAuthenticatedUser}>
+            <Text>Get user</Text>
           </Button>
         </Form>
       </Content>

@@ -11,7 +11,7 @@ export const signUp = (email, password, username) => {
     username: email,
     password,
     attributes: {
-      preferred_username: username,
+      nickname: username,
     },
   });
 };
@@ -43,6 +43,9 @@ export const urlOpener = async (url, redirectUrl) => {
     enableUrlBarHiding: true,
     enableDefaultShare: false,
     ephemeralWebSession: false,
+    headers: {
+      'my-custom-header': 'my custom header value',
+    },
   });
 
   if (type === 'success') {

@@ -13,7 +13,6 @@ Amplify.configure({
     urlOpener,
   },
 });
-// Amplify.configure(awsExports);
 
 import App from './src/App';
 import {name as appName} from './app.json';
