@@ -81,7 +81,11 @@ const ProfileScreen = observer(() => {
     <Container style={styles.container}>
       <Content>
         <Text style={styles.heading}>Profile</Text>
-        <Avatar user={user} photoURL={user.photoURL} changeUser={changeUser} />
+        <Avatar
+          user={user}
+          picture={user.attributes.picture}
+          changeUser={changeUser}
+        />
         <Form style={styles.form}>
           <Item style={styles.input} floatingLabel>
             <Label>Username</Label>

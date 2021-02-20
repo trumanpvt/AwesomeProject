@@ -43,9 +43,6 @@ export const urlOpener = async (url, redirectUrl) => {
     enableUrlBarHiding: true,
     enableDefaultShare: false,
     ephemeralWebSession: false,
-    headers: {
-      'my-custom-header': 'my custom header value',
-    },
   });
 
   if (type === 'success') {

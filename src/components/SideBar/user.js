@@ -32,8 +32,8 @@ const User = observer((props) => {
         <Button
           transparent
           onPress={() => props.navigation.navigate('ProfileScreen')}>
-          {attributes.photoURL ? (
-            <Thumbnail small source={{uri: attributes.photoURL}} />
+          {attributes.picture ? (
+            <Thumbnail small source={{uri: attributes.picture}} />
           ) : (
             <Badge style={styles.userPic}>
               <Text>{userName[0].toUpperCase()}</Text>

@@ -75,7 +75,7 @@ const Avatar = (props) => {
       transparent
       style={styles.imageContainer}
       onPress={handleChangePhoto}>
-      <Thumbnail large source={{uri: props.photoURL}} />
+      <Thumbnail large source={{uri: props.picture}} />
       <Badge success style={styles.imageChange}>
         <Text style={styles.imageChangePlus}>+</Text>
       </Badge>
