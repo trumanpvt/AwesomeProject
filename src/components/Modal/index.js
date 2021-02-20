@@ -1,7 +1,7 @@
 import React from 'react';
 import {Modal, View} from 'react-native';
 import styles from './style';
-import CreatePassword from './createPassword';
+import ModalCreatePassword from './createPassword';
 import ModalAuth from './auth';
 import {observer} from 'mobx-react-lite';
 import {useStores} from '../../store';
@@ -15,9 +15,7 @@ const ModalContainer = observer(() => {
         return <ModalAuth setCloseModal={setCloseModal} setModal={setModal} />;
       }
       case 'createPassword': {
-        return (
-          <CreatePassword setCloseModal={setCloseModal} setModal={setModal} />
-        );
+        return <ModalCreatePassword setCloseModal={setCloseModal} />;
       }
       default: {
         return null;
