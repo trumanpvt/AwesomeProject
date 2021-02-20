@@ -47,8 +47,8 @@ export default StyleSheet.create({
   button: {
     marginTop: 20,
   },
-  googleButton: {
-    width: '100%',
+  socialButton: {
+    marginBottom: 20,
   },
   textStyle: {
     color: 'white',

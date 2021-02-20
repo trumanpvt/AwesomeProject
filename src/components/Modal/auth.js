@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {View} from 'react-native';
-import {Button, Form, Input, Item, Tab, Tabs, Text} from 'native-base';
-import {SocialIcon} from 'react-native-elements';
+import {Button, Form, Input, Item, Tab, Tabs, Text, Icon} from 'native-base';
 
 import {
   confirmSignUp,
@@ -153,20 +152,25 @@ const ModalAuth = (props) => {
   const renderSignIn = () => {
     return (
       <>
-        <SocialIcon
-          title="Google"
-          button
-          type="google"
-          // light
-          onPress={() => handleSocialSignIn('Google')}
-        />
-        <SocialIcon
-          title="Facebook"
-          button
-          type="facebook"
-          // light
-          onPress={() => handleSocialSignIn('Facebook')}
-        />
+        <View>
+          <Button
+            full
+            rounded
+            style={{...styles.socialButton, backgroundColor: '#db4437'}}
+            onPress={() => handleSocialSignIn('Google')}>
+            <Icon name="google" type="FontAwesome" />
+            <Text style={styles.textStyle}>Google</Text>
+          </Button>
+          <Button
+            full
+            rounded
+            primary
+            style={{...styles.socialButton, backgroundColor: '#3b5998'}}
+            onPress={() => handleSocialSignIn('Facebook')}>
+            <Icon name="facebook" type="FontAwesome" />
+            <Text style={styles.textStyle}>Facebook</Text>
+          </Button>
+        </View>
         <Item style={styles.input}>
           <Input
             autoCapitalize="none"
