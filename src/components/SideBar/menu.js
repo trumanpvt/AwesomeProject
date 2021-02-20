@@ -1,7 +1,7 @@
 import React from 'react';
+import {SafeAreaView} from 'react-native';
 import {List, ListItem, Text} from 'native-base';
 import User from './user';
-import {SafeAreaView} from 'react-native-safe-area-context';
 
 import styles from './style.js';
 
