@@ -50,6 +50,9 @@ export default StyleSheet.create({
   socialButton: {
     marginBottom: 20,
   },
+  headerText: {
+    marginBottom: 10,
+  },
   textStyle: {
     color: 'white',
     fontWeight: 'bold',

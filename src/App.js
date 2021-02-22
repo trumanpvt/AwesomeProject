@@ -16,21 +16,25 @@ const Drawer = createDrawerNavigator();
 
 const App = () => {
   const stores = useStores();
-  const {setCloseModal} = stores.modalStore;
+  const {modal, setModal, setCloseModal} = stores.modalStore;
   const {setUser} = stores.userStore;
 
   useEffect(() => {
+    setCloseModal();
     Hub.listen('auth', ({payload: {event, data}}) => {
       switch (event) {
         case 'signIn':
-          console.log('signIn fired');
+          console.log('signIn fired', data);
           getCurrentAuthenticatedUser()
             .then((user) => {
               setUser(user);
-              setCloseModal();
+              console.log('modal', modal);
+              if (modal !== null && modal !== 'createPassword') {
+                setCloseModal();
+              }
             })
             .catch((e) => {
-              console.log('Auth.currentAuthenticatedUser error');
+              console.log('Auth.currentAuthenticatedUser error', e);
             });
           break;
         case 'signOut':
@@ -38,7 +42,18 @@ const App = () => {
           setUser({});
           break;
         case 'customOAuthState':
-          console.log('customOAuthState');
+          console.log('customOAuthState data', data);
+          break;
+        default:
+          if (
+            data &&
+            data.url &&
+            data.url.includes('NEWUSER') &&
+            modal !== 'createPassword'
+          ) {
+            console.log('setModal');
+            setModal('createPassword');
+          }
       }
     });
 
@@ -49,7 +64,7 @@ const App = () => {
       .catch((e) => {
         console.log('Auth.currentAuthenticatedUser() error', e);
       });
-  }, [setCloseModal, setUser]);
+  }, [modal, setCloseModal, setModal, setUser]);
 
   return (
     <>
