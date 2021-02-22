@@ -5,7 +5,7 @@ import ModalCreatePassword from './createPassword';
 import ModalAuth from './auth';
 import {observer} from 'mobx-react-lite';
 import {useStores} from '../../store';
-import {Button, Form, Text} from 'native-base';
+import {Button, Text} from 'native-base';
 
 const ModalContainer = observer(() => {
   const {modalStore, userStore} = useStores();

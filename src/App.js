@@ -20,7 +20,8 @@ const App = () => {
   const {setUser} = userStore;
 
   useEffect(() => {
-    setCloseModal();
+    let keepModal = false;
+
     Hub.listen('auth', ({payload: {event, data}}) => {
       switch (event) {
         case 'signIn':
@@ -28,9 +29,9 @@ const App = () => {
           getCurrentAuthenticatedUser()
             .then((user) => {
               setUser(user);
-              console.log('modal', modal);
-              if (modal !== 'createPassword') {
+              if (!keepModal) {
                 setCloseModal();
+                keepModal = false;
               }
             })
             .catch((e) => {
@@ -51,8 +52,8 @@ const App = () => {
             data.url.includes('NEWUSER') &&
             modal !== 'createPassword'
           ) {
-            console.log('setModal');
             setModal('createPassword');
+            keepModal = true;
           }
       }
     });
