@@ -15,9 +15,9 @@ import {getCurrentAuthenticatedUser} from './util/auth';
 const Drawer = createDrawerNavigator();
 
 const App = () => {
-  const stores = useStores();
-  const {modal, setModal, setCloseModal} = stores.modalStore;
-  const {setUser} = stores.userStore;
+  const {modalStore, userStore} = useStores();
+  const {modal, setModal, setCloseModal} = modalStore;
+  const {setUser} = userStore;
 
   useEffect(() => {
     setCloseModal();
@@ -29,7 +29,7 @@ const App = () => {
             .then((user) => {
               setUser(user);
               console.log('modal', modal);
-              if (modal !== null && modal !== 'createPassword') {
+              if (modal !== 'createPassword') {
                 setCloseModal();
               }
             })

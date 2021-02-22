@@ -45,6 +45,11 @@ const User = observer((props) => {
     );
   };
 
+  const showStores = () => {
+    console.log('modalStore', modalStore);
+    console.log('userStore', userStore);
+  };
+
   return (
     <View style={styles.userContent}>
       {!Object.keys(user).length ? (
@@ -59,6 +64,9 @@ const User = observer((props) => {
           </Button>
         </>
       )}
+      <Button onPress={showStores}>
+        <Text style={styles.buttonText}>Show stores</Text>
+      </Button>
     </View>
   );
 });
