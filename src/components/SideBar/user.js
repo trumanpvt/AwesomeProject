@@ -54,7 +54,7 @@ const User = observer((props) => {
     <View style={styles.userContent}>
       {!Object.keys(user).length ? (
         <Button onPress={() => setModal('auth')}>
-          <Text style={styles.buttonText}>Login/Register</Text>
+          <Text style={styles.buttonText}>SignIn/SignUp</Text>
         </Button>
       ) : (
         <>
@@ -64,7 +64,7 @@ const User = observer((props) => {
           </Button>
         </>
       )}
-      <Button onPress={showStores}>
+      <Button style={{marginTop: 20}} onPress={showStores}>
         <Text style={styles.buttonText}>Show stores</Text>
       </Button>
     </View>
