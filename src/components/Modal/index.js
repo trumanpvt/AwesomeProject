@@ -3,9 +3,9 @@ import {Modal, View} from 'react-native';
 import styles from './style';
 import ModalResetPassword from './resetPassword';
 import ModalAuth from './auth';
+// import ModalSignUp from './signup';
 import {observer} from 'mobx-react-lite';
 import {useStores} from '../../store';
-import {Button, Text} from 'native-base';
 
 const ModalContainer = observer(() => {
   const {

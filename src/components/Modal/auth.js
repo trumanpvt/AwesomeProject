@@ -1,17 +1,15 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {View} from 'react-native';
-import {Button, Form, Input, Item, Tab, Tabs, Text, Icon} from 'native-base';
+import {Button, Form, Icon, Input, Item, Tab, Tabs, Text} from 'native-base';
 
 import {
   confirmSignUp,
-  forgotPassword,
   passwordSignIn,
   resendConfirmationCode,
   signUp,
   socialSignIn,
 } from '../../util/auth';
 import styles from './style.js';
-import {useStores} from '../../store';
 
 const ModalAuth = (props) => {
   const [email, setEmail] = useState('');
@@ -164,6 +162,7 @@ const ModalAuth = (props) => {
             placeholder="Password"
           />
         </Item>
+        {isConfirmCode && renderConfirmCode()}
         <Button
           full
           rounded
@@ -173,15 +172,17 @@ const ModalAuth = (props) => {
           <Text>Forgot password</Text>
         </Button>
         {error && <Text style={styles.error}>{error}</Text>}
-        <Button
-          full
-          rounded
-          success
-          style={styles.button}
-          disabled={!email || !password || isConfirmCode}
-          onPress={handlePasswordSignIn}>
-          <Text style={styles.textStyle}>Sign In</Text>
-        </Button>
+        {!isConfirmCode && (
+          <Button
+            full
+            rounded
+            success
+            style={styles.button}
+            disabled={!email || !password}
+            onPress={handlePasswordSignIn}>
+            <Text style={styles.textStyle}>Sign In</Text>
+          </Button>
+        )}
       </>
     );
   };
@@ -189,7 +190,6 @@ const ModalAuth = (props) => {
   const renderConfirmCode = () => {
     return (
       <>
-        <Text style={styles.error}>Please confirm with code sent to email</Text>
         <Item style={styles.input}>
           <Input
             textContentType="none"
@@ -203,7 +203,7 @@ const ModalAuth = (props) => {
         <Button
           full
           rounded
-          danger
+          success
           style={styles.button}
           disabled={!confirmCode}
           onPress={handleConfirmSignUp}>
@@ -254,7 +254,14 @@ const ModalAuth = (props) => {
             placeholder="Confirm Password"
           />
         </Item>
-
+        {isConfirmCode && (
+          <>
+            <Text style={styles.error}>
+              Please confirm with code sent to email
+            </Text>
+            {renderConfirmCode()}
+          </>
+        )}
         {!isConfirmCode && (
           <>
             {error && <Text style={styles.error}>{error}</Text>}
@@ -263,7 +270,7 @@ const ModalAuth = (props) => {
               rounded
               success
               style={styles.button}
-              disabled={!email || !password || isConfirmCode}
+              disabled={!email || !password}
               onPress={handleSignUp}>
               <Text style={styles.textStyle}>Sign Up</Text>
             </Button>

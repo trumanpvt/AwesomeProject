@@ -130,20 +130,18 @@ const ModalResetPassword = (props) => {
   };
 
   return (
-    <>
-      <Form style={styles.form}>
-        <Text style={styles.headerText}>Reset password</Text>
-        {isConfirmCode ? renderPasswordInputs() : renderSendCode()}
-        <Button
-          full
-          rounded
-          danger
-          style={styles.button}
-          onPress={() => props.setModal('auth')}>
-          <Text style={styles.textStyle}>Cancel</Text>
-        </Button>
-      </Form>
-    </>
+    <Form style={styles.form}>
+      <Text style={styles.headerText}>Reset password</Text>
+      {isConfirmCode ? renderPasswordInputs() : renderSendCode()}
+      <Button
+        full
+        rounded
+        danger
+        style={styles.button}
+        onPress={() => props.setModal('auth')}>
+        <Text style={styles.textStyle}>Cancel</Text>
+      </Button>
+    </Form>
   );
 };
 
