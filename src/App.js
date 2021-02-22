@@ -16,12 +16,10 @@ const Drawer = createDrawerNavigator();
 
 const App = () => {
   const {modalStore, userStore} = useStores();
-  const {modal, setModal, setCloseModal} = modalStore;
+  const {setCloseModal} = modalStore;
   const {setUser} = userStore;
 
   useEffect(() => {
-    let keepModal = false;
-
     Hub.listen('auth', ({payload: {event, data}}) => {
       switch (event) {
         case 'signIn':
@@ -29,10 +27,7 @@ const App = () => {
           getCurrentAuthenticatedUser()
             .then((user) => {
               setUser(user);
-              if (!keepModal) {
-                setCloseModal();
-                keepModal = false;
-              }
+              setCloseModal();
             })
             .catch((e) => {
               console.log('Auth.currentAuthenticatedUser error', e);
@@ -42,19 +37,6 @@ const App = () => {
           console.log('signOut fired');
           setUser({});
           break;
-        case 'customOAuthState':
-          console.log('customOAuthState data', data);
-          break;
-        default:
-          if (
-            data &&
-            data.url &&
-            data.url.includes('NEWUSER') &&
-            modal !== 'createPassword'
-          ) {
-            setModal('createPassword');
-            keepModal = true;
-          }
       }
     });
 
@@ -65,7 +47,7 @@ const App = () => {
       .catch((e) => {
         console.log('Auth.currentAuthenticatedUser() error', e);
       });
-  }, [modal, setCloseModal, setModal, setUser]);
+  }, [setCloseModal, setUser]);
 
   return (
     <>

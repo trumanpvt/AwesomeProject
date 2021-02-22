@@ -8,13 +8,10 @@ export const passwordSignIn = (email, password) => {
   return Auth.signIn(email, password);
 };
 
-export const signUp = (email, password, username) => {
+export const signUp = (email, password) => {
   return Auth.signUp({
     username: email,
     password,
-    attributes: {
-      nickname: username,
-    },
   });
 };
 
@@ -38,26 +35,12 @@ export const signOut = () => {
   return Auth.signOut();
 };
 
-export const createNewPassword = async (newPassword) => {
-  const user = await Auth.currentAuthenticatedUser();
-  console.log('createNewPassword user', user);
-  user.getSignInUserSession();
-  // user.getSignInUserSession();
-  // return user.completeNewPasswordChallenge(
-  //   newPassword,
-  //   {},
-  //   {
-  //     onSuccess: function (result) {
-  //       console.log('completeNewPasswordChallenge success', result);
-  //     },
-  //     onFailure: function (error) {
-  //       console.error('completeNewPasswordChallenge error', error.message);
-  //     },
-  //   },
-  // );
+export const forgotPassword = (username) => {
+  return Auth.forgotPassword(username);
+};
 
-  console.log('getSession user', user);
-  return Auth.completeNewPassword(user, newPassword);
+export const forgotPasswordSubmit = (username, code, newPassword) => {
+  return Auth.forgotPasswordSubmit(username, code, newPassword);
 };
 
 export const urlOpener = async (url, redirectUrl) => {

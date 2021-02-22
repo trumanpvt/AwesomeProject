@@ -1,28 +1,33 @@
 import React from 'react';
 import {Modal, View} from 'react-native';
 import styles from './style';
-import ModalCreatePassword from './createPassword';
+import ModalResetPassword from './resetPassword';
 import ModalAuth from './auth';
 import {observer} from 'mobx-react-lite';
 import {useStores} from '../../store';
 import {Button, Text} from 'native-base';
 
 const ModalContainer = observer(() => {
-  const {modalStore, userStore} = useStores();
-  const {modal, setModal, setCloseModal} = useStores().modalStore;
-
-  const showStores = () => {
-    console.log('modalStore', modalStore);
-    console.log('userStore', userStore);
-  };
+  const {
+    modal,
+    setModal,
+    setCloseModal,
+    setModalAdditionalInfo,
+  } = useStores().modalStore;
 
   const renderModal = () => {
     switch (modal) {
       case 'auth': {
-        return <ModalAuth setCloseModal={setCloseModal} setModal={setModal} />;
+        return (
+          <ModalAuth
+            setCloseModal={setCloseModal}
+            setModal={setModal}
+            setModalAdditionalInfo={setModalAdditionalInfo}
+          />
+        );
       }
-      case 'createPassword': {
-        return <ModalCreatePassword setCloseModal={setCloseModal} />;
+      case 'resetPassword': {
+        return <ModalResetPassword setModal={setModal} />;
       }
       default: {
         return null;
@@ -33,12 +38,7 @@ const ModalContainer = observer(() => {
   return (
     <Modal animationType="fade" transparent={true} visible={modal !== null}>
       <View style={styles.centeredView}>
-        <View style={styles.modalWrap}>
-          <Button onPress={showStores}>
-            <Text style={styles.buttonText}>Show stores</Text>
-          </Button>
-          {renderModal()}
-        </View>
+        <View style={styles.modalWrap}>{renderModal()}</View>
       </View>
     </Modal>
   );

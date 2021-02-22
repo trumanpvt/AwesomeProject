@@ -83,7 +83,7 @@ const ProfileScreen = observer(() => {
         <Text style={styles.heading}>Profile</Text>
         <Avatar
           user={user}
-          picture={user.attributes.picture}
+          picture={user.attributes && user.attributes.picture}
           changeUser={changeUser}
         />
         <Form style={styles.form}>

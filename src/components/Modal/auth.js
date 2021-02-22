@@ -4,15 +4,16 @@ import {Button, Form, Input, Item, Tab, Tabs, Text, Icon} from 'native-base';
 
 import {
   confirmSignUp,
+  forgotPassword,
   passwordSignIn,
   resendConfirmationCode,
   signUp,
   socialSignIn,
 } from '../../util/auth';
 import styles from './style.js';
+import {useStores} from '../../store';
 
 const ModalAuth = (props) => {
-  const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -22,6 +23,7 @@ const ModalAuth = (props) => {
   const [confirmCode, setConfirmCode] = useState('');
 
   useEffect(() => {
+    setError(null);
     setIsConfirmCode(false);
   }, [email]);
 
@@ -43,7 +45,7 @@ const ModalAuth = (props) => {
 
   const handleSignUp = () => {
     if (password === confirmPassword) {
-      signUp(email, password, username)
+      signUp(email, password)
         .then(() => {
           setError(null);
           setIsConfirmCode(true);
@@ -83,6 +85,11 @@ const ModalAuth = (props) => {
     });
   };
 
+  const handleForgotPassword = () => {
+    props.setModalAdditionalInfo({email});
+    props.setModal('resetPassword');
+  };
+
   const changeSignMode = () => {
     setError(null);
     setIsConfirmCode(false);
@@ -112,40 +119,6 @@ const ModalAuth = (props) => {
           />
         </Tabs>
       </View>
-    );
-  };
-
-  const renderConfirmCode = () => {
-    return (
-      <>
-        <Text style={styles.error}>Please confirm with code sent to email</Text>
-        <Item style={styles.input}>
-          <Input
-            textContentType="none"
-            value={confirmCode}
-            onChangeText={setConfirmCode}
-            placeholder="Confirm code"
-            keyboardType="number-pad"
-          />
-        </Item>
-        <Button
-          full
-          rounded
-          danger
-          style={styles.button}
-          disabled={!confirmCode}
-          onPress={handleConfirmSignUp}>
-          <Text style={styles.textStyle}>Confirm registration</Text>
-        </Button>
-        <Button
-          full
-          rounded
-          danger
-          style={styles.button}
-          onPress={handleResendConfirmCode}>
-          <Text style={styles.textStyle}>Resend confirm code</Text>
-        </Button>
-      </>
     );
   };
 
@@ -191,7 +164,14 @@ const ModalAuth = (props) => {
             placeholder="Password"
           />
         </Item>
-        {isConfirmCode && renderConfirmCode()}
+        <Button
+          full
+          rounded
+          transparent
+          style={styles.button}
+          onPress={handleForgotPassword}>
+          <Text>Forgot password</Text>
+        </Button>
         {error && <Text style={styles.error}>{error}</Text>}
         <Button
           full
@@ -206,19 +186,44 @@ const ModalAuth = (props) => {
     );
   };
 
+  const renderConfirmCode = () => {
+    return (
+      <>
+        <Text style={styles.error}>Please confirm with code sent to email</Text>
+        <Item style={styles.input}>
+          <Input
+            textContentType="none"
+            value={confirmCode}
+            onChangeText={setConfirmCode}
+            placeholder="Confirm code"
+            keyboardType="number-pad"
+          />
+        </Item>
+        {error && <Text style={styles.error}>{error}</Text>}
+        <Button
+          full
+          rounded
+          danger
+          style={styles.button}
+          disabled={!confirmCode}
+          onPress={handleConfirmSignUp}>
+          <Text style={styles.textStyle}>Confirm registration</Text>
+        </Button>
+        <Button
+          full
+          rounded
+          danger
+          style={styles.button}
+          onPress={handleResendConfirmCode}>
+          <Text style={styles.textStyle}>Resend confirm code</Text>
+        </Button>
+      </>
+    );
+  };
+
   const renderSignUp = () => {
     return (
       <>
-        <Item style={styles.input}>
-          <Input
-            autoCapitalize="none"
-            textContentType="name"
-            value={username}
-            onChangeText={setUsername}
-            placeholder="Username"
-            keyboardType="default"
-          />
-        </Item>
         <Item style={styles.input}>
           <Input
             autoCapitalize="none"
@@ -249,17 +254,21 @@ const ModalAuth = (props) => {
             placeholder="Confirm Password"
           />
         </Item>
-        {isConfirmCode && renderConfirmCode()}
-        {error && <Text style={styles.error}>{error}</Text>}
-        <Button
-          full
-          rounded
-          success
-          style={styles.button}
-          disabled={!email || !password || isConfirmCode}
-          onPress={handleSignUp}>
-          <Text style={styles.textStyle}>Sign Up</Text>
-        </Button>
+
+        {!isConfirmCode && (
+          <>
+            {error && <Text style={styles.error}>{error}</Text>}
+            <Button
+              full
+              rounded
+              success
+              style={styles.button}
+              disabled={!email || !password || isConfirmCode}
+              onPress={handleSignUp}>
+              <Text style={styles.textStyle}>Sign Up</Text>
+            </Button>
+          </>
+        )}
       </>
     );
   };

@@ -51,6 +51,8 @@ export default StyleSheet.create({
     marginBottom: 20,
   },
   headerText: {
+    fontSize: 20,
+    textAlign: 'center',
     marginBottom: 10,
   },
   textStyle: {
