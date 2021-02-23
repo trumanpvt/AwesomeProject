@@ -55,6 +55,10 @@ export const forgotPasswordSubmit = (username, code, newPassword) => {
   return Auth.forgotPasswordSubmit(username, code, newPassword);
 };
 
+export const updateUserAttributes = (user, attributeList) => {
+  return user.updateAttributes(attributeList);
+};
+
 export const urlOpener = async (url, redirectUrl) => {
   await InAppBrowser.isAvailable();
 
