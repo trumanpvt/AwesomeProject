@@ -32,6 +32,14 @@ export const socialSignIn = (provider) => {
 };
 
 export const signOut = () => {
+  getCurrentAuthenticatedUser().then((user) => {
+    const revokeUrl =
+      'https://accounts.google.com/o/oauth2/revoke?token=' +
+      user.attributes['custom:g_ac_token'];
+    fetch(revokeUrl).then((res) => {
+      console.log('revoke', res);
+    });
+  });
   return Auth.signOut();
 };
 
@@ -54,7 +62,6 @@ export const urlOpener = async (url, redirectUrl) => {
 
   if (type === 'success') {
     const fixedUrl = newUrl.replace('///', '//');
-    console.log('fixedUrl', fixedUrl);
     Linking.openURL(fixedUrl)
       .then(() => {
         handleEventLinkedExternalUser(fixedUrl);
