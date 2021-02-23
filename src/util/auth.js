@@ -36,13 +36,12 @@ export const signOut = () => {
       const revokeUrl =
         'https://accounts.google.com/o/oauth2/revoke?token=' +
         user.attributes['custom:g_ac_token'];
-      fetch(revokeUrl).then((res) => {
-        console.log('revoke', res);
+      fetch(revokeUrl).catch((err) => {
+        console.log('google revoke err', err);
       });
     }
-
-    if (user.attributes['custom:fb_ac_token']) {
-    }
+    // if (user.attributes['custom:fb_ac_token']) {
+    // }
   });
   return Auth.signOut();
 };
