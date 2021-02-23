@@ -1,7 +1,6 @@
 import {Linking} from 'react-native';
 import {Auth} from 'aws-amplify';
 import InAppBrowser from 'react-native-inappbrowser-reborn';
-import {CognitoUser} from 'amazon-cognito-identity-js';
 // import {useStores} from '../store';
 
 export const passwordSignIn = (email, password) => {
@@ -33,12 +32,17 @@ export const socialSignIn = (provider) => {
 
 export const signOut = () => {
   getCurrentAuthenticatedUser().then((user) => {
-    const revokeUrl =
-      'https://accounts.google.com/o/oauth2/revoke?token=' +
-      user.attributes['custom:g_ac_token'];
-    fetch(revokeUrl).then((res) => {
-      console.log('revoke', res);
-    });
+    if (user.attributes['custom:g_ac_token']) {
+      const revokeUrl =
+        'https://accounts.google.com/o/oauth2/revoke?token=' +
+        user.attributes['custom:g_ac_token'];
+      fetch(revokeUrl).then((res) => {
+        console.log('revoke', res);
+      });
+    }
+
+    if (user.attributes['custom:fb_ac_token']) {
+    }
   });
   return Auth.signOut();
 };
@@ -53,6 +57,7 @@ export const forgotPasswordSubmit = (username, code, newPassword) => {
 
 export const urlOpener = async (url, redirectUrl) => {
   await InAppBrowser.isAvailable();
+
   const {type, url: newUrl} = await InAppBrowser.openAuth(url, redirectUrl, {
     showTitle: false,
     enableUrlBarHiding: true,
