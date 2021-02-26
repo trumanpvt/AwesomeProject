@@ -54,7 +54,7 @@ const ModalAuth = (props) => {
           setError(null);
           props.setModal('confirmSignUp');
           // props.setCloseModal();
-          // setIsConfirmCode(true);
+          setIsConfirmCode(true);
         })
         .catch((err) => {
           setError(err.message);
