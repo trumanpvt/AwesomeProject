@@ -3,7 +3,7 @@ import {Modal, View} from 'react-native';
 import styles from './style';
 import ModalResetPassword from './resetPassword';
 import ModalAuth from './auth';
-// import ModalSignUp from './signup';
+import ModalConfirmEmail from './confirmEmail';
 import {observer} from 'mobx-react-lite';
 import {useStores} from '../../store';
 
@@ -29,9 +29,9 @@ const ModalContainer = observer(() => {
       case 'resetPassword': {
         return <ModalResetPassword setModal={setModal} />;
       }
-      // case 'resetPassword': {
-      // return <ModalConfirmEmail setCloseModal={setModal} />;
-      // }
+      case 'confirmEmail': {
+        return <ModalConfirmEmail setCloseModal={setModal} />;
+      }
       default: {
         return null;
       }

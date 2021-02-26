@@ -52,7 +52,7 @@ const ModalAuth = (props) => {
       signUp(email, password)
         .then(() => {
           setError(null);
-          props.setModal('confirmSignUp');
+          props.setModal('confirmEmail');
           // props.setCloseModal();
           setIsConfirmCode(true);
         })
