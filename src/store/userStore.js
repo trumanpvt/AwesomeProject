@@ -1,7 +1,8 @@
 import {action, makeObservable, observable} from 'mobx';
+import auth from '@react-native-firebase/auth';
 
 export default class UserStore {
-  user = {};
+  user = auth().currentUser || {};
 
   constructor() {
     makeObservable(this, {
@@ -13,7 +14,7 @@ export default class UserStore {
 
   setUser = (userData) => {
     console.log('userData', userData);
-    this.user = userData;
+    this.user = userData || {};
   };
 
   changeUser = (data) => {

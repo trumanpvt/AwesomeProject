@@ -1,9 +1,12 @@
 import React, {useEffect, useState} from 'react';
+import {useStores} from '../../store';
+
 import {View} from 'react-native';
 import {Button, Form, Icon, Input, Item, Tab, Tabs, Text} from 'native-base';
 
 import {
   confirmSignUp,
+  googleSignIn,
   passwordSignIn,
   resendConfirmationCode,
   signUp,
@@ -12,6 +15,8 @@ import {
 import styles from './style.js';
 
 const ModalAuth = (props) => {
+  const {user, setUser} = useStores().userStore;
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -28,16 +33,17 @@ const ModalAuth = (props) => {
   const handlePasswordSignIn = () => {
     passwordSignIn(email, password)
       .then(() => {
-        setError(null);
+        // setError(null);
+        props.setCloseModal();
       })
       .catch((err) => {
-        if (err.code === 'UserNotConfirmedException') {
-          handleResendConfirmCode();
-          setIsConfirmCode(true);
-        } else {
-          console.log('passwordSignIn error', err);
-          setError(err.message);
-        }
+        // if (err.code === 'UserNotConfirmedException') {
+        //   handleResendConfirmCode();
+        //   setIsConfirmCode(true);
+        // } else {
+        console.log('passwordSignIn error', err);
+        setError(err.message);
+        // }
       });
   };
 
@@ -46,7 +52,9 @@ const ModalAuth = (props) => {
       signUp(email, password)
         .then(() => {
           setError(null);
-          setIsConfirmCode(true);
+          props.setModal('confirmSignUp');
+          // props.setCloseModal();
+          // setIsConfirmCode(true);
         })
         .catch((err) => {
           setError(err.message);
@@ -70,12 +78,12 @@ const ModalAuth = (props) => {
       });
   };
 
-  const handleSocialSignIn = (provider) => {
-    socialSignIn(provider).catch((err) => {
-      console.log('socialSignIn err', err);
-      setError(err.message);
-    });
-  };
+  // const handleSocialSignIn = (provider) => {
+  //   socialSignIn(provider).catch((err) => {
+  //     console.log('socialSignIn err', err);
+  //     setError(err.message);
+  //   });
+  // };
 
   const handleResendConfirmCode = () => {
     resendConfirmationCode(email).catch((e) => {
@@ -128,7 +136,7 @@ const ModalAuth = (props) => {
             full
             rounded
             style={{...styles.socialButton, backgroundColor: '#db4437'}}
-            onPress={() => handleSocialSignIn('Google')}>
+            onPress={googleSignIn}>
             <Icon name="google" type="FontAwesome" />
             <Text style={styles.textStyle}>Google</Text>
           </Button>
@@ -137,7 +145,9 @@ const ModalAuth = (props) => {
             rounded
             primary
             style={{...styles.socialButton, backgroundColor: '#3b5998'}}
-            onPress={() => handleSocialSignIn('Facebook')}>
+            onPress={() => {
+              console.log('Facebook');
+            }}>
             <Icon name="facebook" type="FontAwesome" />
             <Text style={styles.textStyle}>Facebook</Text>
           </Button>

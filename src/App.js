@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import AppHeader from './components/AppHeader';
@@ -8,10 +8,19 @@ import ChatScreen from './components/ChatScreen';
 import SideBar from './components/SideBar/menu';
 import HomeScreen from './components/HomeScreen';
 import ModalContainer from './components/Modal';
+import {useStores} from './store';
+import auth from '@react-native-firebase/auth';
 
 const Drawer = createDrawerNavigator();
 
 const App = () => {
+  const {user, setUser} = useStores().userStore;
+
+  useEffect(() => {
+    const subscriber = auth().onAuthStateChanged(setUser);
+    return subscriber; // unsubscribe on unmount
+  }, [setUser]);
+
   return (
     <>
       <NavigationContainer>

@@ -14,7 +14,7 @@ import {GoogleSigninButton} from '@react-native-community/google-signin';
 import styles from './style.js';
 import {useStores} from '../../store';
 
-const ModalAuth = (props) => {
+const ModalConfirmEmail = (props) => {
   const {user, setUser} = useStores().userStore;
 
   const [username, setUsername] = useState('');
@@ -251,4 +251,4 @@ const ModalAuth = (props) => {
   );
 };
 
-export default ModalAuth;
+export default ModalConfirmEmail;

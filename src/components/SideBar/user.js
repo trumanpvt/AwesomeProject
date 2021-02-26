@@ -24,24 +24,23 @@ const User = observer((props) => {
   };
 
   const renderUser = () => {
-    const {given_name, family_name, email, picture} = user.attributes;
-    const userName = given_name || '';
-    const userLastName = family_name ? ' ' + family_name : '';
-    const fullName = userName ? userName + userLastName : email;
+    const {displayName, email, photoURL} = user;
+
+    const userName = displayName || email;
 
     return (
       <View style={styles.userInfo}>
         <Button
           transparent
           onPress={() => props.navigation.navigate('ProfileScreen')}>
-          {picture ? (
-            <Thumbnail small source={{uri: picture}} />
+          {photoURL ? (
+            <Thumbnail small source={{uri: photoURL}} />
           ) : (
             <Badge style={styles.userPic}>
               <Text>{userName[0].toUpperCase()}</Text>
             </Badge>
           )}
-          <Text style={styles.userName}>{fullName}</Text>
+          <Text style={styles.userName}>{userName}</Text>
         </Button>
       </View>
     );

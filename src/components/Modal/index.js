@@ -29,6 +29,9 @@ const ModalContainer = observer(() => {
       case 'resetPassword': {
         return <ModalResetPassword setModal={setModal} />;
       }
+      case 'resetPassword': {
+        return <ModalConfirmEmail setCloseModal={setModal} />;
+      }
       default: {
         return null;
       }
