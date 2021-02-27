@@ -23,18 +23,14 @@ import {getCurrentAuthenticatedUser} from '../../util/auth';
 const ProfileScreen = observer(() => {
   const {user, changeUser} = useStores().userStore;
 
-  const isPasswordProvider =
-    user.providerData &&
-    user.providerData.some((item) => item.providerId === 'password');
-
-  const [displayName, setDisplayName] = useState(user.displayName);
+  const [displayName, setDisplayName] = useState(user ? user.displayName : '');
   const [password, setPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
-  useEffect(() => {
-    setDisplayName(user.displayName);
-  }, [user]);
+  // useEffect(() => {
+  //   setDisplayName(user.displayName);
+  // }, [user]);
 
   const handleCancelChangeUser = () => {
     setDisplayName(user.displayName);
@@ -44,6 +40,11 @@ const ProfileScreen = observer(() => {
     changeUser({
       displayName,
     });
+  };
+
+  const isPasswordProvider = () => {
+    user.providerData &&
+      user.providerData.some((item) => item.providerId === 'password');
   };
 
   const handleCancelPasswordChange = () => {
@@ -77,7 +78,7 @@ const ProfileScreen = observer(() => {
       });
   };
 
-  return (
+  return user ? (
     <Container style={styles.container}>
       <Content>
         <Text style={styles.heading}>Profile</Text>
@@ -188,7 +189,7 @@ const ProfileScreen = observer(() => {
         </Form>
       </Content>
     </Container>
-  );
+  ) : null;
 });
 
 export default ProfileScreen;

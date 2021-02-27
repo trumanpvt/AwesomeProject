@@ -107,6 +107,17 @@ const ModalAuth = (props) => {
     props.setModal({type: 'resetPassword', email: email || ''});
   };
 
+  const handleGoogleSignIn = () => {
+    googleSignIn()
+      .then((res) => {
+        console.log('handleGoogleSignIn success', res);
+        props.setCloseModal();
+      })
+      .catch((e) => {
+        console.log('handleGoogleSignIn failed', e);
+      });
+  };
+
   const changeSignMode = () => {
     setError(null);
     setIsConfirmCode(false);
@@ -153,7 +164,7 @@ const ModalAuth = (props) => {
             full
             rounded
             style={{...styles.socialButton, backgroundColor: '#db4437'}}
-            onPress={googleSignIn}>
+            onPress={handleGoogleSignIn}>
             <Icon name="google" type="FontAwesome" />
             <Text style={styles.textStyle}>Google</Text>
           </Button>

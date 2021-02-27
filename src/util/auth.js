@@ -17,24 +17,7 @@ export const signUp = (username, password) => {
     });
 };
 
-export const linkPasswordAccount = (password) => {
-  const matchedData = auth().currentUser.providerData.find((item) => {
-    return item.email;
-  });
-
-  const credential = auth.EmailAuthProvider.credential(
-    matchedData.email,
-    password,
-  );
-
-  return auth().currentUser.linkWithCredential(credential);
-};
-
-export const checkPasswordProvider = () => {
-  return auth().currentUser.providerData.find((item) => {
-    return item.providerId === 'password';
-  });
-};
+const sendEmailVerification = (user) => {};
 
 // export const confirmSignUp = (email, code) => {
 // };

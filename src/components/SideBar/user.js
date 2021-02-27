@@ -11,7 +11,11 @@ const User = observer((props) => {
   const {modalStore, userStore} = useStores();
   const {setModal} = modalStore;
 
-  const {user} = userStore;
+  const {user, reloadUser} = userStore;
+
+  if (user && !user.emailVerified) {
+    reloadUser();
+  }
 
   const handleSignOut = () => {
     signOut()
@@ -53,7 +57,7 @@ const User = observer((props) => {
 
   return (
     <View style={styles.userContent}>
-      {!Object.keys(user).length ? (
+      {!user ? (
         <Button onPress={() => setModal({type: 'auth'})}>
           <Text style={styles.buttonText}>SignIn/SignUp</Text>
         </Button>

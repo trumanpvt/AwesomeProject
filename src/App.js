@@ -18,7 +18,17 @@ const App = () => {
 
   useEffect(() => {
     const subscriber = auth().onAuthStateChanged((user) => {
-      console.log('state changed');
+      console.log('onAuthStateChanged');
+      if (user && !user.emailVerified) {
+        user
+          .reload()
+          .then(() => {
+            console.log('user reload success', user);
+          })
+          .catch((e) => {
+            console.log('user reload failed', e);
+          });
+      }
       setUser(user);
     });
     return subscriber; // unsubscribe on unmount
