@@ -35,7 +35,7 @@ export default class UserStore {
       .reload()
       .then(() => {
         console.log('user reload success', reloadedUser);
-        this.user = reloadedUser;
+        // this.setUser(reloadedUser);
       })
       .catch((e) => {
         console.log('user reload failed', e);

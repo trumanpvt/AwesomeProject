@@ -13,11 +13,13 @@ export const signUp = (username, password) => {
     .createUserWithEmailAndPassword(username, password)
     .then((res) => {
       console.log('new user', res);
-      return res.user.sendEmailVerification();
+      return sendEmailVerification();
     });
 };
 
-const sendEmailVerification = (user) => {};
+export const sendEmailVerification = () => {
+  return auth().currentUser.sendEmailVerification();
+};
 
 // export const confirmSignUp = (email, code) => {
 // };
@@ -79,4 +81,19 @@ export const facebookSignIn = (error, result) => {
       auth().signInWithCredential(data.accessToken);
     });
   }
+};
+
+export const reloadUser = () => {
+  const user = auth().currentUser;
+  user
+    .reload()
+    .then(() => {
+      console.log('user reload success', user);
+    })
+    .catch((e) => {
+      console.log('user reload failed', e);
+    });
+
+  return user;
+  // return auth().currentUser.reload();
 };

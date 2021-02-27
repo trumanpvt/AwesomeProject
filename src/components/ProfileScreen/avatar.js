@@ -1,4 +1,6 @@
 import React from 'react';
+import storage from '@react-native-firebase/storage';
+
 import {Badge, Text, Thumbnail} from 'native-base';
 
 import styles from './style.js';
@@ -51,23 +53,23 @@ const Avatar = (props) => {
   };
 
   const uploadPhoto = (imagePath, uploadUri) => {
-    // storage()
-    //   .ref(imagePath)
-    //   .putFile(uploadUri)
-    //   .then((snapshot) => {
-    //     savePhotoUrl(imagePath);
-    //   })
-    //   .catch((e) => console.log('uploading image error => ', e));
+    storage()
+      .ref(imagePath)
+      .putFile(uploadUri)
+      .then((snapshot) => {
+        savePhotoUrl(imagePath);
+      })
+      .catch((e) => console.log('uploading image error => ', e));
   };
 
   const savePhotoUrl = (imagePath) => {
-    // storage()
-    //   .ref('/' + imagePath)
-    //   .getDownloadURL()
-    //   .then((url) => {
-    //     props.changeUser({photoURL: url});
-    //   })
-    //   .catch((e) => console.log('getting downloadURL of image error => ', e));
+    storage()
+      .ref('/' + imagePath)
+      .getDownloadURL()
+      .then((url) => {
+        props.changeUser({photoURL: url});
+      })
+      .catch((e) => console.log('getting downloadURL of image error => ', e));
   };
 
   return (
@@ -75,7 +77,7 @@ const Avatar = (props) => {
       transparent
       style={styles.imageContainer}
       onPress={handleChangePhoto}>
-      <Thumbnail large source={{uri: props.picture}} />
+      <Thumbnail large source={{uri: props.photoURL}} />
       <Badge success style={styles.imageChange}>
         <Text style={styles.imageChangePlus}>+</Text>
       </Badge>

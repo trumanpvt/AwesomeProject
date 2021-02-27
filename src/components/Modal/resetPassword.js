@@ -1,107 +1,43 @@
 import React, {useState} from 'react';
 import {Button, Form, Input, Item, Text} from 'native-base';
 import styles from './style.js';
-import {
-  forgotPassword,
-  forgotPasswordSubmit,
-  passwordSignIn,
-  sendPasswordResetEmail,
-} from '../../util/auth';
+import {sendPasswordResetEmail} from '../../util/auth';
 
 const ModalResetPassword = (props) => {
   const [email, setEmail] = useState(props.email || '');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [confirmCode, setConfirmCode] = useState('');
-  const [isConfirmCode, setIsConfirmCode] = useState(false);
+  const [isLinkSent, setIsLinkSent] = useState(false);
   const [error, setError] = useState(null);
 
-  const handleForgotPassword = () => {
+  const handleSendPasswordResetEmail = () => {
     sendPasswordResetEmail(email)
       .then(() => {
-        setIsConfirmCode(true);
+        setIsLinkSent(true);
       })
       .catch((err) => {
         setError(err.message);
       });
   };
 
-  const handleResendCode = () => {
-    sendPasswordResetEmail(email).catch((err) => {
-      setError(err.message);
-    });
-  };
-
-  const handleChangePassword = () => {
-    if (password === confirmPassword) {
-      forgotPasswordSubmit(email, confirmCode, password)
-        .then(() => {
-          // props.setCloseModal();
-          return passwordSignIn(email, password);
-        })
-        .catch((err) => {
-          setError(err.message);
-        });
-    } else {
-      setError('Confirm Password');
-    }
-  };
-
-  const renderPasswordInputs = () => {
+  const renderLinkSent = () => {
     return (
       <>
-        <Text style={styles.error}>Confirm code was sent to email</Text>
-        <Item style={styles.input}>
-          <Input
-            textContentType="none"
-            value={confirmCode}
-            onChangeText={setConfirmCode}
-            placeholder="Confirm code"
-            keyboardType="number-pad"
-          />
-        </Item>
-        <Item style={styles.input}>
-          <Input
-            autoCapitalize="none"
-            textContentType="password"
-            secureTextEntry
-            value={password}
-            onChangeText={setPassword}
-            placeholder="New password"
-          />
-        </Item>
-        <Item style={styles.input}>
-          <Input
-            autoCapitalize="none"
-            textContentType="password"
-            secureTextEntry
-            value={confirmPassword}
-            onChangeText={setConfirmPassword}
-            placeholder="Confirm Password"
-          />
-        </Item>
+        <Text style={styles.error}>
+          Password reset link was sent to your email
+        </Text>
         {error && <Text style={styles.error}>{error}</Text>}
         <Button
           full
           rounded
-          success
+          Warning
           style={styles.button}
-          onPress={handleChangePassword}>
-          <Text style={styles.textStyle}>Change password</Text>
-        </Button>
-        <Button
-          full
-          rounded
-          danger
-          style={styles.button}
-          onPress={handleResendCode}>
-          <Text style={styles.textStyle}>Resend confirm code</Text>
+          onPress={handleSendPasswordResetEmail}>
+          <Text style={styles.textStyle}>Send link again</Text>
         </Button>
       </>
     );
   };
 
-  const renderSendCode = () => {
+  const renderEmail = () => {
     return (
       <>
         <Item style={styles.input}>
@@ -118,9 +54,9 @@ const ModalResetPassword = (props) => {
         <Button
           full
           rounded
-          primary
+          Warning
           style={styles.button}
-          onPress={handleForgotPassword}>
+          onPress={handleSendPasswordResetEmail}>
           <Text style={styles.textStyle}>Reset password</Text>
         </Button>
       </>
@@ -130,7 +66,7 @@ const ModalResetPassword = (props) => {
   return (
     <Form style={styles.form}>
       <Text style={styles.headerText}>Reset password</Text>
-      {isConfirmCode ? renderPasswordInputs() : renderSendCode()}
+      {isLinkSent ? renderLinkSent() : renderEmail()}
       <Button
         full
         rounded

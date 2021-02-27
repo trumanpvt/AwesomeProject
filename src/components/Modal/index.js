@@ -6,6 +6,7 @@ import ModalAuth from './auth';
 import ModalMessage from './message';
 import {observer} from 'mobx-react-lite';
 import {useStores} from '../../store';
+import ModalConfirmEmail from './confirmEmail';
 
 const ModalContainer = observer(() => {
   const {modal, setModal, setCloseModal} = useStores().modalStore;
@@ -17,6 +18,9 @@ const ModalContainer = observer(() => {
       }
       case 'resetPassword': {
         return <ModalResetPassword setModal={setModal} email={modal.email} />;
+      }
+      case 'confirmEmail': {
+        return <ModalConfirmEmail setCloseModal={setCloseModal} />;
       }
       case 'message': {
         return (

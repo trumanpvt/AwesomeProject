@@ -18,6 +18,7 @@ import {
   googleSignIn,
   passwordSignIn,
   resendConfirmationCode,
+  sendEmailVerification,
   signUp,
 } from '../../util/auth';
 import styles from './style.js';
@@ -40,18 +41,30 @@ const ModalAuth = (props) => {
 
   const handlePasswordSignIn = () => {
     passwordSignIn(email, password)
-      .then(() => {
-        // setError(null);
-        props.setCloseModal();
+      .then((cred) => {
+        if (cred.user && !cred.user.emailVerified) {
+          handleSendEmailVerification();
+        } else {
+          props.setCloseModal();
+        }
       })
       .catch((err) => {
-        // if (err.code === 'UserNotConfirmedException') {
-        //   handleResendConfirmCode();
-        //   setIsConfirmCode(true);
-        // } else {
         console.log('passwordSignIn error', err);
         setError(err.message);
         // }
+      });
+  };
+
+  const handleSendEmailVerification = (user) => {
+    sendEmailVerification(user)
+      .then(() => {
+        props.setModal({
+          type: 'confirmEmail',
+        });
+      })
+      .catch((err) => {
+        console.log('sendEmailVerification error', err);
+        setError(err.message);
       });
   };
 
@@ -60,13 +73,9 @@ const ModalAuth = (props) => {
       signUp(email, password)
         .then(() => {
           setError(null);
-          // props.setModalAdditionalData({});
           props.setModal({
-            type: 'message',
-            message: 'Confirmation link was sent to your email',
+            type: 'confirmEmail',
           });
-          // props.setCloseModal();
-          // setIsConfirmCode(true);
         })
         .catch((err) => {
           setError(err.message);
@@ -163,7 +172,7 @@ const ModalAuth = (props) => {
           <Button
             full
             rounded
-            style={{...styles.socialButton, backgroundColor: '#db4437'}}
+            style={[styles.socialButton, styles.googleButton]}
             onPress={handleGoogleSignIn}>
             <Icon name="google" type="FontAwesome" />
             <Text style={styles.textStyle}>Google</Text>
@@ -172,7 +181,7 @@ const ModalAuth = (props) => {
             full
             rounded
             primary
-            style={{...styles.socialButton, backgroundColor: '#3b5998'}}
+            style={[styles.socialButton, styles.facebookButton]}
             onPress={() => {
               console.log('Facebook');
             }}>

@@ -4,17 +4,18 @@ import {Button, Text, Thumbnail, Badge} from 'native-base';
 import styles from './style.js';
 import {observer} from 'mobx-react-lite';
 
-import {signOut} from '../../util/auth';
+import {signOut, reloadUser} from '../../util/auth';
 import {useStores} from '../../store';
 
 const User = observer((props) => {
   const {modalStore, userStore} = useStores();
   const {setModal} = modalStore;
 
-  const {user, reloadUser} = userStore;
+  const {user, setUser} = userStore;
 
   if (user && !user.emailVerified) {
-    reloadUser();
+    console.log('not verified');
+    // setUser(reloadUser());
   }
 
   const handleSignOut = () => {

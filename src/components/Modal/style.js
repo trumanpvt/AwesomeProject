@@ -50,6 +50,12 @@ export default StyleSheet.create({
   socialButton: {
     marginBottom: 20,
   },
+  googleButton: {
+    backgroundColor: '#db4437',
+  },
+  facebookButton: {
+    backgroundColor: '#3b5998',
+  },
   headerText: {
     fontSize: 20,
     textAlign: 'center',
