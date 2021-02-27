@@ -17,7 +17,7 @@ const App = () => {
   const {setUser} = useStores().userStore;
 
   useEffect(() => {
-    const subscriber = auth().onAuthStateChanged((user) => {
+    return auth().onAuthStateChanged((user) => {
       console.log('onAuthStateChanged');
       if (user && !user.emailVerified) {
         user
@@ -31,8 +31,6 @@ const App = () => {
       }
       setUser(user);
     });
-
-    return subscriber; // unsubscribe on unmount
   }, [setUser]);
 
   return (

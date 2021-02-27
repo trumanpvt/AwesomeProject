@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 
 import {
   Button,
@@ -19,11 +19,14 @@ import {View} from 'react-native';
 import Avatar from './avatar';
 import {observer} from 'mobx-react-lite';
 import PropTypes from 'prop-types';
+import {getReloadedUser} from '../../util/auth';
 
 const ProfileScreen = observer(({navigation}) => {
   const {userStore, modalStore} = useStores();
-  const {user, changeUser} = userStore;
+  const {user, reloadUser, changeUser} = userStore;
   const {setModal} = modalStore;
+
+  // let user = user;
 
   const [displayName, setDisplayName] = useState(user ? user.displayName : '');
   const [password, setPassword] = useState('');
@@ -33,19 +36,21 @@ const ProfileScreen = observer(({navigation}) => {
   useEffect(() => {
     return navigation.addListener('focus', () => {
       if (user && !user.emailVerified) {
-        user
-          .reload()
-          .then(() => {
-            if (!user.emailVerified) {
-              setModal({
-                type: 'confirmEmail',
-              });
-              navigation.navigate('HomeScreen');
-            }
-          })
-          .catch((e) => {
-            console.log('user reload failed', e);
+        // user = getReloadedUser();
+        console.log('reloaded user', user);
+        // user
+        //   .reload()
+        //   .then(() => {
+        if (!user.emailVerified) {
+          setModal({
+            type: 'confirmEmail',
           });
+          navigation.navigate('HomeScreen');
+        }
+        // })
+        // .catch((e) => {
+        //   console.log('user reload failed', e);
+        // });
       }
     });
   }, [navigation, setModal, user]);
@@ -66,11 +71,6 @@ const ProfileScreen = observer(({navigation}) => {
     });
   };
 
-  const isPasswordProvider = () => {
-    user.providerData &&
-      user.providerData.some((item) => item.providerId === 'password');
-  };
-
   const handleCancelPasswordChange = () => {
     setPassword('');
     setNewPassword('');
@@ -88,9 +88,9 @@ const ProfileScreen = observer(({navigation}) => {
       });
   };
 
-  // const isPasswordProvider = () => {
-  //   return user.providerData.some((item) => item.providerId === 'password');
-  // };
+  const isPasswordProvider = () => {
+    return user.providerData.some((item) => item.providerId === 'password');
+  };
 
   return (
     <Container style={styles.container}>
@@ -141,7 +141,7 @@ const ProfileScreen = observer(({navigation}) => {
               </Button>
             </View>
             <Text style={styles.heading}>
-              {isPasswordProvider ? 'Change password' : 'Create password'}
+              {isPasswordProvider() ? 'Change password' : 'Create password'}
             </Text>
             {isPasswordProvider && (
               <Item style={styles.input} floatingLabel>

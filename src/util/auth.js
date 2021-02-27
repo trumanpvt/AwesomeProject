@@ -83,8 +83,11 @@ export const facebookSignIn = (error, result) => {
   }
 };
 
-export const reloadUser = () => {
+export const getReloadedUser = () => {
   const user = auth().currentUser;
+  if (!user) {
+    return null;
+  }
   user
     .reload()
     .then(() => {
