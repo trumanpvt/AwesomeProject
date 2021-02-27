@@ -5,13 +5,11 @@ import {
   forgotPassword,
   forgotPasswordSubmit,
   passwordSignIn,
+  sendPasswordResetEmail,
 } from '../../util/auth';
-import {useStores} from '../../store';
 
 const ModalResetPassword = (props) => {
-  const {additionalInfo} = useStores().modalStore;
-
-  const [email, setEmail] = useState(additionalInfo.email || '');
+  const [email, setEmail] = useState(props.email || '');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [confirmCode, setConfirmCode] = useState('');
@@ -19,7 +17,7 @@ const ModalResetPassword = (props) => {
   const [error, setError] = useState(null);
 
   const handleForgotPassword = () => {
-    forgotPassword(email)
+    sendPasswordResetEmail(email)
       .then(() => {
         setIsConfirmCode(true);
       })
@@ -29,7 +27,7 @@ const ModalResetPassword = (props) => {
   };
 
   const handleResendCode = () => {
-    forgotPassword(email).catch((err) => {
+    sendPasswordResetEmail(email).catch((err) => {
       setError(err.message);
     });
   };

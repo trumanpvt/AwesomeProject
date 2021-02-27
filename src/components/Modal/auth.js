@@ -104,8 +104,7 @@ const ModalAuth = (props) => {
   };
 
   const handlePasswordReset = () => {
-    // props.setModalAdditionalData({email});
-    // props.setModal({type: 'resetPassword'});
+    props.setModal({type: 'resetPassword', email: email || ''});
   };
 
   const changeSignMode = () => {

@@ -16,7 +16,7 @@ const ModalContainer = observer(() => {
         return <ModalAuth setCloseModal={setCloseModal} setModal={setModal} />;
       }
       case 'resetPassword': {
-        return <ModalResetPassword setModal={setModal} />;
+        return <ModalResetPassword setModal={setModal} email={modal.email} />;
       }
       case 'message': {
         return (

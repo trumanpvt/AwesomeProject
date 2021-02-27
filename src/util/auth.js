@@ -4,8 +4,6 @@ import {AccessToken} from 'react-native-fbsdk';
 
 import {webClientId} from '../constants';
 
-// import {useStores} from '../store';
-
 export const passwordSignIn = (username, password) => {
   return auth().signInWithEmailAndPassword(username, password);
 };
@@ -38,33 +36,24 @@ export const checkPasswordProvider = () => {
   });
 };
 
-export const confirmSignUp = (email, code) => {
-  // return Auth.confirmSignUp(email, code);
-};
+// export const confirmSignUp = (email, code) => {
+// };
 
 export const sendPasswordResetEmail = (email) => {
-  return auth().sendPasswordResetEmail();
+  return auth().sendPasswordResetEmail(email);
 };
 
 export const getCurrentAuthenticatedUser = () => {
   // return Auth.currentAuthenticatedUser();
 };
 
-export const socialSignIn = (provider) => {
-  // return Auth.federatedSignIn({provider});
-};
-
 export const signOut = () => {
   return auth().signOut();
 };
 
-export const forgotPassword = (username) => {
-  // return Auth.forgotPassword(username);
-};
-
-export const forgotPasswordSubmit = (username, code, newPassword) => {
-  // return Auth.forgotPasswordSubmit(username, code, newPassword);
-};
+// const forgotPasswordSubmit = (username, code, newPassword) => {
+// return Auth.forgotPasswordSubmit(username, code, newPassword);
+// ;
 
 export const googleSignIn = async () => {
   GoogleSignin.configure({
@@ -107,8 +96,4 @@ export const facebookSignIn = (error, result) => {
       auth().signInWithCredential(data.accessToken);
     });
   }
-};
-
-export const unlinkAccount = (providerId) => {
-  return auth().currentUser.unlink(providerId);
 };
