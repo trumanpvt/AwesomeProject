@@ -1,27 +1,22 @@
 import React from 'react';
 import {View} from 'react-native';
-import {Button, Text, Thumbnail, Badge} from 'native-base';
+import {Badge, Button, Text, Thumbnail} from 'native-base';
 import styles from './style.js';
 import {observer} from 'mobx-react-lite';
 
-import {signOut, reloadUser} from '../../util/auth';
+import {signOut} from '../../util/auth';
 import {useStores} from '../../store';
 
-const User = observer((props) => {
+const User = observer(({navigation}) => {
   const {modalStore, userStore} = useStores();
   const {setModal} = modalStore;
 
-  const {user, setUser} = userStore;
-
-  if (user && !user.emailVerified) {
-    console.log('not verified');
-    // setUser(reloadUser());
-  }
+  const {user} = userStore;
 
   const handleSignOut = () => {
     signOut()
       .then(() => {
-        props.navigation.navigate('HomeScreen');
+        navigation.navigate('HomeScreen');
       })
       .catch((error) => {
         console.log(error);
@@ -37,7 +32,7 @@ const User = observer((props) => {
       <View style={styles.userInfo}>
         <Button
           transparent
-          onPress={() => props.navigation.navigate('ProfileScreen')}>
+          onPress={() => navigation.navigate('ProfileScreen')}>
           {photoURL ? (
             <Thumbnail small source={{uri: photoURL}} />
           ) : (

@@ -83,20 +83,13 @@ export const facebookSignIn = (error, result) => {
   }
 };
 
-export const getReloadedUser = () => {
-  const user = auth().currentUser;
-  if (!user) {
-    return null;
-  }
-  user
-    .reload()
-    .then(() => {
-      console.log('user reload success', user);
-    })
-    .catch((e) => {
-      console.log('user reload failed', e);
-    });
+export const getCurrentUser = () => {
+  return auth().currentUser;
 
-  return user;
-  // return auth().currentUser.reload();
+  // .then(() => {
+  //   console.log('user reload success', user);
+  // })
+  // .catch((e) => {
+  //   console.log('user reload failed', e);
+  // });
 };

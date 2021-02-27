@@ -19,14 +19,14 @@ import {View} from 'react-native';
 import Avatar from './avatar';
 import {observer} from 'mobx-react-lite';
 import PropTypes from 'prop-types';
-import {getReloadedUser} from '../../util/auth';
+import {getCurrentUser, getReloadedUser} from '../../util/auth';
 
 const ProfileScreen = observer(({navigation}) => {
   const {userStore, modalStore} = useStores();
-  const {user, reloadUser, changeUser} = userStore;
+  const {user, reloadUser, changeUser, setUser} = userStore;
   const {setModal} = modalStore;
 
-  // let user = user;
+  // let user = getCurrentUser();
 
   const [displayName, setDisplayName] = useState(user ? user.displayName : '');
   const [password, setPassword] = useState('');
@@ -34,26 +34,20 @@ const ProfileScreen = observer(({navigation}) => {
   const [confirmPassword, setConfirmPassword] = useState('');
 
   useEffect(() => {
+    console.log('user changed', user);
     return navigation.addListener('focus', () => {
       if (user && !user.emailVerified) {
-        // user = getReloadedUser();
         console.log('reloaded user', user);
-        // user
-        //   .reload()
-        //   .then(() => {
         if (!user.emailVerified) {
           setModal({
             type: 'confirmEmail',
           });
-          navigation.navigate('HomeScreen');
+          // navigation.navigate('HomeScreen');
         }
-        // })
-        // .catch((e) => {
-        //   console.log('user reload failed', e);
-        // });
+        reloadUser();
       }
     });
-  }, [navigation, setModal, user]);
+  }, [navigation, reloadUser, setModal, user]);
 
   useEffect(() => {
     if (user) {
@@ -94,7 +88,7 @@ const ProfileScreen = observer(({navigation}) => {
 
   return (
     <Container style={styles.container}>
-      {user && user.emailVerified ? (
+      {user.emailVerified ? (
         <Content>
           <Text style={styles.heading}>Profile</Text>
           <Avatar
