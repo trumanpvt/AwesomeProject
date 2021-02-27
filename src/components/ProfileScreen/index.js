@@ -18,19 +18,43 @@ import {View} from 'react-native';
 
 import Avatar from './avatar';
 import {observer} from 'mobx-react-lite';
-import {getCurrentAuthenticatedUser} from '../../util/auth';
+import PropTypes from 'prop-types';
 
-const ProfileScreen = observer(() => {
-  const {user, changeUser} = useStores().userStore;
+const ProfileScreen = observer(({navigation}) => {
+  const {userStore, modalStore} = useStores();
+  const {user, changeUser} = userStore;
+  const {setModal} = modalStore;
 
   const [displayName, setDisplayName] = useState(user ? user.displayName : '');
   const [password, setPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
-  // useEffect(() => {
-  //   setDisplayName(user.displayName);
-  // }, [user]);
+  useEffect(() => {
+    return navigation.addListener('focus', () => {
+      if (user && !user.emailVerified) {
+        user
+          .reload()
+          .then(() => {
+            if (!user.emailVerified) {
+              setModal({
+                type: 'confirmEmail',
+              });
+              navigation.navigate('HomeScreen');
+            }
+          })
+          .catch((e) => {
+            console.log('user reload failed', e);
+          });
+      }
+    });
+  }, [navigation, setModal, user]);
+
+  useEffect(() => {
+    if (user) {
+      setDisplayName(user.displayName);
+    }
+  }, [user]);
 
   const handleCancelChangeUser = () => {
     setDisplayName(user.displayName);
@@ -68,124 +92,116 @@ const ProfileScreen = observer(() => {
   //   return user.providerData.some((item) => item.providerId === 'password');
   // };
 
-  const handleGetCurrentAuthenticatedUser = () => {
-    getCurrentAuthenticatedUser()
-      .then((user) => {
-        console.log('getCurrentAuthenticatedUser', user);
-      })
-      .catch((err) => {
-        console.log('getCurrentAuthenticatedUser error', err);
-      });
-  };
-
-  return user ? (
+  return (
     <Container style={styles.container}>
-      <Content>
-        <Text style={styles.heading}>Profile</Text>
-        <Avatar user={user} photoURL={user.photoURL} changeUser={changeUser} />
-        <Form style={styles.form}>
-          <Item style={styles.input} floatingLabel>
-            <Label>Username</Label>
-            <Input
-              textContentType="username"
-              value={displayName}
-              onChangeText={setDisplayName}
-              placeholder="Username"
-            />
-          </Item>
-          {/*<Item style={styles.input} floatingLabel>*/}
-          {/*  <Label>Phone</Label>*/}
-          {/*  <Input*/}
-          {/*    textContentType="telephoneNumber"*/}
-          {/*    value={phoneNumber}*/}
-          {/*    onChangeText={formatPhone}*/}
-          {/*    placeholder="Phone"*/}
-          {/*    keyboardType="phone-pad"*/}
-          {/*  />*/}
-          {/*</Item>*/}
-          <View style={styles.buttons}>
-            <Button
-              full
-              rounded
-              primary
-              style={styles.button}
-              onPress={handleChangeUser}>
-              <Text>Save</Text>
-            </Button>
-            <Button
-              full
-              rounded
-              danger
-              style={styles.button}
-              onPress={handleCancelChangeUser}>
-              <Text>Cancel</Text>
-            </Button>
-          </View>
-          <Text style={styles.heading}>
-            {isPasswordProvider ? 'Change password' : 'Create password'}
-          </Text>
-          {isPasswordProvider && (
+      {user && user.emailVerified ? (
+        <Content>
+          <Text style={styles.heading}>Profile</Text>
+          <Avatar
+            user={user}
+            photoURL={user.photoURL}
+            changeUser={changeUser}
+          />
+          <Form style={styles.form}>
             <Item style={styles.input} floatingLabel>
-              <Label>Old password</Label>
+              <Label>Username</Label>
+              <Input
+                textContentType="username"
+                value={displayName}
+                onChangeText={setDisplayName}
+                placeholder="Username"
+              />
+            </Item>
+            {/*<Item style={styles.input} floatingLabel>*/}
+            {/*  <Label>Phone</Label>*/}
+            {/*  <Input*/}
+            {/*    textContentType="telephoneNumber"*/}
+            {/*    value={phoneNumber}*/}
+            {/*    onChangeText={formatPhone}*/}
+            {/*    placeholder="Phone"*/}
+            {/*    keyboardType="phone-pad"*/}
+            {/*  />*/}
+            {/*</Item>*/}
+            <View style={styles.buttons}>
+              <Button
+                full
+                rounded
+                primary
+                style={styles.button}
+                onPress={handleChangeUser}>
+                <Text>Save</Text>
+              </Button>
+              <Button
+                full
+                rounded
+                danger
+                style={styles.button}
+                onPress={handleCancelChangeUser}>
+                <Text>Cancel</Text>
+              </Button>
+            </View>
+            <Text style={styles.heading}>
+              {isPasswordProvider ? 'Change password' : 'Create password'}
+            </Text>
+            {isPasswordProvider && (
+              <Item style={styles.input} floatingLabel>
+                <Label>Old password</Label>
+                <Input
+                  textContentType="password"
+                  secureTextEntry
+                  value={password}
+                  onChangeText={setPassword}
+                  placeholder="Old password"
+                />
+              </Item>
+            )}
+            <Item style={styles.input} floatingLabel>
+              <Label>New password</Label>
               <Input
                 textContentType="password"
                 secureTextEntry
-                value={password}
-                onChangeText={setPassword}
-                placeholder="Old password"
+                value={newPassword}
+                onChangeText={setNewPassword}
+                placeholder="New password"
               />
             </Item>
-          )}
-          <Item style={styles.input} floatingLabel>
-            <Label>New password</Label>
-            <Input
-              textContentType="password"
-              secureTextEntry
-              value={newPassword}
-              onChangeText={setNewPassword}
-              placeholder="New password"
-            />
-          </Item>
-          <Item style={styles.input} floatingLabel>
-            <Label>Confirm password</Label>
-            <Input
-              textContentType="password"
-              secureTextEntry
-              value={confirmPassword}
-              onChangeText={setConfirmPassword}
-              placeholder="Confirm password"
-            />
-          </Item>
-          <View style={styles.buttons}>
-            <Button
-              full
-              rounded
-              primary
-              style={styles.button}
-              onPress={handlePasswordChange}>
-              <Text>Save</Text>
-            </Button>
-            <Button
-              full
-              rounded
-              danger
-              style={styles.button}
-              onPress={handleCancelPasswordChange}>
-              <Text>Cancel</Text>
-            </Button>
-          </View>
-          <Button
-            full
-            rounded
-            danger
-            style={styles.button}
-            onPress={handleGetCurrentAuthenticatedUser}>
-            <Text>Get user</Text>
-          </Button>
-        </Form>
-      </Content>
+            <Item style={styles.input} floatingLabel>
+              <Label>Confirm password</Label>
+              <Input
+                textContentType="password"
+                secureTextEntry
+                value={confirmPassword}
+                onChangeText={setConfirmPassword}
+                placeholder="Confirm password"
+              />
+            </Item>
+            <View style={styles.buttons}>
+              <Button
+                full
+                rounded
+                primary
+                style={styles.button}
+                onPress={handlePasswordChange}>
+                <Text>Save</Text>
+              </Button>
+              <Button
+                full
+                rounded
+                danger
+                style={styles.button}
+                onPress={handleCancelPasswordChange}>
+                <Text>Cancel</Text>
+              </Button>
+            </View>
+          </Form>
+        </Content>
+      ) : null}
     </Container>
-  ) : null;
+  );
 });
+
+ProfileScreen.propTypes = {
+  navigation: PropTypes.object,
+};
 
 export default ProfileScreen;
