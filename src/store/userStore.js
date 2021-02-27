@@ -9,7 +9,6 @@ export default class UserStore {
       user: observable,
       setUser: action,
       changeUser: action,
-      reloadUser: action,
     });
   }
 
@@ -26,19 +25,6 @@ export default class UserStore {
       })
       .catch((error) => {
         console.log('updateProfile error', error);
-      });
-  };
-
-  reloadUser = () => {
-    const reloadedUser = auth().currentUser;
-    reloadedUser
-      .reload()
-      .then(() => {
-        console.log('user reload success', this.user);
-        this.user = reloadedUser;
-      })
-      .catch((e) => {
-        console.log('user reload failed', e);
       });
   };
 }

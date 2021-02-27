@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
 import {
   Button,
@@ -18,15 +18,12 @@ import {View} from 'react-native';
 
 import Avatar from './avatar';
 import {observer} from 'mobx-react-lite';
-import PropTypes from 'prop-types';
-import {getCurrentUser, getReloadedUser} from '../../util/auth';
+import {getCurrentUser} from '../../util/auth';
 
 const ProfileScreen = observer(({navigation}) => {
   const {userStore, modalStore} = useStores();
-  const {user, reloadUser, changeUser, setUser} = userStore;
+  const {user, changeUser, setUser} = userStore;
   const {setModal} = modalStore;
-
-  // let user = getCurrentUser();
 
   const [displayName, setDisplayName] = useState(user ? user.displayName : '');
   const [password, setPassword] = useState('');
@@ -34,20 +31,23 @@ const ProfileScreen = observer(({navigation}) => {
   const [confirmPassword, setConfirmPassword] = useState('');
 
   useEffect(() => {
-    console.log('user changed', user);
     return navigation.addListener('focus', () => {
+      console.log('user checking', user);
       if (user && !user.emailVerified) {
-        console.log('reloaded user', user);
-        if (!user.emailVerified) {
+        const reloadedUser = getCurrentUser();
+        reloadedUser.reload().then((r) => {
+          console.log('reloaded user', reloadedUser);
+          setUser(reloadedUser);
+        });
+        if (!reloadedUser.emailVerified) {
           setModal({
             type: 'confirmEmail',
           });
-          // navigation.navigate('HomeScreen');
+          navigation.navigate('HomeScreen');
         }
-        reloadUser();
       }
     });
-  }, [navigation, reloadUser, setModal, user]);
+  }, [navigation, setModal, setUser, user]);
 
   useEffect(() => {
     if (user) {
@@ -88,7 +88,7 @@ const ProfileScreen = observer(({navigation}) => {
 
   return (
     <Container style={styles.container}>
-      {user.emailVerified ? (
+      {user && user.emailVerified ? (
         <Content>
           <Text style={styles.heading}>Profile</Text>
           <Avatar
@@ -193,9 +193,5 @@ const ProfileScreen = observer(({navigation}) => {
     </Container>
   );
 });
-
-ProfileScreen.propTypes = {
-  navigation: PropTypes.object,
-};
 
 export default ProfileScreen;
