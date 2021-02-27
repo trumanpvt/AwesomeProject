@@ -34,26 +34,40 @@ const ProfileScreen = observer(({navigation}) => {
     return navigation.addListener('focus', () => {
       console.log('user checking', user);
       if (user && !user.emailVerified) {
-        const reloadedUser = getCurrentUser();
-        reloadedUser.reload().then((r) => {
-          console.log('reloaded user', reloadedUser);
-          setUser(reloadedUser);
-        });
-        if (!reloadedUser.emailVerified) {
-          setModal({
-            type: 'confirmEmail',
-          });
-          navigation.navigate('HomeScreen');
-        }
+        // const reloadedUser = getCurrentUser();
+        // reloadedUser.reload().then(() => {
+        //   console.log('reloaded user', reloadedUser);
+        //   if (!reloadedUser.emailVerified) {
+        //     setModal({
+        //       type: 'confirmEmail',
+        //     });
+        //     navigation.navigate('HomeScreen');
+        //   } else {
+        //     setUser(reloadedUser);
+        //   }
+        // });
+        handleReloadUser();
       }
     });
-  }, [navigation, setModal, setUser, user]);
+  }, [handleReloadUser, navigation, setModal, setUser, user]);
 
   useEffect(() => {
     if (user) {
       setDisplayName(user.displayName);
     }
   }, [user]);
+
+  const handleReloadUser = () => {
+    const reloadedUser = getCurrentUser();
+    reloadedUser.reload().then(() => {
+      console.log('reloaded user', reloadedUser);
+      if (!reloadedUser.emailVerified) {
+        return handleReloadUser();
+      } else {
+        setUser(reloadedUser);
+      }
+    });
+  };
 
   const handleCancelChangeUser = () => {
     setDisplayName(user.displayName);
