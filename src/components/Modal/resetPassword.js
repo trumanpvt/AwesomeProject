@@ -138,7 +138,7 @@ const ModalResetPassword = (props) => {
         rounded
         danger
         style={styles.button}
-        onPress={() => props.setModal('auth')}>
+        onPress={() => props.setModal({type: 'auth'})}>
         <Text style={styles.textStyle}>Cancel</Text>
       </Button>
     </Form>

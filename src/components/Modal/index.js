@@ -3,43 +3,31 @@ import {Modal, View} from 'react-native';
 import styles from './style';
 import ModalResetPassword from './resetPassword';
 import ModalAuth from './auth';
-import ModalConfirmEmail from './confirmEmail';
+import ModalMessage from './message';
 import {observer} from 'mobx-react-lite';
 import {useStores} from '../../store';
 
 const ModalContainer = observer(() => {
-  const {
-    modal,
-    setModal,
-    setCloseModal,
-    setModalAdditionalInfo,
-  } = useStores().modalStore;
+  const {modal, setModal, setCloseModal} = useStores().modalStore;
 
   const renderModal = () => {
-    switch (modal) {
+    switch (modal.type) {
       case 'auth': {
-        return (
-          <ModalAuth
-            setCloseModal={setCloseModal}
-            setModal={setModal}
-            setModalAdditionalInfo={setModalAdditionalInfo}
-          />
-        );
+        return <ModalAuth setCloseModal={setCloseModal} setModal={setModal} />;
       }
       case 'resetPassword': {
         return <ModalResetPassword setModal={setModal} />;
       }
-      case 'confirmEmail': {
-        return <ModalConfirmEmail setCloseModal={setModal} />;
-      }
-      default: {
-        return null;
+      case 'message': {
+        return (
+          <ModalMessage setCloseModal={setCloseModal} message={modal.message} />
+        );
       }
     }
   };
 
   return (
-    <Modal animationType="fade" transparent={true} visible={modal !== null}>
+    <Modal animationType="fade" transparent={true} visible={!!modal.type}>
       <View style={styles.centeredView}>
         <View style={styles.modalWrap}>{renderModal()}</View>
       </View>

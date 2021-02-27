@@ -54,7 +54,7 @@ const User = observer((props) => {
   return (
     <View style={styles.userContent}>
       {!Object.keys(user).length ? (
-        <Button onPress={() => setModal('auth')}>
+        <Button onPress={() => setModal({type: 'auth'})}>
           <Text style={styles.buttonText}>SignIn/SignUp</Text>
         </Button>
       ) : (

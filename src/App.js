@@ -14,10 +14,13 @@ import auth from '@react-native-firebase/auth';
 const Drawer = createDrawerNavigator();
 
 const App = () => {
-  const {user, setUser} = useStores().userStore;
+  const {setUser} = useStores().userStore;
 
   useEffect(() => {
-    const subscriber = auth().onAuthStateChanged(setUser);
+    const subscriber = auth().onAuthStateChanged((user) => {
+      console.log('state changed');
+      setUser(user);
+    });
     return subscriber; // unsubscribe on unmount
   }, [setUser]);
 

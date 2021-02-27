@@ -1,8 +1,17 @@
 import React, {useEffect, useState} from 'react';
-import {useStores} from '../../store';
 
 import {View} from 'react-native';
-import {Button, Form, Icon, Input, Item, Tab, Tabs, Text} from 'native-base';
+import {
+  Button,
+  DefaultTabBar,
+  Form,
+  Icon,
+  Input,
+  Item,
+  Tab,
+  Tabs,
+  Text,
+} from 'native-base';
 
 import {
   confirmSignUp,
@@ -10,12 +19,11 @@ import {
   passwordSignIn,
   resendConfirmationCode,
   signUp,
-  socialSignIn,
 } from '../../util/auth';
 import styles from './style.js';
 
 const ModalAuth = (props) => {
-  const {user, setUser} = useStores().userStore;
+  // const {user, setUser} = useStores().userStore;
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -52,9 +60,13 @@ const ModalAuth = (props) => {
       signUp(email, password)
         .then(() => {
           setError(null);
-          props.setModal('confirmEmail');
+          // props.setModalAdditionalData({});
+          props.setModal({
+            type: 'message',
+            message: 'Confirmation link was sent to your email',
+          });
           // props.setCloseModal();
-          setIsConfirmCode(true);
+          // setIsConfirmCode(true);
         })
         .catch((err) => {
           setError(err.message);
@@ -91,9 +103,9 @@ const ModalAuth = (props) => {
     });
   };
 
-  const handleForgotPassword = () => {
-    props.setModalAdditionalInfo({email});
-    props.setModal('resetPassword');
+  const handlePasswordReset = () => {
+    // props.setModalAdditionalData({email});
+    // props.setModal({type: 'resetPassword'});
   };
 
   const changeSignMode = () => {
@@ -104,10 +116,16 @@ const ModalAuth = (props) => {
     setIsSignUp(!isSignUp);
   };
 
+  const renderTabBar = (tabsProps) => {
+    tabsProps.tabStyle = Object.create(tabsProps.tabStyle);
+    return <DefaultTabBar {...tabsProps} />;
+  };
+
   const renderChangeModeTabs = () => {
     return (
       <View style={styles.modalTabsContainer}>
         <Tabs
+          renderTabBar={renderTabBar}
           scrollWithoutAnimation
           tabContainerStyle={styles.modalTabs}
           onChangeTab={changeSignMode}>
@@ -178,7 +196,7 @@ const ModalAuth = (props) => {
           rounded
           transparent
           style={styles.button}
-          onPress={handleForgotPassword}>
+          onPress={handlePasswordReset}>
           <Text>Forgot password</Text>
         </Button>
         {error && <Text style={styles.error}>{error}</Text>}

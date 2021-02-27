@@ -42,8 +42,8 @@ export const confirmSignUp = (email, code) => {
   // return Auth.confirmSignUp(email, code);
 };
 
-export const resendConfirmationCode = (email) => {
-  // return Auth.resendSignUp(email);
+export const sendPasswordResetEmail = (email) => {
+  return auth().sendPasswordResetEmail();
 };
 
 export const getCurrentAuthenticatedUser = () => {

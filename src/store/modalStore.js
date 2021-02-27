@@ -1,28 +1,21 @@
 import {action, makeObservable, observable} from 'mobx';
 
 export default class ModalStore {
-  modal = null;
-  additionalInfo = {};
+  modal = {type: ''};
 
   constructor() {
     makeObservable(this, {
       modal: observable,
-      additionalInfo: observable,
       setModal: action,
-      setModalAdditionalInfo: action,
       setCloseModal: action,
     });
   }
 
-  setModal = (modalType) => {
-    this.modal = modalType;
-  };
-
-  setModalAdditionalInfo = (info) => {
-    this.additionalInfo = info;
+  setModal = (modalData) => {
+    this.modal = modalData;
   };
 
   setCloseModal = () => {
-    this.modal = null;
+    this.modal = {type: null};
   };
 }
