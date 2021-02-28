@@ -90,12 +90,7 @@ const ProfileScreen = observer(({navigation}) => {
       {user && user.emailVerified ? (
         <Content>
           <Text style={styles.heading}>Profile</Text>
-          <Avatar
-            user={user}
-            // uid={user.uid}
-            // photoURL={user.photoURL}
-            changeUser={changeUser}
-          />
+          <Avatar user={user} changeUser={changeUser} />
           <Form style={styles.form}>
             <Item style={styles.input} floatingLabel>
               <Label>Username</Label>

@@ -10,7 +10,6 @@ import HomeScreen from './components/HomeScreen';
 import ModalContainer from './components/Modal';
 import {useStores} from './store';
 import auth from '@react-native-firebase/auth';
-import {getReloadedUser} from './util/auth';
 
 const Drawer = createDrawerNavigator();
 
@@ -20,7 +19,6 @@ const App = () => {
   useEffect(() => {
     return auth().onAuthStateChanged((user) => {
       console.log('onAuthStateChanged');
-      let reloadedUser = null;
       if (user && !user.emailVerified) {
         auth()
           .currentUser.reload()
