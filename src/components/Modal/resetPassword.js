@@ -73,7 +73,7 @@ const ModalResetPassword = (props) => {
         danger
         style={styles.button}
         onPress={() => props.setModal({type: 'auth'})}>
-        <Text style={styles.textStyle}>Cancel</Text>
+        <Text style={styles.textStyle}>{isLinkSent ? 'Close' : 'Cancel'}</Text>
       </Button>
     </Form>
   );

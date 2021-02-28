@@ -15,6 +15,7 @@ import {
 
 import {
   confirmSignUp,
+  facebookSignIn,
   googleSignIn,
   passwordSignIn,
   resendConfirmationCode,
@@ -124,6 +125,19 @@ const ModalAuth = (props) => {
       })
       .catch((e) => {
         console.log('handleGoogleSignIn failed', e);
+        setError(e.message || e);
+      });
+  };
+
+  const handleFacebookSignIn = () => {
+    facebookSignIn()
+      .then((res) => {
+        console.log('handleFacebookSignIn success', res);
+        props.setCloseModal();
+      })
+      .catch((e) => {
+        console.log('handleFacebookSignIn failed', e);
+        setError(e.message || e);
       });
   };
 
@@ -182,9 +196,7 @@ const ModalAuth = (props) => {
             rounded
             primary
             style={[styles.socialButton, styles.facebookButton]}
-            onPress={() => {
-              console.log('Facebook');
-            }}>
+            onPress={handleFacebookSignIn}>
             <Icon name="facebook" type="FontAwesome" />
             <Text style={styles.textStyle}>Facebook</Text>
           </Button>
@@ -317,7 +329,7 @@ const ModalAuth = (props) => {
               rounded
               success
               style={styles.button}
-              disabled={!email || !password}
+              disabled={!email || !password || !confirmPassword}
               onPress={handleSignUp}>
               <Text style={styles.textStyle}>Sign Up</Text>
             </Button>
