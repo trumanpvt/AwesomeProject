@@ -54,35 +54,6 @@ const ProfileScreen = observer(({navigation}) => {
     }
   }, [user]);
 
-  // const handleReloadUser = () => {
-  //   const reloadedUser = getCurrentUser();
-  //   reloadedUser.reload().then(() => {
-  //     console.log('reloaded user', reloadedUser);
-  //     if (!reloadedUser.emailVerified) {
-  //       // return handleReloadUser();
-  //       console.log('not verified anyway, wtf');
-  //     } else {
-  //       setUser(reloadedUser);
-  //     }
-  //   });
-  // };
-
-  // const handleReloadUser = useCallback(() => {
-  //   let reloadedUser = getCurrentUser();
-  //   reloadedUser.reload().then(() => {
-  //     console.log('reloaded user', reloadedUser);
-  //     reloadedUser = getCurrentUser();
-  //     if (!reloadedUser.emailVerified) {
-  //       setModal({
-  //         type: 'confirmEmail',
-  //       });
-  //       navigation.navigate('HomeScreen');
-  //     } else {
-  //       setUser(reloadedUser);
-  //     }
-  //   });
-  // }, [navigation, setModal, setUser]);
-
   const handleCancelChangeUser = () => {
     setDisplayName(user.displayName);
   };
@@ -121,7 +92,8 @@ const ProfileScreen = observer(({navigation}) => {
           <Text style={styles.heading}>Profile</Text>
           <Avatar
             user={user}
-            photoURL={user.photoURL}
+            // uid={user.uid}
+            // photoURL={user.photoURL}
             changeUser={changeUser}
           />
           <Form style={styles.form}>

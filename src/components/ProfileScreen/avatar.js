@@ -4,7 +4,7 @@ import storage from '@react-native-firebase/storage';
 import {Badge, Text, Thumbnail} from 'native-base';
 
 import styles from './style.js';
-import {Platform, TouchableOpacity} from 'react-native';
+import {Platform, TouchableOpacity, View} from 'react-native';
 import {launchImageLibrary} from 'react-native-image-picker';
 import ImageResizer from 'react-native-image-resizer';
 
@@ -15,7 +15,7 @@ const quality = 100;
 const rotation = 0;
 const outputPath = null;
 
-const Avatar = (props) => {
+const Avatar = ({user, changeUser}) => {
   const handleChangePhoto = () => {
     launchImageLibrary(
       {
@@ -41,7 +41,7 @@ const Avatar = (props) => {
     )
       .then((response) => {
         let uri = response.uri;
-        let imagePath = props.user.uid + '/profile/userpic';
+        let imagePath = user.uid + '/profile/userpic';
         let uploadUri =
           Platform.OS === 'ios' ? uri.replace('file://', '') : uri;
 
@@ -67,9 +67,23 @@ const Avatar = (props) => {
       .ref('/' + imagePath)
       .getDownloadURL()
       .then((url) => {
-        props.changeUser({photoURL: url});
+        changeUser({photoURL: url});
       })
       .catch((e) => console.log('getting downloadURL of image error => ', e));
+  };
+
+  const renderEmptyAvatar = () => {
+    const userName = user.displayName || user.email;
+
+    return (
+      <View style={styles.imageEmpty}>
+        <Text style={styles.imageEmptyText}>{userName[0].toUpperCase()}</Text>
+      </View>
+    );
+  };
+
+  const renderThumbnail = () => {
+    return <Thumbnail large source={{uri: user.photoURL}} />;
   };
 
   return (
@@ -77,7 +91,7 @@ const Avatar = (props) => {
       transparent
       style={styles.imageContainer}
       onPress={handleChangePhoto}>
-      <Thumbnail large source={{uri: props.photoURL}} />
+      {user.photoURL ? renderThumbnail() : renderEmptyAvatar()}
       <Badge success style={styles.imageChange}>
         <Text style={styles.imageChangePlus}>+</Text>
       </Badge>

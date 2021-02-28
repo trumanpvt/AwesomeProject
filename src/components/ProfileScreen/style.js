@@ -31,6 +31,20 @@ export default StyleSheet.create({
     marginLeft: 'auto',
     marginRight: 'auto',
   },
+  imageEmpty: {
+    width: 80,
+    height: 80,
+    borderRadius: 50,
+    backgroundColor: 'red',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  imageEmptyText: {
+    fontSize: 26,
+    fontWeight: 'bold',
+    color: '#fff',
+  },
   imageChange: {
     paddingLeft: 0,
     paddingRight: 0,
