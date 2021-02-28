@@ -18,7 +18,7 @@ import {View} from 'react-native';
 
 import Avatar from './avatar';
 import {observer} from 'mobx-react-lite';
-import {getCurrentUser} from '../../util/auth';
+import {getCurrentUser, reloadCurrentUser} from '../../util/auth';
 
 const ProfileScreen = observer(({navigation}) => {
   const {userStore, modalStore} = useStores();
@@ -32,24 +32,21 @@ const ProfileScreen = observer(({navigation}) => {
 
   useEffect(() => {
     return navigation.addListener('focus', () => {
-      console.log('user checking', user);
       if (user && !user.emailVerified) {
-        // const reloadedUser = getCurrentUser();
-        // reloadedUser.reload().then(() => {
-        //   console.log('reloaded user', reloadedUser);
-        //   if (!reloadedUser.emailVerified) {
-        //     setModal({
-        //       type: 'confirmEmail',
-        //     });
-        //     navigation.navigate('HomeScreen');
-        //   } else {
-        //     setUser(reloadedUser);
-        //   }
-        // });
-        handleReloadUser();
+        reloadCurrentUser().then(() => {
+          const reloadedUser = getCurrentUser();
+          if (reloadedUser && !reloadedUser.emailVerified) {
+            setModal({
+              type: 'confirmEmail',
+            });
+            navigation.navigate('HomeScreen');
+          } else {
+            setUser(reloadedUser);
+          }
+        });
       }
     });
-  }, [handleReloadUser, navigation, setModal, setUser, user]);
+  }, [navigation, setModal, setUser, user]);
 
   useEffect(() => {
     if (user) {
@@ -57,17 +54,34 @@ const ProfileScreen = observer(({navigation}) => {
     }
   }, [user]);
 
-  const handleReloadUser = () => {
-    const reloadedUser = getCurrentUser();
-    reloadedUser.reload().then(() => {
-      console.log('reloaded user', reloadedUser);
-      if (!reloadedUser.emailVerified) {
-        return handleReloadUser();
-      } else {
-        setUser(reloadedUser);
-      }
-    });
-  };
+  // const handleReloadUser = () => {
+  //   const reloadedUser = getCurrentUser();
+  //   reloadedUser.reload().then(() => {
+  //     console.log('reloaded user', reloadedUser);
+  //     if (!reloadedUser.emailVerified) {
+  //       // return handleReloadUser();
+  //       console.log('not verified anyway, wtf');
+  //     } else {
+  //       setUser(reloadedUser);
+  //     }
+  //   });
+  // };
+
+  // const handleReloadUser = useCallback(() => {
+  //   let reloadedUser = getCurrentUser();
+  //   reloadedUser.reload().then(() => {
+  //     console.log('reloaded user', reloadedUser);
+  //     reloadedUser = getCurrentUser();
+  //     if (!reloadedUser.emailVerified) {
+  //       setModal({
+  //         type: 'confirmEmail',
+  //       });
+  //       navigation.navigate('HomeScreen');
+  //     } else {
+  //       setUser(reloadedUser);
+  //     }
+  //   });
+  // }, [navigation, setModal, setUser]);
 
   const handleCancelChangeUser = () => {
     setDisplayName(user.displayName);
