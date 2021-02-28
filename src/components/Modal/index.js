@@ -7,6 +7,7 @@ import ModalMessage from './message';
 import {observer} from 'mobx-react-lite';
 import {useStores} from '../../store';
 import ModalConfirmEmail from './confirmEmail';
+import ModalEmailExist from './emailExist';
 
 const ModalContainer = observer(() => {
   const {modal, setModal, setCloseModal} = useStores().modalStore;
@@ -21,6 +22,11 @@ const ModalContainer = observer(() => {
       }
       case 'confirmEmail': {
         return <ModalConfirmEmail setCloseModal={setCloseModal} />;
+      }
+      case 'emailExist': {
+        return (
+          <ModalEmailExist setCloseModal={setCloseModal} setModal={setModal} />
+        );
       }
       case 'message': {
         return (

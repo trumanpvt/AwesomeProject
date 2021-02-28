@@ -4,11 +4,15 @@ import auth from '@react-native-firebase/auth';
 export default class UserStore {
   user = auth().currentUser;
 
+  credential = null;
+
   constructor() {
     makeObservable(this, {
       user: observable,
+      credential: observable,
       setUser: action,
       changeUser: action,
+      setCredential: action,
     });
   }
 
@@ -26,5 +30,10 @@ export default class UserStore {
       .catch((error) => {
         console.log('updateProfile error', error);
       });
+  };
+
+  setCredential = (credential) => {
+    console.log('credentials', credential);
+    this.credential = credential;
   };
 }

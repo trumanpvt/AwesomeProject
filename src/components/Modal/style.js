@@ -50,6 +50,9 @@ export default StyleSheet.create({
   socialButton: {
     marginBottom: 20,
   },
+  socialButtonExist: {
+    marginBottom: 0,
+  },
   googleButton: {
     backgroundColor: '#db4437',
   },
@@ -60,6 +63,11 @@ export default StyleSheet.create({
     fontSize: 20,
     textAlign: 'center',
     marginBottom: 10,
+  },
+  messageText: {
+    marginTop: 10,
+    marginBottom: 10,
+    textAlign: 'center',
   },
   textStyle: {
     color: 'white',

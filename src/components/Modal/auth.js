@@ -23,9 +23,10 @@ import {
   signUp,
 } from '../../util/auth';
 import styles from './style.js';
+import {useStores} from '../../store';
 
 const ModalAuth = (props) => {
-  // const {user, setUser} = useStores().userStore;
+  const {setCredential} = useStores().userStore;
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -52,12 +53,11 @@ const ModalAuth = (props) => {
       .catch((err) => {
         console.log('passwordSignIn error', err);
         setError(err.message);
-        // }
       });
   };
 
-  const handleSendEmailVerification = (user) => {
-    sendEmailVerification(user)
+  const handleSendEmailVerification = () => {
+    sendEmailVerification()
       .then(() => {
         props.setModal({
           type: 'confirmEmail',
@@ -130,13 +130,17 @@ const ModalAuth = (props) => {
   };
 
   const handleFacebookSignIn = () => {
-    facebookSignIn()
+    facebookSignIn(setCredential)
       .then((res) => {
         console.log('handleFacebookSignIn success', res);
         props.setCloseModal();
       })
-      .catch((e) => {
-        console.log('handleFacebookSignIn failed', e);
+      .catch((e, credential) => {
+        console.log('handleFacebookSignIn failed', credential);
+        console.log('handleFacebookSignIn failed creds', e);
+        if (e.code === 'auth/account-exists-with-different-credential') {
+          props.setModal({type: 'emailExist'});
+        }
         setError(e.message || e);
       });
   };

@@ -21,24 +21,14 @@ export const sendEmailVerification = () => {
   return auth().currentUser.sendEmailVerification();
 };
 
-// export const confirmSignUp = (email, code) => {
-// };
-
 export const sendPasswordResetEmail = (email) => {
   return auth().sendPasswordResetEmail(email);
 };
 
-export const getCurrentAuthenticatedUser = () => {
-  // return Auth.currentAuthenticatedUser();
-};
-
 export const signOut = () => {
+  // GoogleSignin.signOut();
   return auth().signOut();
 };
-
-// const forgotPasswordSubmit = (username, code, newPassword) => {
-// return Auth.forgotPasswordSubmit(username, code, newPassword);
-// ;
 
 export const googleSignIn = async () => {
   GoogleSignin.configure({
@@ -69,7 +59,7 @@ export const googleSignIn = async () => {
   }
 };
 
-export const facebookSignIn = async () => {
+export const facebookSignIn = async (setCredential) => {
   try {
     // Attempt login with permissions
     const result = await LoginManager.logInWithPermissions([
@@ -82,22 +72,27 @@ export const facebookSignIn = async () => {
     }
 
     // Once signed in, get the users AccessToken
-    const data = await AccessToken.getCurrentAccessToken();
+    const {accessToken} = await AccessToken.getCurrentAccessToken();
 
-    if (!data) {
+    if (!accessToken) {
       throw 'Something went wrong obtaining access token';
     }
 
     // Create a Firebase credential with the AccessToken
     const facebookCredential = auth.FacebookAuthProvider.credential(
-      data.accessToken,
+      accessToken,
     );
+    setCredential(facebookCredential);
 
     // Sign-in the user with the credential
     return auth().signInWithCredential(facebookCredential);
   } catch (e) {
     return Promise.reject(e);
   }
+};
+
+export const linkWithCredential = (credential) => {
+  return auth().currentUser.linkWithCredential(credential);
 };
 
 export const getCurrentUser = () => {
