@@ -40,6 +40,7 @@ const Avatar = ({user, changeUser}) => {
     if (isPhoto) {
       return ImagePicker.openCamera(options)
         .then((image) => {
+          console.log('image', image);
           return uploadPhoto(image.path);
         })
         .catch((e) => {
@@ -58,7 +59,6 @@ const Avatar = ({user, changeUser}) => {
 
   const uploadPhoto = (path) => {
     setUploading(true);
-    console.log('uploadPhoto response', path);
     const imagePath = user.uid + '/profile/userpic';
     const uploadUri =
       Platform.OS === 'ios' ? path.replace('file://', '') : path;
@@ -66,7 +66,7 @@ const Avatar = ({user, changeUser}) => {
     return storage()
       .ref(imagePath)
       .putFile(uploadUri)
-      .then((snapshot) => {
+      .then(() => {
         return savePhotoUrl(imagePath);
       })
       .catch((e) => console.log('uploading image error => ', e));
