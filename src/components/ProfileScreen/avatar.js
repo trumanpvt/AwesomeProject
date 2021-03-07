@@ -6,53 +6,28 @@ import {Badge, Text, Thumbnail} from 'native-base';
 import styles from './style.js';
 import {Platform, TouchableOpacity, View} from 'react-native';
 import {launchImageLibrary} from 'react-native-image-picker';
-import ImageResizer from 'react-native-image-resizer';
 
-const newWidth = 80;
-const newHeight = 80;
-const compressFormat = 'PNG';
-const quality = 100;
-const rotation = 0;
-const outputPath = null;
+const maxWidth = 80;
+const maxHeight = 80;
 
 const Avatar = ({user, changeUser}) => {
   const handleChangePhoto = () => {
     launchImageLibrary(
       {
         mediaType: 'photo',
+        maxWidth,
+        maxHeight,
       },
-      resizePhoto,
+      uploadPhoto,
     );
   };
 
-  const resizePhoto = (data) => {
-    console.log('uploadPhoto response', data);
-    if (!data.uri) {
-      return null;
-    }
-    ImageResizer.createResizedImage(
-      data.uri,
-      newWidth,
-      newHeight,
-      compressFormat,
-      quality,
-      rotation,
-      outputPath,
-    )
-      .then((response) => {
-        let uri = response.uri;
-        let imagePath = user.uid + '/profile/userpic';
-        let uploadUri =
-          Platform.OS === 'ios' ? uri.replace('file://', '') : uri;
+  const uploadPhoto = (response) => {
+    console.log('uploadPhoto response', response);
+    const uri = response.uri;
+    const imagePath = user.uid + '/profile/userpic';
+    const uploadUri = Platform.OS === 'ios' ? uri.replace('file://', '') : uri;
 
-        uploadPhoto(imagePath, uploadUri);
-      })
-      .catch((err) => {
-        console.log('image resizing error => ', err);
-      });
-  };
-
-  const uploadPhoto = (imagePath, uploadUri) => {
     storage()
       .ref(imagePath)
       .putFile(uploadUri)
