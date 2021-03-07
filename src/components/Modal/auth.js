@@ -135,9 +135,8 @@ const ModalAuth = (props) => {
           props.setCloseModal();
         }
       })
-      .catch((e, credential) => {
-        console.log('handleFacebookSignIn failed', credential);
-        console.log('handleFacebookSignIn failed creds', e);
+      .catch((e) => {
+        console.log('handleFacebookSignIn failed', e);
         if (e.code === 'auth/account-exists-with-different-credential') {
           props.setModal({type: 'emailExist'});
         }
