@@ -11,6 +11,8 @@ import ModalContainer from './components/Modal';
 import {useStores} from './store';
 import auth from '@react-native-firebase/auth';
 
+import {Root} from 'native-base';
+
 const Drawer = createDrawerNavigator();
 
 const App = () => {
@@ -32,7 +34,7 @@ const App = () => {
   }, [setUser]);
 
   return (
-    <>
+    <Root>
       <NavigationContainer>
         <Drawer.Navigator
           initialRouteName="HomeScreen"
@@ -51,7 +53,7 @@ const App = () => {
         </Drawer.Navigator>
       </NavigationContainer>
       <ModalContainer />
-    </>
+    </Root>
   );
 };
 export default App;

@@ -1,28 +1,51 @@
-import React from 'react';
+import React, {useState} from 'react';
 import storage from '@react-native-firebase/storage';
 
-import {Badge, Text, Thumbnail} from 'native-base';
+import {Badge, Text, Thumbnail, Spinner, ActionSheet} from 'native-base';
 
 import styles from './style.js';
 import {Platform, TouchableOpacity, View} from 'react-native';
-import {launchImageLibrary} from 'react-native-image-picker';
-
-const maxWidth = 80;
-const maxHeight = 80;
+import {launchImageLibrary, launchCamera} from 'react-native-image-picker';
 
 const Avatar = ({user, changeUser}) => {
-  const handleChangePhoto = () => {
-    launchImageLibrary(
+  const [uploading, setUploading] = useState(false);
+
+  const selectPhotoSource = () => {
+    ActionSheet.show(
       {
-        mediaType: 'photo',
-        maxWidth,
-        maxHeight,
+        options: ['Select from gallery', 'Take photo', 'Cancel'],
+        cancelButtonIndex: 2,
+        title: 'Choose image source',
       },
-      uploadPhoto,
+      (buttonIndex) => {
+        if (buttonIndex === 2) {
+          return null;
+        }
+        return handleChangeAvatar(!!buttonIndex);
+      },
     );
   };
 
+  const handleChangeAvatar = (isPhoto) => {
+    const options = {
+      mediaType: 'photo',
+      maxWidth: 80,
+      maxHeight: 80,
+    };
+
+    if (isPhoto) {
+      return launchCamera(options, uploadPhoto);
+    }
+
+    return launchImageLibrary(options, uploadPhoto);
+  };
+
   const uploadPhoto = (response) => {
+    if (response.didCancel) {
+      return null;
+    }
+
+    setUploading(true);
     console.log('uploadPhoto response', response);
     const uri = response.uri;
     const imagePath = user.uid + '/profile/userpic';
@@ -43,11 +66,16 @@ const Avatar = ({user, changeUser}) => {
       .getDownloadURL()
       .then((url) => {
         changeUser({photoURL: url});
+        setUploading(false);
       })
       .catch((e) => console.log('getting downloadURL of image error => ', e));
   };
 
   const renderEmptyAvatar = () => {
+    if (uploading) {
+      return <Spinner />;
+    }
+
     const userName = user.displayName || user.email;
 
     return (
@@ -57,16 +85,24 @@ const Avatar = ({user, changeUser}) => {
     );
   };
 
-  const renderThumbnail = () => {
-    return <Thumbnail large source={{uri: user.photoURL}} />;
+  const renderAvatarBody = () => {
+    if (uploading) {
+      return <Spinner />;
+    }
+
+    if (user.photoURL) {
+      return <Thumbnail large source={{uri: user.photoURL}} />;
+    }
+
+    return renderEmptyAvatar();
   };
 
   return (
     <TouchableOpacity
       transparent
       style={styles.imageContainer}
-      onPress={handleChangePhoto}>
-      {user.photoURL ? renderThumbnail() : renderEmptyAvatar()}
+      onPress={selectPhotoSource}>
+      {renderAvatarBody()}
       <Badge success style={styles.imageChange}>
         <Text style={styles.imageChangePlus}>+</Text>
       </Badge>
