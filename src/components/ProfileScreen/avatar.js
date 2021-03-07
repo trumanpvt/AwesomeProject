@@ -1,14 +1,18 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import storage from '@react-native-firebase/storage';
 
-import {Badge, Text, Thumbnail, Spinner, ActionSheet} from 'native-base';
+import {ActionSheet, Badge, Spinner, Text, Thumbnail} from 'native-base';
 
 import styles from './style.js';
 import {Platform, TouchableOpacity, View} from 'react-native';
-import {launchImageLibrary, launchCamera} from 'react-native-image-picker';
+import ImagePicker from 'react-native-image-crop-picker';
 
 const Avatar = ({user, changeUser}) => {
   const [uploading, setUploading] = useState(false);
+
+  useEffect(() => {
+    setUploading(false);
+  }, [user.photoURL]);
 
   const selectPhotoSource = () => {
     ActionSheet.show(
@@ -28,28 +32,36 @@ const Avatar = ({user, changeUser}) => {
 
   const handleChangeAvatar = (isPhoto) => {
     const options = {
-      mediaType: 'photo',
-      maxWidth: 80,
-      maxHeight: 80,
+      width: 80,
+      height: 80,
+      cropping: true,
     };
 
     if (isPhoto) {
-      return launchCamera(options, uploadPhoto);
+      return ImagePicker.openCamera(options)
+        .then((image) => {
+          return uploadPhoto(image.path);
+        })
+        .catch((e) => {
+          console.log('ImagePicker.openPicker error', e);
+        });
     }
 
-    return launchImageLibrary(options, uploadPhoto);
+    return ImagePicker.openPicker(options)
+      .then((image) => {
+        return uploadPhoto(image.path);
+      })
+      .catch((e) => {
+        console.log('ImagePicker.openCamera error', e);
+      });
   };
 
-  const uploadPhoto = (response) => {
-    if (response.didCancel) {
-      return null;
-    }
-
+  const uploadPhoto = (path) => {
     setUploading(true);
-    console.log('uploadPhoto response', response);
-    const uri = response.uri;
+    console.log('uploadPhoto response', path);
     const imagePath = user.uid + '/profile/userpic';
-    const uploadUri = Platform.OS === 'ios' ? uri.replace('file://', '') : uri;
+    const uploadUri =
+      Platform.OS === 'ios' ? path.replace('file://', '') : path;
 
     return storage()
       .ref(imagePath)
@@ -66,7 +78,6 @@ const Avatar = ({user, changeUser}) => {
       .getDownloadURL()
       .then((url) => {
         changeUser({photoURL: url});
-        setUploading(false);
       })
       .catch((e) => console.log('getting downloadURL of image error => ', e));
   };
