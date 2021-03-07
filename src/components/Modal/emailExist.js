@@ -34,10 +34,14 @@ const ModalEmailExist = (props) => {
   };
 
   const handlePasswordSignIn = () => {
+    let user = null;
     passwordSignIn(email, password)
-      .then((cred) => linkWithCredential(credential))
+      .then((cred) => {
+        user = cred.user;
+        return linkWithCredential(credential);
+      })
       .then(() => {
-        if (cred.user && !cred.user.emailVerified) {
+        if (user && !user.emailVerified) {
           sendEmailVerification().then(() => {
             props.setModal({
               type: 'confirmEmail',

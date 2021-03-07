@@ -100,13 +100,6 @@ const ModalAuth = (props) => {
       });
   };
 
-  // const handleSocialSignIn = (provider) => {
-  //   socialSignIn(provider).catch((err) => {
-  //     console.log('socialSignIn err', err);
-  //     setError(err.message);
-  //   });
-  // };
-
   const handleResendConfirmCode = () => {
     resendConfirmationCode(email).catch((e) => {
       console.log('resendConfirmationCode error', e);
@@ -133,7 +126,14 @@ const ModalAuth = (props) => {
     facebookSignIn(setCredential)
       .then((res) => {
         console.log('handleFacebookSignIn success', res);
-        props.setCloseModal();
+        if (!res.user.emailVerified) {
+          setError(null);
+          props.setModal({
+            type: 'confirmEmail',
+          });
+        } else {
+          props.setCloseModal();
+        }
       })
       .catch((e, credential) => {
         console.log('handleFacebookSignIn failed', credential);
