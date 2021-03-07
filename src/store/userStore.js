@@ -33,7 +33,7 @@ export default class UserStore {
   };
 
   setCredential = (credential) => {
-    console.log('credentials', credential);
+    console.log('credential', credential);
     this.credential = credential;
   };
 }

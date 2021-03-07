@@ -12,6 +12,9 @@ import {useStores} from './store';
 import auth from '@react-native-firebase/auth';
 
 import {Root} from 'native-base';
+import {LogBox} from 'react-native';
+
+LogBox.ignoreLogs(['Remote debugger']);
 
 const Drawer = createDrawerNavigator();
 
