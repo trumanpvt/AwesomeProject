@@ -6,9 +6,11 @@ import {ActionSheet, Badge, Spinner, Text, Thumbnail} from 'native-base';
 import styles from './style.js';
 import {Platform, TouchableOpacity, View} from 'react-native';
 import ImagePicker from 'react-native-image-crop-picker';
+import Camera from '../Camera';
 
 const Avatar = ({user, changeUser}) => {
   const [uploading, setUploading] = useState(false);
+  const [isOpenCamera, setIsOpenCamera] = useState(false);
 
   useEffect(() => {
     setUploading(false);
@@ -38,14 +40,8 @@ const Avatar = ({user, changeUser}) => {
     };
 
     if (isPhoto) {
-      return ImagePicker.openCamera(options)
-        .then((image) => {
-          console.log('image', image);
-          return uploadPhoto(image.path);
-        })
-        .catch((e) => {
-          console.log('ImagePicker.openPicker error', e);
-        });
+      setIsOpenCamera(true);
+      return null;
     }
 
     return ImagePicker.openPicker(options)
@@ -54,6 +50,21 @@ const Avatar = ({user, changeUser}) => {
       })
       .catch((e) => {
         console.log('ImagePicker.openCamera error', e);
+      });
+  };
+
+  const handleTakePhoto = (uri) => {
+    ImagePicker.openCropper({
+      path: uri,
+      width: 80,
+      height: 80,
+    })
+      .then((image) => {
+        setIsOpenCamera(false);
+        return uploadPhoto(image.path);
+      })
+      .catch((e) => {
+        console.log('ImagePicker.openPicker error', e);
       });
   };
 
@@ -117,6 +128,12 @@ const Avatar = ({user, changeUser}) => {
       <Badge success style={styles.imageChange}>
         <Text style={styles.imageChangePlus}>+</Text>
       </Badge>
+      {isOpenCamera && (
+        <Camera
+          takePhoto={handleTakePhoto}
+          closeCamera={() => setIsOpenCamera(false)}
+        />
+      )}
     </TouchableOpacity>
   );
 };
