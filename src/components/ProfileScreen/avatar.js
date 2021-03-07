@@ -51,17 +51,17 @@ const Avatar = ({user, changeUser}) => {
     const imagePath = user.uid + '/profile/userpic';
     const uploadUri = Platform.OS === 'ios' ? uri.replace('file://', '') : uri;
 
-    storage()
+    return storage()
       .ref(imagePath)
       .putFile(uploadUri)
       .then((snapshot) => {
-        savePhotoUrl(imagePath);
+        return savePhotoUrl(imagePath);
       })
       .catch((e) => console.log('uploading image error => ', e));
   };
 
   const savePhotoUrl = (imagePath) => {
-    storage()
+    return storage()
       .ref('/' + imagePath)
       .getDownloadURL()
       .then((url) => {
