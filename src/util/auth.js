@@ -1,5 +1,8 @@
 import auth from '@react-native-firebase/auth';
-import {GoogleSignin, statusCodes} from '@react-native-community/google-signin';
+import {
+  GoogleSignin,
+  statusCodes,
+} from '@react-native-google-signin/google-signin';
 import {AccessToken, LoginManager} from 'react-native-fbsdk';
 
 import {webClientId} from '../constants';
