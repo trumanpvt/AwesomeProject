@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {NavigationContainer} from '@react-navigation/native';
+import {NavigationContainer, Route} from '@react-navigation/native';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import AppHeader from './components/AppHeader';
 
@@ -13,6 +13,7 @@ import auth from '@react-native-firebase/auth';
 
 import {Root} from 'native-base';
 import {LogBox} from 'react-native';
+import {DrawerDescriptor} from '@react-navigation/drawer/src/types';
 
 LogBox.ignoreLogs(['Remote debugger']);
 
@@ -40,15 +41,28 @@ const App = () => {
   return (
     <Root>
       <NavigationContainer>
-        <AppHeader />
         <Drawer.Navigator
           initialRouteName="HomeScreen"
-          // screenOptions={{
-          //   header: (props: DrawerHeaderProps) => <AppHeader />,
-          //   headerShown: true,
-          // }}
-          drawerContent={(props: {state: {routeNames: string[]}}) => (
-            <SideBar routeNames={props.state.routeNames} />
+          screenOptions={(props: {
+            navigation: {openDrawer: void};
+            route: {name: string};
+          }) => ({
+            header: () => (
+              <AppHeader
+                openDrawer={props.navigation.openDrawer}
+                name={props.route.name}
+              />
+            ),
+            headerShown: true,
+          })}
+          drawerContent={(props: {
+            navigation: object;
+            state: {routeNames: string[]};
+          }) => (
+            <SideBar
+              navigation={props.navigation}
+              routeNames={props.state.routeNames}
+            />
           )}>
           <Drawer.Screen
             name="HomeScreen"

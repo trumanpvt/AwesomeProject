@@ -6,15 +6,17 @@ import {observer} from 'mobx-react-lite';
 
 import {signOut} from '../../util/auth';
 import {useStores} from '../../store';
-import {useNavigation} from '@react-navigation/native';
 
-const User = observer(() => {
+export interface Props {
+  routeNames: string[];
+  navigation: object;
+}
+
+const User = observer(({navigation}: Props) => {
   const {modalStore, userStore} = useStores();
   const {setModal} = modalStore;
 
   const {user} = userStore;
-
-  const navigation = useNavigation();
 
   const handleSignOut = () => {
     signOut()

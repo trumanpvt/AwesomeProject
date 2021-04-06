@@ -4,17 +4,16 @@ import {List, ListItem, Text} from 'native-base';
 import User from './user';
 
 import styles from './style.js';
-import {useNavigation} from '@react-navigation/native';
 
 export interface Props {
   routeNames: string[];
+  navigation: object;
 }
 
-const SideBar = ({routeNames}: Props) => {
-  const navigation = useNavigation();
+const SideBar = ({navigation, routeNames}: Props) => {
   return (
     <SafeAreaView>
-      <User />
+      <User navigation={navigation} />
       <List
         dataArray={routeNames}
         renderRow={(data: string) => {

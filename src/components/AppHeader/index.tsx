@@ -1,7 +1,6 @@
 import React from 'react';
 import {View} from 'react-native';
 import {Body, Button, Header, Icon, Left, Right, Title} from 'native-base';
-import {useRoute, useNavigation} from '@react-navigation/native';
 
 import styles from './style.js';
 
@@ -10,19 +9,17 @@ export interface Props {
   name: string;
 }
 
-const AppHeader = () => {
-  const route = useRoute();
-  const navigation = useNavigation();
+const AppHeader = ({openDrawer, name}: Props) => {
   return (
     <View style={styles.header}>
       <Header>
         <Left>
-          <Button transparent onPress={navigation.openDrawer}>
+          <Button transparent onPress={openDrawer}>
             <Icon type="MaterialIcons" name="menu" />
           </Button>
         </Left>
         <Body>
-          <Title>{route.name}</Title>
+          <Title>{name}</Title>
         </Body>
         <Right>
           {/*<Button transparent>*/}
