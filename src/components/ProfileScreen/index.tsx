@@ -79,7 +79,7 @@ const ProfileScreen = observer(() => {
       .then(() => {
         // User re-authenticated.
       })
-      .catch((error: Error) => {
+      .catch((error: any) => {
         console.log('updatePassword error', error);
       });
   };

@@ -8,7 +8,12 @@ import {Platform, TouchableOpacity, View} from 'react-native';
 import ImagePicker, {Image} from 'react-native-image-crop-picker';
 import Camera from '../Camera';
 
-const Avatar = ({user, changeUser}) => {
+export interface Props {
+  user: any;
+  changeUser: Function;
+}
+
+const Avatar = ({user, changeUser}: Props) => {
   const [uploading, setUploading] = useState(false);
   const [isOpenCamera, setIsOpenCamera] = useState(false);
 
@@ -45,10 +50,10 @@ const Avatar = ({user, changeUser}) => {
     }
 
     return ImagePicker.openPicker(options)
-      .then((image) => {
+      .then((image: {path: string}) => {
         return uploadPhoto(image.path);
       })
-      .catch((e) => {
+      .catch((e: any) => {
         console.log('ImagePicker.openCamera error', e);
       });
   };
@@ -63,12 +68,12 @@ const Avatar = ({user, changeUser}) => {
         setIsOpenCamera(false);
         return uploadPhoto(image.path);
       })
-      .catch((e: Error) => {
+      .catch((e: any) => {
         console.log('ImagePicker.openPicker error', e);
       });
   };
 
-  const uploadPhoto = (path) => {
+  const uploadPhoto = (path: string) => {
     setUploading(true);
     const imagePath = user.uid + '/profile/userpic';
     const uploadUri =
@@ -80,17 +85,19 @@ const Avatar = ({user, changeUser}) => {
       .then(() => {
         return savePhotoUrl(imagePath);
       })
-      .catch((e) => console.log('uploading image error => ', e));
+      .catch((e: any) => console.log('uploading image error => ', e));
   };
 
-  const savePhotoUrl = (imagePath) => {
+  const savePhotoUrl = (imagePath: string) => {
     return storage()
       .ref('/' + imagePath)
       .getDownloadURL()
-      .then((url) => {
+      .then((url: any) => {
         changeUser({photoURL: url});
       })
-      .catch((e) => console.log('getting downloadURL of image error => ', e));
+      .catch((e: any) =>
+        console.log('getting downloadURL of image error => ', e),
+      );
   };
 
   const renderEmptyAvatar = () => {
@@ -120,10 +127,7 @@ const Avatar = ({user, changeUser}) => {
   };
 
   return (
-    <TouchableOpacity
-      transparent
-      style={styles.imageContainer}
-      onPress={selectPhotoSource}>
+    <TouchableOpacity style={styles.imageContainer} onPress={selectPhotoSource}>
       {renderAvatarBody()}
       <Badge success style={styles.imageChange}>
         <Text style={styles.imageChangePlus}>+</Text>

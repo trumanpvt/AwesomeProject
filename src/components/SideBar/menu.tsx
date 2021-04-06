@@ -7,7 +7,7 @@ import styles from './style.js';
 
 export interface Props {
   routeNames: string[];
-  navigation: object;
+  navigation: any;
 }
 
 const SideBar = ({navigation, routeNames}: Props) => {

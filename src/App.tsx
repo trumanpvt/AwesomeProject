@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {NavigationContainer, Route} from '@react-navigation/native';
+import {NavigationContainer} from '@react-navigation/native';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import AppHeader from './components/AppHeader';
 
@@ -13,7 +13,6 @@ import auth from '@react-native-firebase/auth';
 
 import {Root} from 'native-base';
 import {LogBox} from 'react-native';
-import {DrawerDescriptor} from '@react-navigation/drawer/src/types';
 
 LogBox.ignoreLogs(['Remote debugger']);
 
@@ -43,10 +42,7 @@ const App = () => {
       <NavigationContainer>
         <Drawer.Navigator
           initialRouteName="HomeScreen"
-          screenOptions={(props: {
-            navigation: {openDrawer: void};
-            route: {name: string};
-          }) => ({
+          screenOptions={(props: {route: {name: string}; navigation: any}) => ({
             header: () => (
               <AppHeader
                 openDrawer={props.navigation.openDrawer}
@@ -56,8 +52,8 @@ const App = () => {
             headerShown: true,
           })}
           drawerContent={(props: {
-            navigation: object;
             state: {routeNames: string[]};
+            navigation: any;
           }) => (
             <SideBar
               navigation={props.navigation}

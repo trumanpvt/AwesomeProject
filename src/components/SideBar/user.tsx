@@ -9,7 +9,7 @@ import {useStores} from '../../store';
 
 export interface Props {
   routeNames: string[];
-  navigation: object;
+  navigation: any;
 }
 
 const User = observer(({navigation}: Props) => {
@@ -23,7 +23,7 @@ const User = observer(({navigation}: Props) => {
       .then(() => {
         navigation.navigate('HomeScreen');
       })
-      .catch((error: Error) => {
+      .catch((error) => {
         console.log(error);
       });
   };
