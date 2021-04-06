@@ -8,7 +8,6 @@ import {signOut} from '../../util/auth';
 import {useStores} from '../../store';
 
 export interface Props {
-  routeNames: string[];
   navigation: any;
 }
 
