@@ -16,7 +16,7 @@ const SideBar = ({navigation, routeNames}: Props) => {
       <User navigation={navigation} />
       <List
         dataArray={routeNames}
-        renderRow={(data: string) => {
+        renderRow={(data) => {
           if (data === 'ProfileScreen') {
             return null;
           }
