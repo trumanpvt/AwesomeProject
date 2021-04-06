@@ -5,7 +5,7 @@ import {ActionSheet, Badge, Spinner, Text, Thumbnail} from 'native-base';
 
 import styles from './style.js';
 import {Platform, TouchableOpacity, View} from 'react-native';
-import ImagePicker from 'react-native-image-crop-picker';
+import ImagePicker, {Image} from 'react-native-image-crop-picker';
 import Camera from '../Camera';
 
 const Avatar = ({user, changeUser}) => {
@@ -23,7 +23,7 @@ const Avatar = ({user, changeUser}) => {
         cancelButtonIndex: 2,
         title: 'Choose image source',
       },
-      (buttonIndex) => {
+      (buttonIndex: number) => {
         if (buttonIndex === 2) {
           return null;
         }
@@ -32,7 +32,7 @@ const Avatar = ({user, changeUser}) => {
     );
   };
 
-  const handleChangeAvatar = (isPhoto) => {
+  const handleChangeAvatar = (isPhoto: boolean) => {
     const options = {
       width: 80,
       height: 80,
@@ -53,17 +53,17 @@ const Avatar = ({user, changeUser}) => {
       });
   };
 
-  const handleTakePhoto = (uri) => {
+  const handleTakePhoto = (uri: string) => {
     ImagePicker.openCropper({
       path: uri,
       width: 80,
       height: 80,
     })
-      .then((image) => {
+      .then((image: Image) => {
         setIsOpenCamera(false);
         return uploadPhoto(image.path);
       })
-      .catch((e) => {
+      .catch((e: Error) => {
         console.log('ImagePicker.openPicker error', e);
       });
   };

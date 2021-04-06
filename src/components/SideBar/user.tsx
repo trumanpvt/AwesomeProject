@@ -6,19 +6,22 @@ import {observer} from 'mobx-react-lite';
 
 import {signOut} from '../../util/auth';
 import {useStores} from '../../store';
+import {useNavigation} from '@react-navigation/native';
 
-const User = observer(({navigation}) => {
+const User = observer(() => {
   const {modalStore, userStore} = useStores();
   const {setModal} = modalStore;
 
   const {user} = userStore;
+
+  const navigation = useNavigation();
 
   const handleSignOut = () => {
     signOut()
       .then(() => {
         navigation.navigate('HomeScreen');
       })
-      .catch((error) => {
+      .catch((error: Error) => {
         console.log(error);
       });
   };

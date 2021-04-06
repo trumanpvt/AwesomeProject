@@ -4,14 +4,20 @@ import {List, ListItem, Text} from 'native-base';
 import User from './user';
 
 import styles from './style.js';
+import {useNavigation} from '@react-navigation/native';
 
-const SideBar = (props) => {
+export interface Props {
+  routeNames: string[];
+}
+
+const SideBar = ({routeNames}: Props) => {
+  const navigation = useNavigation();
   return (
     <SafeAreaView>
-      <User navigation={props.navigation} />
+      <User />
       <List
-        dataArray={props.state.routeNames}
-        renderRow={(data) => {
+        dataArray={routeNames}
+        renderRow={(data: string) => {
           if (data === 'ProfileScreen') {
             return null;
           }
@@ -19,12 +25,12 @@ const SideBar = (props) => {
             <ListItem
               style={styles.listItem}
               button
-              onPress={() => props.navigation.navigate(data)}>
+              onPress={() => navigation.navigate(data)}>
               <Text>{data}</Text>
             </ListItem>
           );
         }}
-        keyExtractor={(item, index) => index.toString()}
+        keyExtractor={(item: any, index: number) => index.toString()}
       />
     </SafeAreaView>
   );

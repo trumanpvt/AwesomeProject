@@ -1,24 +1,28 @@
 import React from 'react';
 import {View} from 'react-native';
 import {Body, Button, Header, Icon, Left, Right, Title} from 'native-base';
+import {useRoute, useNavigation} from '@react-navigation/native';
 
 import styles from './style.js';
 
 export interface Props {
-  scene: object;
+  openDrawer: void;
+  name: string;
 }
 
-const AppHeader: React.FC<Props> = ({scene}) => {
+const AppHeader = () => {
+  const route = useRoute();
+  const navigation = useNavigation();
   return (
     <View style={styles.header}>
       <Header>
         <Left>
-          <Button transparent onPress={scene.descriptor.navigation.openDrawer}>
+          <Button transparent onPress={navigation.openDrawer}>
             <Icon type="MaterialIcons" name="menu" />
           </Button>
         </Left>
         <Body>
-          <Title>{scene.route.name}</Title>
+          <Title>{route.name}</Title>
         </Body>
         <Right>
           {/*<Button transparent>*/}
@@ -30,5 +34,4 @@ const AppHeader: React.FC<Props> = ({scene}) => {
   );
 };
 
-AppHeader.propTypes = {};
 export default AppHeader;

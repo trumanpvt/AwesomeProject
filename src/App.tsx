@@ -22,14 +22,15 @@ const App = () => {
   const {setUser} = useStores().userStore;
 
   useEffect(() => {
-    return auth().onAuthStateChanged((user) => {
+    return auth().onAuthStateChanged((user: {emailVerified: boolean}) => {
       console.log('onAuthStateChanged');
       if (user && !user.emailVerified) {
-        auth()
-          .currentUser.reload()
-          .then(() => {
+        const currentUser = auth().currentUser;
+        if (currentUser) {
+          currentUser.reload().then(() => {
             setUser(auth().currentUser);
           });
+        }
       } else {
         setUser(user);
       }
@@ -39,13 +40,16 @@ const App = () => {
   return (
     <Root>
       <NavigationContainer>
+        <AppHeader />
         <Drawer.Navigator
           initialRouteName="HomeScreen"
-          screenOptions={{
-            header: ({scene}) => <AppHeader scene={scene} />,
-            headerShown: true,
-          }}
-          drawerContent={(props) => <SideBar {...props} />}>
+          // screenOptions={{
+          //   header: (props: DrawerHeaderProps) => <AppHeader />,
+          //   headerShown: true,
+          // }}
+          drawerContent={(props: {state: {routeNames: string[]}}) => (
+            <SideBar routeNames={props.state.routeNames} />
+          )}>
           <Drawer.Screen
             name="HomeScreen"
             component={HomeScreen}

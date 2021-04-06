@@ -11,6 +11,7 @@ export default StyleSheet.create({
     fontSize: 20,
     textAlign: 'center',
   },
+  form: {},
   input: {
     width: '100%',
     marginTop: 20,

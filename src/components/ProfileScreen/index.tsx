@@ -19,8 +19,9 @@ import {View} from 'react-native';
 import Avatar from './avatar';
 import {observer} from 'mobx-react-lite';
 import {getCurrentUser, reloadCurrentUser} from '../../util/auth';
+import {useNavigation} from '@react-navigation/native';
 
-const ProfileScreen = observer(({navigation}) => {
+const ProfileScreen = observer(() => {
   const {userStore, modalStore} = useStores();
   const {user, changeUser, setUser} = userStore;
   const {setModal} = modalStore;
@@ -29,6 +30,8 @@ const ProfileScreen = observer(({navigation}) => {
   const [password, setPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+
+  const navigation = useNavigation();
 
   useEffect(() => {
     return navigation.addListener('focus', () => {
@@ -76,13 +79,15 @@ const ProfileScreen = observer(({navigation}) => {
       .then(() => {
         // User re-authenticated.
       })
-      .catch((error) => {
+      .catch((error: Error) => {
         console.log('updatePassword error', error);
       });
   };
 
   const isPasswordProvider = () => {
-    return user.providerData.some((item) => item.providerId === 'password');
+    return user.providerData.some(
+      (item: {providerId: string}) => item.providerId === 'password',
+    );
   };
 
   return (
@@ -132,7 +137,7 @@ const ProfileScreen = observer(({navigation}) => {
             <Text style={styles.heading}>
               {isPasswordProvider() ? 'Change password' : 'Create password'}
             </Text>
-            {isPasswordProvider && (
+            {isPasswordProvider() && (
               <Item style={styles.input} floatingLabel>
                 <Label>Old password</Label>
                 <Input
