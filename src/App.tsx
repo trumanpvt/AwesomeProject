@@ -22,7 +22,7 @@ const App = () => {
   const {setUser} = useStores().userStore;
 
   useEffect(() => {
-    return auth().onAuthStateChanged((user: {emailVerified: boolean}) => {
+    return auth().onAuthStateChanged((user) => {
       console.log('onAuthStateChanged');
       if (user && !user.emailVerified) {
         const currentUser = auth().currentUser;
@@ -42,7 +42,7 @@ const App = () => {
       <NavigationContainer>
         <Drawer.Navigator
           initialRouteName="HomeScreen"
-          screenOptions={(props: {route: {name: string}; navigation: any}) => ({
+          screenOptions={(props) => ({
             header: () => (
               <AppHeader
                 openDrawer={props.navigation.openDrawer}
