@@ -51,10 +51,7 @@ const App = () => {
             ),
             headerShown: true,
           })}
-          drawerContent={(props: {
-            state: {routeNames: string[]};
-            navigation: any;
-          }) => (
+          drawerContent={(props) => (
             <SideBar
               navigation={props.navigation}
               routeNames={props.state.routeNames}

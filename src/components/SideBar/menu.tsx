@@ -11,15 +11,14 @@ export interface Props {
 }
 
 const SideBar = ({navigation, routeNames}: Props) => {
+  const routes = routeNames.filter((route) => route !== 'ProfileScreen');
+
   return (
     <SafeAreaView>
       <User navigation={navigation} />
       <List
-        dataArray={routeNames}
+        dataArray={routes}
         renderRow={(data) => {
-          if (data === 'ProfileScreen') {
-            return null;
-          }
           return (
             <ListItem
               style={styles.listItem}
