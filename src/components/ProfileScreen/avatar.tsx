@@ -60,6 +60,7 @@ const Avatar = ({user, changeUser}: Props) => {
 
   const handleTakePhoto = (uri: string) => {
     ImagePicker.openCropper({
+      mediaType: 'photo',
       path: uri,
       width: 80,
       height: 80,
