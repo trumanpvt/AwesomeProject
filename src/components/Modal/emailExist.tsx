@@ -12,10 +12,15 @@ import {
 import {View} from 'react-native';
 import {useStores} from '../../store';
 
-const ModalEmailExist = (props) => {
+export interface Props {
+  setModal: Function;
+  setCloseModal: Function;
+}
+
+const ModalEmailExist = ({setModal, setCloseModal}: Props) => {
   const {credential, setCredential} = useStores().userStore;
 
-  const [email, setEmail] = useState(props.email || '');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
 
@@ -24,7 +29,7 @@ const ModalEmailExist = (props) => {
       .then((res) => {
         console.log('handleGoogleSignIn success', res);
         linkWithCredential(credential).then(() => {
-          props.setCloseModal();
+          setCloseModal();
         });
       })
       .catch((e) => {
@@ -43,12 +48,12 @@ const ModalEmailExist = (props) => {
       .then(() => {
         if (user && !user.emailVerified) {
           sendEmailVerification().then(() => {
-            props.setModal({
+            setModal({
               type: 'confirmEmail',
             });
           });
         } else {
-          props.setCloseModal();
+          setCloseModal();
         }
       })
       .catch((err) => {
@@ -61,13 +66,13 @@ const ModalEmailExist = (props) => {
     facebookSignIn(setCredential)
       .then((res) => {
         console.log('handleFacebookSignIn success', res);
-        props.setCloseModal();
+        setCloseModal();
       })
       .catch((e) => {
         console.log('handleFacebookSignIn failed', e);
         if (e.code === 'auth/account-exists-with-different-credential') {
           // setCredential({provider: 'facebook', credential});
-          props.setModal({type: 'emailExist'});
+          setModal({type: 'emailExist'});
         } else {
           setError(e.message || e);
         }
@@ -134,7 +139,7 @@ const ModalEmailExist = (props) => {
         rounded
         danger
         style={styles.button}
-        onPress={() => props.setModal({type: 'auth'})}>
+        onPress={() => setModal({type: 'auth'})}>
         <Text style={styles.textStyle}>Cancel</Text>
       </Button>
     </Form>
