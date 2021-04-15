@@ -10,7 +10,7 @@ export default class FooterStore {
     });
   }
 
-  setFooterMode = (newMode) => {
+  setFooterMode = (newMode: string) => {
     this.mode = newMode;
   };
 }

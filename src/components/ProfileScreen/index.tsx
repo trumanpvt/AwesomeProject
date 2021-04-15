@@ -52,13 +52,13 @@ const ProfileScreen = observer(() => {
   }, [navigation, setModal, setUser, user]);
 
   useEffect(() => {
-    if (user.displayName) {
+    if (user && user.displayName) {
       setDisplayName(user.displayName);
     }
-  }, [user.displayName]);
+  }, [user]);
 
   const handleCancelChangeUser = () => {
-    setDisplayName(user.displayName);
+    user && setDisplayName(user.displayName);
   };
 
   const handleChangeUser = () => {

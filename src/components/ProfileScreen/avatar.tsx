@@ -7,9 +7,10 @@ import styles from './style.js';
 import {Platform, TouchableOpacity, View} from 'react-native';
 import ImagePicker, {Image} from 'react-native-image-crop-picker';
 import Camera from '../Camera';
+import {FirebaseAuthTypes} from '@react-native-firebase/auth';
 
 export interface Props {
-  user: any;
+  user: FirebaseAuthTypes.User;
   changeUser: Function;
 }
 

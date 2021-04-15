@@ -1,10 +1,10 @@
 import {action, makeObservable, observable} from 'mobx';
-import auth from '@react-native-firebase/auth';
+import auth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
 
 export default class UserStore {
   user = auth().currentUser;
 
-  credential = null;
+  credential: FirebaseAuthTypes.AuthCredential | null = null;
 
   constructor() {
     makeObservable(this, {
@@ -16,23 +16,25 @@ export default class UserStore {
     });
   }
 
-  setUser = (userData) => {
+  setUser = (userData: FirebaseAuthTypes.User | null) => {
     console.log('userData', userData);
     this.user = userData;
   };
 
-  changeUser = (data) => {
-    this.user
-      .updateProfile(data)
-      .then(() => {
-        this.setUser(auth().currentUser);
-      })
-      .catch((error) => {
-        console.log('updateProfile error', error);
-      });
+  changeUser = (data: FirebaseAuthTypes.UpdateProfile) => {
+    if (this.user) {
+      this.user
+        .updateProfile(data)
+        .then(() => {
+          this.setUser(auth().currentUser);
+        })
+        .catch((error) => {
+          console.log('updateProfile error', error);
+        });
+    }
   };
 
-  setCredential = (credential) => {
+  setCredential = (credential: FirebaseAuthTypes.AuthCredential) => {
     console.log('credential', credential);
     this.credential = credential;
   };
