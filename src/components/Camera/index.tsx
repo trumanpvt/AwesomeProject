@@ -62,6 +62,7 @@ const Camera = ({closeCamera, takePhoto}: Props) => {
                 <Fab
                   active={flash.isOpen}
                   direction="down"
+                  containerStyle={flash.isOpen ? null : styles.flashContainer}
                   style={{...styles}[flash.mode]}
                   position="topRight"
                   onPress={() =>

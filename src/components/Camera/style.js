@@ -21,6 +21,10 @@ export default StyleSheet.create({
   controlsTop: {
     width: '100%',
   },
+  flashContainer: {
+    borderRadius: 50,
+    overflow: 'hidden',
+  },
   auto: {
     backgroundColor: '#34A34F',
   },
