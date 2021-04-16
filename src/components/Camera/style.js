@@ -2,10 +2,6 @@ import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
   container: {
-    // position: 'absolute',
-    // width: '100%',
-    // height: '100%',
-    // flex: 1,
     flexDirection: 'column',
     backgroundColor: 'black',
   },
@@ -17,32 +13,17 @@ export default StyleSheet.create({
   controls: {
     flex: 1,
     height: '100%',
-    // height: 200,
     width: '100%',
-    // maxWidth: 300,
     flexDirection: 'column',
     justifyContent: 'space-between',
     alignItems: 'center',
   },
   controlsTop: {
-    // flex: 0,
-    // height: '100%',
-    // height: 200,
     width: '100%',
-    // maxWidth: 300,
-    // flexDirection: 'column',
-    // justifyContent: 'space-between',
   },
-  flashmode: {
-    // position: 'absolute',
-    // top: 0,
-    // right: 0,
-    // backgroundColor: '#fff',
-  },
+  flashmode: {},
   controlsBottom: {
     flex: 0,
-    // height: '100%',
-    // height: 200,
     width: '90%',
     maxWidth: 300,
     flexDirection: 'row',
@@ -53,9 +34,6 @@ export default StyleSheet.create({
     backgroundColor: '#fff',
     borderRadius: 50,
     padding: 15,
-    // paddingHorizontal: 20,
-    // alignSelf: 'center',
-    // margin: 20,
   },
   pending: {
     flex: 1,
