@@ -62,24 +62,24 @@ const Camera = ({closeCamera, takePhoto}: Props) => {
                   active={flash.isOpen}
                   direction="down"
                   containerStyle={{}}
-                  style={styles.flashmode}
+                  style={styles[flash.mode]}
                   position="topRight"
                   onPress={() =>
                     setFlash({mode: flash.mode, isOpen: !flash.isOpen})
                   }>
                   <Icon type="MaterialIcons" name={`flash-${flash.mode}`} />
                   <Button
-                    style={{backgroundColor: '#34A34F'}}
+                    style={styles.auto}
                     onPress={() => handleChangeFlashMode('auto')}>
                     <Icon type="MaterialIcons" name="flash-auto" />
                   </Button>
                   <Button
-                    style={{backgroundColor: '#3B5998'}}
+                    style={styles.off}
                     onPress={() => handleChangeFlashMode('off')}>
                     <Icon type="MaterialIcons" name="flash-off" />
                   </Button>
                   <Button
-                    style={{backgroundColor: '#DD5144'}}
+                    style={styles.on}
                     onPress={() => handleChangeFlashMode('on')}>
                     <Icon type="MaterialIcons" name="flash-on" />
                   </Button>

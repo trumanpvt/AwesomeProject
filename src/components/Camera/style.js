@@ -21,7 +21,15 @@ export default StyleSheet.create({
   controlsTop: {
     width: '100%',
   },
-  flashmode: {},
+  auto: {
+    backgroundColor: '#34A34F',
+  },
+  off: {
+    backgroundColor: '#3B5998',
+  },
+  on: {
+    backgroundColor: '#DD5144',
+  },
   controlsBottom: {
     flex: 0,
     width: '90%',
