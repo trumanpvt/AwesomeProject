@@ -14,8 +14,7 @@ export interface Props {
 
 const Camera = ({closeCamera, takePhoto}: Props) => {
   const [isBack, setIsBack] = useState(true);
-  const [flashMode, setFlashMode] = useState('auto');
-  const [isFlashModeMenuOpen, setIsFlashModeMenuOpen] = useState(false);
+  const [flash, setFlash] = useState({mode: 'auto', isOpen: false});
 
   const takePicture = async function (camera: RNCamera) {
     const options = {quality: 0.5, base64: true};
@@ -30,13 +29,21 @@ const Camera = ({closeCamera, takePhoto}: Props) => {
   //   </View>
   // );
 
+  const handleChangeFlashMode = (mode: string) => {
+    return setFlash({
+      mode,
+      isOpen: false,
+    });
+  };
+
+  const flashModes: any = RNCamera.Constants.FlashMode;
+
   return (
     <Modal style={styles.container}>
       <RNCamera
         style={styles.preview}
-        // type={RNCamera.Constants.Type.back}
         type={isBack ? 'back' : 'front'}
-        flashMode={flashMode}
+        flashMode={flashModes[flash.mode]}
         captureAudio={false}
         androidCameraPermissionOptions={{
           title: 'Permission to use camera',
@@ -52,26 +59,28 @@ const Camera = ({closeCamera, takePhoto}: Props) => {
             <SafeAreaView style={styles.controls}>
               <View style={styles.controlsTop}>
                 <Fab
-                  active={isFlashModeMenuOpen}
+                  active={flash.isOpen}
                   direction="down"
                   containerStyle={{}}
                   style={styles.flashmode}
                   position="topRight"
-                  onPress={() => setIsFlashModeMenuOpen(!isFlashModeMenuOpen)}>
-                  <Icon type="MaterialIcons" name={`flash-${flashMode}`} />
+                  onPress={() =>
+                    setFlash({mode: flash.mode, isOpen: !flash.isOpen})
+                  }>
+                  <Icon type="MaterialIcons" name={`flash-${flash.mode}`} />
                   <Button
                     style={{backgroundColor: '#34A34F'}}
-                    onPress={() => setFlashMode('auto')}>
+                    onPress={() => handleChangeFlashMode('auto')}>
                     <Icon type="MaterialIcons" name="flash-auto" />
                   </Button>
                   <Button
                     style={{backgroundColor: '#3B5998'}}
-                    onPress={() => setFlashMode('off')}>
+                    onPress={() => handleChangeFlashMode('off')}>
                     <Icon type="MaterialIcons" name="flash-off" />
                   </Button>
                   <Button
                     style={{backgroundColor: '#DD5144'}}
-                    onPress={() => setFlashMode('on')}>
+                    onPress={() => handleChangeFlashMode('on')}>
                     <Icon type="MaterialIcons" name="flash-on" />
                   </Button>
                 </Fab>
