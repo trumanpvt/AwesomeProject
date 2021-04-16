@@ -56,18 +56,13 @@ const Camera = ({closeCamera, takePhoto}: Props) => {
             return <Spinner />;
           }
 
-          const getFabStyles = () => {
-            const stylesCopy: any = styles;
-            return stylesCopy[flash.mode];
-          };
-
           return (
             <SafeAreaView style={styles.controls}>
               <View style={styles.controlsTop}>
                 <Fab
                   active={flash.isOpen}
                   direction="down"
-                  style={getFabStyles()}
+                  style={{...styles}[flash.mode]}
                   position="topRight"
                   onPress={() =>
                     setFlash({mode: flash.mode, isOpen: !flash.isOpen})
