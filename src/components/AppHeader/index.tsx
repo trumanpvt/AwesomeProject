@@ -5,7 +5,7 @@ import {Body, Button, Header, Icon, Left, Right, Title} from 'native-base';
 import styles from './style.js';
 
 export interface Props {
-  openDrawer: void;
+  openDrawer: () => void;
   name: string;
 }
 
@@ -21,11 +21,7 @@ const AppHeader = ({openDrawer, name}: Props) => {
         <Body>
           <Title>{name}</Title>
         </Body>
-        <Right>
-          {/*<Button transparent>*/}
-          {/*  <Icon type="MaterialIcons" name="person" />*/}
-          {/*</Button>*/}
-        </Right>
+        <Right />
       </Header>
     </View>
   );

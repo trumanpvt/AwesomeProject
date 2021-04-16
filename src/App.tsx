@@ -51,11 +51,8 @@ const App = () => {
             ),
             headerShown: true,
           })}
-          drawerContent={(props) => (
-            <SideBar
-              navigation={props.navigation}
-              routeNames={props.state.routeNames}
-            />
+          drawerContent={({navigation, state}) => (
+            <SideBar navigation={navigation} routeNames={state.routeNames} />
           )}>
           <Drawer.Screen
             name="HomeScreen"

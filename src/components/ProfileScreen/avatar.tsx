@@ -107,7 +107,7 @@ const Avatar = ({user, changeUser}: Props) => {
       return <Spinner />;
     }
 
-    const userName = user.displayName || user.email;
+    const userName = user.displayName || user.email || '';
 
     return (
       <View style={styles.imageEmpty}>
