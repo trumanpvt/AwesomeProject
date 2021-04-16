@@ -18,7 +18,7 @@ const SideBar = ({navigation, routeNames}: Props) => {
       <User navigation={navigation} />
       <List
         dataArray={routes}
-        renderRow={(data) => {
+        renderRow={(data: string) => {
           return (
             <ListItem
               style={styles.listItem}

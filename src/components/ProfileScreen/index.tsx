@@ -74,19 +74,23 @@ const ProfileScreen = observer(() => {
   };
 
   const handlePasswordChange = () => {
-    user
-      .updatePassword(newPassword)
-      .then(() => {
-        // User re-authenticated.
-      })
-      .catch((error: any) => {
-        console.log('updatePassword error', error);
-      });
+    user &&
+      user
+        .updatePassword(newPassword)
+        .then(() => {
+          // User re-authenticated.
+        })
+        .catch((error: any) => {
+          console.log('updatePassword error', error);
+        });
   };
 
   const isPasswordProvider = () => {
-    return user.providerData.some(
-      (item: {providerId: string}) => item.providerId === 'password',
+    return (
+      user &&
+      user.providerData.some(
+        (item: {providerId: string}) => item.providerId === 'password',
+      )
     );
   };
 
