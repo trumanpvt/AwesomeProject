@@ -5,7 +5,7 @@ import {sendPasswordResetEmail} from '../../util/auth';
 
 export interface Props {
   email: string;
-  setModal: ({}) => void;
+  setModal: () => void;
 }
 
 const ModalResetPassword = ({email = '', setModal}: Props) => {
@@ -33,7 +33,6 @@ const ModalResetPassword = ({email = '', setModal}: Props) => {
         <Button
           full
           rounded
-          Warning
           style={styles.button}
           onPress={handleSendPasswordResetEmail}>
           <Text style={styles.textStyle}>Send link again</Text>
@@ -59,7 +58,6 @@ const ModalResetPassword = ({email = '', setModal}: Props) => {
         <Button
           full
           rounded
-          Warning
           style={styles.button}
           onPress={handleSendPasswordResetEmail}>
           <Text style={styles.textStyle}>Reset password</Text>

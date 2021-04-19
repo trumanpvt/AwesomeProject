@@ -25,7 +25,12 @@ import {
 import styles from './style.js';
 import {useStores} from '../../store';
 
-const ModalAuth = (props) => {
+export interface Props {
+  setModal: () => void;
+  setCloseModal: () => void;
+}
+
+const ModalAuth = ({setCloseModal, setModal}: Props) => {
   const {setCredential} = useStores().userStore;
 
   const [email, setEmail] = useState('');
@@ -47,7 +52,7 @@ const ModalAuth = (props) => {
         if (cred.user && !cred.user.emailVerified) {
           handleSendEmailVerification();
         } else {
-          props.setCloseModal();
+          setCloseModal();
         }
       })
       .catch((err) => {
@@ -59,7 +64,7 @@ const ModalAuth = (props) => {
   const handleSendEmailVerification = () => {
     sendEmailVerification()
       .then(() => {
-        props.setModal({
+        setModal({
           type: 'confirmEmail',
         });
       })
@@ -74,7 +79,7 @@ const ModalAuth = (props) => {
       signUp(email, password)
         .then(() => {
           setError(null);
-          props.setModal({
+          setModal({
             type: 'confirmEmail',
           });
         })
@@ -107,14 +112,14 @@ const ModalAuth = (props) => {
   };
 
   const handlePasswordReset = () => {
-    props.setModal({type: 'resetPassword', email: email || ''});
+    setModal({type: 'resetPassword', email: email || ''});
   };
 
   const handleGoogleSignIn = () => {
     googleSignIn()
       .then((res) => {
         console.log('handleGoogleSignIn success', res);
-        props.setCloseModal();
+        setCloseModal();
       })
       .catch((e) => {
         console.log('handleGoogleSignIn failed', e);
@@ -128,17 +133,17 @@ const ModalAuth = (props) => {
         console.log('handleFacebookSignIn success', res);
         if (!res.user.emailVerified) {
           setError(null);
-          props.setModal({
+          setModal({
             type: 'confirmEmail',
           });
         } else {
-          props.setCloseModal();
+          setCloseModal();
         }
       })
       .catch((e) => {
         console.log('handleFacebookSignIn failed', e);
         if (e.code === 'auth/account-exists-with-different-credential') {
-          props.setModal({type: 'emailExist'});
+          setModal({type: 'emailExist'});
         }
         setError(e.message || e);
       });
@@ -352,7 +357,7 @@ const ModalAuth = (props) => {
           rounded
           danger
           style={styles.button}
-          onPress={props.setCloseModal}>
+          onPress={setCloseModal}>
           <Text style={styles.textStyle}>Cancel</Text>
         </Button>
       </Form>
