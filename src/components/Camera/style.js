@@ -35,6 +35,7 @@ export default StyleSheet.create({
     backgroundColor: '#DD5144',
   },
   controlsBottom: {
+    marginBottom: 20,
     flex: 0,
     width: '90%',
     maxWidth: 300,

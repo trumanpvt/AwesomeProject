@@ -26,7 +26,7 @@ const ProfileScreen = observer(() => {
   const {user, changeUser, setUser} = userStore;
   const {setModal} = modalStore;
 
-  const [displayName, setDisplayName] = useState(user ? user.displayName : '');
+  const [displayName, setDisplayName] = useState(user && user.displayName);
   const [password, setPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -74,7 +74,8 @@ const ProfileScreen = observer(() => {
   };
 
   const handlePasswordChange = () => {
-    user &&
+    return (
+      user &&
       user
         .updatePassword(newPassword)
         .then(() => {
@@ -82,7 +83,8 @@ const ProfileScreen = observer(() => {
         })
         .catch((error: any) => {
           console.log('updatePassword error', error);
-        });
+        })
+    );
   };
 
   const isPasswordProvider = () => {
@@ -105,7 +107,7 @@ const ProfileScreen = observer(() => {
               <Label>Username</Label>
               <Input
                 textContentType="username"
-                value={displayName}
+                value={displayName || ''}
                 onChangeText={setDisplayName}
                 placeholder="Username"
               />
