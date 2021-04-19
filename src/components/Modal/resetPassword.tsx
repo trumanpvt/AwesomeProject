@@ -48,7 +48,7 @@ const ModalResetPassword = ({email = '', setModal}: Props) => {
           <Input
             autoCapitalize="none"
             textContentType="emailAddress"
-            value={email}
+            value={userEmail}
             onChangeText={setUserEmail}
             placeholder="Email"
             keyboardType="email-address"
