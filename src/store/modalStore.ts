@@ -2,9 +2,9 @@ import {action, makeObservable, observable} from 'mobx';
 
 export default class ModalStore {
   modal: {
-    type: string;
-    email: string;
-    message: string;
+    type?: string;
+    email?: string;
+    message?: string;
   } = {type: '', email: '', message: ''};
 
   constructor() {
@@ -15,7 +15,7 @@ export default class ModalStore {
     });
   }
 
-  setModal = (modalData: {type: string; email: string; message: string}) => {
+  setModal = (modalData: {type?: string; email?: string; message?: string}) => {
     this.modal = modalData;
   };
 

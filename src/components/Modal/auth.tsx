@@ -26,7 +26,7 @@ import styles from './style.js';
 import {useStores} from '../../store';
 
 export interface Props {
-  setModal: () => void;
+  setModal: (data: {type?: string; email?: string}) => void;
   setCloseModal: () => void;
 }
 

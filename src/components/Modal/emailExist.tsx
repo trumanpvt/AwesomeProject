@@ -7,13 +7,12 @@ import {
   linkWithCredential,
   passwordSignIn,
   sendEmailVerification,
-  sendPasswordResetEmail,
 } from '../../util/auth';
-import {View} from 'react-native';
 import {useStores} from '../../store';
+import {FirebaseAuthTypes} from '@react-native-firebase/auth';
 
 export interface Props {
-  setModal: Function;
+  setModal: (data: {type: string}) => void;
   setCloseModal: Function;
 }
 
@@ -39,7 +38,7 @@ const ModalEmailExist = ({setModal, setCloseModal}: Props) => {
   };
 
   const handlePasswordSignIn = () => {
-    let user = null;
+    let user: FirebaseAuthTypes.User | null = null;
     passwordSignIn(email, password)
       .then((cred) => {
         user = cred.user;
