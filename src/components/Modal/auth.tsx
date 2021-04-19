@@ -37,12 +37,12 @@ const ModalAuth = ({setCloseModal, setModal}: Props) => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [isSignUp, setIsSignUp] = useState(false);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState('');
   const [isConfirmCode, setIsConfirmCode] = useState(false);
   const [confirmCode, setConfirmCode] = useState('');
 
   useEffect(() => {
-    setError(null);
+    setError('');
     setIsConfirmCode(false);
   }, [email]);
 
