@@ -5,7 +5,7 @@ import {sendPasswordResetEmail} from '../../util/auth';
 
 export interface Props {
   email: string;
-  setModal: () => void;
+  setModal: (data: {type: string}) => void;
 }
 
 const ModalResetPassword = ({email = '', setModal}: Props) => {
