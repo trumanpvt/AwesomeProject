@@ -3,13 +3,18 @@ import {Button, Form, Input, Item, Text} from 'native-base';
 import styles from './style.js';
 import {sendPasswordResetEmail} from '../../util/auth';
 
-const ModalResetPassword = (props) => {
-  const [email, setEmail] = useState(props.email || '');
+export interface Props {
+  email: string;
+  setModal: ({}) => void;
+}
+
+const ModalResetPassword = ({email = '', setModal}: Props) => {
+  const [userEmail, setUserEmail] = useState(email);
   const [isLinkSent, setIsLinkSent] = useState(false);
   const [error, setError] = useState(null);
 
   const handleSendPasswordResetEmail = () => {
-    sendPasswordResetEmail(email)
+    sendPasswordResetEmail(userEmail)
       .then(() => {
         setIsLinkSent(true);
       })
@@ -45,7 +50,7 @@ const ModalResetPassword = (props) => {
             autoCapitalize="none"
             textContentType="emailAddress"
             value={email}
-            onChangeText={setEmail}
+            onChangeText={setUserEmail}
             placeholder="Email"
             keyboardType="email-address"
           />
@@ -72,7 +77,7 @@ const ModalResetPassword = (props) => {
         rounded
         danger
         style={styles.button}
-        onPress={() => props.setModal({type: 'auth'})}>
+        onPress={() => setModal({type: 'auth'})}>
         <Text style={styles.textStyle}>{isLinkSent ? 'Close' : 'Cancel'}</Text>
       </Button>
     </Form>

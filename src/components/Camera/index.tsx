@@ -20,7 +20,7 @@ const Camera = ({closeCamera, takePhoto}: Props) => {
     const options = {quality: 0.5, base64: true};
     const data = await camera.takePictureAsync(options);
     console.log('takePicture', data.uri);
-    takePhoto(data.uri);
+    return takePhoto(data.uri);
   };
 
   // const renderPendingView = () => (

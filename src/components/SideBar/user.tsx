@@ -28,9 +28,9 @@ const User = observer(({navigation}: Props) => {
   };
 
   const renderUser = () => {
-    const {displayName, email, photoURL} = user;
+    const {displayName, email, photoURL} = user || {};
 
-    const userName = displayName || email;
+    const userName = displayName || email || '';
 
     return (
       <View style={styles.userInfo}>
