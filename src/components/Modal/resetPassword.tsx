@@ -4,7 +4,7 @@ import styles from './style.js';
 import {sendPasswordResetEmail} from '../../util/auth';
 
 export interface Props {
-  email: string;
+  email: string | undefined;
   setModal: (data: {type: string}) => void;
 }
 

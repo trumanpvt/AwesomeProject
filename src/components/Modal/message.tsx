@@ -3,7 +3,7 @@ import {Button, Form, Text} from 'native-base';
 import styles from './style.js';
 
 export interface Props {
-  message: string;
+  message: string | undefined;
   setCloseModal: () => void;
 }
 

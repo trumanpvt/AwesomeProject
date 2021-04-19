@@ -3,7 +3,11 @@ import {Button, Form, Text} from 'native-base';
 import styles from './style.js';
 import {sendEmailVerification} from '../../util/auth';
 
-const ModalConfirmEmail = (props) => {
+export interface Props {
+  setCloseModal: () => void;
+}
+
+const ModalConfirmEmail = ({setCloseModal}: Props) => {
   return (
     <Form style={styles.form}>
       <Text style={styles.headerText}>
@@ -12,17 +16,11 @@ const ModalConfirmEmail = (props) => {
       <Button
         full
         rounded
-        Warning
         style={styles.button}
         onPress={sendEmailVerification}>
         <Text style={styles.textStyle}>Send verification again</Text>
       </Button>
-      <Button
-        full
-        rounded
-        danger
-        style={styles.button}
-        onPress={props.setCloseModal}>
+      <Button full rounded danger style={styles.button} onPress={setCloseModal}>
         <Text style={styles.textStyle}>Close</Text>
       </Button>
     </Form>
