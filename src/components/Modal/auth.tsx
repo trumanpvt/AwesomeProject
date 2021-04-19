@@ -78,7 +78,7 @@ const ModalAuth = ({setCloseModal, setModal}: Props) => {
     if (password === confirmPassword) {
       signUp(email, password)
         .then(() => {
-          setError(null);
+          setError('');
           setModal({
             type: 'confirmEmail',
           });
@@ -93,8 +93,7 @@ const ModalAuth = ({setCloseModal, setModal}: Props) => {
 
   const handleConfirmSignUp = () => {
     confirmSignUp(email, confirmCode)
-      .then((res) => {
-        console.log('user confirmed', res);
+      .then(() => {
         return passwordSignIn(email, password);
       })
       .then(() => {
@@ -150,7 +149,7 @@ const ModalAuth = ({setCloseModal, setModal}: Props) => {
   };
 
   const changeSignMode = () => {
-    setError(null);
+    setError('');
     setIsConfirmCode(false);
     setPassword('');
     setConfirmPassword('');

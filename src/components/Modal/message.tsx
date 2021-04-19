@@ -7,7 +7,7 @@ export interface Props {
   setCloseModal: () => void;
 }
 
-const ModalMessage = ({message, setCloseModal}: Props) => {
+const ModalMessage = ({message = '', setCloseModal}: Props) => {
   return (
     <Form style={styles.form}>
       <Text style={styles.headerText}>{message}</Text>
