@@ -2,7 +2,7 @@ import {action, makeObservable, observable} from 'mobx';
 import auth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
 
 export default class UserStore {
-  user = auth().currentUser;
+  user: FirebaseAuthTypes.User | null = auth().currentUser;
 
   credential: FirebaseAuthTypes.AuthCredential | null = null;
 

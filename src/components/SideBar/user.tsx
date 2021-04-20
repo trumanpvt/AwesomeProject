@@ -7,7 +7,7 @@ import {observer} from 'mobx-react-lite';
 import {signOut} from '../../util/auth';
 import {useStores} from '../../store';
 
-export interface Props {
+interface Props {
   navigation: any;
 }
 

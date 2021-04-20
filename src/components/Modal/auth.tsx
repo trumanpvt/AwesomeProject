@@ -97,7 +97,7 @@ const ModalAuth = ({setCloseModal, setModal}: Props) => {
         return passwordSignIn(email, password);
       })
       .then(() => {
-        setError(null);
+        setError('');
       })
       .catch((err) => {
         setError(err.message);
@@ -131,7 +131,7 @@ const ModalAuth = ({setCloseModal, setModal}: Props) => {
       .then((res) => {
         console.log('handleFacebookSignIn success', res);
         if (!res.user.emailVerified) {
-          setError(null);
+          setError('');
           setModal({
             type: 'confirmEmail',
           });
