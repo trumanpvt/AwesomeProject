@@ -14,11 +14,11 @@ import {
 } from 'native-base';
 
 import {
-  confirmSignUp,
+  // confirmSignUp,
   facebookSignIn,
   googleSignIn,
   passwordSignIn,
-  resendConfirmationCode,
+  // resendConfirmationCode,
   sendEmailVerification,
   signUp,
 } from '../../util/auth';
@@ -38,12 +38,12 @@ const ModalAuth = ({setCloseModal, setModal}: Props) => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [isSignUp, setIsSignUp] = useState(false);
   const [error, setError] = useState('');
-  const [isConfirmCode, setIsConfirmCode] = useState(false);
-  const [confirmCode, setConfirmCode] = useState('');
+  // const [isConfirmCode, setIsConfirmCode] = useState(false);
+  // const [confirmCode, setConfirmCode] = useState('');
 
   useEffect(() => {
     setError('');
-    setIsConfirmCode(false);
+    // setIsConfirmCode(false);
   }, [email]);
 
   const handlePasswordSignIn = () => {
@@ -91,24 +91,24 @@ const ModalAuth = ({setCloseModal, setModal}: Props) => {
     }
   };
 
-  const handleConfirmSignUp = () => {
-    confirmSignUp(email, confirmCode)
-      .then(() => {
-        return passwordSignIn(email, password);
-      })
-      .then(() => {
-        setError('');
-      })
-      .catch((err) => {
-        setError(err.message);
-      });
-  };
+  // const handleConfirmSignUp = () => {
+  //   confirmSignUp(email, confirmCode)
+  //     .then(() => {
+  //       return passwordSignIn(email, password);
+  //     })
+  //     .then(() => {
+  //       setError('');
+  //     })
+  //     .catch((err) => {
+  //       setError(err.message);
+  //     });
+  // };
 
-  const handleResendConfirmCode = () => {
-    resendConfirmationCode(email).catch((e) => {
-      console.log('resendConfirmationCode error', e);
-    });
-  };
+  // const handleResendConfirmCode = () => {
+  //   resendConfirmationCode(email).catch((e) => {
+  //     console.log('resendConfirmationCode error', e);
+  //   });
+  // };
 
   const handlePasswordReset = () => {
     setModal({type: 'resetPassword', email: email || ''});
@@ -150,13 +150,13 @@ const ModalAuth = ({setCloseModal, setModal}: Props) => {
 
   const changeSignMode = () => {
     setError('');
-    setIsConfirmCode(false);
+    // setIsConfirmCode(false);
     setPassword('');
     setConfirmPassword('');
     setIsSignUp(!isSignUp);
   };
 
-  const renderTabBar = (tabsProps) => {
+  const renderTabBar = (tabsProps: any) => {
     tabsProps.tabStyle = Object.create(tabsProps.tabStyle);
     return <DefaultTabBar {...tabsProps} />;
   };
@@ -228,7 +228,7 @@ const ModalAuth = ({setCloseModal, setModal}: Props) => {
             placeholder="Password"
           />
         </Item>
-        {isConfirmCode && renderConfirmCode()}
+        {/*{isConfirmCode && renderConfirmCode()}*/}
         <Button
           full
           rounded
@@ -238,54 +238,54 @@ const ModalAuth = ({setCloseModal, setModal}: Props) => {
           <Text>Forgot password</Text>
         </Button>
         {error && <Text style={styles.error}>{error}</Text>}
-        {!isConfirmCode && (
-          <Button
-            full
-            rounded
-            success
-            style={styles.button}
-            disabled={!email || !password}
-            onPress={handlePasswordSignIn}>
-            <Text style={styles.textStyle}>Sign In</Text>
-          </Button>
-        )}
-      </>
-    );
-  };
-
-  const renderConfirmCode = () => {
-    return (
-      <>
-        <Item style={styles.input}>
-          <Input
-            textContentType="none"
-            value={confirmCode}
-            onChangeText={setConfirmCode}
-            placeholder="Confirm code"
-            keyboardType="number-pad"
-          />
-        </Item>
-        {error && <Text style={styles.error}>{error}</Text>}
+        {/*{!isConfirmCode && (*/}
         <Button
           full
           rounded
           success
           style={styles.button}
-          disabled={!confirmCode}
-          onPress={handleConfirmSignUp}>
-          <Text style={styles.textStyle}>Confirm registration</Text>
+          disabled={!email || !password}
+          onPress={handlePasswordSignIn}>
+          <Text style={styles.textStyle}>Sign In</Text>
         </Button>
-        <Button
-          full
-          rounded
-          danger
-          style={styles.button}
-          onPress={handleResendConfirmCode}>
-          <Text style={styles.textStyle}>Resend confirm code</Text>
-        </Button>
+        {/*)}*/}
       </>
     );
   };
+
+  // const renderConfirmCode = () => {
+  //   return (
+  //     <>
+  //       <Item style={styles.input}>
+  //         <Input
+  //           textContentType="none"
+  //           value={confirmCode}
+  //           onChangeText={setConfirmCode}
+  //           placeholder="Confirm code"
+  //           keyboardType="number-pad"
+  //         />
+  //       </Item>
+  //       {error && <Text style={styles.error}>{error}</Text>}
+  //       <Button
+  //         full
+  //         rounded
+  //         success
+  //         style={styles.button}
+  //         disabled={!confirmCode}
+  //         onPress={handleConfirmSignUp}>
+  //         <Text style={styles.textStyle}>Confirm registration</Text>
+  //       </Button>
+  //       <Button
+  //         full
+  //         rounded
+  //         danger
+  //         style={styles.button}
+  //         onPress={handleResendConfirmCode}>
+  //         <Text style={styles.textStyle}>Resend confirm code</Text>
+  //       </Button>
+  //     </>
+  //   );
+  // };
 
   const renderSignUp = () => {
     return (
@@ -320,28 +320,28 @@ const ModalAuth = ({setCloseModal, setModal}: Props) => {
             placeholder="Confirm Password"
           />
         </Item>
-        {isConfirmCode && (
-          <>
-            <Text style={styles.error}>
-              Please confirm with code sent to email
-            </Text>
-            {renderConfirmCode()}
-          </>
-        )}
-        {!isConfirmCode && (
-          <>
-            {error && <Text style={styles.error}>{error}</Text>}
-            <Button
-              full
-              rounded
-              success
-              style={styles.button}
-              disabled={!email || !password || !confirmPassword}
-              onPress={handleSignUp}>
-              <Text style={styles.textStyle}>Sign Up</Text>
-            </Button>
-          </>
-        )}
+        {/*{isConfirmCode && (*/}
+        {/*  <>*/}
+        {/*    <Text style={styles.error}>*/}
+        {/*      Please confirm with code sent to email*/}
+        {/*    </Text>*/}
+        {/*    {renderConfirmCode()}*/}
+        {/*  </>*/}
+        {/*)}*/}
+        {/*{!isConfirmCode && (*/}
+        <>
+          {error && <Text style={styles.error}>{error}</Text>}
+          <Button
+            full
+            rounded
+            success
+            style={styles.button}
+            disabled={!email || !password || !confirmPassword}
+            onPress={handleSignUp}>
+            <Text style={styles.textStyle}>Sign Up</Text>
+          </Button>
+        </>
+        {/*)}*/}
       </>
     );
   };
