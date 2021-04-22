@@ -5,7 +5,7 @@ import User from './user';
 
 import styles from './style.js';
 
-export interface Props {
+interface Props {
   routeNames: string[];
   navigation: any;
 }

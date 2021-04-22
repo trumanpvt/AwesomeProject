@@ -7,7 +7,7 @@ import {Button, Fab, Icon, Spinner} from 'native-base';
 
 import styles from './style.js';
 
-export interface Props {
+interface Props {
   closeCamera: () => void;
   takePhoto: (uri: string) => void;
 }

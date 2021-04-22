@@ -11,9 +11,9 @@ import {
 import {useStores} from '../../store';
 import {FirebaseAuthTypes} from '@react-native-firebase/auth';
 
-export interface Props {
+interface Props {
   setModal: (data: {type: string}) => void;
-  setCloseModal: Function;
+  setCloseModal: () => void;
 }
 
 const ModalEmailExist = ({setModal, setCloseModal}: Props) => {

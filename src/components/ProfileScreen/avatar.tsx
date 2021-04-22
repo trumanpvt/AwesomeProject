@@ -9,9 +9,9 @@ import ImagePicker, {Image} from 'react-native-image-crop-picker';
 import Camera from '../Camera';
 import {FirebaseAuthTypes} from '@react-native-firebase/auth';
 
-export interface Props {
+interface Props {
   user: FirebaseAuthTypes.User;
-  changeUser: Function;
+  changeUser: ({}) => void;
 }
 
 const Avatar = ({user, changeUser}: Props) => {

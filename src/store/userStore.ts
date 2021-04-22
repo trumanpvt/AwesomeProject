@@ -21,7 +21,7 @@ export default class UserStore {
     this.user = userData;
   };
 
-  changeUser = (data: FirebaseAuthTypes.UpdateProfile) => {
+  changeUser = (data: {}) => {
     if (this.user) {
       this.user
         .updateProfile(data)

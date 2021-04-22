@@ -3,7 +3,7 @@ import {Button, Form, Input, Item, Text} from 'native-base';
 import styles from './style.js';
 import {sendPasswordResetEmail} from '../../util/auth';
 
-export interface Props {
+interface Props {
   email: string | undefined;
   setModal: (data: {type: string}) => void;
 }

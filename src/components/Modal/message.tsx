@@ -2,7 +2,7 @@ import React from 'react';
 import {Button, Form, Text} from 'native-base';
 import styles from './style.js';
 
-export interface Props {
+interface Props {
   message: string | undefined;
   setCloseModal: () => void;
 }

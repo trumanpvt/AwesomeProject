@@ -4,7 +4,7 @@ import {Body, Button, Header, Icon, Left, Right, Title} from 'native-base';
 
 import styles from './style.js';
 
-export interface Props {
+interface Props {
   openDrawer: () => void;
   name: string;
 }

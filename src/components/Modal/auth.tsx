@@ -3,6 +3,7 @@ import React, {useEffect, useState} from 'react';
 import {View} from 'react-native';
 import {
   Button,
+  // @ts-ignore
   DefaultTabBar,
   Form,
   Icon,
@@ -23,7 +24,7 @@ import {
 import styles from './style.js';
 import {useStores} from '../../store';
 
-export interface Props {
+interface Props {
   setModal: (data: {type?: string; email?: string}) => void;
   setCloseModal: () => void;
 }
@@ -36,12 +37,9 @@ const ModalAuth = ({setCloseModal, setModal}: Props) => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [isSignUp, setIsSignUp] = useState(false);
   const [error, setError] = useState('');
-  // const [isConfirmCode, setIsConfirmCode] = useState(false);
-  // const [confirmCode, setConfirmCode] = useState('');
 
   useEffect(() => {
     setError('');
-    // setIsConfirmCode(false);
   }, [email]);
 
   const handlePasswordSignIn = () => {
@@ -88,25 +86,6 @@ const ModalAuth = ({setCloseModal, setModal}: Props) => {
       setError('Confirm Password');
     }
   };
-
-  // const handleConfirmSignUp = () => {
-  //   confirmSignUp(email, confirmCode)
-  //     .then(() => {
-  //       return passwordSignIn(email, password);
-  //     })
-  //     .then(() => {
-  //       setError('');
-  //     })
-  //     .catch((err) => {
-  //       setError(err.message);
-  //     });
-  // };
-
-  // const handleResendConfirmCode = () => {
-  //   resendConfirmationCode(email).catch((e) => {
-  //     console.log('resendConfirmationCode error', e);
-  //   });
-  // };
 
   const handlePasswordReset = () => {
     setModal({type: 'resetPassword', email: email || ''});
@@ -170,6 +149,7 @@ const ModalAuth = ({setCloseModal, setModal}: Props) => {
           <Tab
             tabStyle={styles.modalTab}
             heading={'SignIn'}
+            // @ts-ignore
             disabled={!isSignUp}
             activeTabStyle={styles.modalTab}
           />
@@ -177,6 +157,7 @@ const ModalAuth = ({setCloseModal, setModal}: Props) => {
             tabStyle={styles.modalTab}
             activeTabStyle={styles.modalTab}
             heading={'SignUp'}
+            // @ts-ignore
             disabled={isSignUp}
           />
         </Tabs>
@@ -247,40 +228,6 @@ const ModalAuth = ({setCloseModal, setModal}: Props) => {
       </>
     );
   };
-
-  // const renderConfirmCode = () => {
-  //   return (
-  //     <>
-  //       <Item style={styles.input}>
-  //         <Input
-  //           textContentType="none"
-  //           value={confirmCode}
-  //           onChangeText={setConfirmCode}
-  //           placeholder="Confirm code"
-  //           keyboardType="number-pad"
-  //         />
-  //       </Item>
-  //       {error && <Text style={styles.error}>{error}</Text>}
-  //       <Button
-  //         full
-  //         rounded
-  //         success
-  //         style={styles.button}
-  //         disabled={!confirmCode}
-  //         onPress={handleConfirmSignUp}>
-  //         <Text style={styles.textStyle}>Confirm registration</Text>
-  //       </Button>
-  //       <Button
-  //         full
-  //         rounded
-  //         danger
-  //         style={styles.button}
-  //         onPress={handleResendConfirmCode}>
-  //         <Text style={styles.textStyle}>Resend confirm code</Text>
-  //       </Button>
-  //     </>
-  //   );
-  // };
 
   const renderSignUp = () => {
     return (

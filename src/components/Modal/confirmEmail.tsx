@@ -3,7 +3,7 @@ import {Button, Form, Text} from 'native-base';
 import styles from './style.js';
 import {sendEmailVerification} from '../../util/auth';
 
-export interface Props {
+interface Props {
   setCloseModal: () => void;
 }
 
