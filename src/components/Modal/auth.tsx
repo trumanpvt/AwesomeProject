@@ -14,11 +14,9 @@ import {
 } from 'native-base';
 
 import {
-  // confirmSignUp,
   facebookSignIn,
   googleSignIn,
   passwordSignIn,
-  // resendConfirmationCode,
   sendEmailVerification,
   signUp,
 } from '../../util/auth';
@@ -228,7 +226,6 @@ const ModalAuth = ({setCloseModal, setModal}: Props) => {
             placeholder="Password"
           />
         </Item>
-        {/*{isConfirmCode && renderConfirmCode()}*/}
         <Button
           full
           rounded
@@ -237,8 +234,7 @@ const ModalAuth = ({setCloseModal, setModal}: Props) => {
           onPress={handlePasswordReset}>
           <Text>Forgot password</Text>
         </Button>
-        {error && <Text style={styles.error}>{error}</Text>}
-        {/*{!isConfirmCode && (*/}
+        {error ? <Text style={styles.error}>{error}</Text> : null}
         <Button
           full
           rounded
@@ -248,7 +244,6 @@ const ModalAuth = ({setCloseModal, setModal}: Props) => {
           onPress={handlePasswordSignIn}>
           <Text style={styles.textStyle}>Sign In</Text>
         </Button>
-        {/*)}*/}
       </>
     );
   };
@@ -320,17 +315,8 @@ const ModalAuth = ({setCloseModal, setModal}: Props) => {
             placeholder="Confirm Password"
           />
         </Item>
-        {/*{isConfirmCode && (*/}
-        {/*  <>*/}
-        {/*    <Text style={styles.error}>*/}
-        {/*      Please confirm with code sent to email*/}
-        {/*    </Text>*/}
-        {/*    {renderConfirmCode()}*/}
-        {/*  </>*/}
-        {/*)}*/}
-        {/*{!isConfirmCode && (*/}
         <>
-          {error && <Text style={styles.error}>{error}</Text>}
+          {error ? <Text style={styles.error}>{error}</Text> : null}
           <Button
             full
             rounded
@@ -341,7 +327,6 @@ const ModalAuth = ({setCloseModal, setModal}: Props) => {
             <Text style={styles.textStyle}>Sign Up</Text>
           </Button>
         </>
-        {/*)}*/}
       </>
     );
   };
