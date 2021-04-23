@@ -1,18 +1,20 @@
 import React, {useEffect} from 'react';
+
+import {LogBox} from 'react-native';
+import {Root} from 'native-base';
+
 import {NavigationContainer} from '@react-navigation/native';
 import {createDrawerNavigator} from '@react-navigation/drawer';
-import AppHeader from './components/AppHeader';
 
+import {useStores} from './store';
+import auth from '@react-native-firebase/auth';
+
+import AppHeader from './components/AppHeader';
 import ProfileScreen from './components/ProfileScreen';
 import ChatScreen from './components/ChatScreen';
 import SideBar from './components/SideBar/menu';
 import HomeScreen from './components/HomeScreen';
 import ModalContainer from './components/Modal';
-import {useStores} from './store';
-import auth from '@react-native-firebase/auth';
-
-import {Root} from 'native-base';
-import {LogBox} from 'react-native';
 
 LogBox.ignoreLogs(['Remote debugger']);
 
