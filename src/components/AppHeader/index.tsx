@@ -2,8 +2,6 @@ import React from 'react';
 import {View} from 'react-native';
 import {Body, Button, Header, Icon, Left, Right, Title} from 'native-base';
 
-import styles from './style.js';
-
 interface Props {
   openDrawer: () => void;
   name: string;
@@ -11,7 +9,7 @@ interface Props {
 
 const AppHeader = ({openDrawer, name}: Props) => {
   return (
-    <View style={styles.header}>
+    <View>
       <Header>
         <Left>
           <Button transparent onPress={openDrawer}>
