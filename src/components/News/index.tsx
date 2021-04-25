@@ -8,12 +8,12 @@ import moment from 'moment';
 import {
   Image,
   Linking,
+  RefreshControl,
   ScrollView,
   Text,
   TouchableOpacity,
   View,
 } from 'react-native';
-import {Spinner} from 'native-base';
 import styles from './style.js';
 
 // moment.locale('fr');
@@ -25,9 +25,14 @@ const News = () => {
 
   useEffect(() => {
     if (!articles.length) {
-      flowResult(newsStore.fetchArticles('ru'));
+      flowResult(newsStore.fetchArticles(country));
     }
   }, [articles.length, country, fetchArticles, newsStore]);
+
+  const onRefresh = () => {
+    console.log('refresh');
+    flowResult(newsStore.fetchArticles(country));
+  };
 
   const renderArticle = (article: any, index: number): JSX.Element => {
     return (
@@ -56,12 +61,17 @@ const News = () => {
     );
   };
 
-  return state === 'done' ? (
-    <ScrollView style={styles.articles}>
+  return (
+    <ScrollView
+      style={styles.articles}
+      refreshControl={
+        <RefreshControl
+          onRefresh={onRefresh}
+          refreshing={state === 'pending'}
+        />
+      }>
       {articles.map(renderArticle)}
     </ScrollView>
-  ) : (
-    <Spinner />
   );
 };
 
