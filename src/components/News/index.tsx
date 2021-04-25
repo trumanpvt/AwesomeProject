@@ -1,16 +1,21 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Text} from 'react-native';
 import {Container, Content} from 'native-base';
-import {getNews} from '../../util/news.js';
-import styles from './style.js';
 import {useStores} from '../../store';
+import {getNews} from '../../util/news';
+import styles from './style.js';
+import {observer} from 'mobx-react-lite';
 
 const News = () => {
   const {country} = useStores().localeStore;
 
-  const news = getNews(country);
+  const [articles, setArticles] = useState([]);
 
-  console.log(news);
+  useEffect(() => {
+    getNews(country).then((res) => setArticles(res));
+  }, [country]);
+
+  console.log(articles);
 
   return (
     <Container>
@@ -21,4 +26,4 @@ const News = () => {
   );
 };
 
-export default News;
+export default observer(News);

@@ -16,10 +16,15 @@ export default class LocaleStore {
       locale: observable,
       country: observable,
       setLocale: action,
+      setCountry: action,
     });
   }
 
   setLocale = (locale: string) => {
     this.locale = locale;
+  };
+
+  setCountry = (locale: string) => {
+    this.country = locale;
   };
 }
