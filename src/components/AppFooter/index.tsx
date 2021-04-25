@@ -14,13 +14,13 @@ const AppFooter = () => {
           onPress={() => setFooterMode('ARTICLES')}>
           <Text>Статьи</Text>
         </Button>
+        <Button active={mode === 'NEWS'} onPress={() => setFooterMode('NEWS')}>
+          <Text>NEWS</Text>
+        </Button>
         <Button
           active={mode === 'PODCAST'}
           onPress={() => setFooterMode('PODCAST')}>
           <Text>Подкасты</Text>
-        </Button>
-        <Button active={mode === 'FAQ'} onPress={() => setFooterMode('FAQ')}>
-          <Text>FAQ</Text>
         </Button>
       </FooterTab>
     </Footer>

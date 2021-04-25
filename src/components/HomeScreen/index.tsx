@@ -2,7 +2,7 @@ import React from 'react';
 import {Container, Content} from 'native-base';
 import Articles from '../Articles';
 import Podcasts from '../Podcasts';
-import Faq from '../Faq';
+import News from '../News';
 import {StyleSheet} from 'react-native';
 import AppFooter from '../AppFooter';
 import {observer} from 'mobx-react-lite';
@@ -23,8 +23,8 @@ const HomeScreen = observer(() => {
       case 'PODCAST': {
         return <Podcasts />;
       }
-      case 'FAQ': {
-        return <Faq />;
+      case 'NEWS': {
+        return <News />;
       }
       default: {
         return <Articles />;
