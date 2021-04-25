@@ -29,7 +29,7 @@ interface Props {
   setCloseModal: () => void;
 }
 
-const ModalAuth = ({setCloseModal, setModal}: Props) => {
+const ModalAuth = ({setCloseModal, setModal}: Props): JSX.Element => {
   const {setCredential} = useStores().userStore;
 
   const [email, setEmail] = useState('');
@@ -42,7 +42,7 @@ const ModalAuth = ({setCloseModal, setModal}: Props) => {
     setError('');
   }, [email]);
 
-  const handlePasswordSignIn = () => {
+  const handlePasswordSignIn = (): void => {
     passwordSignIn(email, password)
       .then((cred) => {
         if (cred.user && !cred.user.emailVerified) {
@@ -57,7 +57,7 @@ const ModalAuth = ({setCloseModal, setModal}: Props) => {
       });
   };
 
-  const handleSendEmailVerification = () => {
+  const handleSendEmailVerification = (): void => {
     sendEmailVerification()
       .then(() => {
         setModal({
@@ -70,7 +70,7 @@ const ModalAuth = ({setCloseModal, setModal}: Props) => {
       });
   };
 
-  const handleSignUp = () => {
+  const handleSignUp = (): void => {
     if (password === confirmPassword) {
       signUp(email, password)
         .then(() => {
@@ -87,11 +87,11 @@ const ModalAuth = ({setCloseModal, setModal}: Props) => {
     }
   };
 
-  const handlePasswordReset = () => {
+  const handlePasswordReset = (): void => {
     setModal({type: 'resetPassword', email: email || ''});
   };
 
-  const handleGoogleSignIn = () => {
+  const handleGoogleSignIn = (): void => {
     googleSignIn()
       .then((res) => {
         console.log('handleGoogleSignIn success', res);
@@ -103,7 +103,7 @@ const ModalAuth = ({setCloseModal, setModal}: Props) => {
       });
   };
 
-  const handleFacebookSignIn = () => {
+  const handleFacebookSignIn = (): void => {
     facebookSignIn(setCredential)
       .then((res) => {
         console.log('handleFacebookSignIn success', res);
@@ -125,7 +125,7 @@ const ModalAuth = ({setCloseModal, setModal}: Props) => {
       });
   };
 
-  const changeSignMode = () => {
+  const changeSignMode = (): void => {
     setError('');
     // setIsConfirmCode(false);
     setPassword('');
@@ -133,12 +133,12 @@ const ModalAuth = ({setCloseModal, setModal}: Props) => {
     setIsSignUp(!isSignUp);
   };
 
-  const renderTabBar = (tabsProps: any) => {
+  const renderTabBar = (tabsProps: any): JSX.Element => {
     tabsProps.tabStyle = Object.create(tabsProps.tabStyle);
     return <DefaultTabBar {...tabsProps} />;
   };
 
-  const renderChangeModeTabs = () => {
+  const renderChangeModeTabs = (): JSX.Element => {
     return (
       <View style={styles.modalTabsContainer}>
         <Tabs
@@ -165,7 +165,7 @@ const ModalAuth = ({setCloseModal, setModal}: Props) => {
     );
   };
 
-  const renderSignIn = () => {
+  const renderSignIn = (): JSX.Element => {
     return (
       <>
         <View>
@@ -229,7 +229,7 @@ const ModalAuth = ({setCloseModal, setModal}: Props) => {
     );
   };
 
-  const renderSignUp = () => {
+  const renderSignUp = (): JSX.Element => {
     return (
       <>
         <Item style={styles.input}>
