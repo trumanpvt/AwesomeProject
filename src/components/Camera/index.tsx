@@ -1,4 +1,3 @@
-'use strict';
 import React, {useState} from 'react';
 import {RNCamera} from 'react-native-camera';
 
@@ -22,12 +21,6 @@ const Camera = ({closeCamera, takePhoto}: Props) => {
     console.log('takePicture', data.uri);
     return takePhoto(data.uri);
   };
-
-  // const renderPendingView = () => (
-  //   <View style={styles.pending}>
-  //     <Text>Waiting</Text>
-  //   </View>
-  // );
 
   const handleChangeFlashMode = (mode: string) => {
     return setFlash({
@@ -62,7 +55,7 @@ const Camera = ({closeCamera, takePhoto}: Props) => {
                 <Fab
                   active={flash.isOpen}
                   direction="down"
-                  containerStyle={flash.isOpen ? null : styles.flashContainer}
+                  // containerStyle={flash.isOpen ? null : styles.flashContainer}
                   style={{...styles}[flash.mode]}
                   position="topRight"
                   onPress={() =>
