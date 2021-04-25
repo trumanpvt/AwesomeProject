@@ -1,15 +1,11 @@
 import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
-  // container: {
-  //   padding: 10,
-  //   alignItems: 'center',
-  //   justifyContent: 'center',
-  //   backgroundColor: '#43a1c9',
-  // },
   articles: {
+    flexGrow: 1,
     paddingLeft: 10,
     paddingRight: 10,
+    paddingBottom: 10,
   },
   article: {
     shadowColor: '#000',
@@ -19,7 +15,7 @@ export default StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
-    marginBottom: 10,
+    marginBottom: 30,
   },
   articleTitle: {
     fontWeight: 'bold',
@@ -32,7 +28,11 @@ export default StyleSheet.create({
     fontSize: 16,
     lineHeight: 20,
   },
-  articleImg: {width: 'auto'},
+  articleImg: {
+    height: 200,
+    flex: 1,
+    width: undefined,
+  },
   articleData: {
     paddingTop: 5,
     flexDirection: 'row',
