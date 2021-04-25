@@ -144,5 +144,4 @@ const Avatar = ({user, changeUser}: Props) => {
   );
 };
 
-Avatar.propTypes = {};
 export default Avatar;

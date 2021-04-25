@@ -33,5 +33,4 @@ const ChatScreen = () => {
   );
 };
 
-ChatScreen.propTypes = {};
 export default ChatScreen;
