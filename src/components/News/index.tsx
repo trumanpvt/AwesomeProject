@@ -69,7 +69,11 @@ const News = () => {
           refreshing={state === 'pending'}
         />
       }>
-      {articles.map(renderArticle)}
+      {state === 'error' ? (
+        articles.map(renderArticle)
+      ) : (
+        <Text style={styles.error}>News loading error</Text>
+      )}
     </ScrollView>
   );
 };

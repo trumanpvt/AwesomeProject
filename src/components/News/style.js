@@ -38,4 +38,10 @@ export default StyleSheet.create({
   },
   articleSource: {},
   articleDate: {},
+  error: {
+    fontWeight: 'bold',
+    fontSize: 18,
+    lineHeight: 22,
+    textAlign: 'center',
+  },
 });
