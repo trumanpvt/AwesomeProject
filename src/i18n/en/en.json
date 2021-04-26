@@ -21,5 +21,8 @@
     "articles": "Articles",
     "news": "News",
     "podcasts": "Podcasts"
+  },
+  "chats": {
+    "text": "Chats text"
   }
 }

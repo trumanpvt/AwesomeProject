@@ -5,6 +5,7 @@ import {Button, Footer, FooterTab} from 'native-base';
 
 import {useStores} from '../../store/';
 import {useTranslation} from 'react-i18next';
+import {observer} from 'mobx-react-lite';
 
 const AppFooter = () => {
   const {mode, setFooterMode} = useStores().footerStore;
@@ -32,4 +33,4 @@ const AppFooter = () => {
   );
 };
 
-export default AppFooter;
+export default observer(AppFooter);

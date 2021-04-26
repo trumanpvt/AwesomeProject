@@ -57,7 +57,7 @@ const App = () => {
     <Root>
       <NavigationContainer>
         <Drawer.Navigator
-          initialRouteName={t('routes.HomeScreen')}
+          initialRouteName="HomeScreen"
           screenOptions={(props) => ({
             header: () => (
               <AppHeader
@@ -70,16 +70,9 @@ const App = () => {
           drawerContent={({navigation, state}) => (
             <SideBar navigation={navigation} routeNames={state.routeNames} />
           )}>
-          <Drawer.Screen
-            name={t('routes.HomeScreen')}
-            component={HomeScreen}
-            options={{title: 'My profile'}}
-          />
-          <Drawer.Screen name={t('routes.ChatScreen')} component={ChatScreen} />
-          <Drawer.Screen
-            name={t('routes.ProfileScreen')}
-            component={ProfileScreen}
-          />
+          <Drawer.Screen name="HomeScreen" component={HomeScreen} />
+          <Drawer.Screen name="ChatScreen" component={ChatScreen} />
+          <Drawer.Screen name="ProfileScreen" component={ProfileScreen} />
         </Drawer.Navigator>
       </NavigationContainer>
       <ModalContainer />

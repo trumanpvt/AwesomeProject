@@ -7,6 +7,7 @@ import {List, ListItem, Button, Icon} from 'native-base';
 import User from './user';
 
 import styles from './style.js';
+import {useTranslation} from 'react-i18next';
 
 interface Props {
   routeNames: string[];
@@ -15,6 +16,8 @@ interface Props {
 
 const SideBar = ({navigation, routeNames}: Props) => {
   const {language, setLanguage} = useStores().localeStore;
+
+  const {t} = useTranslation();
 
   const routes = routeNames.filter((route) => route !== 'ProfileScreen');
 
@@ -35,7 +38,7 @@ const SideBar = ({navigation, routeNames}: Props) => {
               style={styles.listItem}
               button
               onPress={() => navigation.navigate(data)}>
-              <Text>{data}</Text>
+              <Text>{t(`routes.${data}`)}</Text>
             </ListItem>
           );
         }}

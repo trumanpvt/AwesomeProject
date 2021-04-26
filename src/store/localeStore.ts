@@ -1,4 +1,4 @@
-import {action, makeObservable, observable} from 'mobx';
+import {makeAutoObservable} from 'mobx';
 import RNLocalize from 'react-native-localize';
 
 export default class LocaleStore {
@@ -7,12 +7,7 @@ export default class LocaleStore {
   country = RNLocalize.getCountry();
 
   constructor() {
-    makeObservable(this, {
-      language: observable,
-      country: observable,
-      setLanguage: action,
-      setCountry: action,
-    });
+    makeAutoObservable(this);
   }
 
   setLanguage = (language: string) => {

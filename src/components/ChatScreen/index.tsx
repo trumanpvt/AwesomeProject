@@ -3,34 +3,17 @@ import React from 'react';
 import {Text} from 'react-native';
 import {Container, Content} from 'native-base';
 
-import {StyleSheet} from 'react-native';
+import {useTranslation} from 'react-i18next';
 
-const styles = StyleSheet.create({
-  container: {
-    paddingTop: 20,
-    paddingBottom: 20,
-  },
-});
+import styles from './style.js';
 
 const ChatScreen = () => {
-  // const renderPage = () => {
-  //   switch (mode) {
-  //     case 'PODCAST': {
-  //       return <Podcasts />;
-  //     }
-  //     case 'FAQ': {
-  //       return <Faq />;
-  //     }
-  //     default: {
-  //       return <Articles />;
-  //     }
-  //   }
-  // };
+  const {t} = useTranslation();
 
   return (
     <Container style={styles.container}>
       <Content>
-        <Text>ChatScreen</Text>
+        <Text style={styles.text}>{t('chats.text')}</Text>
       </Content>
     </Container>
   );

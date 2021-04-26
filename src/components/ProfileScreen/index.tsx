@@ -21,7 +21,7 @@ import {observer} from 'mobx-react-lite';
 import {getCurrentUser, reloadCurrentUser} from '../../util/auth';
 import {useNavigation} from '@react-navigation/native';
 
-const ProfileScreen = observer(() => {
+const ProfileScreen = () => {
   const {userStore, modalStore} = useStores();
   const {user, changeUser, setUser} = userStore;
   const {setModal} = modalStore;
@@ -76,14 +76,9 @@ const ProfileScreen = observer(() => {
   const handlePasswordChange = () => {
     return (
       user &&
-      user
-        .updatePassword(newPassword)
-        .then(() => {
-          // User re-authenticated.
-        })
-        .catch((error: any) => {
-          console.log('updatePassword error', error);
-        })
+      user.updatePassword(newPassword).catch((error: any) => {
+        console.log('updatePassword error', error);
+      })
     );
   };
 
@@ -198,6 +193,6 @@ const ProfileScreen = observer(() => {
       ) : null}
     </Container>
   );
-});
+};
 
-export default ProfileScreen;
+export default observer(ProfileScreen);

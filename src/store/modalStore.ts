@@ -1,4 +1,4 @@
-import {action, makeObservable, observable} from 'mobx';
+import {makeAutoObservable} from 'mobx';
 
 export default class ModalStore {
   modal: {
@@ -8,11 +8,7 @@ export default class ModalStore {
   } = {type: '', email: '', message: ''};
 
   constructor() {
-    makeObservable(this, {
-      modal: observable,
-      setModal: action,
-      setCloseModal: action,
-    });
+    makeAutoObservable(this);
   }
 
   setModal = (modalData: {type?: string; email?: string; message?: string}) => {

@@ -20,7 +20,7 @@ const AppHeader = ({openDrawer, name}: Props) => {
           </Button>
         </Left>
         <Body>
-          <Title>{t(name)}</Title>
+          <Title>{t(`routes.${name}`)}</Title>
         </Body>
         <Right />
       </Header>

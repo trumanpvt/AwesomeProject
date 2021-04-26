@@ -1,13 +1,19 @@
 import React from 'react';
+
 import {Container} from 'native-base';
+
 import Articles from '../Articles';
-import Podcasts from '../Podcasts';
 import News from '../News';
+import Podcasts from '../Podcasts';
 import AppFooter from '../AppFooter';
+
 import {observer} from 'mobx-react-lite';
+
 import {useStores} from '../../store';
 
-const HomeScreen = observer(() => {
+import styles from './style.js';
+
+const HomeScreen = () => {
   const {mode} = useStores().footerStore;
 
   const renderPage = () => {
@@ -25,11 +31,11 @@ const HomeScreen = observer(() => {
   };
 
   return (
-    <Container style={{paddingTop: 20}}>
+    <Container style={styles.container}>
       {renderPage()}
       <AppFooter />
     </Container>
   );
-});
+};
 
-export default HomeScreen;
+export default observer(HomeScreen);
