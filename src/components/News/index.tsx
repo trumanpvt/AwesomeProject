@@ -69,7 +69,7 @@ const News = () => {
           refreshing={state === 'pending'}
         />
       }>
-      {state === 'error' ? (
+      {state !== 'error' ? (
         articles.map(renderArticle)
       ) : (
         <Text style={styles.error}>News loading error</Text>
