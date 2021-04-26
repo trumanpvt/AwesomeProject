@@ -18,7 +18,6 @@ import ModalContainer from './components/Modal';
 import i18n from './i18n';
 
 import {observer} from 'mobx-react-lite';
-import {useTranslation} from 'react-i18next';
 
 LogBox.ignoreLogs(['Remote debugger']);
 
@@ -50,8 +49,6 @@ const App = () => {
       console.log('i18n.changeLanguage error', e);
     });
   }, [language]);
-
-  const {t} = useTranslation();
 
   return (
     <Root>
