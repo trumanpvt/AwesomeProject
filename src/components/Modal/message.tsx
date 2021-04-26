@@ -1,5 +1,8 @@
 import React from 'react';
-import {Button, Form, Text} from 'native-base';
+
+import {Text} from 'react-native';
+import {Button, Form} from 'native-base';
+
 import styles from './style.js';
 
 interface Props {

@@ -1,7 +1,11 @@
 import React from 'react';
-import {Button, Form, Text} from 'native-base';
-import styles from './style.js';
+
+import {Text} from 'react-native';
+import {Button, Form} from 'native-base';
+
 import {sendEmailVerification} from '../../util/auth';
+
+import styles from './style.js';
 
 interface Props {
   setCloseModal: () => void;

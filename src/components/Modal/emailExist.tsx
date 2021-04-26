@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
-import {Button, Form, Icon, Input, Item, Text} from 'native-base';
-import styles from './style.js';
+
+import {Text} from 'react-native';
+import {Button, Form, Icon, Input, Item} from 'native-base';
+
 import {
   facebookSignIn,
   googleSignIn,
@@ -8,8 +10,11 @@ import {
   passwordSignIn,
   sendEmailVerification,
 } from '../../util/auth';
+
 import {useStores} from '../../store';
 import {FirebaseAuthTypes} from '@react-native-firebase/auth';
+
+import styles from './style.js';
 
 interface Props {
   setModal: (data: {type: string}) => void;

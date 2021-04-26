@@ -1,5 +1,8 @@
 import React from 'react';
-import {Container, Content, Text} from 'native-base';
+
+import {Text} from 'react-native';
+import {Container, Content} from 'native-base';
+
 import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({

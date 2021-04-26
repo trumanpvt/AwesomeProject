@@ -1,7 +1,11 @@
 import React, {useState} from 'react';
-import {Button, Form, Input, Item, Text} from 'native-base';
-import styles from './style.js';
+
+import {Text} from 'react-native';
+import {Button, Form, Input, Item} from 'native-base';
+
 import {sendPasswordResetEmail} from '../../util/auth';
+
+import styles from './style.js';
 
 interface Props {
   email: string | undefined;

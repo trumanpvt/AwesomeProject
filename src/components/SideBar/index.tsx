@@ -1,6 +1,9 @@
 import React from 'react';
-import {SafeAreaView} from 'react-native';
-import {List, ListItem, Text} from 'native-base';
+
+import {useStores} from '../../store';
+
+import {Button, SafeAreaView, View, Text} from 'react-native';
+import {List, ListItem} from 'native-base';
 import User from './user';
 
 import styles from './style.js';
@@ -11,6 +14,8 @@ interface Props {
 }
 
 const SideBar = ({navigation, routeNames}: Props) => {
+  const {locale} = useStores().localeStore;
+
   const routes = routeNames.filter((route) => route !== 'ProfileScreen');
 
   return (
@@ -30,6 +35,11 @@ const SideBar = ({navigation, routeNames}: Props) => {
         }}
         keyExtractor={(item: any, index: number) => index.toString()}
       />
+      <View>
+        <Button>
+          <Text>{locale}</Text>
+        </Button>
+      </View>
     </SafeAreaView>
   );
 };

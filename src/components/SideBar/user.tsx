@@ -1,11 +1,14 @@
 import React from 'react';
-import {View} from 'react-native';
-import {Badge, Button, Text, Thumbnail} from 'native-base';
-import styles from './style.js';
+
+import {View, Text} from 'react-native';
+import {Badge, Button, Thumbnail} from 'native-base';
+
 import {observer} from 'mobx-react-lite';
 
 import {signOut} from '../../util/auth';
 import {useStores} from '../../store';
+
+import styles from './style.js';
 
 interface Props {
   navigation: any;

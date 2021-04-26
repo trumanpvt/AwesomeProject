@@ -1,5 +1,7 @@
 import React from 'react';
-import {Button, Footer, FooterTab, Text} from 'native-base';
+
+import {Text} from 'react-native';
+import {Button, Footer, FooterTab} from 'native-base';
 
 import {useStores} from '../../store/';
 
