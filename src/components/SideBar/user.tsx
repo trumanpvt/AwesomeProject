@@ -74,7 +74,6 @@ const User = observer(({navigation}: Props) => {
           </Button>
         </>
       )}
-      {/* eslint-disable-next-line react-native/no-inline-styles */}
       <Button style={{marginTop: 20}} onPress={showStores}>
         <Text style={styles.buttonText}>Show stores</Text>
       </Button>

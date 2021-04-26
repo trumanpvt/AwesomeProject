@@ -25,6 +25,13 @@ export default StyleSheet.create({
     paddingLeft: 17,
   },
   buttonText: {
-    color: '#fff',
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
+    paddingHorizontal: 15,
+  },
+  languageBtn: {
+    marginTop: 20,
+    marginLeft: 17,
   },
 });
