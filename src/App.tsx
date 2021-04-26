@@ -12,11 +12,9 @@ import auth from '@react-native-firebase/auth';
 import AppHeader from './components/AppHeader';
 import ProfileScreen from './components/ProfileScreen';
 import ChatScreen from './components/ChatScreen';
-import SideBar from './components/SideBar/menu';
+import SideBar from './components/SideBar';
 import HomeScreen from './components/HomeScreen';
 import ModalContainer from './components/Modal';
-
-import {I18nextProvider} from 'react-i18next';
 import i18n from './i18n';
 
 import {observer} from 'mobx-react-lite';
@@ -47,6 +45,7 @@ const App = () => {
   }, [setUser]);
 
   useEffect(() => {
+    console.log(locale);
     i18n.changeLanguage(locale).catch((e) => {
       console.log('i18n.changeLanguage error', e);
     });
@@ -54,33 +53,33 @@ const App = () => {
 
   return (
     <Root>
-      <I18nextProvider i18n={i18n}>
-        <NavigationContainer>
-          <Drawer.Navigator
-            initialRouteName="HomeScreen"
-            screenOptions={(props) => ({
-              header: () => (
-                <AppHeader
-                  openDrawer={props.navigation.openDrawer}
-                  name={props.route.name}
-                />
-              ),
-              headerShown: true,
-            })}
-            drawerContent={({navigation, state}) => (
-              <SideBar navigation={navigation} routeNames={state.routeNames} />
-            )}>
-            <Drawer.Screen
-              name="HomeScreen"
-              component={HomeScreen}
-              options={{title: 'My profile'}}
-            />
-            <Drawer.Screen name="ChatScreen" component={ChatScreen} />
-            <Drawer.Screen name="ProfileScreen" component={ProfileScreen} />
-          </Drawer.Navigator>
-        </NavigationContainer>
-        <ModalContainer />
-      </I18nextProvider>
+      {/*<I18nextProvider i18n={i18n}>*/}
+      <NavigationContainer>
+        <Drawer.Navigator
+          initialRouteName="HomeScreen"
+          screenOptions={(props) => ({
+            header: () => (
+              <AppHeader
+                openDrawer={props.navigation.openDrawer}
+                name={props.route.name}
+              />
+            ),
+            headerShown: true,
+          })}
+          drawerContent={({navigation, state}) => (
+            <SideBar navigation={navigation} routeNames={state.routeNames} />
+          )}>
+          <Drawer.Screen
+            name="HomeScreen"
+            component={HomeScreen}
+            options={{title: 'My profile'}}
+          />
+          <Drawer.Screen name="ChatScreen" component={ChatScreen} />
+          <Drawer.Screen name="ProfileScreen" component={ProfileScreen} />
+        </Drawer.Navigator>
+      </NavigationContainer>
+      <ModalContainer />
+      {/*</I18nextProvider>*/}
     </Root>
   );
 };
