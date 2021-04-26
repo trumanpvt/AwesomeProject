@@ -3,9 +3,7 @@ import {StyleSheet} from 'react-native';
 export default StyleSheet.create({
   articles: {
     flexGrow: 1,
-    paddingLeft: 10,
-    paddingRight: 10,
-    paddingBottom: 10,
+    paddingHorizontal: 10,
   },
   article: {
     shadowColor: '#000',

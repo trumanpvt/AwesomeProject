@@ -12,7 +12,7 @@ interface Props {
 }
 
 const User = observer(({navigation}: Props) => {
-  const {modalStore, userStore} = useStores();
+  const {modalStore, userStore, localeStore, newsStore} = useStores();
   const {setModal} = modalStore;
 
   const {user} = userStore;
@@ -53,6 +53,8 @@ const User = observer(({navigation}: Props) => {
   const showStores = () => {
     console.log('modalStore', modalStore);
     console.log('userStore', userStore);
+    console.log('localeStore', localeStore);
+    console.log('newsStore', newsStore);
   };
 
   return (

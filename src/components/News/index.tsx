@@ -30,7 +30,6 @@ const News = () => {
   }, [articles.length, country, fetchArticles, newsStore]);
 
   const onRefresh = () => {
-    console.log('refresh');
     flowResult(newsStore.fetchArticles(country));
   };
 
