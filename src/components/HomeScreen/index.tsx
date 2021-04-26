@@ -25,7 +25,7 @@ const HomeScreen = observer(() => {
   };
 
   return (
-    <Container style={{paddingVertical: 20}}>
+    <Container style={{paddingTop: 20}}>
       {renderPage()}
       <AppFooter />
     </Container>
