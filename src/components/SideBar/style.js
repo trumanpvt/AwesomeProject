@@ -18,6 +18,7 @@ export default StyleSheet.create({
     borderRadius: 50,
   },
   userName: {
+    marginLeft: 20,
     color: '#000',
   },
   listItem: {
@@ -33,5 +34,12 @@ export default StyleSheet.create({
   languageBtn: {
     marginTop: 20,
     marginLeft: 17,
+    paddingRight: 15,
+  },
+  languageBtnText: {
+    textTransform: 'uppercase',
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
 });

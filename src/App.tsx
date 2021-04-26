@@ -18,6 +18,7 @@ import ModalContainer from './components/Modal';
 import i18n from './i18n';
 
 import {observer} from 'mobx-react-lite';
+import {useTranslation} from 'react-i18next';
 
 LogBox.ignoreLogs(['Remote debugger']);
 
@@ -26,7 +27,7 @@ const Drawer = createDrawerNavigator();
 const App = () => {
   const {setUser} = useStores().userStore;
 
-  const {locale} = useStores().localeStore;
+  const {language} = useStores().localeStore;
 
   useEffect(() => {
     return auth().onAuthStateChanged((user) => {
@@ -45,18 +46,18 @@ const App = () => {
   }, [setUser]);
 
   useEffect(() => {
-    console.log(locale);
-    i18n.changeLanguage(locale).catch((e) => {
+    i18n.changeLanguage(language).catch((e) => {
       console.log('i18n.changeLanguage error', e);
     });
-  }, [locale]);
+  }, [language]);
+
+  const {t} = useTranslation();
 
   return (
     <Root>
-      {/*<I18nextProvider i18n={i18n}>*/}
       <NavigationContainer>
         <Drawer.Navigator
-          initialRouteName="HomeScreen"
+          initialRouteName={t('routes.HomeScreen')}
           screenOptions={(props) => ({
             header: () => (
               <AppHeader
@@ -70,16 +71,18 @@ const App = () => {
             <SideBar navigation={navigation} routeNames={state.routeNames} />
           )}>
           <Drawer.Screen
-            name="HomeScreen"
+            name={t('routes.HomeScreen')}
             component={HomeScreen}
             options={{title: 'My profile'}}
           />
-          <Drawer.Screen name="ChatScreen" component={ChatScreen} />
-          <Drawer.Screen name="ProfileScreen" component={ProfileScreen} />
+          <Drawer.Screen name={t('routes.ChatScreen')} component={ChatScreen} />
+          <Drawer.Screen
+            name={t('routes.ProfileScreen')}
+            component={ProfileScreen}
+          />
         </Drawer.Navigator>
       </NavigationContainer>
       <ModalContainer />
-      {/*</I18nextProvider>*/}
     </Root>
   );
 };

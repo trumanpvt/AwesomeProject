@@ -1,5 +1,7 @@
 import React from 'react';
 
+import RNLocalize from 'react-native-localize';
+
 import {View, Text} from 'react-native';
 import {Badge, Button, Thumbnail} from 'native-base';
 
@@ -58,6 +60,7 @@ const User = observer(({navigation}: Props) => {
     console.log('userStore', userStore);
     console.log('localeStore', localeStore);
     console.log('newsStore', newsStore);
+    console.log('RNLocalize.getLocales()', RNLocalize.getLocales());
   };
 
   return (

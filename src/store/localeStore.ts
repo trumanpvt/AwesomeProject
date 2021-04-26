@@ -1,27 +1,22 @@
 import {action, makeObservable, observable} from 'mobx';
-import {NativeModules, Platform} from 'react-native';
 import RNLocalize from 'react-native-localize';
 
 export default class LocaleStore {
-  locale =
-    Platform.OS === 'ios'
-      ? NativeModules.SettingsManager.settings.AppleLocale ||
-        NativeModules.SettingsManager.settings.AppleLanguages[0] // iOS 13
-      : NativeModules.I18nManager.localeIdentifier;
+  language = RNLocalize.getLocales()[0].languageCode;
 
   country = RNLocalize.getCountry();
 
   constructor() {
     makeObservable(this, {
-      locale: observable,
+      language: observable,
       country: observable,
-      setLocale: action,
+      setLanguage: action,
       setCountry: action,
     });
   }
 
-  setLocale = (locale: string) => {
-    this.locale = locale;
+  setLanguage = (language: string) => {
+    this.language = language;
   };
 
   setCountry = (locale: string) => {

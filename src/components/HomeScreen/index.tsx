@@ -12,7 +12,7 @@ const HomeScreen = observer(() => {
 
   const renderPage = () => {
     switch (mode) {
-      case 'PODCAST': {
+      case 'PODCASTS': {
         return <Podcasts />;
       }
       case 'NEWS': {

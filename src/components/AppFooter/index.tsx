@@ -4,9 +4,12 @@ import {Text} from 'react-native';
 import {Button, Footer, FooterTab} from 'native-base';
 
 import {useStores} from '../../store/';
+import {useTranslation} from 'react-i18next';
 
 const AppFooter = () => {
   const {mode, setFooterMode} = useStores().footerStore;
+
+  const {t} = useTranslation();
 
   return (
     <Footer>
@@ -14,15 +17,15 @@ const AppFooter = () => {
         <Button
           active={mode === 'ARTICLES'}
           onPress={() => setFooterMode('ARTICLES')}>
-          <Text>Статьи</Text>
+          <Text>{t('footer.articles')}</Text>
         </Button>
         <Button active={mode === 'NEWS'} onPress={() => setFooterMode('NEWS')}>
-          <Text>NEWS</Text>
+          <Text>{t('footer.news')}</Text>
         </Button>
         <Button
-          active={mode === 'PODCAST'}
-          onPress={() => setFooterMode('PODCAST')}>
-          <Text>Подкасты</Text>
+          active={mode === 'PODCASTS'}
+          onPress={() => setFooterMode('PODCASTS')}>
+          <Text>{t('footer.podcasts')}</Text>
         </Button>
       </FooterTab>
     </Footer>

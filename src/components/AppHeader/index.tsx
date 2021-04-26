@@ -1,6 +1,7 @@
 import React from 'react';
 import {View} from 'react-native';
 import {Body, Button, Header, Icon, Left, Right, Title} from 'native-base';
+import {useTranslation} from 'react-i18next';
 
 interface Props {
   openDrawer: () => void;
@@ -8,6 +9,8 @@ interface Props {
 }
 
 const AppHeader = ({openDrawer, name}: Props) => {
+  const {t} = useTranslation();
+
   return (
     <View>
       <Header>
@@ -17,7 +20,7 @@ const AppHeader = ({openDrawer, name}: Props) => {
           </Button>
         </Left>
         <Body>
-          <Title>{name}</Title>
+          <Title>{t(name)}</Title>
         </Body>
         <Right />
       </Header>
