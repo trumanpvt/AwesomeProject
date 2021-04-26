@@ -1,7 +1,13 @@
 import React, {useState} from 'react';
 import {RNCamera} from 'react-native-camera';
 
-import {Modal, SafeAreaView, TouchableOpacity, View} from 'react-native';
+import {
+  Modal,
+  Platform,
+  SafeAreaView,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import {Button, Fab, Icon, Spinner} from 'native-base';
 
 import styles from './style.js';
@@ -55,7 +61,9 @@ const Camera = ({closeCamera, takePhoto}: Props) => {
                 <Fab
                   active={flash.isOpen}
                   direction="down"
-                  // containerStyle={flash.isOpen ? null : styles.flashContainer}
+                  containerStyle={
+                    Platform.OS && !flash.isOpen ? styles.flashContainer : null
+                  }
                   style={{...styles}[flash.mode]}
                   position="topRight"
                   onPress={() =>
