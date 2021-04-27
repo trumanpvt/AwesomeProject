@@ -76,4 +76,5 @@ const App = () => {
     </Root>
   );
 };
+
 export default observer(App);
