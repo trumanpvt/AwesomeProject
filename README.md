@@ -2,7 +2,11 @@
 
 For IOS/Android.
 
-This is my sample application, my first experience in React Native + Typescript + MobX. For backend i'm using Firebase.
+This is my sandbox application.
+
+Stack:
+- React Native + Typescript + MobX
+- Firebase
 
 Features:
 - SignUp/SignIn with login/password or with OAuth (Google/Facebook)
@@ -13,5 +17,3 @@ Features:
 Todo:
 - everything else
 - fix current
-
-I haven't any plans about this app, it's just my sandbox.
