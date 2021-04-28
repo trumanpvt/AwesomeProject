@@ -1,7 +1,8 @@
 import React from 'react';
-import {View} from 'react-native';
-import {Body, Button, Header, Icon, Left, Right, Title} from 'native-base';
 import {useTranslation} from 'react-i18next';
+import {Header} from 'react-native-elements';
+
+import styles from './style';
 
 interface Props {
   openDrawer: () => void;
@@ -12,19 +13,20 @@ const AppHeader = ({openDrawer, name}: Props) => {
   const {t} = useTranslation();
 
   return (
-    <View>
-      <Header>
-        <Left>
-          <Button transparent onPress={openDrawer}>
-            <Icon type="MaterialIcons" name="menu" />
-          </Button>
-        </Left>
-        <Body>
-          <Title>{t(`routes.${name}`)}</Title>
-        </Body>
-        <Right />
-      </Header>
-    </View>
+    <Header
+      containerStyle={styles.header}
+      leftComponent={{
+        icon: 'menu',
+        size: 32,
+        color: '#fff',
+        onPress: openDrawer,
+      }}
+      centerComponent={{
+        text: t(`routes.${name}`),
+        style: styles.headerTitle,
+      }}
+      centerContainerStyle={styles.headerCenterContainer}
+    />
   );
 };
 
