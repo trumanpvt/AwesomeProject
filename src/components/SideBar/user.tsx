@@ -64,7 +64,7 @@ const User = ({navigation}: Props) => {
           title="SignIn/SignUp"
           containerStyle={styles.signBtn}
           buttonStyle={{backgroundColor: theme.colors?.primary}}
-          titleStyle={styles.buttonText}
+          titleStyle={styles.signButtonText}
         />
       ) : (
         <>
@@ -74,7 +74,7 @@ const User = ({navigation}: Props) => {
             title="SignOut"
             containerStyle={styles.signBtn}
             buttonStyle={{backgroundColor: theme.colors?.error}}
-            titleStyle={styles.buttonText}
+            titleStyle={styles.signButtonText}
           />
         </>
       )}

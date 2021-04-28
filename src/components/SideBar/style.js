@@ -33,11 +33,12 @@ export default StyleSheet.create({
   signBtn: {
     width: 200,
   },
-  buttonText: {
+  signButtonText: {
     color: 'white',
     fontSize: 17,
     fontWeight: 'bold',
     textAlign: 'center',
+    paddingVertical: 5,
     paddingHorizontal: 15,
   },
   languageBtn: {
