@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 
 import {LogBox} from 'react-native';
-import {Root} from 'native-base';
+import {SafeAreaProvider} from 'react-native-safe-area-context';
 
 import {NavigationContainer} from '@react-navigation/native';
 import {createDrawerNavigator} from '@react-navigation/drawer';
@@ -54,7 +54,7 @@ const App = () => {
   }, [language]);
 
   return (
-    <Root>
+    <SafeAreaProvider>
       <NavigationContainer>
         <Drawer.Navigator
           initialRouteName="HomeScreen"
@@ -76,7 +76,7 @@ const App = () => {
         </Drawer.Navigator>
       </NavigationContainer>
       <ModalContainer />
-    </Root>
+    </SafeAreaProvider>
   );
 };
 
