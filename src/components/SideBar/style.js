@@ -22,11 +22,6 @@ export default StyleSheet.create({
     fontSize: 17,
     color: '#000',
   },
-  listItem: {
-    paddingVertical: 15,
-    borderBottomWidth: 1,
-    borderBottomColor: 'gray',
-  },
   listItemText: {
     fontSize: 17,
   },
@@ -42,7 +37,7 @@ export default StyleSheet.create({
     paddingHorizontal: 15,
   },
   languageBtn: {
-    marginTop: 35,
+    marginTop: 30,
     width: 100,
   },
   languageBtnText: {

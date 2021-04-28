@@ -3,8 +3,8 @@ import React from 'react';
 import {useStores} from '../../store';
 
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {FlatList, Text, TouchableOpacity} from 'react-native';
-import {Button, useTheme} from 'react-native-elements';
+import {FlatList} from 'react-native';
+import {Button, ListItem, useTheme} from 'react-native-elements';
 
 import {useTranslation} from 'react-i18next';
 
@@ -33,11 +33,14 @@ const SideBar = ({navigation, routeNames}: Props) => {
   };
 
   const renderListItem = ({item}: {item: any}) => (
-    <TouchableOpacity
-      style={styles.listItem}
-      onPress={() => navigation.navigate(item)}>
-      <Text style={styles.listItemText}>{t(`routes.${item}`)}</Text>
-    </TouchableOpacity>
+    <ListItem bottomDivider onPress={() => navigation.navigate(item)}>
+      <ListItem.Content>
+        <ListItem.Title style={styles.listItemText}>
+          {t(`routes.${item}`)}
+        </ListItem.Title>
+      </ListItem.Content>
+      <ListItem.Chevron />
+    </ListItem>
   );
 
   return (
