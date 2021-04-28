@@ -1,7 +1,5 @@
 import React from 'react';
 
-import {Container} from 'native-base';
-
 import Articles from '../Articles';
 import News from '../News';
 import Podcasts from '../Podcasts';
@@ -12,6 +10,7 @@ import {observer} from 'mobx-react-lite';
 import {useStores} from '../../store';
 
 import styles from './style.js';
+import {View} from 'react-native';
 
 const HomeScreen = () => {
   const {mode} = useStores().footerStore;
@@ -31,10 +30,10 @@ const HomeScreen = () => {
   };
 
   return (
-    <Container style={styles.container}>
+    <View style={styles.container}>
       {renderPage()}
       <AppFooter />
-    </Container>
+    </View>
   );
 };
 

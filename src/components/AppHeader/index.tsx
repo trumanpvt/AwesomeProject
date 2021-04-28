@@ -11,9 +11,16 @@ interface Props {
 }
 
 const AppHeader = ({openDrawer, name}: Props) => {
-  const {modalStore, userStore, localeStore, newsStore} = useStores();
+  const {
+    modalStore,
+    footerStore,
+    userStore,
+    localeStore,
+    newsStore,
+  } = useStores();
   const showStores = () => {
     console.log('modalStore', modalStore);
+    console.log('footerStore', footerStore);
     console.log('userStore', userStore);
     console.log('localeStore', localeStore);
     console.log('newsStore', newsStore);
