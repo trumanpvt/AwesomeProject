@@ -30,14 +30,12 @@ const ModalEmailExist = ({setModal, setCloseModal}: Props) => {
 
   const handleGoogleSignIn = () => {
     googleSignIn()
-      .then((res) => {
-        console.log('handleGoogleSignIn success', res);
+      .then(() => {
         linkWithCredential(credential).then(() => {
           setCloseModal();
         });
       })
       .catch((e) => {
-        console.log('handleGoogleSignIn failed', e);
         setError(e.message || e);
       });
   };
@@ -61,19 +59,16 @@ const ModalEmailExist = ({setModal, setCloseModal}: Props) => {
         }
       })
       .catch((err) => {
-        console.log('passwordSignIn error', err);
         setError(err.message);
       });
   };
 
   const handleFacebookSignIn = () => {
     facebookSignIn(setCredential)
-      .then((res) => {
-        console.log('handleFacebookSignIn success', res);
+      .then(() => {
         setCloseModal();
       })
       .catch((e) => {
-        console.log('handleFacebookSignIn failed', e);
         if (e.code === 'auth/account-exists-with-different-credential') {
           // setCredential({provider: 'facebook', credential});
           setModal({type: 'emailExist'});

@@ -52,7 +52,6 @@ const ModalAuth = ({setCloseModal, setModal}: Props): JSX.Element => {
         }
       })
       .catch((err) => {
-        console.log('passwordSignIn error', err);
         setError(err.message);
       });
   };
@@ -65,7 +64,6 @@ const ModalAuth = ({setCloseModal, setModal}: Props): JSX.Element => {
         });
       })
       .catch((err) => {
-        console.log('sendEmailVerification error', err);
         setError(err.message);
       });
   };
@@ -93,12 +91,10 @@ const ModalAuth = ({setCloseModal, setModal}: Props): JSX.Element => {
 
   const handleGoogleSignIn = (): void => {
     googleSignIn()
-      .then((res) => {
-        console.log('handleGoogleSignIn success', res);
+      .then(() => {
         setCloseModal();
       })
       .catch((e) => {
-        console.log('handleGoogleSignIn failed', e);
         setError(e.message || e);
       });
   };
@@ -106,7 +102,6 @@ const ModalAuth = ({setCloseModal, setModal}: Props): JSX.Element => {
   const handleFacebookSignIn = (): void => {
     facebookSignIn(setCredential)
       .then((res) => {
-        console.log('handleFacebookSignIn success', res);
         if (!res.user.emailVerified) {
           setError('');
           setModal({
@@ -117,7 +112,6 @@ const ModalAuth = ({setCloseModal, setModal}: Props): JSX.Element => {
         }
       })
       .catch((e) => {
-        console.log('handleFacebookSignIn failed', e);
         if (e.code === 'auth/account-exists-with-different-credential') {
           setModal({type: 'emailExist'});
         }

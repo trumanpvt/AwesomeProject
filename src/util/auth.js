@@ -14,8 +14,7 @@ export const passwordSignIn = (username, password) => {
 export const signUp = (username, password) => {
   return auth()
     .createUserWithEmailAndPassword(username, password)
-    .then((res) => {
-      console.log('new user', res);
+    .then(() => {
       return sendEmailVerification();
     });
 };
@@ -46,16 +45,11 @@ export const googleSignIn = async () => {
     return auth().signInWithCredential(googleCredential);
   } catch (e) {
     if (e.code === statusCodes.SIGN_IN_CANCELLED) {
-      console.log('user cancelled the login flow');
       e.message = 'user cancelled the login flow';
     } else if (e.code === statusCodes.IN_PROGRESS) {
-      console.log('operation (e.g. sign in) is in progress already');
       e.message = 'operation (e.g. sign in) is in progress already';
     } else if (e.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
-      console.log('play services not available or outdated');
       e.message = 'play services not available or outdated';
-    } else {
-      console.log('googleSignIn error', e);
     }
 
     return Promise.reject(e);
@@ -71,14 +65,16 @@ export const facebookSignIn = async (setCredential) => {
     ]);
 
     if (result.isCancelled) {
-      throw 'User cancelled the login process';
+      // throw 'User cancelled the login process';
+      return Promise.reject('User cancelled the login process');
     }
 
     // Once signed in, get the users AccessToken
     const {accessToken} = await AccessToken.getCurrentAccessToken();
 
     if (!accessToken) {
-      throw 'Something went wrong obtaining access token';
+      // throw 'Something went wrong obtaining access token';
+      return Promise.reject('Something went wrong obtaining access token');
     }
 
     // Create a Firebase credential with the AccessToken

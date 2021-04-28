@@ -50,13 +50,9 @@ const Avatar = ({user, changeUser}: Props) => {
       return null;
     }
 
-    return ImagePicker.openPicker(options)
-      .then((image: {path: string}) => {
-        return uploadPhoto(image.path);
-      })
-      .catch((e: any) => {
-        console.log('ImagePicker.openCamera error', e);
-      });
+    return ImagePicker.openPicker(options).then((image: {path: string}) => {
+      return uploadPhoto(image.path);
+    });
   };
 
   const handleTakePhoto = (uri: string) => {
@@ -65,14 +61,10 @@ const Avatar = ({user, changeUser}: Props) => {
       path: uri,
       width: 80,
       height: 80,
-    })
-      .then((image: Image) => {
-        setIsOpenCamera(false);
-        return uploadPhoto(image.path);
-      })
-      .catch((e: any) => {
-        console.log('ImagePicker.openPicker error', e);
-      });
+    }).then((image: Image) => {
+      setIsOpenCamera(false);
+      return uploadPhoto(image.path);
+    });
   };
 
   const uploadPhoto = (path: string) => {
@@ -86,8 +78,7 @@ const Avatar = ({user, changeUser}: Props) => {
       .putFile(uploadUri)
       .then(() => {
         return savePhotoUrl(imagePath);
-      })
-      .catch((e: any) => console.log('uploading image error => ', e));
+      });
   };
 
   const savePhotoUrl = (imagePath: string) => {
@@ -96,10 +87,7 @@ const Avatar = ({user, changeUser}: Props) => {
       .getDownloadURL()
       .then((url: any) => {
         changeUser({photoURL: url});
-      })
-      .catch((e: any) =>
-        console.log('getting downloadURL of image error => ', e),
-      );
+      });
   };
 
   const renderEmptyAvatar = () => {

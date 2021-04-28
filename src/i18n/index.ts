@@ -4,8 +4,6 @@ import {initReactI18next} from 'react-i18next';
 import en from './en/en.json';
 import ru from './ru/ru.json';
 
-console.log(ru.podcasts.text);
-
 const resources = {
   en: {
     translation: en,
@@ -28,8 +26,6 @@ i18n
       escapeValue: false, // not needed for react as it does escape per default to prevent xss!
     },
   })
-  .catch((e) => {
-    console.log('i18n init error', e);
-  });
+  .then();
 
 export default i18n;

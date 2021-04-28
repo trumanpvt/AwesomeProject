@@ -40,7 +40,6 @@ const App = () => {
 
   useEffect(() => {
     return auth().onAuthStateChanged((user) => {
-      console.log('onAuthStateChanged');
       if (user && !user.emailVerified) {
         const currentUser = auth().currentUser;
         if (currentUser) {
@@ -56,10 +55,7 @@ const App = () => {
 
   useEffect(() => {
     if (i18n.language !== language) {
-      console.log(i18n.language);
-      i18n.changeLanguage(language).catch((e) => {
-        console.log('i18n.changeLanguage error', e);
-      });
+      i18n.changeLanguage(language).then();
     }
   }, [language]);
 
