@@ -1,7 +1,8 @@
 import React, {useEffect} from 'react';
 
-import {LogBox} from 'react-native';
+import {LogBox, Platform} from 'react-native';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
+import {colors, ThemeProvider} from 'react-native-elements';
 
 import {NavigationContainer} from '@react-navigation/native';
 import {createDrawerNavigator} from '@react-navigation/drawer';
@@ -22,6 +23,15 @@ import {observer} from 'mobx-react-lite';
 LogBox.ignoreLogs(['Remote debugger']);
 
 const Drawer = createDrawerNavigator();
+
+const theme = {
+  colors: {
+    ...Platform.select({
+      default: colors.platform.android,
+      ios: colors.platform.ios,
+    }),
+  },
+};
 
 const App = () => {
   const {setUser} = useStores().userStore;
@@ -55,27 +65,29 @@ const App = () => {
 
   return (
     <SafeAreaProvider>
-      <NavigationContainer>
-        <Drawer.Navigator
-          initialRouteName="HomeScreen"
-          screenOptions={(props) => ({
-            header: () => (
-              <AppHeader
-                openDrawer={props.navigation.openDrawer}
-                name={props.route.name}
-              />
-            ),
-            headerShown: true,
-          })}
-          drawerContent={({navigation, state}) => (
-            <SideBar navigation={navigation} routeNames={state.routeNames} />
-          )}>
-          <Drawer.Screen name="HomeScreen" component={HomeScreen} />
-          <Drawer.Screen name="ChatScreen" component={ChatScreen} />
-          <Drawer.Screen name="ProfileScreen" component={ProfileScreen} />
-        </Drawer.Navigator>
-      </NavigationContainer>
-      <ModalContainer />
+      <ThemeProvider theme={theme}>
+        <NavigationContainer>
+          <Drawer.Navigator
+            initialRouteName="HomeScreen"
+            screenOptions={(props) => ({
+              header: () => (
+                <AppHeader
+                  openDrawer={props.navigation.openDrawer}
+                  name={props.route.name}
+                />
+              ),
+              headerShown: true,
+            })}
+            drawerContent={({navigation, state}) => (
+              <SideBar navigation={navigation} routeNames={state.routeNames} />
+            )}>
+            <Drawer.Screen name="HomeScreen" component={HomeScreen} />
+            <Drawer.Screen name="ChatScreen" component={ChatScreen} />
+            <Drawer.Screen name="ProfileScreen" component={ProfileScreen} />
+          </Drawer.Navigator>
+        </NavigationContainer>
+        <ModalContainer />
+      </ThemeProvider>
     </SafeAreaProvider>
   );
 };

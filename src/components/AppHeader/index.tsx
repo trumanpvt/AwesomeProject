@@ -3,6 +3,7 @@ import {useTranslation} from 'react-i18next';
 import {Header} from 'react-native-elements';
 
 import styles from './style';
+import {useStores} from '../../store';
 
 interface Props {
   openDrawer: () => void;
@@ -10,6 +11,14 @@ interface Props {
 }
 
 const AppHeader = ({openDrawer, name}: Props) => {
+  const {modalStore, userStore, localeStore, newsStore} = useStores();
+  const showStores = () => {
+    console.log('modalStore', modalStore);
+    console.log('userStore', userStore);
+    console.log('localeStore', localeStore);
+    console.log('newsStore', newsStore);
+  };
+
   const {t} = useTranslation();
 
   return (
@@ -26,6 +35,12 @@ const AppHeader = ({openDrawer, name}: Props) => {
         style: styles.headerTitle,
       }}
       centerContainerStyle={styles.headerCenterContainer}
+      rightComponent={{
+        icon: 'info',
+        size: 32,
+        color: '#fff',
+        onPress: showStores,
+      }}
     />
   );
 };

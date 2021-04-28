@@ -1,9 +1,11 @@
 import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
+  sideBar: {
+    paddingLeft: 15,
+  },
   userContent: {
     marginTop: 20,
-    marginLeft: 17,
     marginBottom: 20,
   },
   userInfo: {
@@ -12,34 +14,42 @@ export default StyleSheet.create({
     alignItems: 'center',
     marginBottom: 20,
   },
-  userPic: {
-    width: 36,
-    height: 36,
-    borderRadius: 50,
+  placeholder: {
+    color: 'white',
   },
   userName: {
     marginLeft: 20,
+    fontSize: 17,
     color: '#000',
   },
   listItem: {
-    marginLeft: 0,
-    paddingLeft: 17,
+    paddingVertical: 15,
+    borderBottomWidth: 1,
+    borderBottomColor: 'gray',
+  },
+  listItemText: {
+    fontSize: 17,
+  },
+  signBtn: {
+    width: 200,
   },
   buttonText: {
     color: 'white',
+    fontSize: 17,
     fontWeight: 'bold',
     textAlign: 'center',
     paddingHorizontal: 15,
   },
   languageBtn: {
-    marginTop: 20,
-    marginLeft: 17,
-    paddingRight: 15,
+    marginTop: 35,
+    width: 100,
   },
   languageBtnText: {
+    paddingVertical: 5,
     textTransform: 'uppercase',
     color: 'white',
     fontWeight: 'bold',
+    fontSize: 17,
     textAlign: 'center',
   },
 });

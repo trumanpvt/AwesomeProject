@@ -1,9 +1,7 @@
 import React from 'react';
 
-import RNLocalize from 'react-native-localize';
-
-import {View, Text} from 'react-native';
-import {Badge, Button, Thumbnail} from 'native-base';
+import {Text, TouchableOpacity, View} from 'react-native';
+import {Avatar, Button, useTheme} from 'react-native-elements';
 
 import {observer} from 'mobx-react-lite';
 
@@ -16,20 +14,18 @@ interface Props {
   navigation: any;
 }
 
-const User = observer(({navigation}: Props) => {
-  const {modalStore, userStore, localeStore, newsStore} = useStores();
+const User = ({navigation}: Props) => {
+  const {modalStore, userStore} = useStores();
   const {setModal} = modalStore;
 
   const {user} = userStore;
 
+  const {theme} = useTheme();
+
   const handleSignOut = () => {
-    signOut()
-      .then(() => {
-        navigation.navigate('HomeScreen');
-      })
-      .catch((error: any) => {
-        console.log(error);
-      });
+    signOut().then(() => {
+      navigation.navigate('HomeScreen');
+    });
   };
 
   const renderUser = () => {
@@ -38,50 +34,52 @@ const User = observer(({navigation}: Props) => {
     const userName = displayName || email || '';
 
     return (
-      <View style={styles.userInfo}>
-        <Button
-          transparent
-          onPress={() => navigation.navigate('ProfileScreen')}>
-          {photoURL ? (
-            <Thumbnail small source={{uri: photoURL}} />
-          ) : (
-            <Badge style={styles.userPic}>
-              <Text>{userName[0].toUpperCase()}</Text>
-            </Badge>
-          )}
-          <Text style={styles.userName}>{userName}</Text>
-        </Button>
-      </View>
+      <TouchableOpacity
+        style={styles.userInfo}
+        onPress={() => navigation.navigate('ProfileScreen')}>
+        <Avatar
+          rounded
+          size="small"
+          source={
+            photoURL
+              ? {
+                  uri: photoURL,
+                }
+              : undefined
+          }
+          title={userName[0].toUpperCase()}
+          overlayContainerStyle={{backgroundColor: theme.colors?.error}}
+          titleStyle={styles.placeholder}
+        />
+        <Text style={styles.userName}>{userName}</Text>
+      </TouchableOpacity>
     );
-  };
-
-  const showStores = () => {
-    console.log('modalStore', modalStore);
-    console.log('userStore', userStore);
-    console.log('localeStore', localeStore);
-    console.log('newsStore', newsStore);
-    console.log('RNLocalize.getLocales()', RNLocalize.getLocales());
   };
 
   return (
     <View style={styles.userContent}>
       {!user ? (
-        <Button onPress={() => setModal({type: 'auth'})}>
-          <Text style={styles.buttonText}>SignIn/SignUp</Text>
-        </Button>
+        <Button
+          onPress={() => setModal({type: 'auth'})}
+          title="SignIn/SignUp"
+          containerStyle={styles.signBtn}
+          buttonStyle={{backgroundColor: theme.colors?.primary}}
+          titleStyle={styles.buttonText}
+        />
       ) : (
         <>
           {renderUser()}
-          <Button onPress={handleSignOut} danger>
-            <Text style={styles.buttonText}>SignOut</Text>
-          </Button>
+          <Button
+            onPress={handleSignOut}
+            title="SignOut"
+            containerStyle={styles.signBtn}
+            buttonStyle={{backgroundColor: theme.colors?.error}}
+            titleStyle={styles.buttonText}
+          />
         </>
       )}
-      <Button style={{marginTop: 20}} onPress={showStores}>
-        <Text style={styles.buttonText}>Show stores</Text>
-      </Button>
     </View>
   );
-});
+};
 
-export default User;
+export default observer(User);

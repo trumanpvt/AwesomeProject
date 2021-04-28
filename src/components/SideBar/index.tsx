@@ -2,12 +2,15 @@ import React from 'react';
 
 import {useStores} from '../../store';
 
-import {SafeAreaView, View, Text} from 'react-native';
-import {List, ListItem, Button, Icon} from 'native-base';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import {FlatList, Text, TouchableOpacity} from 'react-native';
+import {Button, useTheme} from 'react-native-elements';
+
+import {useTranslation} from 'react-i18next';
+
 import User from './user';
 
 import styles from './style.js';
-import {useTranslation} from 'react-i18next';
 
 interface Props {
   routeNames: string[];
@@ -16,6 +19,8 @@ interface Props {
 
 const SideBar = ({navigation, routeNames}: Props) => {
   const {language, setLanguage} = useStores().localeStore;
+
+  const {theme} = useTheme();
 
   const {t} = useTranslation();
 
@@ -27,29 +32,34 @@ const SideBar = ({navigation, routeNames}: Props) => {
     setLanguage(newLanguage);
   };
 
+  const renderListItem = ({item}: {item: any}) => (
+    <TouchableOpacity
+      style={styles.listItem}
+      onPress={() => navigation.navigate(item)}>
+      <Text style={styles.listItemText}>{t(`routes.${item}`)}</Text>
+    </TouchableOpacity>
+  );
+
   return (
-    <SafeAreaView>
+    <SafeAreaView style={styles.sideBar}>
       <User navigation={navigation} />
-      <List
-        dataArray={routes}
-        renderRow={(data: string) => {
-          return (
-            <ListItem
-              style={styles.listItem}
-              button
-              onPress={() => navigation.navigate(data)}>
-              <Text>{t(`routes.${data}`)}</Text>
-            </ListItem>
-          );
-        }}
+      <FlatList
+        data={routes}
+        renderItem={renderListItem}
         keyExtractor={(item: any, index: number) => index.toString()}
       />
-      <View>
-        <Button info style={styles.languageBtn} onPress={changeLanguage}>
-          <Icon type="MaterialIcons" name="language" />
-          <Text style={styles.languageBtnText}>{language}</Text>
-        </Button>
-      </View>
+      <Button
+        icon={{
+          name: 'language',
+          size: 20,
+          color: 'white',
+        }}
+        title={language}
+        containerStyle={styles.languageBtn}
+        buttonStyle={{backgroundColor: theme.colors?.primary}}
+        titleStyle={styles.languageBtnText}
+        onPress={changeLanguage}
+      />
     </SafeAreaView>
   );
 };
