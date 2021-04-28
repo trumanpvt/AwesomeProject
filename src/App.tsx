@@ -45,9 +45,12 @@ const App = () => {
   }, [setUser]);
 
   useEffect(() => {
-    i18n.changeLanguage(language).catch((e) => {
-      console.log('i18n.changeLanguage error', e);
-    });
+    if (i18n.language !== language) {
+      console.log(i18n.language);
+      i18n.changeLanguage(language).catch((e) => {
+        console.log('i18n.changeLanguage error', e);
+      });
+    }
   }, [language]);
 
   return (
