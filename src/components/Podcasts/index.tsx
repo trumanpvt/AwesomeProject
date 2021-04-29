@@ -1,7 +1,6 @@
 import React from 'react';
 
-import {Text} from 'react-native';
-import {Container, Content} from 'native-base';
+import {Text, View} from 'react-native';
 
 import {useTranslation} from 'react-i18next';
 
@@ -11,11 +10,9 @@ const Podcasts = () => {
   const {t} = useTranslation();
 
   return (
-    <Container style={styles.container}>
-      <Content>
-        <Text style={styles.text}>{t('podcasts.text')}</Text>
-      </Content>
-    </Container>
+    <View style={styles.container}>
+      <Text style={styles.text}>{t('podcasts.text')}</Text>
+    </View>
   );
 };
 
