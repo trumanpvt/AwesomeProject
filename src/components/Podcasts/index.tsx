@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {Text} from 'react-native';
 import {Container, Content} from 'native-base';
 
@@ -10,7 +11,7 @@ const Podcasts = () => {
   const {t} = useTranslation();
 
   return (
-    <Container>
+    <Container style={styles.container}>
       <Content>
         <Text style={styles.text}>{t('podcasts.text')}</Text>
       </Content>

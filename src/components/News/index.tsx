@@ -1,6 +1,5 @@
 import React, {useEffect} from 'react';
 
-import {flowResult} from 'mobx';
 import {observer} from 'mobx-react-lite';
 import {useStores} from '../../store';
 import moment from 'moment';
@@ -24,12 +23,12 @@ const News = () => {
 
   useEffect(() => {
     if (!articles.length) {
-      flowResult(newsStore.fetchArticles(country));
+      newsStore.fetchArticles(country);
     }
   }, [articles.length, country, fetchArticles, newsStore]);
 
   const onRefresh = () => {
-    flowResult(newsStore.fetchArticles(country));
+    newsStore.fetchArticles(country);
   };
 
   const renderArticle = (article: any, index: number): JSX.Element => {

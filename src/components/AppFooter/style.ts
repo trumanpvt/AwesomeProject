@@ -5,7 +5,9 @@ export default (colors: any) =>
     indicator: {
       backgroundColor: colors.primary,
     },
-    tabContainer: {backgroundColor: 'transparent'},
+    tabContainer: {
+      backgroundColor: 'transparent',
+    },
     tabTitle: {
       color: colors.primary,
       fontSize: 15,

@@ -11,7 +11,7 @@ const Articles = () => {
   const {t} = useTranslation();
 
   return (
-    <Container>
+    <Container style={styles.container}>
       <Content>
         <Text style={styles.text}>{t('articles.text')}</Text>
       </Content>
