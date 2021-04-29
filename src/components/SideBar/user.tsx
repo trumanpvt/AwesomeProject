@@ -51,7 +51,7 @@ const User = ({navigation}: Props) => {
           }
           title={userName[0].toUpperCase()}
           overlayContainerStyle={styles.avatarOverlay}
-          titleStyle={styles.placeholder}
+          titleStyle={styles.avatarPlaceholder}
         />
         <Text style={styles.userName}>{userName}</Text>
       </TouchableOpacity>

@@ -15,7 +15,7 @@ export default (colors: any) =>
       alignItems: 'center',
       marginBottom: 20,
     },
-    placeholder: {
+    avatarPlaceholder: {
       color: 'white',
     },
     avatarOverlay: {

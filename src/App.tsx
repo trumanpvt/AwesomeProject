@@ -7,6 +7,8 @@ import {colors, ThemeProvider} from 'react-native-elements';
 import {NavigationContainer} from '@react-navigation/native';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 
+import {ActionSheetProvider} from '@expo/react-native-action-sheet';
+
 import {useStores} from './store';
 import auth from '@react-native-firebase/auth';
 
@@ -60,31 +62,36 @@ const App = () => {
   }, [language]);
 
   return (
-    <SafeAreaProvider>
-      <ThemeProvider theme={theme}>
-        <NavigationContainer>
-          <Drawer.Navigator
-            initialRouteName="HomeScreen"
-            screenOptions={(props) => ({
-              header: () => (
-                <AppHeader
-                  openDrawer={props.navigation.openDrawer}
-                  name={props.route.name}
+    <ActionSheetProvider>
+      <SafeAreaProvider>
+        <ThemeProvider theme={theme}>
+          <NavigationContainer>
+            <Drawer.Navigator
+              initialRouteName="HomeScreen"
+              screenOptions={(props) => ({
+                header: () => (
+                  <AppHeader
+                    openDrawer={props.navigation.openDrawer}
+                    name={props.route.name}
+                  />
+                ),
+                headerShown: true,
+              })}
+              drawerContent={({navigation, state}) => (
+                <SideBar
+                  navigation={navigation}
+                  routeNames={state.routeNames}
                 />
-              ),
-              headerShown: true,
-            })}
-            drawerContent={({navigation, state}) => (
-              <SideBar navigation={navigation} routeNames={state.routeNames} />
-            )}>
-            <Drawer.Screen name="HomeScreen" component={HomeScreen} />
-            <Drawer.Screen name="ChatScreen" component={ChatScreen} />
-            <Drawer.Screen name="ProfileScreen" component={ProfileScreen} />
-          </Drawer.Navigator>
-        </NavigationContainer>
-        <ModalContainer />
-      </ThemeProvider>
-    </SafeAreaProvider>
+              )}>
+              <Drawer.Screen name="HomeScreen" component={HomeScreen} />
+              <Drawer.Screen name="ChatScreen" component={ChatScreen} />
+              <Drawer.Screen name="ProfileScreen" component={ProfileScreen} />
+            </Drawer.Navigator>
+          </NavigationContainer>
+          <ModalContainer />
+        </ThemeProvider>
+      </SafeAreaProvider>
+    </ActionSheetProvider>
   );
 };
 

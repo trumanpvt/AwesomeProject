@@ -1,39 +1,44 @@
-import React, {useEffect, useState} from 'react';
+import React, {useMemo, useState} from 'react';
 import storage from '@react-native-firebase/storage';
 
-import {ActionSheet, Badge, Spinner, Text, Thumbnail} from 'native-base';
-
-import styles from './style';
-import {Platform, TouchableOpacity, View} from 'react-native';
+import styleSheet from './style';
+import {ActivityIndicator, Platform, View} from 'react-native';
 import ImagePicker, {Image} from 'react-native-image-crop-picker';
 import Camera from '../Camera';
 import {FirebaseAuthTypes} from '@react-native-firebase/auth';
+import {Avatar, useTheme} from 'react-native-elements';
+import {useActionSheet} from '@expo/react-native-action-sheet';
 
 interface Props {
   user: FirebaseAuthTypes.User;
   changeUser: ({}) => void;
 }
 
-const Avatar = ({user, changeUser}: Props) => {
+const ProfileAvatar = ({user, changeUser}: Props) => {
+  const {showActionSheetWithOptions} = useActionSheet();
+
   const [uploading, setUploading] = useState(false);
   const [isOpenCamera, setIsOpenCamera] = useState(false);
 
-  useEffect(() => {
-    setUploading(false);
-  }, [user.photoURL]);
+  const {theme} = useTheme();
+
+  const styles = styleSheet(theme.colors);
+
+  // useEffect(() => {
+  //   setUploading(false);
+  // }, [user.photoURL]);
 
   const selectPhotoSource = () => {
-    ActionSheet.show(
+    return showActionSheetWithOptions(
       {
         options: ['Select from gallery', 'Take photo', 'Cancel'],
         cancelButtonIndex: 2,
         title: 'Choose image source',
       },
-      (buttonIndex: number) => {
-        if (buttonIndex === 2) {
-          return null;
+      (buttonIndex) => {
+        if (buttonIndex !== 2) {
+          handleChangeAvatar(!!buttonIndex);
         }
-        return handleChangeAvatar(!!buttonIndex);
       },
     );
   };
@@ -50,9 +55,11 @@ const Avatar = ({user, changeUser}: Props) => {
       return null;
     }
 
-    return ImagePicker.openPicker(options).then((image: {path: string}) => {
-      return uploadPhoto(image.path);
-    });
+    return ImagePicker.openPicker(options)
+      .then((image: {path: string}) => {
+        return uploadPhoto(image.path);
+      })
+      .catch();
   };
 
   const handleTakePhoto = (uri: string) => {
@@ -87,49 +94,44 @@ const Avatar = ({user, changeUser}: Props) => {
       .getDownloadURL()
       .then((url: any) => {
         changeUser({photoURL: url});
+        setUploading(false);
       });
   };
 
-  const renderEmptyAvatar = () => {
-    if (uploading) {
-      return <Spinner />;
-    }
-
-    const userName = user.displayName || user.email || '';
-
-    return (
-      <View style={styles.imageEmpty}>
-        <Text style={styles.imageEmptyText}>{userName[0].toUpperCase()}</Text>
-      </View>
-    );
-  };
-
-  const renderAvatarBody = () => {
-    if (uploading) {
-      return <Spinner />;
-    }
-
-    if (user.photoURL) {
-      return <Thumbnail large source={{uri: user.photoURL}} />;
-    }
-
-    return renderEmptyAvatar();
-  };
+  const userName = useMemo(() => {
+    return user.displayName || user.email || '';
+  }, [user]);
 
   return (
-    <TouchableOpacity style={styles.imageContainer} onPress={selectPhotoSource}>
-      {renderAvatarBody()}
-      <Badge success style={styles.imageChange}>
-        <Text style={styles.imageChangePlus}>+</Text>
-      </Badge>
+    <View style={styles.avatarContainer}>
+      {!uploading ? (
+        <Avatar
+          rounded
+          size="large"
+          onPress={selectPhotoSource}
+          source={
+            user.photoURL
+              ? {
+                  uri: user.photoURL,
+                }
+              : undefined
+          }
+          title={userName[0].toUpperCase()}
+          overlayContainerStyle={styles.avatarOverlay}
+          titleStyle={styles.avatarPlaceholder}>
+          <Avatar.Accessory type="material" name="edit" size={26} />
+        </Avatar>
+      ) : (
+        <ActivityIndicator size="large" color="#0000ff" />
+      )}
       {isOpenCamera && (
         <Camera
           takePhoto={handleTakePhoto}
           closeCamera={() => setIsOpenCamera(false)}
         />
       )}
-    </TouchableOpacity>
+    </View>
   );
 };
 
-export default Avatar;
+export default ProfileAvatar;

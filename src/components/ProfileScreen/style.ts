@@ -15,10 +15,7 @@ export default (colors: any) =>
     },
     form: {},
     input: {
-      // width: '100%',
       marginTop: 20,
-      // marginLeft: 'auto',
-      // marginRight: 'auto',
     },
     buttons: {
       flexDirection: 'row',
@@ -35,11 +32,16 @@ export default (colors: any) =>
     buttonCancel: {
       backgroundColor: colors.error,
     },
-    imageContainer: {
-      position: 'relative',
-      marginTop: 20,
-      marginLeft: 'auto',
-      marginRight: 'auto',
+    avatarContainer: {
+      marginVertical: 20,
+      flexDirection: 'row',
+      justifyContent: 'center',
+    },
+    avatarOverlay: {
+      backgroundColor: colors.error,
+    },
+    avatarPlaceholder: {
+      color: 'white',
     },
     imageEmpty: {
       width: 80,

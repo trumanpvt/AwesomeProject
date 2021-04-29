@@ -4,7 +4,7 @@ import {useStores} from '../../store';
 
 import {View, Text} from 'react-native';
 
-import Avatar from './avatar';
+import ProfileAvatar from './avatar';
 import {observer} from 'mobx-react-lite';
 import {getCurrentUser, reloadCurrentUser} from '../../util/auth';
 
@@ -94,7 +94,7 @@ const ProfileScreen = () => {
     <View style={styles.container}>
       <>
         <Text style={styles.heading}>Profile</Text>
-        <Avatar user={user} changeUser={changeUser} />
+        <ProfileAvatar user={user} changeUser={changeUser} />
         <View style={styles.form}>
           <Input
             placeholder="Username"
