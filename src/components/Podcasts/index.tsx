@@ -4,7 +4,7 @@ import {Container, Content} from 'native-base';
 
 import {useTranslation} from 'react-i18next';
 
-import styles from './style.js';
+import styles from './style';
 
 const Podcasts = () => {
   const {t} = useTranslation();

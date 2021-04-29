@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import {Button, Fab, Icon, Spinner} from 'native-base';
 
-import styles from './style.js';
+import styles from './style';
 
 interface Props {
   closeCamera: () => void;

@@ -10,7 +10,7 @@ import {useTranslation} from 'react-i18next';
 
 import User from './user';
 
-import styles from './style.js';
+import styleSheet from './style';
 
 interface Props {
   routeNames: string[];
@@ -21,6 +21,8 @@ const SideBar = ({navigation, routeNames}: Props) => {
   const {language, setLanguage} = useStores().localeStore;
 
   const {theme} = useTheme();
+
+  const styles = styleSheet(theme.colors);
 
   const {t} = useTranslation();
 
@@ -58,8 +60,8 @@ const SideBar = ({navigation, routeNames}: Props) => {
           color: 'white',
         }}
         title={language}
-        containerStyle={styles.languageBtn}
-        buttonStyle={{backgroundColor: theme.colors?.primary}}
+        containerStyle={styles.languageBtnContainer}
+        buttonStyle={styles.languageBtn}
         titleStyle={styles.languageBtnText}
         onPress={changeLanguage}
       />

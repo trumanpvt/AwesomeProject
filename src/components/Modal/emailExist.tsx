@@ -14,7 +14,7 @@ import {
 import {useStores} from '../../store';
 import {FirebaseAuthTypes} from '@react-native-firebase/auth';
 
-import styles from './style.js';
+import styles from './style';
 
 interface Props {
   setModal: (data: {type: string}) => void;

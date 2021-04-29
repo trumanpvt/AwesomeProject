@@ -9,7 +9,7 @@ import {observer} from 'mobx-react-lite';
 
 import {useStores} from '../../store';
 
-import styles from './style.js';
+import styles from './style';
 import {View} from 'react-native';
 
 const HomeScreen = () => {

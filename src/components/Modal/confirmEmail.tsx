@@ -5,7 +5,7 @@ import {Button, Form} from 'native-base';
 
 import {sendEmailVerification} from '../../util/auth';
 
-import styles from './style.js';
+import styles from './style';
 
 interface Props {
   setCloseModal: () => void;

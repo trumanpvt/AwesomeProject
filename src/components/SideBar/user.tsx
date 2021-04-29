@@ -8,7 +8,7 @@ import {observer} from 'mobx-react-lite';
 import {signOut} from '../../util/auth';
 import {useStores} from '../../store';
 
-import styles from './style.js';
+import styleSheet from './style';
 
 interface Props {
   navigation: any;
@@ -21,6 +21,8 @@ const User = ({navigation}: Props) => {
   const {user} = userStore;
 
   const {theme} = useTheme();
+
+  const styles = styleSheet(theme.colors);
 
   const handleSignOut = () => {
     signOut().then(() => {
@@ -48,7 +50,7 @@ const User = ({navigation}: Props) => {
               : undefined
           }
           title={userName[0].toUpperCase()}
-          overlayContainerStyle={{backgroundColor: theme.colors?.error}}
+          overlayContainerStyle={styles.avatarOverlay}
           titleStyle={styles.placeholder}
         />
         <Text style={styles.userName}>{userName}</Text>
@@ -62,9 +64,9 @@ const User = ({navigation}: Props) => {
         <Button
           onPress={() => setModal({type: 'auth'})}
           title="SignIn/SignUp"
-          containerStyle={styles.signBtn}
-          buttonStyle={{backgroundColor: theme.colors?.primary}}
-          titleStyle={styles.signButtonText}
+          containerStyle={styles.signBtnContainer}
+          buttonStyle={styles.signInBtn}
+          titleStyle={styles.signBtnText}
         />
       ) : (
         <>
@@ -72,9 +74,9 @@ const User = ({navigation}: Props) => {
           <Button
             onPress={handleSignOut}
             title="SignOut"
-            containerStyle={styles.signBtn}
-            buttonStyle={{backgroundColor: theme.colors?.error}}
-            titleStyle={styles.signButtonText}
+            containerStyle={styles.signBtnContainer}
+            buttonStyle={styles.signOutBtn}
+            titleStyle={styles.signBtnText}
           />
         </>
       )}

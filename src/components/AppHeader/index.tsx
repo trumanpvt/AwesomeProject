@@ -18,6 +18,7 @@ const AppHeader = ({openDrawer, name}: Props) => {
     localeStore,
     newsStore,
   } = useStores();
+
   const showStores = () => {
     console.log('modalStore', modalStore);
     console.log('footerStore', footerStore);

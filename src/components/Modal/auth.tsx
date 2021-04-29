@@ -21,7 +21,7 @@ import {
   sendEmailVerification,
   signUp,
 } from '../../util/auth';
-import styles from './style.js';
+import styles from './style';
 import {useStores} from '../../store';
 
 interface Props {

@@ -5,7 +5,7 @@ import {Button, Form, Input, Item} from 'native-base';
 
 import {sendPasswordResetEmail} from '../../util/auth';
 
-import styles from './style.js';
+import styles from './style';
 
 interface Props {
   email: string | undefined;

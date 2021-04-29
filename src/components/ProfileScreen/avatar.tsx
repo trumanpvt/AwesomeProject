@@ -3,7 +3,7 @@ import storage from '@react-native-firebase/storage';
 
 import {ActionSheet, Badge, Spinner, Text, Thumbnail} from 'native-base';
 
-import styles from './style.js';
+import styles from './style';
 import {Platform, TouchableOpacity, View} from 'react-native';
 import ImagePicker, {Image} from 'react-native-image-crop-picker';
 import Camera from '../Camera';

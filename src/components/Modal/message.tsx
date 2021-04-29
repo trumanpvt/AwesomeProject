@@ -3,7 +3,7 @@ import React from 'react';
 import {Text} from 'react-native';
 import {Button, Form} from 'native-base';
 
-import styles from './style.js';
+import styles from './style';
 
 interface Props {
   message: string | undefined;

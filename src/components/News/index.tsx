@@ -14,9 +14,8 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import styles from './style.js';
 
-// moment.locale('fr');
+import styles from './style';
 
 const News = () => {
   const {localeStore, newsStore} = useStores();
@@ -62,7 +61,7 @@ const News = () => {
 
   return (
     <ScrollView
-      style={styles.articles}
+      style={styles.container}
       refreshControl={
         <RefreshControl
           onRefresh={onRefresh}

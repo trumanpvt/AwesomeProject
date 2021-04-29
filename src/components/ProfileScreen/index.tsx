@@ -13,7 +13,7 @@ import {
 
 import {useStores} from '../../store';
 
-import styles from './style.js';
+import styles from './style';
 import {View} from 'react-native';
 
 import Avatar from './avatar';
