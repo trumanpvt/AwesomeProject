@@ -1,37 +1,36 @@
 import React, {useEffect, useState} from 'react';
 
-import {
-  Button,
-  Container,
-  Content,
-  Form,
-  Input,
-  Item,
-  Label,
-  Text,
-} from 'native-base';
-
 import {useStores} from '../../store';
 
-import styles from './style';
-import {View} from 'react-native';
+import {View, Text} from 'react-native';
 
 import Avatar from './avatar';
 import {observer} from 'mobx-react-lite';
 import {getCurrentUser, reloadCurrentUser} from '../../util/auth';
+
 import {useNavigation} from '@react-navigation/native';
+
+import {Button, Input, useTheme} from 'react-native-elements';
+
+import styleSheet from './style';
 
 const ProfileScreen = () => {
   const {userStore, modalStore} = useStores();
   const {user, changeUser, setUser} = userStore;
   const {setModal} = modalStore;
 
-  const [displayName, setDisplayName] = useState(user && user.displayName);
+  const [displayName, setDisplayName] = useState(
+    (user && user.displayName) || '',
+  );
   const [password, setPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
   const navigation = useNavigation();
+
+  const {theme} = useTheme();
+
+  const styles = styleSheet(theme.colors);
 
   useEffect(() => {
     return navigation.addListener('focus', () => {
@@ -58,11 +57,11 @@ const ProfileScreen = () => {
   }, [user]);
 
   const handleCancelChangeUser = () => {
-    user && setDisplayName(user.displayName);
+    return user && setDisplayName(user.displayName || '');
   };
 
   const handleChangeUser = () => {
-    changeUser({
+    return changeUser({
       displayName,
     });
   };
@@ -91,108 +90,72 @@ const ProfileScreen = () => {
     );
   };
 
-  return (
-    <Container style={styles.container}>
-      {user && user.emailVerified ? (
-        <Content>
-          <Text style={styles.heading}>Profile</Text>
-          <Avatar user={user} changeUser={changeUser} />
-          <Form style={styles.form}>
-            <Item style={styles.input} floatingLabel>
-              <Label>Username</Label>
-              <Input
-                textContentType="username"
-                value={displayName || ''}
-                onChangeText={setDisplayName}
-                placeholder="Username"
-              />
-            </Item>
-            {/*<Item style={styles.input} floatingLabel>*/}
-            {/*  <Label>Phone</Label>*/}
-            {/*  <Input*/}
-            {/*    textContentType="telephoneNumber"*/}
-            {/*    value={phoneNumber}*/}
-            {/*    onChangeText={formatPhone}*/}
-            {/*    placeholder="Phone"*/}
-            {/*    keyboardType="phone-pad"*/}
-            {/*  />*/}
-            {/*</Item>*/}
-            <View style={styles.buttons}>
-              <Button
-                full
-                rounded
-                primary
-                style={styles.button}
-                onPress={handleChangeUser}>
-                <Text>Save</Text>
-              </Button>
-              <Button
-                full
-                rounded
-                danger
-                style={styles.button}
-                onPress={handleCancelChangeUser}>
-                <Text>Cancel</Text>
-              </Button>
-            </View>
-            <Text style={styles.heading}>
-              {isPasswordProvider() ? 'Change password' : 'Create password'}
-            </Text>
-            {isPasswordProvider() && (
-              <Item style={styles.input} floatingLabel>
-                <Label>Old password</Label>
-                <Input
-                  textContentType="password"
-                  secureTextEntry
-                  value={password}
-                  onChangeText={setPassword}
-                  placeholder="Old password"
-                />
-              </Item>
-            )}
-            <Item style={styles.input} floatingLabel>
-              <Label>New password</Label>
-              <Input
-                textContentType="password"
-                secureTextEntry
-                value={newPassword}
-                onChangeText={setNewPassword}
-                placeholder="New password"
-              />
-            </Item>
-            <Item style={styles.input} floatingLabel>
-              <Label>Confirm password</Label>
-              <Input
-                textContentType="password"
-                secureTextEntry
-                value={confirmPassword}
-                onChangeText={setConfirmPassword}
-                placeholder="Confirm password"
-              />
-            </Item>
-            <View style={styles.buttons}>
-              <Button
-                full
-                rounded
-                primary
-                style={styles.button}
-                onPress={handlePasswordChange}>
-                <Text>Save</Text>
-              </Button>
-              <Button
-                full
-                rounded
-                danger
-                style={styles.button}
-                onPress={handleCancelPasswordChange}>
-                <Text>Cancel</Text>
-              </Button>
-            </View>
-          </Form>
-        </Content>
-      ) : null}
-    </Container>
-  );
+  return user && user.emailVerified ? (
+    <View style={styles.container}>
+      <>
+        <Text style={styles.heading}>Profile</Text>
+        <Avatar user={user} changeUser={changeUser} />
+        <View style={styles.form}>
+          <Input
+            placeholder="Username"
+            value={displayName}
+            onChangeText={setDisplayName}
+            leftIcon={{type: 'material', name: 'email'}}
+          />
+          <View style={styles.buttons}>
+            <Button
+              onPress={handleChangeUser}
+              buttonStyle={{...styles.button, ...styles.buttonSave}}
+              title="Save"
+            />
+            <Button
+              onPress={handleCancelChangeUser}
+              buttonStyle={{...styles.button, ...styles.buttonCancel}}
+              title="Cancel"
+            />
+          </View>
+          <Text style={styles.heading}>
+            {isPasswordProvider() ? 'Change password' : 'Create password'}
+          </Text>
+          {isPasswordProvider() && (
+            <Input
+              placeholder="Old password"
+              secureTextEntry
+              value={password}
+              onChangeText={setPassword}
+              leftIcon={{type: 'material', name: 'lock'}}
+            />
+          )}
+          <Input
+            placeholder="New password"
+            secureTextEntry
+            value={newPassword}
+            onChangeText={setNewPassword}
+            leftIcon={{type: 'material', name: 'lock'}}
+          />
+          <Input
+            placeholder="Confirm password"
+            secureTextEntry
+            value={confirmPassword}
+            onChangeText={setConfirmPassword}
+            leftIcon={{type: 'material', name: 'lock'}}
+          />
+          <View style={styles.buttons}>
+            <Button
+              onPress={handlePasswordChange}
+              buttonStyle={{...styles.button, ...styles.buttonSave}}
+              title="Save"
+            />
+            <Button
+              onPress={handleCancelPasswordChange}
+              buttonStyle={{...styles.button, ...styles.buttonCancel}}
+              title="Cancel"
+            />
+          </View>
+        </View>
+      </>
+    </View>
+  ) : null;
 };
 
 export default observer(ProfileScreen);
