@@ -1,4 +1,4 @@
-import auth from '@react-native-firebase/auth';
+import auth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
 import {
   GoogleSignin,
   statusCodes,
@@ -7,11 +7,11 @@ import {AccessToken, LoginManager} from 'react-native-fbsdk';
 
 import {webClientId} from '../constants';
 
-export const passwordSignIn = (username, password) => {
+export const passwordSignIn = (username: string, password: string) => {
   return auth().signInWithEmailAndPassword(username, password);
 };
 
-export const signUp = (username, password) => {
+export const signUp = (username: string, password: string) => {
   return auth()
     .createUserWithEmailAndPassword(username, password)
     .then(() => {
@@ -23,12 +23,11 @@ export const sendEmailVerification = () => {
   return auth().currentUser.sendEmailVerification();
 };
 
-export const sendPasswordResetEmail = (email) => {
+export const sendPasswordResetEmail = (email: string) => {
   return auth().sendPasswordResetEmail(email);
 };
 
 export const signOut = () => {
-  // GoogleSignin.signOut();
   return auth().signOut();
 };
 
@@ -90,8 +89,10 @@ export const facebookSignIn = async (setCredential) => {
   }
 };
 
-export const linkWithCredential = (credential) => {
-  return auth().currentUser.linkWithCredential(credential);
+export const linkWithCredential = (
+  credential: FirebaseAuthTypes.AuthCredential | null,
+) => {
+  return credential && auth().currentUser.linkWithCredential(credential);
 };
 
 export const getCurrentUser = () => {
