@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 
 import {useStores} from '../../store';
 
-import {View, Text} from 'react-native';
+import {Text, View} from 'react-native';
 
 import ProfileAvatar from './avatar';
 import {observer} from 'mobx-react-lite';
@@ -10,7 +10,7 @@ import {getCurrentUser, reloadCurrentUser} from '../../util/auth';
 
 import {useNavigation} from '@react-navigation/native';
 
-import {Button, Input, useTheme} from 'react-native-elements';
+import {Input, useTheme} from 'react-native-elements';
 
 import styleSheet from './style';
 import ButtonCustom from '../Button';
