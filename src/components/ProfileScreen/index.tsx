@@ -105,12 +105,12 @@ const ProfileScreen = () => {
           />
           <View style={styles.buttons}>
             <ButtonCustom
-              color="primary"
               onPress={handleChangeUser}
               buttonStyle={styles.button}
               title="Save"
             />
-            <Button
+            <ButtonCustom
+              color="error"
               onPress={handleCancelChangeUser}
               buttonStyle={{...styles.button, ...styles.buttonCancel}}
               title="Cancel"
@@ -143,12 +143,13 @@ const ProfileScreen = () => {
             leftIcon={{type: 'material', name: 'lock'}}
           />
           <View style={styles.buttons}>
-            <Button
+            <ButtonCustom
               onPress={handlePasswordChange}
               buttonStyle={{...styles.button, ...styles.buttonSave}}
               title="Save"
             />
-            <Button
+            <ButtonCustom
+              color="error"
               onPress={handleCancelPasswordChange}
               buttonStyle={{...styles.button, ...styles.buttonCancel}}
               title="Cancel"
