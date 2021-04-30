@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {Button, ButtonProps, useTheme} from 'react-native-elements';
+import {Button, useTheme} from 'react-native-elements';
 
 interface AdditionalProps {
   type?: string;
@@ -8,30 +8,18 @@ interface AdditionalProps {
 }
 
 const ButtonCustom = (
-  props: ButtonProps,
+  props: any,
   {type, color = 'primary'}: AdditionalProps,
 ) => {
   const {theme} = useTheme();
 
-  props.buttonStyle = props.buttonStyle || {};
+  const modifiedProps = {...props};
+  modifiedProps.buttonStyle = {
+    ...props.buttonStyle,
+    backgroundColor: {...theme.colors}[color],
+  };
 
-  // props.buttonStyle = {
-  //   ...props.buttonStyle,
-  //   backgroundColor: theme.colors[color],
-  // };
-
-  props.buttonStyle.backgroundColor = theme.colors[color];
-
-  return (
-    <Button
-      title={type}
-      {...props}
-      // buttonStyle={{
-      //   ...props.buttonStyle,
-      //   backgroundColor: theme.colors[color],
-      // }}
-    />
-  );
+  return <Button {...modifiedProps} />;
 };
 
 export default ButtonCustom;

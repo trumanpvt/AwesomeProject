@@ -13,6 +13,7 @@ import {useNavigation} from '@react-navigation/native';
 import {Button, Input, useTheme} from 'react-native-elements';
 
 import styleSheet from './style';
+import ButtonCustom from '../Button';
 
 const ProfileScreen = () => {
   const {userStore, modalStore} = useStores();
@@ -35,7 +36,7 @@ const ProfileScreen = () => {
   useEffect(() => {
     return navigation.addListener('focus', () => {
       if (user && !user.emailVerified) {
-        reloadCurrentUser().then(() => {
+        reloadCurrentUser()?.then(() => {
           const reloadedUser = getCurrentUser();
           if (reloadedUser && !reloadedUser.emailVerified) {
             setModal({
@@ -103,9 +104,10 @@ const ProfileScreen = () => {
             leftIcon={{type: 'material', name: 'email'}}
           />
           <View style={styles.buttons}>
-            <Button
+            <ButtonCustom
+              color="primary"
               onPress={handleChangeUser}
-              buttonStyle={{...styles.button, ...styles.buttonSave}}
+              buttonStyle={styles.button}
               title="Save"
             />
             <Button
