@@ -3,7 +3,7 @@ import {
   GoogleSignin,
   statusCodes,
 } from '@react-native-google-signin/google-signin';
-import {AccessToken, LoginManager} from 'react-native-fbsdk';
+import {AccessToken, LoginManager} from 'react-native-fbsdk-next';
 
 import {webClientId} from '../constants';
 
@@ -20,7 +20,7 @@ export const signUp = (username: string, password: string) => {
 };
 
 export const sendEmailVerification = () => {
-  return auth().currentUser.sendEmailVerification();
+  return auth().currentUser?.sendEmailVerification();
 };
 
 export const sendPasswordResetEmail = (email: string) => {
@@ -55,7 +55,9 @@ export const googleSignIn = async () => {
   }
 };
 
-export const facebookSignIn = async (setCredential) => {
+export const facebookSignIn = async (setCredential: {
+  (credential: FirebaseAuthTypes.AuthCredential): void;
+}) => {
   try {
     // Attempt login with permissions
     const result = await LoginManager.logInWithPermissions([
@@ -92,7 +94,7 @@ export const facebookSignIn = async (setCredential) => {
 export const linkWithCredential = (
   credential: FirebaseAuthTypes.AuthCredential | null,
 ) => {
-  return credential && auth().currentUser.linkWithCredential(credential);
+  return credential && auth().currentUser?.linkWithCredential(credential);
 };
 
 export const getCurrentUser = () => {
@@ -100,5 +102,5 @@ export const getCurrentUser = () => {
 };
 
 export const reloadCurrentUser = () => {
-  return auth().currentUser.reload();
+  return auth().currentUser?.reload();
 };

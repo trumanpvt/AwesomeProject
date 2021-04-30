@@ -2,16 +2,16 @@ import React, {useState} from 'react';
 import {RNCamera} from 'react-native-camera';
 
 import {
+  ActivityIndicator,
   Modal,
-  Platform,
   SafeAreaView,
   TouchableOpacity,
   View,
 } from 'react-native';
 
-import {Button, Fab, Icon, Spinner} from 'native-base';
+import {SpeedDial, useTheme, Icon} from 'react-native-elements';
 
-import styles from './style';
+import styleSheet from './style';
 
 interface Props {
   closeCamera: () => void;
@@ -22,6 +22,10 @@ const Camera = ({closeCamera, takePhoto}: Props) => {
   const [isBack, setIsBack] = useState(true);
   const [flash, setFlash] = useState({mode: 'auto', isOpen: false});
 
+  const {theme} = useTheme();
+
+  const styles = styleSheet(theme.colors);
+
   const takePicture = async function (camera: RNCamera) {
     const options = {quality: 0.5, base64: true};
     const data = await camera.takePictureAsync(options);
@@ -29,7 +33,7 @@ const Camera = ({closeCamera, takePhoto}: Props) => {
     return takePhoto(data.uri);
   };
 
-  const handleChangeFlashMode = (mode: string) => {
+  const handleChangeFlashMode = (mode: string = flash.mode) => {
     return setFlash({
       mode,
       isOpen: false,
@@ -53,56 +57,52 @@ const Camera = ({closeCamera, takePhoto}: Props) => {
         }}>
         {({camera, status}) => {
           if (status !== 'READY') {
-            return <Spinner />;
+            return <ActivityIndicator size="large" color="#0000ff" />;
           }
 
           return (
             <SafeAreaView style={styles.controls}>
               <View style={styles.controlsTop}>
-                <Fab
-                  active={flash.isOpen}
-                  direction="down"
-                  containerStyle={
-                    Platform.OS && !flash.isOpen ? styles.flashContainer : null
-                  }
-                  style={{...styles}[flash.mode]}
-                  position="topRight"
-                  onPress={() =>
-                    setFlash({mode: flash.mode, isOpen: !flash.isOpen})
-                  }>
-                  <Icon type="MaterialIcons" name={`flash-${flash.mode}`} />
-                  <Button
-                    style={styles.auto}
-                    onPress={() => handleChangeFlashMode('auto')}>
-                    <Icon type="MaterialIcons" name="flash-auto" />
-                  </Button>
-                  <Button
-                    style={styles.off}
-                    onPress={() => handleChangeFlashMode('off')}>
-                    <Icon type="MaterialIcons" name="flash-off" />
-                  </Button>
-                  <Button
-                    style={styles.on}
-                    onPress={() => handleChangeFlashMode('on')}>
-                    <Icon type="MaterialIcons" name="flash-on" />
-                  </Button>
-                </Fab>
+                <SpeedDial
+                  isOpen={flash.isOpen}
+                  icon={{name: `flash-${flash.mode}`, color: '#fff'}}
+                  openIcon={{name: `flash-${flash.mode}`, color: '#fff'}}
+                  onClose={() => setFlash({mode: flash.mode, isOpen: false})}
+                  onOpen={() => setFlash({mode: flash.mode, isOpen: true})}
+                  overlayColor="transparent"
+                  transitionDuration={50}>
+                  <SpeedDial.Action
+                    color={theme.colors?.success}
+                    icon={{name: 'flash-auto', color: '#fff'}}
+                    onPress={() => handleChangeFlashMode('auto')}
+                  />
+                  <SpeedDial.Action
+                    color={theme.colors?.error}
+                    icon={{name: 'flash-off', color: '#fff'}}
+                    onPress={() => handleChangeFlashMode('off')}
+                  />
+                  <SpeedDial.Action
+                    color={theme.colors?.primary}
+                    icon={{name: 'flash-on', color: '#fff'}}
+                    onPress={() => handleChangeFlashMode('on')}
+                  />
+                </SpeedDial>
               </View>
               <View style={styles.controlsBottom}>
                 <TouchableOpacity
                   onPress={() => closeCamera()}
                   style={styles.controlBtn}>
-                  <Icon type="Ionicons" name="ios-backspace-outline" />
+                  <Icon type="ionicon" name="ios-backspace-outline" />
                 </TouchableOpacity>
                 <TouchableOpacity
                   onPress={() => takePicture(camera)}
                   style={styles.controlBtn}>
-                  <Icon type="Ionicons" name="camera-outline" />
+                  <Icon type="ionicon" name="camera-outline" />
                 </TouchableOpacity>
                 <TouchableOpacity
                   onPress={() => setIsBack(!isBack)}
                   style={styles.controlBtn}>
-                  <Icon type="Ionicons" name="camera-reverse-outline" />
+                  <Icon type="ionicon" name="camera-reverse-outline" />
                 </TouchableOpacity>
               </View>
             </SafeAreaView>
