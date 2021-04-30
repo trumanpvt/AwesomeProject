@@ -2,25 +2,29 @@ import React from 'react';
 
 import {Button, useTheme} from 'react-native-elements';
 
-interface AdditionalProps {
-  type?: string;
+interface Props {
+  rounded?: boolean;
   color?: string;
   buttonStyle?: any;
   [x: string]: any;
 }
 
 const ButtonCustom = ({
-  type,
+  rounded,
   color = 'primary',
   buttonStyle = {},
   ...props
-}: AdditionalProps) => {
+}: Props) => {
   const {theme} = useTheme();
 
   buttonStyle = {
     ...buttonStyle,
-    backgroundCOlor: {...theme.colors}[color],
+    backgroundColor: {...theme.colors}[color],
   };
+
+  if (rounded) {
+    buttonStyle.borderRadius = 20;
+  }
 
   return <Button {...props} buttonStyle={buttonStyle} />;
 };

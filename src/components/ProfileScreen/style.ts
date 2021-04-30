@@ -24,7 +24,6 @@ export default (colors: any) =>
     button: {
       marginTop: 20,
       width: '90%',
-      borderRadius: 20,
     },
     buttonSave: {
       backgroundColor: colors.primary,
