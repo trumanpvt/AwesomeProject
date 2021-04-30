@@ -48,16 +48,15 @@ export default StyleSheet.create({
     marginTop: 20,
   },
   socialButton: {
+    width: '100%',
     marginBottom: 20,
+    marginHorizontal: 0,
+  },
+  socialButtonTitle: {
+    fontSize: 16,
   },
   socialButtonExist: {
     marginBottom: 0,
-  },
-  googleButton: {
-    backgroundColor: '#db4437',
-  },
-  facebookButton: {
-    backgroundColor: '#3b5998',
   },
   headerText: {
     fontSize: 20,

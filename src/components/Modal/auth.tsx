@@ -23,6 +23,7 @@ import {
 } from '../../util/auth';
 import styles from './style';
 import {useStores} from '../../store';
+import {SocialIcon} from 'react-native-elements';
 
 interface Props {
   setModal: (data: {type?: string; email?: string}) => void;
@@ -163,23 +164,30 @@ const ModalAuth = ({setCloseModal, setModal}: Props): JSX.Element => {
     return (
       <>
         <View>
-          <Button
-            full
-            rounded
-            style={[styles.socialButton, styles.googleButton]}
-            onPress={handleGoogleSignIn}>
-            <Icon name="google" type="FontAwesome" />
-            <Text style={styles.textStyle}>Google</Text>
-          </Button>
-          <Button
-            full
-            rounded
-            primary
-            style={[styles.socialButton, styles.facebookButton]}
-            onPress={handleFacebookSignIn}>
-            <Icon name="facebook" type="FontAwesome" />
-            <Text style={styles.textStyle}>Facebook</Text>
-          </Button>
+          <SocialIcon
+            title="Google"
+            button
+            type="google"
+            onPress={handleGoogleSignIn}
+            raised
+            iconType="font-awesome"
+            iconSize={20}
+            iconColor="white"
+            fontStyle={styles.socialButtonTitle}
+            style={styles.socialButton}
+          />
+          <SocialIcon
+            title="Facebook"
+            button
+            type="facebook"
+            onPress={handleFacebookSignIn}
+            raised
+            iconType="font-awesome"
+            iconSize={20}
+            iconColor="white"
+            fontStyle={styles.socialButtonTitle}
+            style={styles.socialButton}
+          />
         </View>
         <Item style={styles.input}>
           <Input
