@@ -37,6 +37,8 @@ const ButtonCustom = ({
       ...containerStyle,
       borderRadius: 30,
     };
+
+    buttonStyle.borderRadius = 30;
   }
 
   return (
