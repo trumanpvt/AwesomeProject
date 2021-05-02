@@ -38,5 +38,17 @@
     },
     "changePassword": "Сменить пароль",
     "createPassword": "Создать пароль"
+  },
+  "modal": {
+    "signIn": "Вход",
+    "signUp": "Рег.",
+    "placeholder": {
+      "password": "Пароль",
+      "passwordConfirm": "Подтверждение пароля"
+    },
+    "button": {
+      "cancel": "Отмена",
+      "forgotPassword": "Восстановить пароль"
+    }
   }
 }

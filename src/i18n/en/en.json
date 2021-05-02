@@ -1,7 +1,7 @@
 {
   "routes": {
     "HomeScreen": "HomeScreen",
-    "ChatScreen":"Chats",
+    "ChatScreen": "Chats",
     "ProfileScreen": "Profile"
   },
   "home": {
@@ -38,5 +38,17 @@
     },
     "changePassword": "Change password",
     "createPassword": "Create password"
+  },
+  "modal": {
+    "signIn": "SignIn",
+    "signUp": "SignUp",
+    "placeholder": {
+      "password": "Password",
+      "passwordConfirm": "Confirm password"
+    },
+    "button": {
+      "cancel": "Cancel",
+      "forgotPassword": "Forgot password"
+    }
   }
 }
