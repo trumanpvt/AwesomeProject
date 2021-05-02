@@ -6,6 +6,9 @@ export default StyleSheet.create({
     paddingHorizontal: 10,
     paddingTop: 20,
   },
+  articles: {
+    flex: 1,
+  },
   article: {
     shadowColor: '#000',
     shadowOffset: {

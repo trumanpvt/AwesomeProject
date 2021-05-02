@@ -22,7 +22,7 @@ import i18n from './i18n';
 
 import {observer} from 'mobx-react-lite';
 
-LogBox.ignoreLogs(['Remote debugger']);
+LogBox.ignoreLogs(['Remote debugger', 'Reanimated']);
 
 const Drawer = createDrawerNavigator();
 
@@ -41,7 +41,7 @@ const App = () => {
   const {language} = useStores().localeStore;
 
   useEffect(() => {
-    return auth().onAuthStateChanged((user) => {
+    return auth().onAuthStateChanged(user => {
       if (user && !user.emailVerified) {
         const currentUser = auth().currentUser;
         if (currentUser) {
@@ -68,7 +68,7 @@ const App = () => {
           <NavigationContainer>
             <Drawer.Navigator
               initialRouteName="HomeScreen"
-              screenOptions={(props) => ({
+              screenOptions={props => ({
                 header: () => (
                   <AppHeader
                     openDrawer={props.navigation.openDrawer}
