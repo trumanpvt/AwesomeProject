@@ -115,7 +115,6 @@ const ModalAuth = ({setCloseModal, setModal}: Props): JSX.Element => {
 
   const changeSignMode = (): void => {
     setError('');
-    // setIsConfirmCode(false);
     setPassword('');
     setConfirmPassword('');
     setIsSignUp(!isSignUp);
@@ -126,7 +125,9 @@ const ModalAuth = ({setCloseModal, setModal}: Props): JSX.Element => {
       <Tab
         onChange={changeSignMode}
         value={isSignUp ? 1 : 0}
-        indicatorStyle={styles.tabIndicator}>
+        disableIndicator
+        // indicatorStyle={styles.tabIndicator}
+      >
         <Tab.Item
           containerStyle={styles.modalTabLeft}
           titleStyle={styles.modalTabTitle}
