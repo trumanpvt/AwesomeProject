@@ -70,8 +70,8 @@ const News = () => {
           selectedValue={country}
           onValueChange={itemValue => setCountry(itemValue)}
           style={styles.picker}>
-          {countries.map(item => (
-            <Picker.Item label={item.toUpperCase()} value={item} />
+          {countries.map((item, index) => (
+            <Picker.Item label={item.toUpperCase()} value={item} key={index} />
           ))}
         </Picker>
       </View>

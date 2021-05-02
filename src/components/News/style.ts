@@ -12,7 +12,8 @@ export default StyleSheet.create({
     paddingVertical: 10,
   },
   pickerTitle: {
-    fontSize: 15,
+    fontSize: 16,
+    paddingRight: 20,
   },
   picker: {
     width: 90,
