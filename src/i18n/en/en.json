@@ -40,15 +40,22 @@
     "createPassword": "Create password"
   },
   "modal": {
-    "signIn": "SignIn",
-    "signUp": "SignUp",
+    "tab": {
+      "signIn": "SignIn",
+      "signUp": "SignUp"
+    },
     "placeholder": {
       "password": "Password",
       "passwordConfirm": "Confirm password"
     },
     "button": {
       "cancel": "Cancel",
-      "forgotPassword": "Forgot password"
+      "close": "Close",
+      "forgotPassword": "Forgot password",
+      "signIn": "Sign In",
+      "signUp": "Sign Up",
+      "resetPassword": "Reset password",
+      "resetPasswordAgain": "Send link again"
     }
   }
 }

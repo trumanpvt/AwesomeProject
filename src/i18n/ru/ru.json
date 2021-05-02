@@ -40,15 +40,22 @@
     "createPassword": "Создать пароль"
   },
   "modal": {
-    "signIn": "Вход",
-    "signUp": "Регистрация",
+    "tab": {
+      "signIn": "Вход",
+      "signUp": "Регистрация"
+    },
     "placeholder": {
       "password": "Пароль",
       "passwordConfirm": "Подтверждение пароля"
     },
     "button": {
       "cancel": "Отмена",
-      "forgotPassword": "Восстановить пароль"
+      "close": "Закрыть",
+      "forgotPassword": "Восстановить пароль",
+      "signIn": "Вход",
+      "signUp": "Регистрация",
+      "resetPassword": "Сбросить пароль",
+      "resetPasswordAgain": "Выслать новыю ссылку"
     }
   }
 }
