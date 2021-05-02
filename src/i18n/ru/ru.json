@@ -32,6 +32,10 @@
       "passwordNew": "Новый пароль",
       "passwordConfirm": "Подтверждение"
     },
+    "button": {
+      "save": "Сохранить",
+      "cancel": "Сбросить"
+    },
     "changePassword": "Сменить пароль",
     "createPassword": "Создать пароль"
   }

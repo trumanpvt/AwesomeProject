@@ -32,6 +32,10 @@
       "passwordNew": "New password",
       "passwordConfirm": "Confirm password"
     },
+    "button": {
+      "save": "Save",
+      "cancel": "Cancel"
+    },
     "changePassword": "Change password",
     "createPassword": "Create password"
   }
