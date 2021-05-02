@@ -13,7 +13,7 @@ export default () => {
     },
     tabTitle: {
       color: theme.colors?.primary,
-      fontSize: 15,
+      fontSize: 14,
     },
   });
 };

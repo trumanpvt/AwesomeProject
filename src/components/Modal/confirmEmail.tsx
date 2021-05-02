@@ -6,31 +6,32 @@ import ButtonCustom from '../Button';
 import {sendEmailVerification} from '../../util/auth';
 
 import styleSheet from './style';
+import {useTranslation} from 'react-i18next';
 
 interface Props {
   setCloseModal: () => void;
 }
 
 const ModalConfirmEmail = ({setCloseModal}: Props) => {
+  const {t} = useTranslation();
+
   const styles = styleSheet();
 
   return (
     <View style={styles.form}>
-      <Text style={styles.headerText}>
-        Please confirm your email, confirmation link was sent to you
-      </Text>
+      <Text style={styles.headerText}>{t('modal.confirmEmailMessage')}</Text>
       <ButtonCustom
         rounded
         onPress={sendEmailVerification}
-        buttonStyle={styles.button}
-        title="Send verification again"
+        containerStyle={styles.button}
+        title={t('modal.button.resetPasswordAgain')}
       />
       <ButtonCustom
         rounded
         color="error"
         onPress={setCloseModal}
-        buttonStyle={styles.button}
-        title="Close"
+        containerStyle={styles.button}
+        title={t('modal.button.close')}
       />
     </View>
   );

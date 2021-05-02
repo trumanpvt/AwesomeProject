@@ -38,7 +38,7 @@ const ModalEmailExist = ({setModal, setCloseModal}: Props) => {
           setCloseModal();
         });
       })
-      .catch((e) => {
+      .catch(e => {
         setError(e.message || e);
       });
   };
@@ -46,7 +46,7 @@ const ModalEmailExist = ({setModal, setCloseModal}: Props) => {
   const handlePasswordSignIn = () => {
     let user: FirebaseAuthTypes.User | null = null;
     passwordSignIn(email, password)
-      .then((cred) => {
+      .then(cred => {
         user = cred.user;
         return linkWithCredential(credential);
       })
@@ -61,7 +61,7 @@ const ModalEmailExist = ({setModal, setCloseModal}: Props) => {
           setCloseModal();
         }
       })
-      .catch((err) => {
+      .catch(err => {
         setError(err.message);
       });
   };
@@ -71,7 +71,7 @@ const ModalEmailExist = ({setModal, setCloseModal}: Props) => {
       .then(() => {
         setCloseModal();
       })
-      .catch((e) => {
+      .catch(e => {
         if (e.code === 'auth/account-exists-with-different-credential') {
           // setCredential({provider: 'facebook', credential});
           setModal({type: 'emailExist'});

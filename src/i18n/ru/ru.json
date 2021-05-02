@@ -55,8 +55,8 @@
       "signIn": "Вход",
       "signUp": "Регистрация",
       "resetPassword": "Сбросить пароль",
-      "resetPasswordAgain": "Выслать новыю ссылку"
+      "resetPasswordAgain": "Выслать новую ссылку"
     },
-    "confirmEmailMessage": "Пожалуйста, подтвердите ваш email используя ссылку в письме"
+    "confirmEmailMessage": "Пожалуйста подтвердите ваш email используя ссылку в письме"
   }
 }
