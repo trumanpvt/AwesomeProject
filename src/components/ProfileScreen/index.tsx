@@ -98,23 +98,24 @@ const ProfileScreen = () => {
         <ProfileAvatar user={user} changeUser={changeUser} />
         <View style={styles.form}>
           <Input
+            autoCapitalize="none"
             placeholder="Username"
             value={displayName}
             onChangeText={setDisplayName}
-            leftIcon={{type: 'material', name: 'email'}}
+            leftIcon={{type: 'material', name: 'person'}}
           />
           <View style={styles.buttons}>
             <ButtonCustom
               rounded
               onPress={handleChangeUser}
-              buttonStyle={styles.button}
+              containerStyle={styles.button}
               title="Save"
             />
             <ButtonCustom
               rounded
               color="error"
               onPress={handleCancelChangeUser}
-              buttonStyle={styles.button}
+              containerStyle={styles.button}
               title="Cancel"
             />
           </View>
@@ -123,14 +124,17 @@ const ProfileScreen = () => {
           </Text>
           {isPasswordProvider() && (
             <Input
+              autoCapitalize="none"
+              textContentType="password"
               placeholder="Old password"
-              secureTextEntry
               value={password}
               onChangeText={setPassword}
               leftIcon={{type: 'material', name: 'lock'}}
             />
           )}
           <Input
+            autoCapitalize="none"
+            textContentType="password"
             placeholder="New password"
             secureTextEntry
             value={newPassword}
@@ -138,6 +142,8 @@ const ProfileScreen = () => {
             leftIcon={{type: 'material', name: 'lock'}}
           />
           <Input
+            autoCapitalize="none"
+            textContentType="password"
             placeholder="Confirm password"
             secureTextEntry
             value={confirmPassword}
@@ -148,14 +154,14 @@ const ProfileScreen = () => {
             <ButtonCustom
               rounded
               onPress={handlePasswordChange}
-              buttonStyle={styles.button}
+              containerStyle={styles.button}
               title="Save"
             />
             <ButtonCustom
               rounded
               color="error"
               onPress={handleCancelPasswordChange}
-              buttonStyle={styles.button}
+              containerStyle={styles.button}
               title="Cancel"
             />
           </View>

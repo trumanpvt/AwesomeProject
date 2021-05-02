@@ -1,16 +1,7 @@
 import React, {useEffect, useState} from 'react';
 
-import {View} from 'react-native';
-import {
-  Button,
-  DefaultTabBar,
-  Form,
-  Input,
-  Item,
-  Tab,
-  Tabs,
-  Text,
-} from 'native-base';
+import {Text, View} from 'react-native';
+import {DefaultTabBar, Tab, Tabs} from 'native-base';
 
 import {
   facebookSignIn,
@@ -21,7 +12,7 @@ import {
 } from '../../util/auth';
 import styles from './style';
 import {useStores} from '../../store';
-import {SocialIcon} from 'react-native-elements';
+import {Input, SocialIcon} from 'react-native-elements';
 import ButtonCustom from '../Button';
 
 interface Props {
@@ -188,41 +179,39 @@ const ModalAuth = ({setCloseModal, setModal}: Props): JSX.Element => {
             style={styles.socialButton}
           />
         </View>
-        <Item style={styles.input}>
-          <Input
-            autoCapitalize="none"
-            textContentType="emailAddress"
-            value={email}
-            onChangeText={setEmail}
-            placeholder="Email"
-            keyboardType="email-address"
-          />
-        </Item>
-        <Item style={styles.input} key={'signInPassword'}>
-          <Input
-            autoCapitalize="none"
-            textContentType="password"
-            secureTextEntry
-            value={password}
-            onChangeText={setPassword}
-            placeholder="Password"
-          />
-        </Item>
-        <Button
-          full
+        <Input
+          autoCapitalize="none"
+          textContentType="emailAddress"
+          keyboardType="email-address"
+          placeholder="Email"
+          value={email}
+          onChangeText={setEmail}
+          leftIcon={{type: 'material', name: 'email'}}
+        />
+        <Input
+          autoCapitalize="none"
+          textContentType="password"
+          secureTextEntry
+          placeholder="Password"
+          value={password}
+          onChangeText={setPassword}
+          leftIcon={{type: 'material', name: 'lock'}}
+        />
+        <ButtonCustom
           rounded
-          transparent
-          style={styles.button}
-          onPress={handlePasswordReset}>
-          <Text>Forgot password</Text>
-        </Button>
+          raised={false}
+          color="transparent"
+          titleColor="secondary"
+          onPress={handlePasswordReset}
+          title="Forgot password"
+        />
         {error ? <Text style={styles.error}>{error}</Text> : null}
         <ButtonCustom
           rounded
           color="success"
           disabled={!email || !password}
           onPress={handlePasswordSignIn}
-          buttonStyle={styles.button}
+          containerStyle={styles.button}
           title="Sign In"
         />
       </>
@@ -232,36 +221,33 @@ const ModalAuth = ({setCloseModal, setModal}: Props): JSX.Element => {
   const renderSignUp = (): JSX.Element => {
     return (
       <>
-        <Item style={styles.input}>
-          <Input
-            autoCapitalize="none"
-            textContentType="emailAddress"
-            value={email}
-            onChangeText={setEmail}
-            placeholder="Email"
-            keyboardType="email-address"
-          />
-        </Item>
-        <Item style={styles.input} key={'signUpPassword'}>
-          <Input
-            autoCapitalize="none"
-            textContentType="password"
-            secureTextEntry
-            value={password}
-            onChangeText={setPassword}
-            placeholder="Password"
-          />
-        </Item>
-        <Item style={styles.input}>
-          <Input
-            autoCapitalize="none"
-            textContentType="password"
-            secureTextEntry
-            value={confirmPassword}
-            onChangeText={setConfirmPassword}
-            placeholder="Confirm Password"
-          />
-        </Item>
+        <Input
+          autoCapitalize="none"
+          textContentType="emailAddress"
+          keyboardType="email-address"
+          placeholder="Email"
+          value={email}
+          onChangeText={setEmail}
+          leftIcon={{type: 'material', name: 'email'}}
+        />
+        <Input
+          autoCapitalize="none"
+          textContentType="password"
+          secureTextEntry
+          placeholder="Password"
+          value={password}
+          onChangeText={setPassword}
+          leftIcon={{type: 'material', name: 'lock'}}
+        />
+        <Input
+          autoCapitalize="none"
+          textContentType="password"
+          secureTextEntry
+          placeholder="Confirm password"
+          value={confirmPassword}
+          onChangeText={setConfirmPassword}
+          leftIcon={{type: 'material', name: 'lock'}}
+        />
         <>
           {error ? <Text style={styles.error}>{error}</Text> : null}
           <ButtonCustom
@@ -269,7 +255,7 @@ const ModalAuth = ({setCloseModal, setModal}: Props): JSX.Element => {
             color="success"
             disabled={!email || !password || !confirmPassword}
             onPress={handleSignUp}
-            buttonStyle={styles.button}
+            containerStyle={styles.button}
             title="Sign Up"
           />
         </>
@@ -280,16 +266,16 @@ const ModalAuth = ({setCloseModal, setModal}: Props): JSX.Element => {
   return (
     <>
       {renderChangeModeTabs()}
-      <Form style={styles.form}>
+      <View style={styles.form}>
         {isSignUp ? renderSignUp() : renderSignIn()}
         <ButtonCustom
           rounded
           color="error"
           onPress={setCloseModal}
-          buttonStyle={styles.button}
+          containerStyle={styles.button}
           title="Cancel"
         />
-      </Form>
+      </View>
     </>
   );
 };

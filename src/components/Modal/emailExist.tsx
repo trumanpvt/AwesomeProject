@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 
 import {Text, View} from 'react-native';
-import {Input, Item} from 'native-base';
 
 import {
   facebookSignIn,
@@ -15,7 +14,7 @@ import {useStores} from '../../store';
 import {FirebaseAuthTypes} from '@react-native-firebase/auth';
 
 import styles from './style';
-import {SocialIcon} from 'react-native-elements';
+import {Input, SocialIcon} from 'react-native-elements';
 import ButtonCustom from '../Button';
 
 interface Props {
@@ -99,26 +98,24 @@ const ModalEmailExist = ({setModal, setCloseModal}: Props) => {
         style={styles.socialButtonExist}
       />
       <Text style={styles.messageText}>Or with email/password</Text>
-      <Item style={styles.input}>
-        <Input
-          autoCapitalize="none"
-          textContentType="emailAddress"
-          value={email}
-          onChangeText={setEmail}
-          placeholder="Email"
-          keyboardType="email-address"
-        />
-      </Item>
-      <Item style={styles.input} key={'signInPassword'}>
-        <Input
-          autoCapitalize="none"
-          textContentType="password"
-          secureTextEntry
-          value={password}
-          onChangeText={setPassword}
-          placeholder="Password"
-        />
-      </Item>
+      <Input
+        autoCapitalize="none"
+        textContentType="emailAddress"
+        keyboardType="email-address"
+        placeholder="Email"
+        value={email}
+        onChangeText={setEmail}
+        leftIcon={{type: 'material', name: 'email'}}
+      />
+      <Input
+        autoCapitalize="none"
+        textContentType="password"
+        secureTextEntry
+        placeholder="Password"
+        value={password}
+        onChangeText={setPassword}
+        leftIcon={{type: 'material', name: 'lock'}}
+      />
       <ButtonCustom
         rounded
         color="success"

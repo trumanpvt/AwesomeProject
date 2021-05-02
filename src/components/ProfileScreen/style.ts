@@ -23,7 +23,7 @@ export default (colors: any) =>
     },
     button: {
       marginTop: 20,
-      width: '90%',
+      width: '45%',
     },
     buttonSave: {
       backgroundColor: colors.primary,

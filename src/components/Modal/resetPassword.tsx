@@ -1,11 +1,12 @@
 import React, {useState} from 'react';
 
-import {Text} from 'react-native';
-import {Button, Form, Input, Item} from 'native-base';
+import {Text, View} from 'react-native';
 
 import {sendPasswordResetEmail} from '../../util/auth';
 
 import styles from './style';
+import ButtonCustom from '../Button';
+import {Input} from 'react-native-elements';
 
 interface Props {
   email: string | undefined;
@@ -34,13 +35,12 @@ const ModalResetPassword = ({email = '', setModal}: Props) => {
           Password reset link was sent to your email
         </Text>
         {error && <Text style={styles.error}>{error}</Text>}
-        <Button
-          full
+        <ButtonCustom
           rounded
-          style={styles.button}
-          onPress={handleSendPasswordResetEmail}>
-          <Text style={styles.textStyle}>Send link again</Text>
-        </Button>
+          onPress={handleSendPasswordResetEmail}
+          containerStyle={styles.button}
+          title="Send link again"
+        />
       </>
     );
   };
@@ -48,41 +48,38 @@ const ModalResetPassword = ({email = '', setModal}: Props) => {
   const renderEmail = () => {
     return (
       <>
-        <Item style={styles.input}>
-          <Input
-            autoCapitalize="none"
-            textContentType="emailAddress"
-            value={userEmail}
-            onChangeText={setUserEmail}
-            placeholder="Email"
-            keyboardType="email-address"
-          />
-        </Item>
+        <Input
+          autoCapitalize="none"
+          textContentType="emailAddress"
+          keyboardType="email-address"
+          placeholder="Email"
+          value={userEmail}
+          onChangeText={setUserEmail}
+          leftIcon={{type: 'material', name: 'email'}}
+        />
         {error && <Text style={styles.error}>{error}</Text>}
-        <Button
-          full
+        <ButtonCustom
           rounded
-          style={styles.button}
-          onPress={handleSendPasswordResetEmail}>
-          <Text style={styles.textStyle}>Reset password</Text>
-        </Button>
+          onPress={handleSendPasswordResetEmail}
+          containerStyle={styles.button}
+          title="Reset password"
+        />
       </>
     );
   };
 
   return (
-    <Form style={styles.form}>
+    <View style={styles.form}>
       <Text style={styles.headerText}>Reset password</Text>
       {isLinkSent ? renderLinkSent() : renderEmail()}
-      <Button
-        full
+      <ButtonCustom
         rounded
-        danger
-        style={styles.button}
-        onPress={() => setModal({type: 'auth'})}>
-        <Text style={styles.textStyle}>{isLinkSent ? 'Close' : 'Cancel'}</Text>
-      </Button>
-    </Form>
+        color="error"
+        onPress={() => setModal({type: 'auth'})}
+        containerStyle={styles.button}
+        title={isLinkSent ? 'Close' : 'Cancel'}
+      />
+    </View>
   );
 };
 
