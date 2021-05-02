@@ -1,7 +1,10 @@
 import {StyleSheet} from 'react-native';
+import {useTheme} from 'react-native-elements';
 
-export default (colors: any) =>
-  StyleSheet.create({
+export default () => {
+  const {theme} = useTheme();
+
+  return StyleSheet.create({
     container: {
       flex: 1,
       paddingBottom: 20,
@@ -26,10 +29,10 @@ export default (colors: any) =>
       width: '45%',
     },
     buttonSave: {
-      backgroundColor: colors.primary,
+      backgroundColor: theme.colors?.primary,
     },
     buttonCancel: {
-      backgroundColor: colors.error,
+      backgroundColor: theme.colors?.error,
     },
     avatarContainer: {
       marginVertical: 20,
@@ -37,7 +40,7 @@ export default (colors: any) =>
       justifyContent: 'center',
     },
     avatarOverlay: {
-      backgroundColor: colors.error,
+      backgroundColor: theme.colors?.error,
     },
     avatarPlaceholder: {
       color: 'white',
@@ -75,3 +78,4 @@ export default (colors: any) =>
       fontWeight: 'bold',
     },
   });
+};

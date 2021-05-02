@@ -4,7 +4,7 @@ import {useStores} from '../../store';
 
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {FlatList} from 'react-native';
-import {Button, ListItem, useTheme} from 'react-native-elements';
+import {Button, ListItem} from 'react-native-elements';
 
 import {useTranslation} from 'react-i18next';
 
@@ -20,9 +20,7 @@ interface Props {
 const SideBar = ({navigation, routeNames}: Props) => {
   const {language, setLanguage} = useStores().localeStore;
 
-  const {theme} = useTheme();
-
-  const styles = styleSheet(theme.colors);
+  const styles = styleSheet();
 
   const {t} = useTranslation();
 

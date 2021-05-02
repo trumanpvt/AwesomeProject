@@ -1,6 +1,6 @@
 import React from 'react';
 import {Modal, View} from 'react-native';
-import styles from './style';
+import styleSheet from './style';
 import ModalResetPassword from './resetPassword';
 import ModalAuth from './auth';
 import ModalMessage from './message';
@@ -11,6 +11,8 @@ import ModalEmailExist from './emailExist';
 
 const ModalContainer = observer(() => {
   const {modal, setModal, setCloseModal} = useStores().modalStore;
+
+  const styles = styleSheet();
 
   const renderModal = () => {
     switch (modal.type) {

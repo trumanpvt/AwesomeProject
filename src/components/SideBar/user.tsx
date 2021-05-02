@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {Text, TouchableOpacity, View} from 'react-native';
-import {Avatar, Button, useTheme} from 'react-native-elements';
+import {Avatar, Button} from 'react-native-elements';
 
 import {observer} from 'mobx-react-lite';
 
@@ -20,9 +20,7 @@ const User = ({navigation}: Props) => {
 
   const {user} = userStore;
 
-  const {theme} = useTheme();
-
-  const styles = styleSheet(theme.colors);
+  const styles = styleSheet();
 
   const handleSignOut = () => {
     signOut().then(() => {

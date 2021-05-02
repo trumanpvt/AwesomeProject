@@ -5,13 +5,15 @@ import ButtonCustom from '../Button';
 
 import {sendEmailVerification} from '../../util/auth';
 
-import styles from './style';
+import styleSheet from './style';
 
 interface Props {
   setCloseModal: () => void;
 }
 
 const ModalConfirmEmail = ({setCloseModal}: Props) => {
+  const styles = styleSheet();
+
   return (
     <View style={styles.form}>
       <Text style={styles.headerText}>

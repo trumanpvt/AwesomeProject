@@ -4,7 +4,7 @@ import {Text, View} from 'react-native';
 
 import {sendPasswordResetEmail} from '../../util/auth';
 
-import styles from './style';
+import styleSheet from './style';
 import ButtonCustom from '../Button';
 import {Input} from 'react-native-elements';
 
@@ -17,6 +17,8 @@ const ModalResetPassword = ({email = '', setModal}: Props) => {
   const [userEmail, setUserEmail] = useState(email);
   const [isLinkSent, setIsLinkSent] = useState(false);
   const [error, setError] = useState(null);
+
+  const styles = styleSheet();
 
   const handleSendPasswordResetEmail = () => {
     sendPasswordResetEmail(userEmail)

@@ -1,15 +1,19 @@
 import {StyleSheet} from 'react-native';
+import {useTheme} from 'react-native-elements';
 
-export default (colors: any) =>
-  StyleSheet.create({
+export default () => {
+  const {theme} = useTheme();
+
+  return StyleSheet.create({
     indicator: {
-      backgroundColor: colors.primary,
+      backgroundColor: theme.colors?.primary,
     },
     tabContainer: {
       backgroundColor: 'transparent',
     },
     tabTitle: {
-      color: colors.primary,
+      color: theme.colors?.primary,
       fontSize: 15,
     },
   });
+};

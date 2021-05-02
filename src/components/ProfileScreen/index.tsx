@@ -10,7 +10,7 @@ import {getCurrentUser, reloadCurrentUser} from '../../util/auth';
 
 import {useNavigation} from '@react-navigation/native';
 
-import {Input, useTheme} from 'react-native-elements';
+import {Input} from 'react-native-elements';
 
 import styleSheet from './style';
 import ButtonCustom from '../Button';
@@ -29,9 +29,7 @@ const ProfileScreen = () => {
 
   const navigation = useNavigation();
 
-  const {theme} = useTheme();
-
-  const styles = styleSheet(theme.colors);
+  const styles = styleSheet();
 
   useEffect(() => {
     return navigation.addListener('focus', () => {

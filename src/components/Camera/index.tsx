@@ -9,7 +9,7 @@ import {
   View,
 } from 'react-native';
 
-import {SpeedDial, useTheme, Icon} from 'react-native-elements';
+import {Icon, SpeedDial, useTheme} from 'react-native-elements';
 
 import styleSheet from './style';
 
@@ -24,7 +24,7 @@ const Camera = ({closeCamera, takePhoto}: Props) => {
 
   const {theme} = useTheme();
 
-  const styles = styleSheet(theme.colors);
+  const styles = styleSheet();
 
   const takePicture = async function (camera: RNCamera) {
     const options = {quality: 0.5, base64: true};

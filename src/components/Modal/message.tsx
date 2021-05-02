@@ -3,7 +3,7 @@ import React from 'react';
 import {Text, View} from 'react-native';
 import ButtonCustom from '../Button';
 
-import styles from './style';
+import styleSheet from './style';
 
 interface Props {
   message: string | undefined;
@@ -11,6 +11,7 @@ interface Props {
 }
 
 const ModalMessage = ({message = '', setCloseModal}: Props) => {
+  const styles = styleSheet();
   return (
     <View style={styles.form}>
       <Text style={styles.headerText}>{message}</Text>

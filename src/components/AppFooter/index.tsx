@@ -4,7 +4,7 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import {useStores} from '../../store/';
 import {useTranslation} from 'react-i18next';
 import {observer} from 'mobx-react-lite';
-import {Tab, useTheme} from 'react-native-elements';
+import {Tab} from 'react-native-elements';
 
 import styleSheet from './style';
 
@@ -15,9 +15,7 @@ const AppFooter = () => {
 
   const {t} = useTranslation();
 
-  const {theme} = useTheme();
-
-  const styles = styleSheet(theme.colors);
+  const styles = styleSheet();
 
   return (
     <SafeAreaView edges={['right', 'bottom', 'left']}>

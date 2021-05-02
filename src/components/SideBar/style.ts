@@ -1,7 +1,10 @@
 import {StyleSheet} from 'react-native';
+import {useTheme} from 'react-native-elements';
 
-export default (colors: any) =>
-  StyleSheet.create({
+export default () => {
+  const {theme} = useTheme();
+
+  return StyleSheet.create({
     sideBar: {
       paddingLeft: 15,
     },
@@ -19,7 +22,7 @@ export default (colors: any) =>
       color: 'white',
     },
     avatarOverlay: {
-      backgroundColor: colors.error,
+      backgroundColor: theme.colors?.error,
     },
     userName: {
       marginLeft: 20,
@@ -33,10 +36,10 @@ export default (colors: any) =>
       width: 200,
     },
     signInBtn: {
-      backgroundColor: colors.primary,
+      backgroundColor: theme.colors?.primary,
     },
     signOutBtn: {
-      backgroundColor: colors.error,
+      backgroundColor: theme.colors?.error,
     },
     signBtnText: {
       color: 'white',
@@ -51,7 +54,7 @@ export default (colors: any) =>
       width: 100,
     },
     languageBtn: {
-      backgroundColor: colors.primary,
+      backgroundColor: theme.colors?.primary,
     },
     languageBtnText: {
       paddingVertical: 5,
@@ -62,3 +65,4 @@ export default (colors: any) =>
       textAlign: 'center',
     },
   });
+};

@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 
 import {Text, View} from 'react-native';
-import {DefaultTabBar, Tab, Tabs} from 'native-base';
 
 import {
   facebookSignIn,
@@ -10,10 +9,12 @@ import {
   sendEmailVerification,
   signUp,
 } from '../../util/auth';
-import styles from './style';
+
 import {useStores} from '../../store';
-import {Input, SocialIcon} from 'react-native-elements';
+import {Input, SocialIcon, Tab} from 'react-native-elements';
 import ButtonCustom from '../Button';
+
+import styleSheet from './style';
 
 interface Props {
   setModal: (data: {type?: string; email?: string}) => void;
@@ -33,6 +34,8 @@ const ModalAuth = ({setCloseModal, setModal}: Props): JSX.Element => {
     setError('');
   }, [email]);
 
+  const styles = styleSheet();
+
   const handlePasswordSignIn = (): void => {
     passwordSignIn(email, password)
       .then((cred) => {
@@ -49,7 +52,7 @@ const ModalAuth = ({setCloseModal, setModal}: Props): JSX.Element => {
 
   const handleSendEmailVerification = (): void => {
     sendEmailVerification()
-      .then(() => {
+      ?.then(() => {
         setModal({
           type: 'confirmEmail',
         });
@@ -118,35 +121,27 @@ const ModalAuth = ({setCloseModal, setModal}: Props): JSX.Element => {
     setIsSignUp(!isSignUp);
   };
 
-  const renderTabBar = (tabsProps: any): JSX.Element => {
-    tabsProps.tabStyle = Object.create(tabsProps.tabStyle);
-    return <DefaultTabBar {...tabsProps} />;
-  };
-
   const renderChangeModeTabs = (): JSX.Element => {
     return (
-      <View style={styles.modalTabsContainer}>
-        <Tabs
-          renderTabBar={renderTabBar}
-          scrollWithoutAnimation
-          tabContainerStyle={styles.modalTabs}
-          onChangeTab={changeSignMode}>
-          <Tab
-            tabStyle={styles.modalTab}
-            heading={'SignIn'}
-            // @ts-ignore
-            disabled={!isSignUp}
-            activeTabStyle={styles.modalTab}
-          />
-          <Tab
-            tabStyle={styles.modalTab}
-            activeTabStyle={styles.modalTab}
-            heading={'SignUp'}
-            // @ts-ignore
-            disabled={isSignUp}
-          />
-        </Tabs>
-      </View>
+      <Tab
+        onChange={changeSignMode}
+        value={isSignUp ? 1 : 0}
+        indicatorStyle={styles.tabIndicator}>
+        <Tab.Item
+          containerStyle={styles.modalTabLeft}
+          titleStyle={styles.modalTabTitle}
+          title={'SignIn'}
+          active={!isSignUp}
+          disabled={!isSignUp}
+        />
+        <Tab.Item
+          containerStyle={styles.modalTabRight}
+          titleStyle={styles.modalTabTitle}
+          title={'SignUp'}
+          active={isSignUp}
+          disabled={isSignUp}
+        />
+      </Tab>
     );
   };
 
@@ -200,8 +195,8 @@ const ModalAuth = ({setCloseModal, setModal}: Props): JSX.Element => {
         <ButtonCustom
           rounded
           raised={false}
-          color="transparent"
-          titleColor="secondary"
+          type="clear"
+          // titleColor="secondary"
           onPress={handlePasswordReset}
           title="Forgot password"
         />

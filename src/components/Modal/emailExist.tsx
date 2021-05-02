@@ -13,9 +13,9 @@ import {
 import {useStores} from '../../store';
 import {FirebaseAuthTypes} from '@react-native-firebase/auth';
 
-import styles from './style';
 import {Input, SocialIcon} from 'react-native-elements';
 import ButtonCustom from '../Button';
+import styleSheet from './style';
 
 interface Props {
   setModal: (data: {type: string}) => void;
@@ -28,6 +28,8 @@ const ModalEmailExist = ({setModal, setCloseModal}: Props) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
+
+  const styles = styleSheet();
 
   const handleGoogleSignIn = () => {
     googleSignIn()

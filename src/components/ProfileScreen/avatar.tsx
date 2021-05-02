@@ -6,7 +6,7 @@ import {ActivityIndicator, Platform, View} from 'react-native';
 import ImagePicker, {Image} from 'react-native-image-crop-picker';
 import Camera from '../Camera';
 import {FirebaseAuthTypes} from '@react-native-firebase/auth';
-import {Avatar, useTheme} from 'react-native-elements';
+import {Avatar} from 'react-native-elements';
 import {useActionSheet} from '@expo/react-native-action-sheet';
 
 interface Props {
@@ -20,9 +20,7 @@ const ProfileAvatar = ({user, changeUser}: Props) => {
   const [uploading, setUploading] = useState(false);
   const [isOpenCamera, setIsOpenCamera] = useState(false);
 
-  const {theme} = useTheme();
-
-  const styles = styleSheet(theme.colors);
+  const styles = styleSheet();
 
   // useEffect(() => {
   //   setUploading(false);

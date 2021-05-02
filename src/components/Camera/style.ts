@@ -1,7 +1,7 @@
 import {StyleSheet} from 'react-native';
 
-export default (colors: any) =>
-  StyleSheet.create({
+export default () => {
+  return StyleSheet.create({
     container: {
       flexDirection: 'column',
       backgroundColor: 'black',
@@ -58,3 +58,4 @@ export default (colors: any) =>
       alignItems: 'center',
     },
   });
+};

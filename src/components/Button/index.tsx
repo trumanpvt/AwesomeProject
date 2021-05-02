@@ -5,61 +5,47 @@ import {Button, useTheme} from 'react-native-elements';
 interface Props {
   rounded?: boolean;
   raised?: boolean;
+  type?: 'solid' | 'clear' | 'outline';
   color?: string;
-  titleColor?: string;
   buttonStyle?: any;
   containerStyle?: any;
-  titleStyle?: any;
   [x: string]: any;
 }
 
 const ButtonCustom = ({
   rounded,
   raised = true,
+  type = 'solid',
   color = 'primary',
-  titleColor,
   buttonStyle,
   containerStyle,
-  titleStyle,
   ...props
 }: Props) => {
   const {theme} = useTheme();
 
   buttonStyle = {
     ...buttonStyle,
-    backgroundColor:
-      color === 'transparent' ? 'transparent' : {...theme.colors}[color],
     paddingVertical: 13,
   };
 
-  buttonStyle = {
-    ...buttonStyle,
-    backgroundColor:
-      color === 'transparent' ? 'transparent' : {...theme.colors}[color],
-    paddingVertical: 13,
-  };
-
-  containerStyle = {
-    ...containerStyle,
-    // width: '100%',
-  };
-
-  if (rounded) {
-    containerStyle.borderRadius = 30;
+  if (type !== 'clear') {
+    buttonStyle.backgroundColor = {...theme.colors}[color];
   }
 
-  titleStyle = {
-    ...titleStyle,
-    color: titleColor ? {...theme.colors}[titleColor] : '#fff',
-  };
+  if (rounded) {
+    containerStyle = {
+      ...containerStyle,
+      borderRadius: 30,
+    };
+  }
 
   return (
     <Button
       {...props}
       buttonStyle={buttonStyle}
-      titleStyle={titleStyle}
       containerStyle={containerStyle}
       raised={raised}
+      type={type}
     />
   );
 };
