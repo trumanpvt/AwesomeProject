@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 
-import {Text} from 'react-native';
-import {Button, Form, Icon, Input, Item} from 'native-base';
+import {Text, View} from 'react-native';
+import {Input, Item} from 'native-base';
 
 import {
   facebookSignIn,
@@ -15,6 +15,8 @@ import {useStores} from '../../store';
 import {FirebaseAuthTypes} from '@react-native-firebase/auth';
 
 import styles from './style';
+import {SocialIcon} from 'react-native-elements';
+import ButtonCustom from '../Button';
 
 interface Props {
   setModal: (data: {type: string}) => void;
@@ -31,7 +33,7 @@ const ModalEmailExist = ({setModal, setCloseModal}: Props) => {
   const handleGoogleSignIn = () => {
     googleSignIn()
       .then(() => {
-        linkWithCredential(credential).then(() => {
+        linkWithCredential(credential)?.then(() => {
           setCloseModal();
         });
       })
@@ -49,7 +51,7 @@ const ModalEmailExist = ({setModal, setCloseModal}: Props) => {
       })
       .then(() => {
         if (user && !user.emailVerified) {
-          sendEmailVerification().then(() => {
+          sendEmailVerification()?.then(() => {
             setModal({
               type: 'confirmEmail',
             });
@@ -79,19 +81,23 @@ const ModalEmailExist = ({setModal, setCloseModal}: Props) => {
   };
 
   return (
-    <Form style={styles.form}>
+    <View style={styles.form}>
       <Text style={styles.headerText}>
         Account already exist for provided email.
       </Text>
       <Text style={styles.messageText}>Please first login with Google</Text>
-      <Button
-        full
-        rounded
-        style={[styles.socialButtonExist, styles.googleButton]}
-        onPress={handleGoogleSignIn}>
-        <Icon name="google" type="FontAwesome" />
-        <Text style={styles.textStyle}>Google</Text>
-      </Button>
+      <SocialIcon
+        title="Google"
+        button
+        type="google"
+        onPress={handleGoogleSignIn}
+        raised
+        iconType="font-awesome"
+        iconSize={20}
+        iconColor="white"
+        fontStyle={styles.socialButtonTitle}
+        style={styles.socialButtonExist}
+      />
       <Text style={styles.messageText}>Or with email/password</Text>
       <Item style={styles.input}>
         <Input
@@ -113,35 +119,36 @@ const ModalEmailExist = ({setModal, setCloseModal}: Props) => {
           placeholder="Password"
         />
       </Item>
-      <Button
-        full
+      <ButtonCustom
         rounded
-        success
-        style={styles.button}
+        color="success"
         disabled={!email || !password}
-        onPress={handlePasswordSignIn}>
-        <Text style={styles.textStyle}>Sign In</Text>
-      </Button>
+        onPress={handlePasswordSignIn}
+        buttonStyle={styles.button}
+        title="Sign In"
+      />
       <Text style={styles.messageText}>Or choose another Facebook user</Text>
-      <Button
-        full
-        rounded
-        primary
-        style={[styles.socialButtonExist, styles.facebookButton]}
-        onPress={handleFacebookSignIn}>
-        <Icon name="facebook" type="FontAwesome" />
-        <Text style={styles.textStyle}>Facebook</Text>
-      </Button>
+      <SocialIcon
+        title="Facebook"
+        button
+        type="facebook"
+        onPress={handleFacebookSignIn}
+        raised
+        iconType="font-awesome"
+        iconSize={20}
+        iconColor="white"
+        fontStyle={styles.socialButtonTitle}
+        style={styles.socialButtonExist}
+      />
       {error && <Text style={styles.error}>{error}</Text>}
-      <Button
-        full
+      <ButtonCustom
         rounded
-        danger
-        style={styles.button}
-        onPress={() => setModal({type: 'auth'})}>
-        <Text style={styles.textStyle}>Cancel</Text>
-      </Button>
-    </Form>
+        color="error"
+        onPress={() => setModal({type: 'auth'})}
+        buttonStyle={styles.button}
+        title="Cancel"
+      />
+    </View>
   );
 };
 

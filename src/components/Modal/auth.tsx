@@ -3,10 +3,8 @@ import React, {useEffect, useState} from 'react';
 import {View} from 'react-native';
 import {
   Button,
-  // @ts-ignore
   DefaultTabBar,
   Form,
-  Icon,
   Input,
   Item,
   Tab,
@@ -24,6 +22,7 @@ import {
 import styles from './style';
 import {useStores} from '../../store';
 import {SocialIcon} from 'react-native-elements';
+import ButtonCustom from '../Button';
 
 interface Props {
   setModal: (data: {type?: string; email?: string}) => void;
@@ -218,15 +217,14 @@ const ModalAuth = ({setCloseModal, setModal}: Props): JSX.Element => {
           <Text>Forgot password</Text>
         </Button>
         {error ? <Text style={styles.error}>{error}</Text> : null}
-        <Button
-          full
+        <ButtonCustom
           rounded
-          success
-          style={styles.button}
+          color="success"
           disabled={!email || !password}
-          onPress={handlePasswordSignIn}>
-          <Text style={styles.textStyle}>Sign In</Text>
-        </Button>
+          onPress={handlePasswordSignIn}
+          buttonStyle={styles.button}
+          title="Sign In"
+        />
       </>
     );
   };
@@ -266,15 +264,14 @@ const ModalAuth = ({setCloseModal, setModal}: Props): JSX.Element => {
         </Item>
         <>
           {error ? <Text style={styles.error}>{error}</Text> : null}
-          <Button
-            full
+          <ButtonCustom
             rounded
-            success
-            style={styles.button}
+            color="success"
             disabled={!email || !password || !confirmPassword}
-            onPress={handleSignUp}>
-            <Text style={styles.textStyle}>Sign Up</Text>
-          </Button>
+            onPress={handleSignUp}
+            buttonStyle={styles.button}
+            title="Sign Up"
+          />
         </>
       </>
     );
@@ -285,14 +282,13 @@ const ModalAuth = ({setCloseModal, setModal}: Props): JSX.Element => {
       {renderChangeModeTabs()}
       <Form style={styles.form}>
         {isSignUp ? renderSignUp() : renderSignIn()}
-        <Button
-          full
+        <ButtonCustom
           rounded
-          danger
-          style={styles.button}
-          onPress={setCloseModal}>
-          <Text style={styles.textStyle}>Cancel</Text>
-        </Button>
+          color="error"
+          onPress={setCloseModal}
+          buttonStyle={styles.button}
+          title="Cancel"
+        />
       </Form>
     </>
   );

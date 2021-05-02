@@ -1,7 +1,7 @@
 import React from 'react';
 
-import {Text} from 'react-native';
-import {Button, Form} from 'native-base';
+import {Text, View} from 'react-native';
+import ButtonCustom from '../Button';
 
 import styles from './style';
 
@@ -12,12 +12,16 @@ interface Props {
 
 const ModalMessage = ({message = '', setCloseModal}: Props) => {
   return (
-    <Form style={styles.form}>
+    <View style={styles.form}>
       <Text style={styles.headerText}>{message}</Text>
-      <Button full rounded danger style={styles.button} onPress={setCloseModal}>
-        <Text style={styles.textStyle}>OK</Text>
-      </Button>
-    </Form>
+      <ButtonCustom
+        rounded
+        color="error"
+        onPress={setCloseModal}
+        buttonStyle={styles.button}
+        title="OK"
+      />
+    </View>
   );
 };
 

@@ -1,7 +1,7 @@
 import React from 'react';
 
-import {Text} from 'react-native';
-import {Button, Form} from 'native-base';
+import {Text, View} from 'react-native';
+import ButtonCustom from '../Button';
 
 import {sendEmailVerification} from '../../util/auth';
 
@@ -13,21 +13,24 @@ interface Props {
 
 const ModalConfirmEmail = ({setCloseModal}: Props) => {
   return (
-    <Form style={styles.form}>
+    <View style={styles.form}>
       <Text style={styles.headerText}>
         Please confirm your email, confirmation link was sent to you
       </Text>
-      <Button
-        full
+      <ButtonCustom
         rounded
-        style={styles.button}
-        onPress={sendEmailVerification}>
-        <Text style={styles.textStyle}>Send verification again</Text>
-      </Button>
-      <Button full rounded danger style={styles.button} onPress={setCloseModal}>
-        <Text style={styles.textStyle}>Close</Text>
-      </Button>
-    </Form>
+        onPress={sendEmailVerification}
+        buttonStyle={styles.button}
+        title="Send verification again"
+      />
+      <ButtonCustom
+        rounded
+        color="error"
+        onPress={setCloseModal}
+        buttonStyle={styles.button}
+        title="Close"
+      />
+    </View>
   );
 };
 

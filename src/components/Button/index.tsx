@@ -20,10 +20,11 @@ const ButtonCustom = ({
   buttonStyle = {
     ...buttonStyle,
     backgroundColor: {...theme.colors}[color],
+    paddingVertical: 13,
   };
 
   if (rounded) {
-    buttonStyle.borderRadius = 20;
+    buttonStyle.borderRadius = 30;
   }
 
   return <Button {...props} buttonStyle={buttonStyle} />;
