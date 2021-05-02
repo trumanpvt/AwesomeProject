@@ -7,6 +7,7 @@ import {sendPasswordResetEmail} from '../../util/auth';
 import styleSheet from './style';
 import ButtonCustom from '../Button';
 import {Input} from 'react-native-elements';
+import {useTranslation} from 'react-i18next';
 
 interface Props {
   email: string | undefined;
@@ -18,6 +19,8 @@ const ModalResetPassword = ({email = '', setModal}: Props) => {
   const [isLinkSent, setIsLinkSent] = useState(false);
   const [error, setError] = useState(null);
 
+  const {t} = useTranslation();
+
   const styles = styleSheet();
 
   const handleSendPasswordResetEmail = () => {
@@ -25,7 +28,7 @@ const ModalResetPassword = ({email = '', setModal}: Props) => {
       .then(() => {
         setIsLinkSent(true);
       })
-      .catch((err) => {
+      .catch(err => {
         setError(err.message);
       });
   };
@@ -41,7 +44,7 @@ const ModalResetPassword = ({email = '', setModal}: Props) => {
           rounded
           onPress={handleSendPasswordResetEmail}
           containerStyle={styles.button}
-          title="Send link again"
+          title={t('modal.button.resetPasswordAgain')}
         />
       </>
     );
@@ -62,9 +65,10 @@ const ModalResetPassword = ({email = '', setModal}: Props) => {
         {error && <Text style={styles.error}>{error}</Text>}
         <ButtonCustom
           rounded
+          disabled={!userEmail}
           onPress={handleSendPasswordResetEmail}
           containerStyle={styles.button}
-          title="Reset password"
+          title={t('modal.button.resetPassword')}
         />
       </>
     );
@@ -79,7 +83,7 @@ const ModalResetPassword = ({email = '', setModal}: Props) => {
         color="error"
         onPress={() => setModal({type: 'auth'})}
         containerStyle={styles.button}
-        title={isLinkSent ? 'Close' : 'Cancel'}
+        title={isLinkSent ? t('modal.button.close') : t('modal.button.cancel')}
       />
     </View>
   );
