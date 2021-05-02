@@ -4,7 +4,18 @@ export default StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: 10,
-    paddingTop: 20,
+    alignItems: 'flex-end',
+  },
+  pickerContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 10,
+  },
+  pickerTitle: {
+    fontSize: 15,
+  },
+  picker: {
+    width: 90,
   },
   articles: {
     flex: 1,
@@ -31,8 +42,8 @@ export default StyleSheet.create({
     lineHeight: 20,
   },
   articleImg: {
-    height: 200,
     flex: 1,
+    height: 200,
     width: undefined,
   },
   articleData: {

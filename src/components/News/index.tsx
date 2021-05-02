@@ -14,18 +14,22 @@ import {
   View,
 } from 'react-native';
 
+import {Picker} from '@react-native-picker/picker';
+import {countries} from '../../constants';
+
 import styles from './style';
+import {useTranslation} from 'react-i18next';
 
 const News = () => {
   const {localeStore, newsStore} = useStores();
-  const {country} = localeStore;
-  const {articles, state, fetchArticles} = newsStore;
+  const {country, setCountry} = localeStore;
+  const {articles, state} = newsStore;
+
+  const {t} = useTranslation();
 
   useEffect(() => {
-    if (!articles.length) {
-      newsStore.fetchArticles(country);
-    }
-  }, [articles.length, country, fetchArticles, newsStore]);
+    newsStore.fetchArticles(country);
+  }, [country, newsStore]);
 
   const onRefresh = () => {
     newsStore.fetchArticles(country);
@@ -59,20 +63,33 @@ const News = () => {
   };
 
   return (
-    <ScrollView
-      style={styles.container}
-      refreshControl={
-        <RefreshControl
-          onRefresh={onRefresh}
-          refreshing={state === 'pending'}
-        />
-      }>
-      {state !== 'error' ? (
-        articles.map(renderArticle)
-      ) : (
-        <Text style={styles.error}>News loading error</Text>
-      )}
-    </ScrollView>
+    <View style={styles.container}>
+      <View style={styles.pickerContainer}>
+        <Text style={styles.pickerTitle}>{t('news.pickerTitle')}</Text>
+        <Picker
+          selectedValue={country}
+          onValueChange={itemValue => setCountry(itemValue)}
+          style={styles.picker}>
+          {countries.map(item => (
+            <Picker.Item label={item.toUpperCase()} value={item} />
+          ))}
+        </Picker>
+      </View>
+      <ScrollView
+        style={styles.articles}
+        refreshControl={
+          <RefreshControl
+            onRefresh={onRefresh}
+            refreshing={state === 'pending'}
+          />
+        }>
+        {state !== 'error' ? (
+          articles.map(renderArticle)
+        ) : (
+          <Text style={styles.error}>News loading error</Text>
+        )}
+      </ScrollView>
+    </View>
   );
 };
 

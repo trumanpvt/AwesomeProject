@@ -12,7 +12,7 @@
     "text": "Текст статей"
   },
   "news": {
-    "infoText": "<0><0>Eins </O><1>Zwei </1><2>Drei </2><3>Vier </3><4>Fünf</4></O>"
+    "pickerTitle": "Новости из: "
   },
   "podcasts": {
     "text": "Текст подкастов"
