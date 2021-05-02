@@ -41,7 +41,7 @@
   },
   "modal": {
     "signIn": "Вход",
-    "signUp": "Рег.",
+    "signUp": "Регистрация",
     "placeholder": {
       "password": "Пароль",
       "passwordConfirm": "Подтверждение пароля"

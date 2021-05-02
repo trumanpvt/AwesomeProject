@@ -15,6 +15,7 @@ import {Input, SocialIcon, Tab} from 'react-native-elements';
 import ButtonCustom from '../Button';
 
 import styleSheet from './style';
+import {useTranslation} from 'react-i18next';
 
 interface Props {
   setModal: (data: {type?: string; email?: string}) => void;
@@ -33,6 +34,8 @@ const ModalAuth = ({setCloseModal, setModal}: Props): JSX.Element => {
   useEffect(() => {
     setError('');
   }, [email]);
+
+  const {t} = useTranslation();
 
   const styles = styleSheet();
 
@@ -131,14 +134,14 @@ const ModalAuth = ({setCloseModal, setModal}: Props): JSX.Element => {
         <Tab.Item
           containerStyle={styles.modalTabLeft}
           titleStyle={styles.modalTabTitle}
-          title={'SignIn'}
+          title={t('modal.signIn')}
           active={!isSignUp}
           disabled={!isSignUp}
         />
         <Tab.Item
           containerStyle={styles.modalTabRight}
           titleStyle={styles.modalTabTitle}
-          title={'SignUp'}
+          title={t('modal.signUp')}
           active={isSignUp}
           disabled={isSignUp}
         />
@@ -188,7 +191,7 @@ const ModalAuth = ({setCloseModal, setModal}: Props): JSX.Element => {
           autoCapitalize="none"
           textContentType="password"
           secureTextEntry
-          placeholder="Password"
+          placeholder={t('modal.placeholder.password')}
           value={password}
           onChangeText={setPassword}
           leftIcon={{type: 'material', name: 'lock'}}
@@ -197,9 +200,8 @@ const ModalAuth = ({setCloseModal, setModal}: Props): JSX.Element => {
           rounded
           raised={false}
           type="clear"
-          // titleColor="secondary"
           onPress={handlePasswordReset}
-          title="Forgot password"
+          title={t('modal.button.forgotPassword')}
         />
         {error ? <Text style={styles.error}>{error}</Text> : null}
         <ButtonCustom
@@ -208,7 +210,7 @@ const ModalAuth = ({setCloseModal, setModal}: Props): JSX.Element => {
           disabled={!email || !password}
           onPress={handlePasswordSignIn}
           containerStyle={styles.button}
-          title="Sign In"
+          title={t('modal.signIn')}
         />
       </>
     );
@@ -230,7 +232,7 @@ const ModalAuth = ({setCloseModal, setModal}: Props): JSX.Element => {
           autoCapitalize="none"
           textContentType="password"
           secureTextEntry
-          placeholder="Password"
+          placeholder={t('modal.placeholder.password')}
           value={password}
           onChangeText={setPassword}
           leftIcon={{type: 'material', name: 'lock'}}
@@ -239,7 +241,7 @@ const ModalAuth = ({setCloseModal, setModal}: Props): JSX.Element => {
           autoCapitalize="none"
           textContentType="password"
           secureTextEntry
-          placeholder="Confirm password"
+          placeholder={t('modal.placeholder.passwordConfirm')}
           value={confirmPassword}
           onChangeText={setConfirmPassword}
           leftIcon={{type: 'material', name: 'lock'}}
@@ -249,10 +251,10 @@ const ModalAuth = ({setCloseModal, setModal}: Props): JSX.Element => {
           <ButtonCustom
             rounded
             color="success"
-            disabled={!email || !password || !confirmPassword}
+            disabled={!email || !password || password !== confirmPassword}
             onPress={handleSignUp}
             containerStyle={styles.button}
-            title="Sign Up"
+            title={t('modal.signUp')}
           />
         </>
       </>
@@ -269,7 +271,7 @@ const ModalAuth = ({setCloseModal, setModal}: Props): JSX.Element => {
           color="error"
           onPress={setCloseModal}
           containerStyle={styles.button}
-          title="Cancel"
+          title={t('modal.button.cancel')}
         />
       </View>
     </>

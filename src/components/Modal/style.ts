@@ -11,7 +11,7 @@ export default () => {
       alignItems: 'center',
     },
     modalWrap: {
-      width: 250,
+      width: 300,
       borderRadius: 20,
       backgroundColor: 'white',
       shadowColor: '#000',
