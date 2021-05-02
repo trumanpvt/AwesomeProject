@@ -20,7 +20,7 @@ const AppFooter = () => {
   return (
     <SafeAreaView edges={['right', 'bottom', 'left']}>
       <Tab
-        onChange={(number) => setFooterMode(footerModes[number])}
+        onChange={number => setFooterMode(footerModes[number])}
         value={footerModes.indexOf(mode)}
         indicatorStyle={styles.indicator}>
         <Tab.Item

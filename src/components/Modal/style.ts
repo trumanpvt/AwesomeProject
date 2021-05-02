@@ -41,6 +41,8 @@ export default () => {
     },
     modalTabTitle: {
       color: '#fff',
+      fontSize: 13,
+      fontWeight: 'bold',
     },
     buttonTab: {
       width: '50%',

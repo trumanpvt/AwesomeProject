@@ -12,7 +12,8 @@ export default () => {
       paddingRight: 20,
     },
     heading: {
-      marginTop: 20,
+      marginTop: 30,
+      marginBottom: 20,
       fontSize: 20,
       textAlign: 'center',
     },

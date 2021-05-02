@@ -14,6 +14,7 @@ import {Input} from 'react-native-elements';
 
 import styleSheet from './style';
 import ButtonCustom from '../Button';
+import {useTranslation} from 'react-i18next';
 
 const ProfileScreen = () => {
   const {userStore, modalStore} = useStores();
@@ -28,6 +29,8 @@ const ProfileScreen = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
 
   const navigation = useNavigation();
+
+  const {t} = useTranslation();
 
   const styles = styleSheet();
 
@@ -92,12 +95,11 @@ const ProfileScreen = () => {
   return user && user.emailVerified ? (
     <View style={styles.container}>
       <>
-        <Text style={styles.heading}>Profile</Text>
         <ProfileAvatar user={user} changeUser={changeUser} />
         <View style={styles.form}>
           <Input
             autoCapitalize="none"
-            placeholder="Username"
+            placeholder={t('profile.placeholder.username')}
             value={displayName}
             onChangeText={setDisplayName}
             leftIcon={{type: 'material', name: 'person'}}
@@ -107,24 +109,26 @@ const ProfileScreen = () => {
               rounded
               onPress={handleChangeUser}
               containerStyle={styles.button}
-              title="Save"
+              title={t('profile.button.save')}
             />
             <ButtonCustom
               rounded
               color="error"
               onPress={handleCancelChangeUser}
               containerStyle={styles.button}
-              title="Cancel"
+              title={t('profile.button.cancel')}
             />
           </View>
           <Text style={styles.heading}>
-            {isPasswordProvider() ? 'Change password' : 'Create password'}
+            {isPasswordProvider()
+              ? t('profile.changePassword')
+              : t('profile.createPassword')}
           </Text>
           {isPasswordProvider() && (
             <Input
               autoCapitalize="none"
               textContentType="password"
-              placeholder="Old password"
+              placeholder={t('profile.placeholder.passwordOld')}
               value={password}
               onChangeText={setPassword}
               leftIcon={{type: 'material', name: 'lock'}}
@@ -133,7 +137,7 @@ const ProfileScreen = () => {
           <Input
             autoCapitalize="none"
             textContentType="password"
-            placeholder="New password"
+            placeholder={t('profile.placeholder.passwordNew')}
             secureTextEntry
             value={newPassword}
             onChangeText={setNewPassword}
@@ -142,7 +146,7 @@ const ProfileScreen = () => {
           <Input
             autoCapitalize="none"
             textContentType="password"
-            placeholder="Confirm password"
+            placeholder={t('profile.placeholder.passwordConfirm')}
             secureTextEntry
             value={confirmPassword}
             onChangeText={setConfirmPassword}
@@ -153,14 +157,14 @@ const ProfileScreen = () => {
               rounded
               onPress={handlePasswordChange}
               containerStyle={styles.button}
-              title="Save"
+              title={t('profile.button.save')}
             />
             <ButtonCustom
               rounded
               color="error"
               onPress={handleCancelPasswordChange}
               containerStyle={styles.button}
-              title="Cancel"
+              title={t('profile.button.cancel')}
             />
           </View>
         </View>

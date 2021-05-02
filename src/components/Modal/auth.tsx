@@ -38,14 +38,14 @@ const ModalAuth = ({setCloseModal, setModal}: Props): JSX.Element => {
 
   const handlePasswordSignIn = (): void => {
     passwordSignIn(email, password)
-      .then((cred) => {
+      .then(cred => {
         if (cred.user && !cred.user.emailVerified) {
           handleSendEmailVerification();
         } else {
           setCloseModal();
         }
       })
-      .catch((err) => {
+      .catch(err => {
         setError(err.message);
       });
   };
@@ -57,7 +57,7 @@ const ModalAuth = ({setCloseModal, setModal}: Props): JSX.Element => {
           type: 'confirmEmail',
         });
       })
-      .catch((err) => {
+      .catch(err => {
         setError(err.message);
       });
   };
@@ -71,7 +71,7 @@ const ModalAuth = ({setCloseModal, setModal}: Props): JSX.Element => {
             type: 'confirmEmail',
           });
         })
-        .catch((err) => {
+        .catch(err => {
           setError(err.message);
         });
     } else {
@@ -88,14 +88,14 @@ const ModalAuth = ({setCloseModal, setModal}: Props): JSX.Element => {
       .then(() => {
         setCloseModal();
       })
-      .catch((e) => {
+      .catch(e => {
         setError(e.message || e);
       });
   };
 
   const handleFacebookSignIn = (): void => {
     facebookSignIn(setCredential)
-      .then((res) => {
+      .then(res => {
         if (!res.user.emailVerified) {
           setError('');
           setModal({
@@ -105,7 +105,7 @@ const ModalAuth = ({setCloseModal, setModal}: Props): JSX.Element => {
           setCloseModal();
         }
       })
-      .catch((e) => {
+      .catch(e => {
         if (e.code === 'auth/account-exists-with-different-credential') {
           setModal({type: 'emailExist'});
         }
