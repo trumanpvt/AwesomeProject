@@ -24,5 +24,15 @@
   },
   "chats": {
     "text": "Chats text"
+  },
+  "profile": {
+    "placeholder": {
+      "username": "Username",
+      "passwordOld": "Old password",
+      "passwordNew": "New password",
+      "passwordConfirm": "Confirm password"
+    },
+    "changePassword": "Change password",
+    "createPassword": "Create password"
   }
 }

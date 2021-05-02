@@ -24,5 +24,15 @@
   },
   "chats": {
     "text": "Текст чатов"
+  },
+  "profile": {
+    "placeholder": {
+      "username": "Имя",
+      "passwordOld": "Старый пароль",
+      "passwordNew": "Новый пароль",
+      "passwordConfirm": "Подтверждение"
+    },
+    "changePassword": "Сменить пароль",
+    "createPassword": "Создать пароль"
   }
 }
