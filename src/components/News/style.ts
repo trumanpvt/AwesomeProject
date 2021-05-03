@@ -4,7 +4,7 @@ export default StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: 10,
-    alignItems: 'flex-end',
+    // alignItems: 'flex-end',
   },
   pickerContainer: {
     flexDirection: 'row',

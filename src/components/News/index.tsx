@@ -19,17 +19,17 @@ import styles from './style';
 
 const News = () => {
   const {localeStore, newsStore} = useStores();
-  const {country} = localeStore;
+  const {language, country} = localeStore;
   const {articles, state} = newsStore;
 
   const {t} = useTranslation();
 
   useEffect(() => {
-    newsStore.fetchArticles(country);
-  }, [country, newsStore]);
+    newsStore.fetchArticles(language, country);
+  }, [country, language, newsStore]);
 
   const onRefresh = () => {
-    newsStore.fetchArticles(country);
+    newsStore.fetchArticles(language, country);
   };
 
   const renderArticle = (article: any, index: number): JSX.Element => {

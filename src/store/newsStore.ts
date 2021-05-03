@@ -11,11 +11,12 @@ export default class NewsStore {
     });
   }
 
-  *fetchArticles(country: string) {
+  *fetchArticles(language: string, country: string) {
     this.articles = [];
 
-    const url = `https://newsapi.org/v2/top-headlines?country=${country}&apiKey=104f1bfc96234dfa8fb898d18d7f989f`;
+    const url = `https://newsapi.org/v2/top-headlines?language=${language}&country=${country}&apiKey=104f1bfc96234dfa8fb898d18d7f989f`;
     this.state = 'pending';
+
     try {
       const result: {articles: any[]} = yield fetch(url).then(response =>
         response.json(),
