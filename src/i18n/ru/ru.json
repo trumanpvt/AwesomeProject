@@ -4,10 +4,6 @@
     "ChatScreen": "Чаты",
     "ProfileScreen": "Профиль"
   },
-  "home": {
-    "title": "Welcome",
-    "introduction": "This text comes from i18next and is provided in english."
-  },
   "articles": {
     "text": "Текст статей"
   },
