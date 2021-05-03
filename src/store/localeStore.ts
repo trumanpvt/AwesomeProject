@@ -14,7 +14,7 @@ export default class LocaleStore {
     this.language = language;
   };
 
-  setCountry = (locale: string) => {
-    this.country = locale;
+  setCountry = (country: string) => {
+    this.country = country;
   };
 }

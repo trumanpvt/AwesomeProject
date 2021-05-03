@@ -62,8 +62,8 @@ const App = () => {
   }, [language]);
 
   return (
-    <ActionSheetProvider>
-      <SafeAreaProvider>
+    <SafeAreaProvider>
+      <ActionSheetProvider>
         <ThemeProvider theme={theme}>
           <NavigationContainer>
             <Drawer.Navigator
@@ -90,8 +90,8 @@ const App = () => {
           </NavigationContainer>
           <ModalContainer />
         </ThemeProvider>
-      </SafeAreaProvider>
-    </ActionSheetProvider>
+      </ActionSheetProvider>
+    </SafeAreaProvider>
   );
 };
 

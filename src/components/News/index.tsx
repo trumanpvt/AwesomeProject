@@ -16,11 +16,16 @@ import {
 
 import {useTranslation} from 'react-i18next';
 import styles from './style';
+import ButtonCustom from '../Button';
+import {useActionSheet} from '@expo/react-native-action-sheet';
+import {countries} from '../../constants';
 
 const News = () => {
   const {localeStore, newsStore} = useStores();
-  const {language, country} = localeStore;
+  const {language, country, setCountry} = localeStore;
   const {articles, state} = newsStore;
+
+  const {showActionSheetWithOptions} = useActionSheet();
 
   const {t} = useTranslation();
 
@@ -59,11 +64,28 @@ const News = () => {
     );
   };
 
+  const getLanguageSelector = () => {
+    return showActionSheetWithOptions(
+      {
+        options: [...countries, 'Cancel'],
+        cancelButtonIndex: countries.length,
+        title: 'Choose image source',
+        useModal: true,
+      },
+      buttonIndex => {
+        if (buttonIndex !== countries.length) {
+          setCountry(countries[buttonIndex]);
+        }
+      },
+    );
+  };
+
   return (
     <View style={styles.container}>
-      <View style={styles.pickerContainer}>
-        <Text style={styles.pickerTitle}>{t('news.pickerTitle')}</Text>
-      </View>
+      <ButtonCustom
+        title={t('news.pickerTitle')}
+        onPress={getLanguageSelector}
+      />
       <ScrollView
         style={styles.articles}
         refreshControl={
