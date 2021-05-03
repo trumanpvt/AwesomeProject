@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useMemo} from 'react';
 
 import {observer} from 'mobx-react-lite';
 import {useStores} from '../../store';
@@ -32,6 +32,16 @@ const News = () => {
   useEffect(() => {
     newsStore.fetchArticles(language, country);
   }, [country, language, newsStore]);
+
+  const sortedCountries = useMemo(() => {
+    return countries.sort(a => {
+      if (a === country.toLowerCase() || a === language.toLowerCase()) {
+        return -1;
+      }
+
+      return 1;
+    });
+  }, [country, language]);
 
   const onRefresh = () => {
     newsStore.fetchArticles(language, country);
@@ -67,7 +77,7 @@ const News = () => {
   const getLanguageSelector = () => {
     return showActionSheetWithOptions(
       {
-        options: [...countries, 'Cancel'],
+        options: [...sortedCountries, 'Cancel'],
         cancelButtonIndex: countries.length,
         title: 'Choose country',
         useModal: true,
