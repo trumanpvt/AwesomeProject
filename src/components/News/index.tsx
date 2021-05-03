@@ -14,15 +14,12 @@ import {
   View,
 } from 'react-native';
 
-import {Picker} from '@react-native-picker/picker';
-import {countries} from '../../constants';
-
-import styles from './style';
 import {useTranslation} from 'react-i18next';
+import styles from './style';
 
 const News = () => {
   const {localeStore, newsStore} = useStores();
-  const {country, setCountry} = localeStore;
+  const {country} = localeStore;
   const {articles, state} = newsStore;
 
   const {t} = useTranslation();
@@ -66,14 +63,6 @@ const News = () => {
     <View style={styles.container}>
       <View style={styles.pickerContainer}>
         <Text style={styles.pickerTitle}>{t('news.pickerTitle')}</Text>
-        <Picker
-          selectedValue={country}
-          onValueChange={itemValue => setCountry(itemValue)}
-          style={styles.picker}>
-          {countries.map((item, index) => (
-            <Picker.Item label={item.toUpperCase()} value={item} key={index} />
-          ))}
-        </Picker>
       </View>
       <ScrollView
         style={styles.articles}
