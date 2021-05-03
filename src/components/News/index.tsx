@@ -69,8 +69,10 @@ const News = () => {
       {
         options: [...countries, 'Cancel'],
         cancelButtonIndex: countries.length,
-        title: 'Choose image source',
+        title: 'Choose country',
         useModal: true,
+        showSeparators: true,
+        textStyle: styles.pickerOptions,
       },
       buttonIndex => {
         if (buttonIndex !== countries.length) {
@@ -83,8 +85,9 @@ const News = () => {
   return (
     <View style={styles.container}>
       <ButtonCustom
-        title={t('news.pickerTitle')}
+        title={`${t('news.pickerTitle')}: ${country.toUpperCase()}`}
         onPress={getLanguageSelector}
+        containerStyle={styles.pickerButton}
       />
       <ScrollView
         style={styles.articles}

@@ -4,19 +4,12 @@ export default StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: 10,
-    // alignItems: 'flex-end',
   },
-  pickerContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingVertical: 10,
+  pickerButton: {
+    marginVertical: 20,
   },
-  pickerTitle: {
-    fontSize: 16,
-    paddingRight: 20,
-  },
-  picker: {
-    width: 90,
+  pickerOptions: {
+    textTransform: 'uppercase',
   },
   articles: {
     flex: 1,
