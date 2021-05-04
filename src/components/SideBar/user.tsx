@@ -64,7 +64,7 @@ const User = ({navigation}: Props) => {
       {!user ? (
         <Button
           onPress={() => setModal({type: 'auth'})}
-          title={t('sideBar.signIn')}
+          title={`${t('signIn')}/${t('signUp')}`}
           containerStyle={styles.signBtnContainer}
           buttonStyle={styles.signInBtn}
           titleStyle={styles.signBtnText}

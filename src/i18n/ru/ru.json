@@ -5,7 +5,6 @@
     "ProfileScreen": "Профиль"
   },
   "sideBar": {
-    "signIn": "Вход / Регистрация",
     "signOut": "Выйти",
     "selectLanguage": "Выберите язык"
   },
@@ -41,9 +40,9 @@
     "changePassword": "Сменить пароль",
     "createPassword": "Создать пароль"
   },
+  "signIn": "Вход",
+  "signUp": "Регистрация",
   "modal": {
-    "signIn": "Вход",
-    "signUp": "Регистрация",
     "placeholder": {
       "password": "Пароль",
       "passwordConfirm": "Подтверждение пароля"

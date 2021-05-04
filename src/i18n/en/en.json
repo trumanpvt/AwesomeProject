@@ -5,7 +5,6 @@
     "ProfileScreen": "Profile"
   },
   "sideBar": {
-    "signIn": "Sign In / Sign Up",
     "signOut": "Sign Out",
     "selectLanguage": "Select language"
   },
@@ -41,9 +40,9 @@
     "changePassword": "Change password",
     "createPassword": "Create password"
   },
+  "signIn": "Sign In",
+  "signUp": "Sign Up",
   "modal": {
-    "signIn": "Sign In",
-    "signUp": "Sign Up",
     "placeholder": {
       "password": "Password",
       "passwordConfirm": "Confirm password"
