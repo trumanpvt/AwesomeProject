@@ -1,14 +1,20 @@
 {
   "routes": {
-    "HomeScreen": "HomeScreen",
+    "HomeScreen": "Home screen",
     "ChatScreen": "Chats",
     "ProfileScreen": "Profile"
+  },
+  "sideBar": {
+    "signIn": "Sign In / Sign Up",
+    "signOut": "Sign Out",
+    "selectLanguage": "Select language"
   },
   "articles": {
     "text": "Articles text"
   },
   "news": {
-    "pickerTitle": "News from"
+    "pickerTitle": "News from",
+    "selectCountry": "Select country"
   },
   "podcasts": {
     "text": "Podcasts text"
@@ -36,10 +42,8 @@
     "createPassword": "Create password"
   },
   "modal": {
-    "tab": {
-      "signIn": "SignIn",
-      "signUp": "SignUp"
-    },
+    "signIn": "Sign In",
+    "signUp": "Sign Up",
     "placeholder": {
       "password": "Password",
       "passwordConfirm": "Confirm password"
@@ -48,8 +52,6 @@
       "cancel": "Cancel",
       "close": "Close",
       "forgotPassword": "Forgot password",
-      "signIn": "Sign In",
-      "signUp": "Sign Up",
       "resetPassword": "Reset password",
       "resetPasswordAgain": "Send link again"
     },

@@ -11,6 +11,8 @@ import {useTranslation} from 'react-i18next';
 import User from './user';
 
 import styleSheet from './style';
+import {languages} from '../../constants';
+import {useActionSheet} from '@expo/react-native-action-sheet';
 
 interface Props {
   routeNames: string[];
@@ -20,17 +22,19 @@ interface Props {
 const SideBar = ({navigation, routeNames}: Props) => {
   const {language, setLanguage} = useStores().localeStore;
 
-  const styles = styleSheet();
+  const {showActionSheetWithOptions} = useActionSheet();
 
   const {t} = useTranslation();
 
-  const routes = routeNames.filter((route) => route !== 'ProfileScreen');
+  const styles = styleSheet();
 
-  const changeLanguage = () => {
-    const newLanguage = language === 'en' ? 'ru' : 'en';
+  const routes = routeNames.filter(route => route !== 'ProfileScreen');
 
-    setLanguage(newLanguage);
-  };
+  // const changeLanguage = () => {
+  //   const newLanguage = language === 'en' ? 'ru' : 'en';
+  //
+  //   setLanguage(newLanguage);
+  // };
 
   const renderListItem = ({item}: {item: any}) => (
     <ListItem bottomDivider onPress={() => navigation.navigate(item)}>
@@ -42,6 +46,24 @@ const SideBar = ({navigation, routeNames}: Props) => {
       <ListItem.Chevron />
     </ListItem>
   );
+
+  const getLanguageSelector = () => {
+    return showActionSheetWithOptions(
+      {
+        options: [...languages, 'Cancel'],
+        cancelButtonIndex: languages.length,
+        title: t('sideBar.selectLanguage'),
+        useModal: true,
+        showSeparators: true,
+        textStyle: styles.pickerOptions,
+      },
+      buttonIndex => {
+        if (buttonIndex !== languages.length) {
+          setLanguage(languages[buttonIndex]);
+        }
+      },
+    );
+  };
 
   return (
     <SafeAreaView style={styles.sideBar}>
@@ -61,7 +83,7 @@ const SideBar = ({navigation, routeNames}: Props) => {
         containerStyle={styles.languageBtnContainer}
         buttonStyle={styles.languageBtn}
         titleStyle={styles.languageBtnText}
-        onPress={changeLanguage}
+        onPress={getLanguageSelector}
       />
     </SafeAreaView>
   );

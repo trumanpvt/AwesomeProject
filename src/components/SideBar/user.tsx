@@ -9,6 +9,7 @@ import {signOut} from '../../util/auth';
 import {useStores} from '../../store';
 
 import styleSheet from './style';
+import {useTranslation} from 'react-i18next';
 
 interface Props {
   navigation: any;
@@ -19,6 +20,8 @@ const User = ({navigation}: Props) => {
   const {setModal} = modalStore;
 
   const {user} = userStore;
+
+  const {t} = useTranslation();
 
   const styles = styleSheet();
 
@@ -61,7 +64,7 @@ const User = ({navigation}: Props) => {
       {!user ? (
         <Button
           onPress={() => setModal({type: 'auth'})}
-          title="SignIn/SignUp"
+          title={t('sideBar.signIn')}
           containerStyle={styles.signBtnContainer}
           buttonStyle={styles.signInBtn}
           titleStyle={styles.signBtnText}
@@ -71,7 +74,7 @@ const User = ({navigation}: Props) => {
           {renderUser()}
           <Button
             onPress={handleSignOut}
-            title="SignOut"
+            title={t('sideBar.signOut')}
             containerStyle={styles.signBtnContainer}
             buttonStyle={styles.signOutBtn}
             titleStyle={styles.signBtnText}

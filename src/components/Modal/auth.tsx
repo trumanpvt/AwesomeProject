@@ -134,14 +134,14 @@ const ModalAuth = ({setCloseModal, setModal}: Props): JSX.Element => {
         <Tab.Item
           containerStyle={styles.modalTabLeft}
           titleStyle={styles.modalTabTitle}
-          title={t('modal.tab.signIn')}
+          title={t('modal.signIn')}
           active={!isSignUp}
           disabled={!isSignUp}
         />
         <Tab.Item
           containerStyle={styles.modalTabRight}
           titleStyle={styles.modalTabTitle}
-          title={t('modal.tab.signUp')}
+          title={t('modal.signUp')}
           active={isSignUp}
           disabled={isSignUp}
         />
@@ -210,7 +210,7 @@ const ModalAuth = ({setCloseModal, setModal}: Props): JSX.Element => {
           disabled={!email || !password}
           onPress={handlePasswordSignIn}
           containerStyle={styles.button}
-          title={t('modal.button.signIn')}
+          title={t('modal.signIn')}
         />
       </>
     );
@@ -254,7 +254,7 @@ const ModalAuth = ({setCloseModal, setModal}: Props): JSX.Element => {
             disabled={!email || !password || password !== confirmPassword}
             onPress={handleSignUp}
             containerStyle={styles.button}
-            title={t('modal.button.signUp')}
+            title={t('modal.signUp')}
           />
         </>
       </>

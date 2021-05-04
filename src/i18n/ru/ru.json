@@ -4,11 +4,17 @@
     "ChatScreen": "Чаты",
     "ProfileScreen": "Профиль"
   },
+  "sideBar": {
+    "signIn": "Вход / Регистрация",
+    "signOut": "Выйти",
+    "selectLanguage": "Выберите язык"
+  },
   "articles": {
     "text": "Текст статей"
   },
   "news": {
-    "pickerTitle": "Новости из"
+    "pickerTitle": "Новости из",
+    "selectCountry": "Выберите страну"
   },
   "podcasts": {
     "text": "Текст подкастов"
@@ -36,10 +42,8 @@
     "createPassword": "Создать пароль"
   },
   "modal": {
-    "tab": {
-      "signIn": "Вход",
-      "signUp": "Регистрация"
-    },
+    "signIn": "Вход",
+    "signUp": "Регистрация",
     "placeholder": {
       "password": "Пароль",
       "passwordConfirm": "Подтверждение пароля"
@@ -48,8 +52,6 @@
       "cancel": "Отмена",
       "close": "Закрыть",
       "forgotPassword": "Восстановить пароль",
-      "signIn": "Вход",
-      "signUp": "Регистрация",
       "resetPassword": "Сбросить пароль",
       "resetPasswordAgain": "Выслать новую ссылку"
     },

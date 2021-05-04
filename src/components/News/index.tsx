@@ -79,7 +79,7 @@ const News = () => {
       {
         options: [...sortedCountries, 'Cancel'],
         cancelButtonIndex: countries.length,
-        title: 'Choose country',
+        title: t('news.selectCountry'),
         useModal: true,
         showSeparators: true,
         textStyle: styles.pickerOptions,

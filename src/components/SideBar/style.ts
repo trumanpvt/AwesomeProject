@@ -64,5 +64,8 @@ export default () => {
       fontSize: 17,
       textAlign: 'center',
     },
+    pickerOptions: {
+      textTransform: 'uppercase',
+    },
   });
 };

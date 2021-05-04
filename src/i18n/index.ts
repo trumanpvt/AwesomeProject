@@ -3,6 +3,7 @@ import {initReactI18next} from 'react-i18next';
 
 import en from './en/en.json';
 import ru from './ru/ru.json';
+import {getTranslatedArray} from '../util/translate';
 
 const resources = {
   en: {
@@ -13,13 +14,25 @@ const resources = {
   },
 } as const;
 
+export const changeLanguage = (language: string) => {
+  if (i18n.language !== language) {
+    if (i18n.hasResourceBundle(language, 'translation')) {
+      i18n.changeLanguage(language).then();
+    } else {
+      getTranslatedArray(language, en).then(json => {
+        i18n.addResourceBundle(language, 'translation', json);
+        i18n.changeLanguage(language).then();
+      });
+    }
+  }
+};
+
 i18n
   .use(initReactI18next)
   .init({
     fallbackLng: 'en',
 
-    resources,
-
+    resources: resources,
     debug: true,
 
     interpolation: {

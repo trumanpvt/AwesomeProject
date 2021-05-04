@@ -1,6 +1,15 @@
 export const webClientId =
   '329478636497-lr706hc6gc427vluu1uak88tgpemaluo.apps.googleusercontent.com';
 
+// export const watsonTranslate = {
+//   apiKey: 'foh9N5hHKfkDol5evJz0b-GGUhHGGLBvtICXCZVCl2ar',
+//   url:
+//     'https://api.us-south.language-translator.watson.cloud.ibm.com/instances/3552018a-4b50-4953-9656-b812235161a6',
+//   version: '2018-05-01',
+// };
+
+export const backendUrl = 'https://awesomeproject.glitch.me';
+
 export const languages = [
   'ar',
   'de',
@@ -10,11 +19,11 @@ export const languages = [
   'he',
   'it',
   'nl',
-  'no',
+  // 'no',
   'pt',
   'ru',
-  'se',
-  'ud',
+  // 'se',
+  // 'ud',
   'zh',
 ];
 

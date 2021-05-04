@@ -18,7 +18,7 @@ import ChatScreen from './components/ChatScreen';
 import SideBar from './components/SideBar';
 import HomeScreen from './components/HomeScreen';
 import ModalContainer from './components/Modal';
-import i18n from './i18n';
+import {changeLanguage} from './i18n';
 
 import {observer} from 'mobx-react-lite';
 
@@ -56,9 +56,7 @@ const App = () => {
   }, [setUser]);
 
   useEffect(() => {
-    if (i18n.language !== language) {
-      i18n.changeLanguage(language).then();
-    }
+    changeLanguage(language);
   }, [language]);
 
   return (
