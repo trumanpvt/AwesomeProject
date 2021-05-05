@@ -13,11 +13,13 @@ import {useStores} from './store';
 import auth from '@react-native-firebase/auth';
 
 import AppHeader from './components/AppHeader';
+import HomeScreen from './components/HomeScreen';
 import ProfileScreen from './components/ProfileScreen';
 import ChatScreen from './components/ChatScreen';
 import SideBar from './components/SideBar';
-import HomeScreen from './components/HomeScreen';
+import BlogScreen from './components/BlogScreen';
 import ModalContainer from './components/Modal';
+
 import {changeLanguage} from './i18n';
 
 import {observer} from 'mobx-react-lite';
@@ -82,6 +84,7 @@ const App = () => {
                 />
               )}>
               <Drawer.Screen name="HomeScreen" component={HomeScreen} />
+              <Drawer.Screen name="BlogScreen" component={BlogScreen} />
               <Drawer.Screen name="ChatScreen" component={ChatScreen} />
               <Drawer.Screen name="ProfileScreen" component={ProfileScreen} />
             </Drawer.Navigator>
