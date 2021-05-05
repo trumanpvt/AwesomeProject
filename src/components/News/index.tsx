@@ -5,7 +5,7 @@ import {useStores} from '../../store';
 import moment from 'moment';
 
 import {
-  Image,
+  ActivityIndicator,
   Linking,
   RefreshControl,
   ScrollView,
@@ -19,6 +19,7 @@ import styles from './style';
 import ButtonCustom from '../Button';
 import {useActionSheet} from '@expo/react-native-action-sheet';
 import {countries} from '../../constants';
+import {Image} from 'react-native-elements';
 
 const News = () => {
   const {localeStore, newsStore} = useStores();
@@ -62,6 +63,9 @@ const News = () => {
             source={{
               uri: article.urlToImage,
             }}
+            PlaceholderContent={
+              <ActivityIndicator size="large" color="#0000ff" />
+            }
           />
         )}
         <View style={styles.articleData}>

@@ -58,6 +58,6 @@
     "confirmEmailMessage": "Please confirm your email, confirmation link was sent to you"
   },
   "blog": {
-
+    "empty": "No posts yet"
   }
 }
