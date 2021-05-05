@@ -1,50 +1,62 @@
-import React from 'react';
+import React, {useState} from 'react';
 
-import {ActivityIndicator, Text, View} from 'react-native';
-import {FAB, Icon, Image} from 'react-native-elements';
+import {ActivityIndicator, Modal, Text, View} from 'react-native';
+import {FAB, Icon, Image, useTheme} from 'react-native-elements';
+
+import Post from './post';
 
 import {useTranslation} from 'react-i18next';
 
-import styleSheet from './style';
+import {observer} from 'mobx-react-lite';
 import {useStores} from '../../store';
-import styles from '../News/style';
+
 import moment from 'moment';
 
+import styleSheet from './style';
+import {BlogPostProps} from '../../store/blogStore';
+
 const BlogScreen = () => {
-  const {posts, addPost, removePost} = useStores().blogStore;
+  const [editPost, setEditPost] = useState<BlogPostProps>({
+    id: '',
+    title: '',
+    date: '',
+  });
+
+  const {posts, savePost, removePost} = useStores().blogStore;
 
   const {t} = useTranslation();
 
+  const {theme} = useTheme();
+
   const styles = styleSheet();
 
-  const renderPost = (
-    post: {
-      title: string;
-      text: string;
-      imageUrl?: string;
-      date: string;
-      id: string;
-    },
-    index: number,
-  ) => {
+  const renderPost = (post: BlogPostProps, index: number) => {
     return (
       <View style={styles.post} key={index.toString()}>
         <View style={styles.postHeader}>
-          <Text style={styles.postDate}>{moment(post.date).format('L')}</Text>
-          <Icon
-            raised
-            name="edit"
-            color="white"
-            onPress={() => console.log('hello')}
-          />
-          <Icon
-            raised
-            name="remove"
-            color="white"
-            onPress={() => console.log('hello')}
-          />
+          <View style={styles.postHeaderInfo}>
+            <Text style={styles.postHeaderInfoDate}>
+              {moment(post.date).format('L')}
+            </Text>
+            <Text style={styles.postHeaderInfoTitle}>{post.title}</Text>
+          </View>
+          <View style={styles.postHeaderIcons}>
+            <Icon
+              raised
+              size={20}
+              name="edit"
+              color={theme.colors?.secondary}
+              onPress={() => setEditPost(post)}
+            />
+            <Icon
+              raised
+              size={20}
+              name="delete"
+              color={theme.colors?.error}
+              onPress={() => removePost(post.id)}
+            />
+          </View>
         </View>
-        <Text style={styles.Title}>{post.title}</Text>
         <Text style={styles.postText}>{post.text}</Text>
         {post.imageUrl && (
           <Image
@@ -62,7 +74,11 @@ const BlogScreen = () => {
     );
   };
 
-  const createPost = () => {};
+  const createPost = () => {
+    const newPostId = Math.random().toString(36).substr(2, 9);
+
+    return setEditPost({id: newPostId});
+  };
 
   return (
     <View style={styles.container}>
@@ -80,8 +96,17 @@ const BlogScreen = () => {
         onPress={createPost}
         raised
       />
+      {editPost.id ? (
+        <Modal>
+          <Post
+            post={editPost}
+            savePost={savePost}
+            closePost={() => setEditPost('')}
+          />
+        </Modal>
+      ) : null}
     </View>
   );
 };
 
-export default BlogScreen;
+export default observer(BlogScreen);

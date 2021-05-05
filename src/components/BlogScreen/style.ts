@@ -1,14 +1,13 @@
 import {StyleSheet} from 'react-native';
 import {useTheme} from 'react-native-elements';
 
-export default () => {
-  const {theme} = useTheme();
-
+export default (color?: any) => {
   return StyleSheet.create({
     container: {
       flex: 1,
       justifyContent: 'space-between',
-      paddingVertical: 20,
+      paddingTop: 10,
+      paddingBottom: 20,
       backgroundColor: 'white',
     },
     emptyText: {
@@ -16,7 +15,10 @@ export default () => {
       textAlign: 'center',
     },
     post: {
-      shadowColor: 'red',
+      margin: 10,
+      padding: 10,
+      borderRadius: 5,
+      shadowColor: '#000',
       shadowOffset: {
         width: 0,
         height: 2,
@@ -24,11 +26,27 @@ export default () => {
       shadowOpacity: 0.25,
       shadowRadius: 3.84,
       elevation: 5,
+      backgroundColor: 'white',
     },
-    postHeader: {},
+    postHeader: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      marginBottom: 10,
+    },
+    postHeaderInfo: {},
+    postHeaderInfoDate: {},
+    postHeaderInfoTitle: {
+      marginTop: 10,
+      fontSize: 18,
+      lineHeight: 22,
+    },
+    postHeaderIcons: {
+      flexDirection: 'row',
+    },
     postDate: {},
     Title: {},
     postText: {},
     postImg: {},
+    postEdit: {},
   });
 };

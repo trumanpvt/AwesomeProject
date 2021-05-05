@@ -3,18 +3,22 @@ import {StyleSheet} from 'react-native';
 export default StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: 10,
+    paddingTop: 20,
   },
   pickerButton: {
-    marginVertical: 20,
+    marginHorizontal: 10,
   },
   pickerOptions: {
     textTransform: 'uppercase',
   },
   articles: {
     flex: 1,
+    marginTop: 10,
   },
   article: {
+    margin: 10,
+    padding: 10,
+    borderRadius: 5,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -23,7 +27,7 @@ export default StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
-    marginBottom: 30,
+    backgroundColor: 'white',
   },
   articleTitle: {
     fontWeight: 'bold',

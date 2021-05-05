@@ -1,13 +1,15 @@
 import {makeAutoObservable} from 'mobx';
 
+export interface BlogPostProps {
+  title: string;
+  text?: string;
+  imageUrl?: string;
+  date: string;
+  id: string;
+}
+
 export default class BlogStore {
-  posts: {
-    title: string;
-    text: string;
-    imageUrl?: string;
-    date: string;
-    id: string;
-  }[] = [
+  posts: BlogPostProps[] = [
     {
       title: 'Post title',
       text:
@@ -22,14 +24,20 @@ export default class BlogStore {
     makeAutoObservable(this);
   }
 
-  addPost = (post: {
+  savePost = (post: {
     title: string;
-    text: string;
+    text?: string | undefined;
     imageUrl?: string | undefined;
     date: string;
     id: string;
   }) => {
-    this.posts.push(post);
+    const postIndex = this.posts.findIndex(post => post.id === post.id);
+
+    if (postIndex === -1) {
+      this.posts.push(post);
+    } else {
+      this.posts[postIndex] = post;
+    }
   };
 
   removePost = (postId: string) => {
