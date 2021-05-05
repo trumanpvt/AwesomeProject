@@ -7,20 +7,20 @@ import {getTranslatedArray} from '../util/translate';
 
 const resources = {
   en: {
-    translation: en,
+    default: en,
   },
   ru: {
-    translation: ru,
+    default: ru,
   },
 } as const;
 
 export const changeLanguage = (language: string) => {
   if (i18n.language !== language) {
-    if (i18n.hasResourceBundle(language, 'translation')) {
+    if (i18n.hasResourceBundle(language, 'default')) {
       i18n.changeLanguage(language).then();
     } else {
       getTranslatedArray(language, en).then(json => {
-        i18n.addResourceBundle(language, 'translation', json);
+        i18n.addResourceBundle(language, 'default', json);
         i18n.changeLanguage(language).then();
       });
     }
@@ -31,7 +31,8 @@ i18n
   .use(initReactI18next)
   .init({
     fallbackLng: 'en',
-
+    ns: ['default'],
+    defaultNS: 'default',
     resources: resources,
     debug: true,
 
