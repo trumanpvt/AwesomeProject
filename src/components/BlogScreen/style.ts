@@ -48,5 +48,6 @@ export default (color?: any) => {
     postText: {},
     postImg: {},
     postEdit: {},
+    postModal: {},
   });
 };

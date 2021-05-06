@@ -71,7 +71,7 @@ const News = () => {
         <View style={styles.articleData}>
           <Text style={styles.articleSource}>{article.source.name}</Text>
           <Text style={styles.articleDate}>
-            {moment(article.publishedAt).format('L')}
+            {moment(article.publishedAt).format('LLL')}
           </Text>
         </View>
       </TouchableOpacity>

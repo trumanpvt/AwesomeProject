@@ -1,6 +1,6 @@
 import {makeAutoObservable} from 'mobx';
 
-export interface BlogPostProps {
+export interface BlogSavedPostProps {
   title: string;
   text?: string;
   imageUrl?: string;
@@ -9,7 +9,7 @@ export interface BlogPostProps {
 }
 
 export default class BlogStore {
-  posts: BlogPostProps[] = [
+  posts: BlogSavedPostProps[] = [
     {
       title: 'Post title',
       text:
@@ -24,13 +24,7 @@ export default class BlogStore {
     makeAutoObservable(this);
   }
 
-  savePost = (post: {
-    title: string;
-    text?: string | undefined;
-    imageUrl?: string | undefined;
-    date: string;
-    id: string;
-  }) => {
+  savePost = (post: BlogSavedPostProps) => {
     const postIndex = this.posts.findIndex(post => post.id === post.id);
 
     if (postIndex === -1) {

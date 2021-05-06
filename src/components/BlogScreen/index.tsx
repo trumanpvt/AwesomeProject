@@ -1,9 +1,7 @@
 import React, {useState} from 'react';
 
-import {ActivityIndicator, Modal, Text, View} from 'react-native';
+import {ActivityIndicator, Text, TouchableOpacity, View} from 'react-native';
 import {FAB, Icon, Image, useTheme} from 'react-native-elements';
-
-import Post from './post';
 
 import {useTranslation} from 'react-i18next';
 
@@ -13,16 +11,23 @@ import {useStores} from '../../store';
 import moment from 'moment';
 
 import styleSheet from './style';
-import {BlogPostProps} from '../../store/blogStore';
+import PostModal from './post';
+
+export interface BlogPostProps {
+  title?: string;
+  text?: string;
+  imageUrl?: string;
+  date?: string;
+  id: string;
+  isEdit?: boolean;
+}
 
 const BlogScreen = () => {
-  const [editPost, setEditPost] = useState<BlogPostProps>({
+  const [openPost, setOpenPost] = useState<BlogPostProps>({
     id: '',
-    title: '',
-    date: '',
   });
 
-  const {posts, savePost, removePost} = useStores().blogStore;
+  const {posts, removePost} = useStores().blogStore;
 
   const {t} = useTranslation();
 
@@ -32,11 +37,16 @@ const BlogScreen = () => {
 
   const renderPost = (post: BlogPostProps, index: number) => {
     return (
-      <View style={styles.post} key={index.toString()}>
+      <TouchableOpacity
+        style={styles.post}
+        key={index.toString()}
+        onPress={() => {
+          console.log('click post');
+        }}>
         <View style={styles.postHeader}>
           <View style={styles.postHeaderInfo}>
             <Text style={styles.postHeaderInfoDate}>
-              {moment(post.date).format('L')}
+              {moment(post.date).format('LLL')}
             </Text>
             <Text style={styles.postHeaderInfoTitle}>{post.title}</Text>
           </View>
@@ -46,7 +56,7 @@ const BlogScreen = () => {
               size={20}
               name="edit"
               color={theme.colors?.secondary}
-              onPress={() => setEditPost(post)}
+              onPress={() => setOpenPost(post)}
             />
             <Icon
               raised
@@ -70,14 +80,14 @@ const BlogScreen = () => {
             }
           />
         )}
-      </View>
+      </TouchableOpacity>
     );
   };
 
   const createPost = () => {
     const newPostId = Math.random().toString(36).substr(2, 9);
 
-    return setEditPost({id: newPostId});
+    return setOpenPost({id: newPostId, title: '', date: ''});
   };
 
   return (
@@ -96,15 +106,12 @@ const BlogScreen = () => {
         onPress={createPost}
         raised
       />
-      {editPost.id ? (
-        <Modal>
-          <Post
-            post={editPost}
-            savePost={savePost}
-            closePost={() => setEditPost('')}
-          />
-        </Modal>
-      ) : null}
+      <PostModal
+        post={openPost}
+        setOpenPost={setOpenPost}
+        closePost={() => setOpenPost({id: ''})}
+        removePost={removePost}
+      />
     </View>
   );
 };

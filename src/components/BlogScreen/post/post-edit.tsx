@@ -5,17 +5,14 @@ import {FAB, Icon, Image} from 'react-native-elements';
 
 import {useTranslation} from 'react-i18next';
 
-import styleSheet from './style';
 import moment from 'moment';
-import {BlogPostProps} from '../../store/blogStore';
+import {BlogPostProps} from '../index';
+import {BlogSavedPostProps} from '../../../store/blogStore';
 
-interface Props {
-  post: BlogPostProps;
-  savePost: (post: BlogPostProps) => void;
-  closePost: () => void;
-}
+import styleSheet from '../style';
+import {PostModalProps} from './index';
 
-const Post = ({post, savePost, closePost}: Props) => {
+const PostEdit = ({post, closePost}: PostModalProps) => {
   const [title, setTitle] = useState(post.title);
   const [text, setText] = useState(post.text);
   const [imageUrl, setImageUrl] = useState(post.imageUrl);
@@ -27,13 +24,13 @@ const Post = ({post, savePost, closePost}: Props) => {
   const handleSavePost = () => {
     const postDate = post.date || moment().format('L');
 
-    savePost({
-      title: title,
-      text: text,
-      imageUrl: imageUrl,
-      date: postDate,
-      id: post.id,
-    });
+    // savePost({
+    //   title: title,
+    //   text: text,
+    //   imageUrl: imageUrl,
+    //   date: postDate,
+    //   id: post.id,
+    // });
   };
 
   return (
@@ -61,4 +58,4 @@ const Post = ({post, savePost, closePost}: Props) => {
   );
 };
 
-export default Post;
+export default PostEdit;
