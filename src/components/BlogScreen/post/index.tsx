@@ -5,7 +5,7 @@ import {Modal} from 'react-native';
 import PostEdit from './post-edit';
 import Post from './post';
 
-import styleSheet from '../style';
+import styleSheet from './style';
 import {
   BlogOpenedPostProps,
   BlogSavedPostProps,

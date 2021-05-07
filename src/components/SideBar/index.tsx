@@ -11,7 +11,7 @@ import {useTranslation} from 'react-i18next';
 import User from './user';
 
 import styleSheet from './style';
-import {languages} from '../../constants';
+import {languageCodes} from '../../constants';
 import {useActionSheet} from '@expo/react-native-action-sheet';
 
 interface Props {
@@ -50,16 +50,16 @@ const SideBar = ({navigation, routeNames}: Props) => {
   const getLanguageSelector = () => {
     return showActionSheetWithOptions(
       {
-        options: [...languages, 'Cancel'],
-        cancelButtonIndex: languages.length,
+        options: [...languageCodes, 'Cancel'],
+        cancelButtonIndex: languageCodes.length,
         title: t('sideBar.selectLanguage'),
         useModal: true,
         showSeparators: true,
         textStyle: styles.pickerOptions,
       },
       buttonIndex => {
-        if (buttonIndex !== languages.length) {
-          setLanguage(languages[buttonIndex]);
+        if (buttonIndex !== languageCodes.length) {
+          setLanguage(languageCodes[buttonIndex]);
         }
       },
     );

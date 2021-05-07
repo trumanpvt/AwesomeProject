@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 import {ActivityIndicator, Text, TouchableOpacity, View} from 'react-native';
 import {FAB, Icon, Image, useTheme} from 'react-native-elements';
@@ -14,14 +14,22 @@ import styleSheet from './style';
 import PostModal from './post';
 import {BlogSavedPostProps} from '../../store/blogStore';
 
+export interface BlogOpenedPostProps {
+  title?: string;
+  text?: string;
+  imageUrl?: string;
+  date?: string;
+  id: string;
+  editMode?: string;
+}
+
 const BlogScreen = () => {
-  const {
-    posts,
-    openedPost,
-    setOpenedPost,
-    removePost,
-    savePost,
-  } = useStores().blogStore;
+  const [openedPost, setOpenedPost] = useState<BlogOpenedPostProps>({id: ''});
+
+  const {blogStore, localeStore} = useStores();
+
+  const {posts, removePost, savePost} = blogStore;
+  const {language} = localeStore;
 
   const {t} = useTranslation();
 
@@ -38,7 +46,7 @@ const BlogScreen = () => {
         <View style={styles.postHeader}>
           <View style={styles.postHeaderInfo}>
             <Text style={styles.postHeaderInfoDate}>
-              {moment(post.date).format('LLL')}
+              {moment(post.date).locale(language).format('LLL')}
             </Text>
             <Text style={styles.postHeaderInfoTitle}>{post.title}</Text>
           </View>

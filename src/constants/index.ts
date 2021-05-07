@@ -3,7 +3,7 @@ export const webClientId =
 
 export const backendUrl = 'https://awesomeproject.glitch.me';
 
-export const languages = [
+export const languageCodes = [
   'ar',
   'de',
   'en',
@@ -19,6 +19,23 @@ export const languages = [
   // 'ud',
   'zh',
 ];
+
+export const languageLocales = {
+  ar: {locale: 'ar'},
+  de: {locale: 'de'},
+  en: {locale: 'en-us'},
+  es: {locale: 'es'},
+  fr: {locale: 'fr'},
+  he: {locale: 'he'},
+  it: {locale: 'it'},
+  nl: {locale: 'nl'},
+  // 'no': {locale:'no'}
+  pt: {locale: 'pt'},
+  ru: {locale: 'ru'},
+  // 'se': {locale:'se'},
+  // 'ud': {locale:'ud'},
+  zh: {locale: 'zh-cn'},
+};
 
 export const countries = [
   'ae',

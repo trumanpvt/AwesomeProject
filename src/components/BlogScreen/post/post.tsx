@@ -7,18 +7,25 @@ import moment from 'moment';
 
 import {PostModalProps} from './index';
 
-import styleSheet from '../style';
+// import 'moment/locale/ru';
+// moment.locale('ru');
+
+import styleSheet from './style';
+import {useStores} from '../../../store';
 
 const Post = ({post, setOpenedPost, removePost}: PostModalProps) => {
+  const {language} = useStores().localeStore;
   const {theme} = useTheme();
 
   const styles = styleSheet();
 
   return (
-    <View style={styles.postEdit}>
-      <View style={styles.postHeader}>
-        <Text style={styles.postDate}>{moment(post.date).format('L')}</Text>
-        <View style={styles.postHeaderIcons}>
+    <View style={styles.container}>
+      <View style={styles.header}>
+        <Text style={styles.headerDate} numberOfLines={2}>
+          {moment(post.date).locale('ru').format('LLL')}
+        </Text>
+        <View style={styles.headerIcons}>
           <Icon
             raised
             size={25}

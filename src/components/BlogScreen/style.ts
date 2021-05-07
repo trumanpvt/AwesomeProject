@@ -38,7 +38,6 @@ export default (color?: any) => {
     postHeaderInfoTitle: {
       marginTop: 10,
       fontSize: 18,
-      lineHeight: 22,
     },
     postHeaderIcons: {
       flexDirection: 'row',

@@ -1,15 +1,13 @@
 import React, {useState} from 'react';
 
-import {ActivityIndicator, Text, View} from 'react-native';
-import {FAB, Icon, Image, useTheme} from 'react-native-elements';
+import {Text, View} from 'react-native';
+import {Icon, useTheme} from 'react-native-elements';
 
 import {useTranslation} from 'react-i18next';
 
 import moment from 'moment';
-import {BlogPostProps} from '../index';
-import {BlogSavedPostProps} from '../../../store/blogStore';
 
-import styleSheet from '../style';
+import styleSheet from './style';
 import {PostModalProps} from './index';
 
 const PostEdit = ({
@@ -51,10 +49,10 @@ const PostEdit = ({
   };
 
   return (
-    <View style={styles.postEdit}>
-      <View style={styles.postHeader}>
-        <Text style={styles.postDate}>{moment(post.date).format('L')}</Text>
-        <View style={styles.postHeaderIcons}>
+    <View style={styles.container}>
+      <View style={styles.header}>
+        <Text style={styles.headerDate}>{moment(post.date).format('L')}</Text>
+        <View style={styles.headerIcons}>
           <Icon
             raised
             size={25}
@@ -67,7 +65,7 @@ const PostEdit = ({
             size={25}
             name="delete"
             color={theme.colors?.error}
-            onPress={() => console.log('remove')}
+            onPress={() => removePost(post.id)}
           />
           <Icon
             raised
