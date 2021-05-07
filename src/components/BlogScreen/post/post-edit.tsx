@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 
 import {ActivityIndicator, Text, View} from 'react-native';
-import {FAB, Icon, Image} from 'react-native-elements';
+import {FAB, Icon, Image, useTheme} from 'react-native-elements';
 
 import {useTranslation} from 'react-i18next';
 
@@ -12,25 +12,42 @@ import {BlogSavedPostProps} from '../../../store/blogStore';
 import styleSheet from '../style';
 import {PostModalProps} from './index';
 
-const PostEdit = ({post, closePost}: PostModalProps) => {
-  const [title, setTitle] = useState(post.title);
-  const [text, setText] = useState(post.text);
-  const [imageUrl, setImageUrl] = useState(post.imageUrl);
+const PostEdit = ({
+  post,
+  setOpenedPost,
+  removePost,
+  savePost,
+}: PostModalProps) => {
+  const [title, setTitle] = useState(post.title || '');
+  const [text, setText] = useState(post.text || '');
+  const [imageUrl, setImageUrl] = useState(post.imageUrl || '');
 
   const {t} = useTranslation();
+
+  const {theme} = useTheme();
 
   const styles = styleSheet();
 
   const handleSavePost = () => {
     const postDate = post.date || moment().format('L');
 
-    // savePost({
-    //   title: title,
-    //   text: text,
-    //   imageUrl: imageUrl,
-    //   date: postDate,
-    //   id: post.id,
-    // });
+    if (savePost) {
+      return savePost({
+        title: title,
+        text: text,
+        imageUrl: imageUrl,
+        date: postDate,
+        id: post.id,
+      });
+    }
+  };
+
+  const handleClosePost = () => {
+    if (post.editMode === 'screen') {
+      return setOpenedPost({id: ''});
+    } else {
+      return setOpenedPost({id: post.id});
+    }
   };
 
   return (
@@ -40,15 +57,24 @@ const PostEdit = ({post, closePost}: PostModalProps) => {
         <View style={styles.postHeaderIcons}>
           <Icon
             raised
-            name="edit"
-            color="white"
-            onPress={() => console.log('hello')}
+            size={25}
+            name="save"
+            color={theme.colors?.secondary}
+            onPress={handleSavePost}
           />
           <Icon
             raised
-            name="remove"
-            color="white"
-            onPress={() => console.log('hello')}
+            size={25}
+            name="delete"
+            color={theme.colors?.error}
+            onPress={() => console.log('remove')}
+          />
+          <Icon
+            raised
+            size={25}
+            name="close"
+            color={theme.colors?.error}
+            onPress={handleClosePost}
           />
         </View>
       </View>

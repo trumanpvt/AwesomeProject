@@ -8,6 +8,15 @@ export interface BlogSavedPostProps {
   id: string;
 }
 
+export interface BlogOpenedPostProps {
+  title?: string;
+  text?: string;
+  imageUrl?: string;
+  date?: string;
+  id: string;
+  editMode?: string;
+}
+
 export default class BlogStore {
   posts: BlogSavedPostProps[] = [
     {
@@ -20,9 +29,15 @@ export default class BlogStore {
     },
   ];
 
+  openedPost: BlogOpenedPostProps = {id: ''};
+
   constructor() {
     makeAutoObservable(this);
   }
+
+  setOpenedPost = (post: BlogOpenedPostProps) => {
+    this.openedPost = post;
+  };
 
   savePost = (post: BlogSavedPostProps) => {
     const postIndex = this.posts.findIndex(post => post.id === post.id);

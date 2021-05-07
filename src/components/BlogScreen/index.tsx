@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 
 import {ActivityIndicator, Text, TouchableOpacity, View} from 'react-native';
 import {FAB, Icon, Image, useTheme} from 'react-native-elements';
@@ -12,22 +12,16 @@ import moment from 'moment';
 
 import styleSheet from './style';
 import PostModal from './post';
-
-export interface BlogPostProps {
-  title?: string;
-  text?: string;
-  imageUrl?: string;
-  date?: string;
-  id: string;
-  isEdit?: boolean;
-}
+import {BlogSavedPostProps} from '../../store/blogStore';
 
 const BlogScreen = () => {
-  const [openPost, setOpenPost] = useState<BlogPostProps>({
-    id: '',
-  });
-
-  const {posts, removePost} = useStores().blogStore;
+  const {
+    posts,
+    openedPost,
+    setOpenedPost,
+    removePost,
+    savePost,
+  } = useStores().blogStore;
 
   const {t} = useTranslation();
 
@@ -35,14 +29,12 @@ const BlogScreen = () => {
 
   const styles = styleSheet();
 
-  const renderPost = (post: BlogPostProps, index: number) => {
+  const renderPost = (post: BlogSavedPostProps, index: number) => {
     return (
       <TouchableOpacity
         style={styles.post}
         key={index.toString()}
-        onPress={() => {
-          console.log('click post');
-        }}>
+        onPress={() => setOpenedPost(post)}>
         <View style={styles.postHeader}>
           <View style={styles.postHeaderInfo}>
             <Text style={styles.postHeaderInfoDate}>
@@ -56,7 +48,7 @@ const BlogScreen = () => {
               size={20}
               name="edit"
               color={theme.colors?.secondary}
-              onPress={() => setOpenPost(post)}
+              onPress={() => setOpenedPost({...post, editMode: 'screen'})}
             />
             <Icon
               raised
@@ -87,7 +79,7 @@ const BlogScreen = () => {
   const createPost = () => {
     const newPostId = Math.random().toString(36).substr(2, 9);
 
-    return setOpenPost({id: newPostId, title: '', date: ''});
+    return setOpenedPost({id: newPostId, editMode: 'screen'});
   };
 
   return (
@@ -107,10 +99,10 @@ const BlogScreen = () => {
         raised
       />
       <PostModal
-        post={openPost}
-        setOpenPost={setOpenPost}
-        closePost={() => setOpenPost({id: ''})}
+        post={openedPost}
+        setOpenedPost={setOpenedPost}
         removePost={removePost}
+        savePost={savePost}
       />
     </View>
   );
