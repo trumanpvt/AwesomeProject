@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 
 import {Text, View} from 'react-native';
-import {Icon, useTheme} from 'react-native-elements';
+import {Icon, Input, useTheme} from 'react-native-elements';
 
 import {useTranslation} from 'react-i18next';
 
@@ -27,10 +27,18 @@ const PostEdit = ({
   const styles = styleSheet();
 
   const handleSavePost = () => {
-    const postDate = post.date || moment().format('L');
+    const postDate = post.date || moment().format('LLL');
+
+    console.log({
+      title: title,
+      text: text,
+      imageUrl: imageUrl,
+      date: postDate,
+      id: post.id,
+    });
 
     if (savePost) {
-      return savePost({
+      savePost({
         title: title,
         text: text,
         imageUrl: imageUrl,
@@ -38,20 +46,21 @@ const PostEdit = ({
         id: post.id,
       });
     }
+
+    return handleClosePost();
   };
 
   const handleClosePost = () => {
     if (post.editMode === 'screen') {
       return setOpenedPost({id: ''});
     } else {
-      return setOpenedPost({id: post.id});
+      return setOpenedPost({...post, editMode: ''});
     }
   };
 
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.headerDate}>{moment(post.date).format('L')}</Text>
+      <View style={[styles.header, styles.headerEdit]}>
         <View style={styles.headerIcons}>
           <Icon
             raised
@@ -76,8 +85,23 @@ const PostEdit = ({
           />
         </View>
       </View>
-      <Text style={styles.Title}>{post.title}</Text>
-      <Text style={styles.postText}>{post.text}</Text>
+      {/*<Text style={styles.Title}>{post.title}</Text>*/}
+      {/*<Text style={styles.postText}>{post.text}</Text>*/}
+      <Input
+        inputStyle={styles.titleInput}
+        placeholder="Title"
+        value={title}
+        onChangeText={setTitle}
+        leftIcon={{name: 'title'}}
+      />
+      <Input
+        inputStyle={styles.textInput}
+        multiline={true}
+        placeholder="Text"
+        value={text}
+        onChangeText={setText}
+        leftIcon={{name: 'edit'}}
+      />
     </View>
   );
 };

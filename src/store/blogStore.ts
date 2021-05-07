@@ -20,15 +20,9 @@ export default class BlogStore {
     },
   ];
 
-  // openedPost: BlogOpenedPostProps = {id: ''};
-
   constructor() {
     makeAutoObservable(this);
   }
-
-  // setOpenedPost = (post: BlogOpenedPostProps) => {
-  //   this.openedPost = post;
-  // };
 
   savePost = (post: BlogSavedPostProps) => {
     const postIndex = this.posts.findIndex(post => post.id === post.id);

@@ -49,8 +49,8 @@ const Post = ({post, setOpenedPost, removePost}: PostModalProps) => {
           />
         </View>
       </View>
-      <Text style={styles.Title}>{post.title}</Text>
-      <Text style={styles.postText}>{post.text}</Text>
+      <Text style={styles.title}>{post.title}</Text>
+      <Text style={styles.text}>{post.text}</Text>
     </View>
   );
 };

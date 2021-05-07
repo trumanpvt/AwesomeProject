@@ -4,12 +4,8 @@ import {Modal} from 'react-native';
 
 import PostEdit from './post-edit';
 import Post from './post';
-
-import styleSheet from './style';
-import {
-  BlogOpenedPostProps,
-  BlogSavedPostProps,
-} from '../../../store/blogStore';
+import {BlogSavedPostProps} from '../../../store/blogStore';
+import {BlogOpenedPostProps} from '../index';
 
 export interface PostModalProps {
   post: BlogOpenedPostProps;
@@ -24,10 +20,8 @@ const PostModal = ({
   removePost,
   savePost,
 }: PostModalProps) => {
-  const styles = styleSheet();
-
   return post.id ? (
-    <Modal style={styles.postModal}>
+    <Modal>
       {post.editMode ? (
         <PostEdit
           post={post}

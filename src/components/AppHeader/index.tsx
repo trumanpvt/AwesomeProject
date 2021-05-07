@@ -17,6 +17,7 @@ const AppHeader = ({openDrawer, name}: Props) => {
     userStore,
     localeStore,
     newsStore,
+    blogStore,
   } = useStores();
 
   const showStores = () => {
@@ -25,6 +26,7 @@ const AppHeader = ({openDrawer, name}: Props) => {
     console.log('userStore', userStore);
     console.log('localeStore', localeStore);
     console.log('newsStore', newsStore);
+    console.log('blogStore', blogStore);
   };
 
   const {t} = useTranslation();

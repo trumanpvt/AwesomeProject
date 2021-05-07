@@ -38,6 +38,7 @@ const BlogScreen = () => {
   const styles = styleSheet();
 
   const renderPost = (post: BlogSavedPostProps, index: number) => {
+    console.log(post);
     return (
       <TouchableOpacity
         style={styles.post}
@@ -68,7 +69,7 @@ const BlogScreen = () => {
           </View>
         </View>
         <Text style={styles.postText}>{post.text}</Text>
-        {post.imageUrl && (
+        {post.imageUrl ? (
           <Image
             resizeMode="contain"
             style={styles.postImg}
@@ -79,7 +80,7 @@ const BlogScreen = () => {
               <ActivityIndicator size="large" color="#0000ff" />
             }
           />
-        )}
+        ) : null}
       </TouchableOpacity>
     );
   };

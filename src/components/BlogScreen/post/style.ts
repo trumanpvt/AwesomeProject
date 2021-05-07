@@ -12,14 +12,13 @@ export default () => {
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
-      marginBottom: 10,
+      // marginBottom: 10,
     },
     headerEdit: {
       justifyContent: 'flex-end',
     },
     headerInfo: {},
     headerDate: {
-      // width: '20%',
       paddingRight: 40,
       flexShrink: 1,
       fontSize: 15,
@@ -33,10 +32,22 @@ export default () => {
       flexDirection: 'row',
     },
     postDate: {},
-    Title: {},
-    postText: {},
-    postImg: {},
-    postEdit: {},
-    postModal: {},
+    title: {
+      marginVertical: 20,
+      fontSize: 20,
+      textAlign: 'center',
+    },
+    text: {
+      flex: 1,
+      fontSize: 15,
+    },
+    titleInput: {
+      fontSize: 20,
+    },
+    textInput: {
+      flex: 1,
+      fontSize: 15,
+    },
+    image: {},
   });
 };
