@@ -26,7 +26,7 @@ export default class BlogStore {
   }
 
   savePost = (post: BlogSavedPostProps) => {
-    const postIndex = this.posts.findIndex(post => post.id === post.id);
+    const postIndex = this.posts.findIndex(item => item.id === post.id);
 
     if (postIndex === -1) {
       this.posts.push(post);

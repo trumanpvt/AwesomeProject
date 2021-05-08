@@ -61,7 +61,7 @@ const Camera = ({closeCamera, setMedia, enableVideo = false}: CameraProps) => {
         <TouchableOpacity
           onPress={() => stopRecordVideo(camera)}
           style={styles.controlBtn}>
-          <Icon type="ionicon" name="stop-circle" />
+          <Icon type="ionicon" name="stop" color={theme.colors?.error} />
         </TouchableOpacity>
       );
     }
@@ -69,7 +69,7 @@ const Camera = ({closeCamera, setMedia, enableVideo = false}: CameraProps) => {
       <TouchableOpacity
         onPress={() => startRecordVideo(camera)}
         style={styles.controlBtn}>
-        <Icon type="ionicon" name="camera-outline" />
+        <Icon type="ionicon" name="ellipse" color={theme.colors?.error} />
       </TouchableOpacity>
     );
   };
