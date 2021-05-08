@@ -15,16 +15,12 @@ interface Props {
 }
 
 const ProfileAvatar = ({user, changeUser}: Props) => {
-  const {showActionSheetWithOptions} = useActionSheet();
-
   const [uploading, setUploading] = useState(false);
   const [isOpenCamera, setIsOpenCamera] = useState(false);
 
-  const styles = styleSheet();
+  const {showActionSheetWithOptions} = useActionSheet();
 
-  // useEffect(() => {
-  //   setUploading(false);
-  // }, [user.photoURL]);
+  const styles = styleSheet();
 
   const selectPhotoSource = () => {
     return showActionSheetWithOptions(
@@ -33,7 +29,7 @@ const ProfileAvatar = ({user, changeUser}: Props) => {
         cancelButtonIndex: 2,
         title: 'Choose image source',
       },
-      (buttonIndex) => {
+      buttonIndex => {
         if (buttonIndex !== 2) {
           handleChangeAvatar(!!buttonIndex);
         }
@@ -49,8 +45,7 @@ const ProfileAvatar = ({user, changeUser}: Props) => {
     };
 
     if (isPhoto) {
-      setIsOpenCamera(true);
-      return null;
+      return setIsOpenCamera(true);
     }
 
     return ImagePicker.openPicker(options)
@@ -124,7 +119,7 @@ const ProfileAvatar = ({user, changeUser}: Props) => {
       )}
       {isOpenCamera && (
         <Camera
-          takePhoto={handleTakePhoto}
+          getMedia={handleTakePhoto}
           closeCamera={() => setIsOpenCamera(false)}
         />
       )}

@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 
-import {Text, View} from 'react-native';
+import {View} from 'react-native';
 import {Icon, Input, useTheme} from 'react-native-elements';
 
 import {useTranslation} from 'react-i18next';
@@ -19,6 +19,8 @@ const PostEdit = ({
   const [title, setTitle] = useState(post.title || '');
   const [text, setText] = useState(post.text || '');
   const [imageUrl, setImageUrl] = useState(post.imageUrl || '');
+
+  const [isOpenCamera, setIsOpenCamera] = useState(false);
 
   const {t} = useTranslation();
 
@@ -102,6 +104,12 @@ const PostEdit = ({
         onChangeText={setText}
         leftIcon={{name: 'edit'}}
       />
+      {/*{isOpenCamera && (*/}
+      {/*  <Camera*/}
+      {/*    takePhoto={handleTakePhoto}*/}
+      {/*    closeCamera={() => setIsOpenCamera(false)}*/}
+      {/*  />*/}
+      {/*)}*/}
     </View>
   );
 };

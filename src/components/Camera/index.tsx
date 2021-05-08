@@ -13,12 +13,13 @@ import {Icon, SpeedDial, useTheme} from 'react-native-elements';
 
 import styleSheet from './style';
 
-interface Props {
+interface CameraProps {
   closeCamera: () => void;
-  takePhoto: (uri: string) => void;
+  getMedia: (uri: string, type?: string) => void;
+  enableVideo?: boolean;
 }
 
-const Camera = ({closeCamera, takePhoto}: Props) => {
+const Camera = ({closeCamera, getMedia, enableVideo = false}: CameraProps) => {
   const [isBack, setIsBack] = useState(true);
   const [flash, setFlash] = useState({mode: 'auto', isOpen: false});
 
@@ -30,7 +31,17 @@ const Camera = ({closeCamera, takePhoto}: Props) => {
     const options = {quality: 0.5, base64: true};
     const data = await camera.takePictureAsync(options);
     console.log('takePicture', data.uri);
-    return takePhoto(data.uri);
+    return getMedia(data.uri, 'photo');
+  };
+
+  const startRecordVideo = async function (camera: RNCamera) {
+    const data = await camera.recordAsync();
+    console.log('takePicture', data.uri);
+    return getMedia(data.uri, 'video');
+  };
+
+  const stopRecordVideo = (camera: RNCamera) => {
+    return camera.stopRecording();
   };
 
   const handleChangeFlashMode = (mode: string = flash.mode) => {
@@ -48,7 +59,7 @@ const Camera = ({closeCamera, takePhoto}: Props) => {
         style={styles.preview}
         type={isBack ? 'back' : 'front'}
         flashMode={flashModes[flash.mode]}
-        captureAudio={false}
+        captureAudio={enableVideo}
         androidCameraPermissionOptions={{
           title: 'Permission to use camera',
           message: 'We need your permission to use your camera',
