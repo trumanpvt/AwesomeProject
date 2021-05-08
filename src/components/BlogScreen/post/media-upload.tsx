@@ -124,6 +124,7 @@ const PostUploadMedia = ({postId, setUploadedMedia}: PostUploadMediaProps) => {
       {isOpenCamera && (
         <Camera
           setMedia={handleSetMedia}
+          enableVideo
           closeCamera={() => setIsOpenCamera(false)}
         />
       )}

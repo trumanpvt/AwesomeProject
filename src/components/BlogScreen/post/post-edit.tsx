@@ -10,6 +10,7 @@ import moment from 'moment';
 import styleSheet from './style';
 import {PostModalProps} from './index';
 import PostUploadMedia from './media-upload';
+import {ActionSheetProvider} from '@expo/react-native-action-sheet';
 
 const PostEdit = ({
   post,
@@ -72,57 +73,53 @@ const PostEdit = ({
   };
 
   return (
-    <ScrollView style={styles.container}>
-      <View style={[styles.header, styles.headerEdit]}>
-        <View style={styles.headerIcons}>
-          <Icon
-            raised
-            size={25}
-            name="save"
-            color={theme.colors?.secondary}
-            onPress={handleSavePost}
-          />
-          <Icon
-            raised
-            size={25}
-            name="delete"
-            color={theme.colors?.error}
-            onPress={() => removePost(post.id)}
-          />
-          <Icon
-            raised
-            size={25}
-            name="close"
-            color={theme.colors?.error}
-            onPress={handleClosePost}
-          />
+    <ActionSheetProvider>
+      <ScrollView style={styles.container}>
+        <View style={[styles.header, styles.headerEdit]}>
+          <View style={styles.headerIcons}>
+            <Icon
+              raised
+              size={25}
+              name="save"
+              color={theme.colors?.secondary}
+              onPress={handleSavePost}
+            />
+            <Icon
+              raised
+              size={25}
+              name="delete"
+              color={theme.colors?.error}
+              onPress={() => removePost(post.id)}
+            />
+            <Icon
+              raised
+              size={25}
+              name="close"
+              color={theme.colors?.error}
+              onPress={handleClosePost}
+            />
+          </View>
         </View>
-      </View>
-      {/*<Text style={styles.Title}>{post.title}</Text>*/}
-      {/*<Text style={styles.postText}>{post.text}</Text>*/}
-      <Input
-        inputStyle={styles.titleInput}
-        placeholder="Title"
-        value={title}
-        onChangeText={setTitle}
-        leftIcon={{name: 'title'}}
-      />
-      <Input
-        inputStyle={styles.textInput}
-        multiline={true}
-        placeholder="Text"
-        value={text}
-        onChangeText={setText}
-        leftIcon={{name: 'edit'}}
-      />
-      {/*{isOpenCamera && (*/}
-      {/*  <Camera*/}
-      {/*    takePhoto={handleTakePhoto}*/}
-      {/*    closeCamera={() => setIsOpenCamera(false)}*/}
-      {/*  />*/}
-      {/*)}*/}
-      <PostUploadMedia postId={post.id} setUploadedMedia={setUploadedMedia} />
-    </ScrollView>
+        {/*<Text style={styles.Title}>{post.title}</Text>*/}
+        {/*<Text style={styles.postText}>{post.text}</Text>*/}
+        <Input
+          inputStyle={styles.titleInput}
+          placeholder="Title"
+          value={title}
+          onChangeText={setTitle}
+          leftIcon={{name: 'title'}}
+        />
+        <Input
+          inputStyle={styles.textInput}
+          multiline={true}
+          placeholder="Text"
+          value={text}
+          onChangeText={setText}
+          leftIcon={{name: 'edit'}}
+        />
+        <PostUploadMedia postId={post.id} setUploadedMedia={setUploadedMedia} />
+      </ScrollView>
+    </ActionSheetProvider>
   );
 };
 

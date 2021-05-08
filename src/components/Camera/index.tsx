@@ -23,6 +23,8 @@ const Camera = ({closeCamera, setMedia, enableVideo = false}: CameraProps) => {
   const [isBack, setIsBack] = useState(true);
   const [flash, setFlash] = useState({mode: 'auto', isOpen: false});
 
+  const [isVideoRecording, setIsVideoRecording] = useState(false);
+
   const {theme} = useTheme();
 
   const styles = styleSheet();
@@ -35,12 +37,14 @@ const Camera = ({closeCamera, setMedia, enableVideo = false}: CameraProps) => {
   };
 
   const startRecordVideo = async function (camera: RNCamera) {
+    setIsVideoRecording(true);
     const data = await camera.recordAsync();
     console.log('takePicture', data.uri);
     return setMedia(data.uri, true);
   };
 
   const stopRecordVideo = (camera: RNCamera) => {
+    setIsVideoRecording(false);
     return camera.stopRecording();
   };
 
@@ -49,6 +53,25 @@ const Camera = ({closeCamera, setMedia, enableVideo = false}: CameraProps) => {
       mode,
       isOpen: false,
     });
+  };
+
+  const renderVideoControls = (camera: RNCamera) => {
+    if (isVideoRecording) {
+      return (
+        <TouchableOpacity
+          onPress={() => stopRecordVideo(camera)}
+          style={styles.controlBtn}>
+          <Icon type="ionicon" name="stop-circle" />
+        </TouchableOpacity>
+      );
+    }
+    return (
+      <TouchableOpacity
+        onPress={() => startRecordVideo(camera)}
+        style={styles.controlBtn}>
+        <Icon type="ionicon" name="camera-outline" />
+      </TouchableOpacity>
+    );
   };
 
   const flashModes: any = RNCamera.Constants.FlashMode;
@@ -105,6 +128,7 @@ const Camera = ({closeCamera, setMedia, enableVideo = false}: CameraProps) => {
                   style={styles.controlBtn}>
                   <Icon type="ionicon" name="ios-backspace-outline" />
                 </TouchableOpacity>
+                {enableVideo ? renderVideoControls(camera) : null}
                 <TouchableOpacity
                   onPress={() => takePicture(camera)}
                   style={styles.controlBtn}>
