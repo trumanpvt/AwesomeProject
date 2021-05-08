@@ -4,6 +4,7 @@ export interface BlogSavedPostProps {
   title: string;
   text?: string;
   imageUrl?: string;
+  videoUrl?: string;
   date: string;
   id: string;
 }

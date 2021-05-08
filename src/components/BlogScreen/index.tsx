@@ -18,6 +18,7 @@ export interface BlogOpenedPostProps {
   title?: string;
   text?: string;
   imageUrl?: string;
+  videoUrl?: string;
   date?: string;
   id: string;
   editMode?: string;

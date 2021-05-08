@@ -119,7 +119,7 @@ const ProfileAvatar = ({user, changeUser}: Props) => {
       )}
       {isOpenCamera && (
         <Camera
-          getMedia={handleTakePhoto}
+          setMedia={handleTakePhoto}
           closeCamera={() => setIsOpenCamera(false)}
         />
       )}

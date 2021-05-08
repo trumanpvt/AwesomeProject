@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 
-import {View} from 'react-native';
+import {ScrollView, View} from 'react-native';
 import {Icon, Input, useTheme} from 'react-native-elements';
 
 import {useTranslation} from 'react-i18next';
@@ -9,6 +9,7 @@ import moment from 'moment';
 
 import styleSheet from './style';
 import {PostModalProps} from './index';
+import PostUploadMedia from './media-upload';
 
 const PostEdit = ({
   post,
@@ -19,8 +20,9 @@ const PostEdit = ({
   const [title, setTitle] = useState(post.title || '');
   const [text, setText] = useState(post.text || '');
   const [imageUrl, setImageUrl] = useState(post.imageUrl || '');
+  const [videoUrl, setVideoUrl] = useState(post.videoUrl || '');
 
-  const [isOpenCamera, setIsOpenCamera] = useState(false);
+  // const [isOpenCamera, setIsOpenCamera] = useState(false);
 
   const {t} = useTranslation();
 
@@ -44,6 +46,7 @@ const PostEdit = ({
         title: title,
         text: text,
         imageUrl: imageUrl,
+        videoUrl: videoUrl,
         date: postDate,
         id: post.id,
       });
@@ -60,8 +63,16 @@ const PostEdit = ({
     }
   };
 
+  const setUploadedMedia = (uri: string, isVideo?: boolean) => {
+    if (isVideo) {
+      return setVideoUrl(uri);
+    } else {
+      setImageUrl(uri);
+    }
+  };
+
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <View style={[styles.header, styles.headerEdit]}>
         <View style={styles.headerIcons}>
           <Icon
@@ -110,7 +121,8 @@ const PostEdit = ({
       {/*    closeCamera={() => setIsOpenCamera(false)}*/}
       {/*  />*/}
       {/*)}*/}
-    </View>
+      <PostUploadMedia postId={post.id} setUploadedMedia={setUploadedMedia} />
+    </ScrollView>
   );
 };
 

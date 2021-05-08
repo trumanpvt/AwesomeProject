@@ -15,11 +15,11 @@ import styleSheet from './style';
 
 interface CameraProps {
   closeCamera: () => void;
-  getMedia: (uri: string, type?: string) => void;
+  setMedia: (uri: string, isVideo?: boolean) => void;
   enableVideo?: boolean;
 }
 
-const Camera = ({closeCamera, getMedia, enableVideo = false}: CameraProps) => {
+const Camera = ({closeCamera, setMedia, enableVideo = false}: CameraProps) => {
   const [isBack, setIsBack] = useState(true);
   const [flash, setFlash] = useState({mode: 'auto', isOpen: false});
 
@@ -31,13 +31,13 @@ const Camera = ({closeCamera, getMedia, enableVideo = false}: CameraProps) => {
     const options = {quality: 0.5, base64: true};
     const data = await camera.takePictureAsync(options);
     console.log('takePicture', data.uri);
-    return getMedia(data.uri, 'photo');
+    return setMedia(data.uri);
   };
 
   const startRecordVideo = async function (camera: RNCamera) {
     const data = await camera.recordAsync();
     console.log('takePicture', data.uri);
-    return getMedia(data.uri, 'video');
+    return setMedia(data.uri, true);
   };
 
   const stopRecordVideo = (camera: RNCamera) => {

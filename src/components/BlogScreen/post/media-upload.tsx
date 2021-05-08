@@ -13,13 +13,18 @@ import Camera from '../../Camera';
 import {useActionSheet} from '@expo/react-native-action-sheet';
 import ImagePicker, {Image} from 'react-native-image-crop-picker';
 import storage from '@react-native-firebase/storage';
+import {useStores} from '../../../store';
+import ButtonCustom from '../../Button';
 
 interface PostUploadMediaProps {
   postId: string;
+  setUploadedMedia: (uri: string, isVideo?: boolean) => void;
 }
 
-const PostUploadMedia = ({postId}: PostUploadMediaProps) => {
-  const [uploading, setUploading] = useState(false);
+const PostUploadMedia = ({postId, setUploadedMedia}: PostUploadMediaProps) => {
+  const {user} = useStores().userStore;
+
+  // const [uploading, setUploading] = useState(false);
   const [isOpenCamera, setIsOpenCamera] = useState(false);
 
   const {t} = useTranslation();
@@ -31,24 +36,26 @@ const PostUploadMedia = ({postId}: PostUploadMediaProps) => {
   const styles = styleSheet();
 
   const selectMediaSource = () => {
+    console.log('show actionsheet');
     return showActionSheetWithOptions(
       {
         options: ['Select from gallery', 'Take photo/video', 'Cancel'],
         cancelButtonIndex: 2,
         title: 'Choose image/video source',
+        containerStyle: {zIndex: 100500},
       },
       buttonIndex => {
         if (buttonIndex !== 2) {
-          handleChangeAvatar(!!buttonIndex);
+          handleUploadMedia(!!buttonIndex);
         }
       },
     );
   };
 
-  const handleChangeAvatar = (isCamera: boolean) => {
+  const handleUploadMedia = (isCamera: boolean) => {
     const options = {
-      width: 80,
-      height: 80,
+      // width: 80,
+      // height: 80,
       cropping: true,
     };
 
@@ -57,103 +64,66 @@ const PostUploadMedia = ({postId}: PostUploadMediaProps) => {
     }
 
     return ImagePicker.openPicker(options)
-      .then((image: {path: string}) => {
-        return uploadMedia(image.path);
+      .then((media: {path: string}) => {
+        return uploadMedia(media.path);
       })
       .catch();
   };
 
-  const handleGetMedia = (uri: string, type: string) => {
-    ImagePicker.openCropper({
-      mediaType: 'photo',
-      path: uri,
-      width: 80,
-      height: 80,
-    }).then((image: Image) => {
-      setIsOpenCamera(false);
-      return uploadMedia(image.path);
-    });
+  const handleSetMedia = (uri: string, isVideo?: boolean) => {
+    if (isVideo) {
+      return uploadMedia(uri);
+    } else {
+      ImagePicker.openCropper({
+        mediaType: 'photo',
+        path: uri,
+        // width: 80,
+        // height: 80,
+      }).then((image: Image) => {
+        setIsOpenCamera(false);
+        return uploadMedia(image.path);
+      });
+    }
   };
 
-  const uploadMedia = (path: string) => {
-    setUploading(true);
-    const imagePath = user.uid + '/profile/userpic';
+  const uploadMedia = (path: string, isVideo?: boolean) => {
+    if (!user) {
+      return null;
+    }
+
+    // setUploading(true);
+
+    const mediaType = isVideo ? 'video' : 'image';
+
+    const mediaPath = `${user.uid}/posts/${postId}/${mediaType}`;
     const uploadUri =
       Platform.OS === 'ios' ? path.replace('file://', '') : path;
 
     return storage()
-      .ref(imagePath)
+      .ref(mediaPath)
       .putFile(uploadUri)
       .then(() => {
-        return savePhotoUrl(imagePath);
+        return saveMediaUrl(mediaPath);
       });
   };
 
-  const savePhotoUrl = (imagePath: string) => {
+  const saveMediaUrl = (imagePath: string, isVideo?: boolean) => {
     return storage()
       .ref('/' + imagePath)
       .getDownloadURL()
       .then((url: any) => {
         // changeUser({photoURL: url});
-        setUploading(false);
+        // setUploading(false);
+        return setUploadedMedia(url, isVideo);
       });
-  };
-
-  const handleClosePost = () => {
-    if (post.editMode === 'screen') {
-      return setOpenedPost({id: ''});
-    } else {
-      return setOpenedPost({...post, editMode: ''});
-    }
   };
 
   return (
     <View style={styles.container}>
-      <View style={[styles.header, styles.headerEdit]}>
-        <View style={styles.headerIcons}>
-          <Icon
-            raised
-            size={25}
-            name="save"
-            color={theme.colors?.secondary}
-            onPress={handleSavePost}
-          />
-          <Icon
-            raised
-            size={25}
-            name="delete"
-            color={theme.colors?.error}
-            onPress={() => removePost(post.id)}
-          />
-          <Icon
-            raised
-            size={25}
-            name="close"
-            color={theme.colors?.error}
-            onPress={handleClosePost}
-          />
-        </View>
-      </View>
-      {/*<Text style={styles.Title}>{post.title}</Text>*/}
-      {/*<Text style={styles.postText}>{post.text}</Text>*/}
-      <Input
-        inputStyle={styles.titleInput}
-        placeholder="Title"
-        value={title}
-        onChangeText={setTitle}
-        leftIcon={{name: 'title'}}
-      />
-      <Input
-        inputStyle={styles.textInput}
-        multiline={true}
-        placeholder="Text"
-        value={text}
-        onChangeText={setText}
-        leftIcon={{name: 'edit'}}
-      />
+      <ButtonCustom onPress={selectMediaSource} title="CAMERA" />
       {isOpenCamera && (
         <Camera
-          getMedia={handleGetMedia}
+          setMedia={handleSetMedia}
           closeCamera={() => setIsOpenCamera(false)}
         />
       )}
