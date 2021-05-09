@@ -5,6 +5,7 @@ import {Modal, SafeAreaView} from 'react-native';
 import PostEdit from './post-edit';
 import Post from './post';
 import {BlogOpenedPostProps} from '../index';
+import styleSheet from './style';
 
 export interface PostModalProps {
   post: BlogOpenedPostProps;
@@ -26,9 +27,11 @@ const PostModal = ({
   removePost,
   savePost,
 }: PostModalProps) => {
+  const styles = styleSheet();
+
   return post.id ? (
-    <SafeAreaView>
-      <Modal>
+    <Modal>
+      <SafeAreaView style={styles.container}>
         {post.editMode ? (
           <PostEdit
             post={post}
@@ -43,8 +46,8 @@ const PostModal = ({
             removePost={removePost}
           />
         )}
-      </Modal>
-    </SafeAreaView>
+      </SafeAreaView>
+    </Modal>
   ) : null;
 };
 

@@ -64,7 +64,7 @@ const PostEdit = ({
 
   return (
     <ActionSheetProvider>
-      <ScrollView style={styles.container}>
+      <ScrollView style={styles.post}>
         <View style={[styles.header, styles.headerEdit]}>
           <View style={styles.headerIcons}>
             <Icon

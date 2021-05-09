@@ -4,7 +4,9 @@ export default () => {
   return StyleSheet.create({
     container: {
       flex: 1,
-      // justifyContent: 'space-between',
+    },
+    post: {
+      flex: 1,
       padding: 10,
       backgroundColor: 'white',
     },

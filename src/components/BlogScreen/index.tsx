@@ -130,7 +130,7 @@ const BlogScreen = () => {
         }}
         onPress={createPost}
         raised
-        iconContainerStyle={styles.newPostBtn}
+        buttonStyle={styles.newPostBtn}
       />
       <PostModal
         post={openedPost}

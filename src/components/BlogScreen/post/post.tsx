@@ -1,6 +1,6 @@
 import React, {useRef} from 'react';
 
-import {ActivityIndicator, Text, View} from 'react-native';
+import {ActivityIndicator, ScrollView, Text, View} from 'react-native';
 
 import Video from 'react-native-video';
 
@@ -21,7 +21,7 @@ const Post = ({post, setOpenedPost, removePost}: PostModalProps) => {
   const styles = styleSheet();
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.post}>
       <View style={styles.header}>
         <Text style={styles.headerDate} numberOfLines={2}>
           {getLocaleDate(post.date, language)}
@@ -75,7 +75,7 @@ const Post = ({post, setOpenedPost, removePost}: PostModalProps) => {
           style={styles.postVideo}
         />
       ) : null}
-    </View>
+    </ScrollView>
   );
 };
 
