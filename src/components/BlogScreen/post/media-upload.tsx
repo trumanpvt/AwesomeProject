@@ -1,14 +1,11 @@
 import React, {useState} from 'react';
 
-import {Platform, Text, View} from 'react-native';
-import {Icon, Input, useTheme} from 'react-native-elements';
+import {Platform, View} from 'react-native';
+import {useTheme} from 'react-native-elements';
 
 import {useTranslation} from 'react-i18next';
 
-import moment from 'moment';
-
 import styleSheet from './style';
-import {PostModalProps} from './index';
 import Camera from '../../Camera';
 import {useActionSheet} from '@expo/react-native-action-sheet';
 import ImagePicker, {Image} from 'react-native-image-crop-picker';
@@ -25,7 +22,10 @@ const PostUploadMedia = ({postId, setUploadedMedia}: PostUploadMediaProps) => {
   const {user} = useStores().userStore;
 
   // const [uploading, setUploading] = useState(false);
-  const [isOpenCamera, setIsOpenCamera] = useState(false);
+  const [camera, setCamera] = useState<{open: boolean; isVideo?: boolean}>({
+    open: false,
+    isVideo: false,
+  });
 
   const {t} = useTranslation();
 
@@ -35,13 +35,12 @@ const PostUploadMedia = ({postId, setUploadedMedia}: PostUploadMediaProps) => {
 
   const styles = styleSheet();
 
-  const selectMediaSource = () => {
+  const selectPhotoSource = () => {
     return showActionSheetWithOptions(
       {
-        options: ['Select from gallery', 'Take photo or video', 'Cancel'],
+        options: ['Select from gallery', 'Take photo', 'Cancel'],
         cancelButtonIndex: 2,
-        title: 'Choose image or video source',
-        containerStyle: {zIndex: 100500},
+        title: 'Choose image source',
       },
       buttonIndex => {
         if (buttonIndex !== 2) {
@@ -51,25 +50,38 @@ const PostUploadMedia = ({postId, setUploadedMedia}: PostUploadMediaProps) => {
     );
   };
 
-  const handleUploadMedia = (isCamera: boolean) => {
+  const selectVideoSource = () => {
+    return showActionSheetWithOptions(
+      {
+        options: ['Select from gallery', 'Take video', 'Cancel'],
+        cancelButtonIndex: 2,
+        title: 'Choose video source',
+      },
+      buttonIndex => {
+        if (buttonIndex !== 2) {
+          handleUploadMedia(!!buttonIndex, true);
+        }
+      },
+    );
+  };
+
+  const handleUploadMedia = (isCamera: boolean, isVideo: boolean = false) => {
     const options = {
-      // width: 80,
-      // height: 80,
       cropping: true,
     };
 
     if (isCamera) {
-      return setIsOpenCamera(true);
+      return setCamera({open: true, isVideo});
     }
 
     return ImagePicker.openPicker(options)
       .then((media: {path: string}) => {
-        return uploadMedia(media.path);
+        return uploadMedia(media.path, isVideo);
       })
       .catch();
   };
 
-  const handleSetMedia = (uri: string, isVideo?: boolean) => {
+  const handleSetMedia = (uri: string, isVideo: boolean = false) => {
     if (isVideo) {
       return uploadMedia(uri, isVideo);
     } else {
@@ -79,13 +91,13 @@ const PostUploadMedia = ({postId, setUploadedMedia}: PostUploadMediaProps) => {
         // width: 80,
         // height: 80,
       }).then((image: Image) => {
-        setIsOpenCamera(false);
+        setCamera({open: false});
         return uploadMedia(image.path);
       });
     }
   };
 
-  const uploadMedia = (path: string, isVideo?: boolean) => {
+  const uploadMedia = (path: string, isVideo: boolean = false) => {
     if (!user) {
       return null;
     }
@@ -104,24 +116,25 @@ const PostUploadMedia = ({postId, setUploadedMedia}: PostUploadMediaProps) => {
       });
   };
 
-  const saveMediaUrl = (imagePath: string, isVideo?: boolean) => {
+  const saveMediaUrl = (imagePath: string, isVideo: boolean = false) => {
     return storage()
       .ref('/' + imagePath)
       .getDownloadURL()
       .then((url: any) => {
-        setIsOpenCamera(false);
+        setCamera({open: false});
         return setUploadedMedia(url, isVideo);
       });
   };
 
   return (
     <View style={styles.container}>
-      <ButtonCustom onPress={selectMediaSource} title="Upload image or video" />
-      {isOpenCamera && (
+      <ButtonCustom onPress={selectPhotoSource} title="Upload image" />
+      <ButtonCustom onPress={selectVideoSource} title="Upload video" />
+      {camera.open && (
         <Camera
           setMedia={handleSetMedia}
-          enableVideo
-          closeCamera={() => setIsOpenCamera(false)}
+          enableVideo={camera.isVideo}
+          closeCamera={() => setCamera({open: false})}
         />
       )}
     </View>

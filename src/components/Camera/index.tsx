@@ -126,12 +126,15 @@ const Camera = ({closeCamera, setMedia, enableVideo = false}: CameraProps) => {
                   style={styles.controlBtn}>
                   <Icon type="ionicon" name="ios-backspace-outline" />
                 </TouchableOpacity>
-                {enableVideo ? renderVideoControls(camera) : null}
-                <TouchableOpacity
-                  onPress={() => takePicture(camera)}
-                  style={styles.controlBtn}>
-                  <Icon type="ionicon" name="camera-outline" />
-                </TouchableOpacity>
+                {enableVideo ? (
+                  renderVideoControls(camera)
+                ) : (
+                  <TouchableOpacity
+                    onPress={() => takePicture(camera)}
+                    style={styles.controlBtn}>
+                    <Icon type="ionicon" name="camera-outline" />
+                  </TouchableOpacity>
+                )}
                 <TouchableOpacity
                   onPress={() => setIsBack(!isBack)}
                   style={styles.controlBtn}>
