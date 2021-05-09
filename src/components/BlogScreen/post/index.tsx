@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {Modal} from 'react-native';
+import {Modal, SafeAreaView} from 'react-native';
 
 import PostEdit from './post-edit';
 import Post from './post';
@@ -27,22 +27,24 @@ const PostModal = ({
   savePost,
 }: PostModalProps) => {
   return post.id ? (
-    <Modal>
-      {post.editMode ? (
-        <PostEdit
-          post={post}
-          setOpenedPost={setOpenedPost}
-          removePost={removePost}
-          savePost={savePost}
-        />
-      ) : (
-        <Post
-          post={post}
-          setOpenedPost={setOpenedPost}
-          removePost={removePost}
-        />
-      )}
-    </Modal>
+    <SafeAreaView>
+      <Modal>
+        {post.editMode ? (
+          <PostEdit
+            post={post}
+            setOpenedPost={setOpenedPost}
+            removePost={removePost}
+            savePost={savePost}
+          />
+        ) : (
+          <Post
+            post={post}
+            setOpenedPost={setOpenedPost}
+            removePost={removePost}
+          />
+        )}
+      </Modal>
+    </SafeAreaView>
   ) : null;
 };
 

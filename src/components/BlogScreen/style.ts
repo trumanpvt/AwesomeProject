@@ -48,5 +48,8 @@ export default (color?: any) => {
     postImg: {},
     postEdit: {},
     postModal: {},
+    newPostBtn: {
+      borderRadius: 50,
+    },
   });
 };
