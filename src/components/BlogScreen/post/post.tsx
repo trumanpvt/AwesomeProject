@@ -1,21 +1,22 @@
-import React from 'react';
+import React, {useRef} from 'react';
 
-import {Text, View} from 'react-native';
-import {Icon, useTheme} from 'react-native-elements';
+import {ActivityIndicator, Text, View} from 'react-native';
 
-import moment from 'moment';
+import Video from 'react-native-video';
+
+import {Icon, Image, useTheme} from 'react-native-elements';
 
 import {PostModalProps} from './index';
 
-// import 'moment/locale/ru';
-// moment.locale('ru');
-
 import styleSheet from './style';
 import {useStores} from '../../../store';
+import {getLocaleDate} from '../../../util/date';
 
 const Post = ({post, setOpenedPost, removePost}: PostModalProps) => {
   const {language} = useStores().localeStore;
   const {theme} = useTheme();
+
+  let videoPlayer = useRef(null);
 
   const styles = styleSheet();
 
@@ -23,7 +24,7 @@ const Post = ({post, setOpenedPost, removePost}: PostModalProps) => {
     <View style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.headerDate} numberOfLines={2}>
-          {moment(post.date).locale('ru').format('LLL')}
+          {getLocaleDate(post.date, language)}
         </Text>
         <View style={styles.headerIcons}>
           <Icon
@@ -51,6 +52,29 @@ const Post = ({post, setOpenedPost, removePost}: PostModalProps) => {
       </View>
       <Text style={styles.title}>{post.title}</Text>
       <Text style={styles.text}>{post.text}</Text>
+      {post.imageUrl ? (
+        <Image
+          resizeMode="contain"
+          style={styles.postImage}
+          source={{
+            uri: post.imageUrl,
+          }}
+          PlaceholderContent={
+            <ActivityIndicator size="large" color="#0000ff" />
+          }
+        />
+      ) : null}
+      {post.videoUrl ? (
+        <Video
+          source={{uri: post.videoUrl}} // Can be a URL or a local file.
+          ref={ref => {
+            videoPlayer = ref;
+          }} // Store reference
+          // onBuffer={() => <ActivityIndicator size="large" color="#0000ff" />} // Callback when remote video is buffering
+          // onError={this.videoError} // Callback when video cannot be loaded
+          style={styles.postVideo}
+        />
+      ) : null}
     </View>
   );
 };

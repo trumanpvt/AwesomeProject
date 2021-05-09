@@ -32,14 +32,12 @@ const Camera = ({closeCamera, setMedia, enableVideo = false}: CameraProps) => {
   const takePicture = async function (camera: RNCamera) {
     const options = {quality: 0.5, base64: true};
     const data = await camera.takePictureAsync(options);
-    console.log('takePicture', data.uri);
     return setMedia(data.uri);
   };
 
   const startRecordVideo = async function (camera: RNCamera) {
     setIsVideoRecording(true);
     const data = await camera.recordAsync();
-    console.log('takePicture', data.uri);
     return setMedia(data.uri, true);
   };
 

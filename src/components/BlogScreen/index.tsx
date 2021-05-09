@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
 import {ActivityIndicator, Text, TouchableOpacity, View} from 'react-native';
 import {FAB, Icon, Image, useTheme} from 'react-native-elements';
@@ -8,11 +8,10 @@ import {useTranslation} from 'react-i18next';
 import {observer} from 'mobx-react-lite';
 import {useStores} from '../../store';
 
-import moment from 'moment';
-
 import styleSheet from './style';
 import PostModal from './post';
 import {BlogSavedPostProps} from '../../store/blogStore';
+import {getLocaleDate} from '../../util/date';
 
 export interface BlogOpenedPostProps {
   title?: string;
@@ -27,9 +26,12 @@ export interface BlogOpenedPostProps {
 const BlogScreen = () => {
   const [openedPost, setOpenedPost] = useState<BlogOpenedPostProps>({id: ''});
 
-  const {blogStore, localeStore} = useStores();
+  const {blogStore, localeStore, userStore} = useStores();
 
-  const {posts, removePost, savePost} = blogStore;
+  const {posts, removePost, savePost, fetchPosts} = blogStore;
+
+  const {user} = userStore;
+
   const {language} = localeStore;
 
   const {t} = useTranslation();
@@ -38,8 +40,27 @@ const BlogScreen = () => {
 
   const styles = styleSheet();
 
+  useEffect(() => {
+    console.log('effected posts', posts);
+
+    if (user) {
+      fetchPosts(user.uid);
+    }
+  }, [fetchPosts, posts, user]);
+
+  const handleSavePost = (post: BlogSavedPostProps) => {
+    if (user) {
+      savePost(post, user.uid).then(() => fetchPosts(user.uid));
+    }
+  };
+
+  const handleRemovePost = (postId: string) => {
+    if (user) {
+      removePost(user.uid, postId).then(() => fetchPosts(user.uid));
+    }
+  };
+
   const renderPost = (post: BlogSavedPostProps, index: number) => {
-    console.log(post);
     return (
       <TouchableOpacity
         style={styles.post}
@@ -48,7 +69,7 @@ const BlogScreen = () => {
         <View style={styles.postHeader}>
           <View style={styles.postHeaderInfo}>
             <Text style={styles.postHeaderInfoDate}>
-              {moment(post.date).locale(language).format('LLL')}
+              {getLocaleDate(post.date, language)}
             </Text>
             <Text style={styles.postHeaderInfoTitle}>{post.title}</Text>
           </View>
@@ -65,7 +86,7 @@ const BlogScreen = () => {
               size={20}
               name="delete"
               color={theme.colors?.error}
-              onPress={() => removePost(post.id)}
+              onPress={() => handleRemovePost(post.id)}
             />
           </View>
         </View>
@@ -94,11 +115,13 @@ const BlogScreen = () => {
 
   return (
     <View style={styles.container}>
-      {posts.length ? (
-        posts.map(renderPost)
-      ) : (
-        <Text style={styles.emptyText}>{t('blog.empty')}</Text>
-      )}
+      <View>
+        {posts.length ? (
+          posts.map(renderPost)
+        ) : (
+          <Text style={styles.emptyText}>{t('blog.empty')}</Text>
+        )}
+      </View>
       <FAB
         icon={{
           name: 'post-add',
@@ -111,8 +134,8 @@ const BlogScreen = () => {
       <PostModal
         post={openedPost}
         setOpenedPost={setOpenedPost}
-        removePost={removePost}
-        savePost={savePost}
+        removePost={handleRemovePost}
+        savePost={handleSavePost}
       />
     </View>
   );

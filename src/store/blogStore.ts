@@ -1,4 +1,9 @@
-import {makeAutoObservable} from 'mobx';
+import {action, makeAutoObservable} from 'mobx';
+import {
+  pushDatabaseValue,
+  readDatabaseValue,
+  removeDatabaseValue,
+} from '../util/database';
 
 export interface BlogSavedPostProps {
   title: string;
@@ -10,35 +15,36 @@ export interface BlogSavedPostProps {
 }
 
 export default class BlogStore {
-  posts: BlogSavedPostProps[] = [
-    {
-      title: 'Post title',
-      text:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ut libero massa. Quisque eget nibh gravida, imperdiet odio id, convallis elit. Cras cursus vel augue sodales varius. Sed facilisis semper justo at lacinia. Nunc sit amet leo nec elit varius ultricies id id urna. Suspendisse massa neque, venenatis at commodo et, bibendum eget orci. Fusce pretium massa eget luctus semper.',
-      // imageUrl: '',
-      date: '2021-04-05T20:24:59Z',
-      id: '1',
-    },
-  ];
+  posts: BlogSavedPostProps[] = [];
+
+  state: string = 'done';
 
   constructor() {
     makeAutoObservable(this);
   }
 
-  savePost = (post: BlogSavedPostProps) => {
-    const postIndex = this.posts.findIndex(item => item.id === post.id);
-
-    if (postIndex === -1) {
-      this.posts.push(post);
-    } else {
-      this.posts[postIndex] = post;
-    }
+  savePost = (post: BlogSavedPostProps, uid: string) => {
+    return pushDatabaseValue(`/users/${uid}/posts/${post.id}`, post, post.id);
   };
 
-  removePost = (postId: string) => {
-    const postIndex = this.posts.findIndex(post => post.id === postId);
-    if (postIndex !== -1) {
-      this.posts.splice(postIndex, 1);
-    }
+  removePost = (uid: string, postId: string) => {
+    return removeDatabaseValue(`/users/${uid}/posts/${postId}`);
+  };
+
+  fetchPosts = (uid: string) => {
+    // this.posts = [];
+
+    this.state = 'pending';
+
+    readDatabaseValue(`/users/${uid}/posts`).then(
+      action('fetchSuccess', (posts: BlogSavedPostProps[]) => {
+        this.state = 'done';
+        this.posts = posts ? Object.values(posts) : [];
+      }),
+      action('fetchError', () => {
+        this.state = 'error';
+        this.posts = [];
+      }),
+    );
   };
 }

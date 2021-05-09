@@ -36,12 +36,11 @@ const PostUploadMedia = ({postId, setUploadedMedia}: PostUploadMediaProps) => {
   const styles = styleSheet();
 
   const selectMediaSource = () => {
-    console.log('show actionsheet');
     return showActionSheetWithOptions(
       {
-        options: ['Select from gallery', 'Take photo/video', 'Cancel'],
+        options: ['Select from gallery', 'Take photo or video', 'Cancel'],
         cancelButtonIndex: 2,
-        title: 'Choose image/video source',
+        title: 'Choose image or video source',
         containerStyle: {zIndex: 100500},
       },
       buttonIndex => {
@@ -72,7 +71,7 @@ const PostUploadMedia = ({postId, setUploadedMedia}: PostUploadMediaProps) => {
 
   const handleSetMedia = (uri: string, isVideo?: boolean) => {
     if (isVideo) {
-      return uploadMedia(uri);
+      return uploadMedia(uri, isVideo);
     } else {
       ImagePicker.openCropper({
         mediaType: 'photo',
@@ -91,11 +90,9 @@ const PostUploadMedia = ({postId, setUploadedMedia}: PostUploadMediaProps) => {
       return null;
     }
 
-    // setUploading(true);
-
     const mediaType = isVideo ? 'video' : 'image';
 
-    const mediaPath = `${user.uid}/posts/${postId}/${mediaType}`;
+    const mediaPath = `${user.uid}/posts/${postId}/media/${mediaType}`;
     const uploadUri =
       Platform.OS === 'ios' ? path.replace('file://', '') : path;
 
@@ -103,7 +100,7 @@ const PostUploadMedia = ({postId, setUploadedMedia}: PostUploadMediaProps) => {
       .ref(mediaPath)
       .putFile(uploadUri)
       .then(() => {
-        return saveMediaUrl(mediaPath);
+        return saveMediaUrl(mediaPath, isVideo);
       });
   };
 
@@ -112,15 +109,14 @@ const PostUploadMedia = ({postId, setUploadedMedia}: PostUploadMediaProps) => {
       .ref('/' + imagePath)
       .getDownloadURL()
       .then((url: any) => {
-        // changeUser({photoURL: url});
-        // setUploading(false);
+        setIsOpenCamera(false);
         return setUploadedMedia(url, isVideo);
       });
   };
 
   return (
     <View style={styles.container}>
-      <ButtonCustom onPress={selectMediaSource} title="CAMERA" />
+      <ButtonCustom onPress={selectMediaSource} title="Upload image or video" />
       {isOpenCamera && (
         <Camera
           setMedia={handleSetMedia}

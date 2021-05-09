@@ -20,6 +20,7 @@ import ButtonCustom from '../Button';
 import {useActionSheet} from '@expo/react-native-action-sheet';
 import {countries} from '../../constants';
 import {Image} from 'react-native-elements';
+import {getLocaleDate} from '../../util/date';
 
 const News = () => {
   const {localeStore, newsStore} = useStores();
@@ -71,7 +72,7 @@ const News = () => {
         <View style={styles.articleData}>
           <Text style={styles.articleSource}>{article.source.name}</Text>
           <Text style={styles.articleDate}>
-            {moment(article.publishedAt).format('LLL')}
+            {getLocaleDate(article.publishedAt, language)}
           </Text>
         </View>
       </TouchableOpacity>

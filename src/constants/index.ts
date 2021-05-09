@@ -20,21 +20,25 @@ export const languageCodes = [
   'zh',
 ];
 
-export const languageLocales = {
-  ar: {locale: 'ar'},
-  de: {locale: 'de'},
-  en: {locale: 'en-us'},
-  es: {locale: 'es'},
-  fr: {locale: 'fr'},
-  he: {locale: 'he'},
-  it: {locale: 'it'},
-  nl: {locale: 'nl'},
-  // 'no': {locale:'no'}
-  pt: {locale: 'pt'},
-  ru: {locale: 'ru'},
-  // 'se': {locale:'se'},
-  // 'ud': {locale:'ud'},
-  zh: {locale: 'zh-cn'},
+interface localesDic {
+  [key: string]: string;
+}
+
+export const languageLocales: localesDic = {
+  ar: 'ar',
+  de: 'de',
+  en: 'en-gb',
+  es: 'es',
+  fr: 'fr',
+  he: 'he',
+  it: 'it',
+  nl: 'nl',
+  // 'no': {locale:'no'},
+  pt: 'pt',
+  ru: 'ru',
+  // 'se': {locale:'se',
+  // 'ud': {locale:'ud',
+  zh: 'zh-cn',
 };
 
 export const countries = [

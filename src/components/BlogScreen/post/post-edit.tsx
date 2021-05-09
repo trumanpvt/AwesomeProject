@@ -23,8 +23,6 @@ const PostEdit = ({
   const [imageUrl, setImageUrl] = useState(post.imageUrl || '');
   const [videoUrl, setVideoUrl] = useState(post.videoUrl || '');
 
-  // const [isOpenCamera, setIsOpenCamera] = useState(false);
-
   const {t} = useTranslation();
 
   const {theme} = useTheme();
@@ -32,15 +30,7 @@ const PostEdit = ({
   const styles = styleSheet();
 
   const handleSavePost = () => {
-    const postDate = post.date || moment().format('LLL');
-
-    console.log({
-      title: title,
-      text: text,
-      imageUrl: imageUrl,
-      date: postDate,
-      id: post.id,
-    });
+    const postDate = post.date || moment().toISOString();
 
     if (savePost) {
       savePost({

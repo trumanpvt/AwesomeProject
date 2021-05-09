@@ -38,8 +38,22 @@ export default () => {
       textAlign: 'center',
     },
     text: {
-      flex: 1,
+      // flex: 1,
       fontSize: 15,
+    },
+    postImage: {
+      flex: 1,
+      height: 200,
+      width: undefined,
+    },
+    postVideoContainer: {
+      width: '100%',
+      height: 200,
+    },
+    postVideo: {
+      flex: 1,
+      height: 200,
+      width: undefined,
     },
     titleInput: {
       fontSize: 20,
