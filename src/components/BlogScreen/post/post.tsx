@@ -1,8 +1,6 @@
-import React, {useRef} from 'react';
+import React from 'react';
 
 import {ActivityIndicator, ScrollView, Text, View} from 'react-native';
-
-import Video from 'react-native-video';
 
 import {Icon, Image, useTheme} from 'react-native-elements';
 
@@ -11,12 +9,11 @@ import {PostModalProps} from './index';
 import styleSheet from './style';
 import {useStores} from '../../../store';
 import {getLocaleDate} from '../../../util/date';
+import VideoPlayerCustom from '../../VideoPlayer';
 
 const Post = ({post, setOpenedPost, removePost}: PostModalProps) => {
   const {language} = useStores().localeStore;
   const {theme} = useTheme();
-
-  let videoPlayer = useRef(null);
 
   const styles = styleSheet();
 
@@ -64,17 +61,7 @@ const Post = ({post, setOpenedPost, removePost}: PostModalProps) => {
           }
         />
       ) : null}
-      {post.videoUrl ? (
-        <Video
-          source={{uri: post.videoUrl}} // Can be a URL or a local file.
-          ref={ref => {
-            videoPlayer = ref;
-          }} // Store reference
-          // onBuffer={() => <ActivityIndicator size="large" color="#0000ff" />} // Callback when remote video is buffering
-          // onError={this.videoError} // Callback when video cannot be loaded
-          style={styles.postVideo}
-        />
-      ) : null}
+      {post.videoUrl ? <VideoPlayerCustom uri={post.videoUrl} /> : null}
     </ScrollView>
   );
 };

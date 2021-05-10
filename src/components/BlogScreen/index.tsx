@@ -43,7 +43,7 @@ const BlogScreen = () => {
   useEffect(() => {
     console.log('effected posts', posts);
 
-    if (user) {
+    if (user && !posts.length) {
       fetchPosts(user.uid);
     }
   }, [fetchPosts, posts, user]);
