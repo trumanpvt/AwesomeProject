@@ -44,18 +44,13 @@ export default () => {
       fontSize: 15,
     },
     postImage: {
+      marginTop: 20,
       flex: 1,
       height: 200,
       width: undefined,
-    },
-    postVideoContainer: {
-      width: '100%',
-      height: 200,
     },
     postVideo: {
-      flex: 1,
-      height: 200,
-      width: undefined,
+      marginTop: 20,
     },
     titleInput: {
       fontSize: 20,
@@ -64,6 +59,5 @@ export default () => {
       flex: 1,
       fontSize: 15,
     },
-    image: {},
   });
 };

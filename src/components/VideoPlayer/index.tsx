@@ -11,12 +11,14 @@ import styles from './style';
 interface VideoPlayerProps {
   uri: string;
   postId: string;
+  style: any;
   disableBack?: boolean;
 }
 
 const VideoPlayerCustom = ({
   uri,
   postId,
+  style,
   disableBack = true,
 }: VideoPlayerProps) => {
   const [isFullscreen, setIsFullscreen] = useState(false);
@@ -56,6 +58,9 @@ const VideoPlayerCustom = ({
     return (
       <VideoPlayer
         source={{uri: path}}
+        style={style}
+        controlTimeout={0}
+        tapAnywhereToPause
         onEnterFullscreen={() => setIsFullscreen(true)}
         disableBack={disableBack}
       />
