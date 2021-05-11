@@ -10,15 +10,20 @@ import styles from './style';
 
 interface VideoPlayerProps {
   uri: string;
+  postId: string;
   disableBack?: boolean;
 }
 
-const VideoPlayerCustom = ({uri, disableBack = true}: VideoPlayerProps) => {
+const VideoPlayerCustom = ({
+  uri,
+  postId,
+  disableBack = true,
+}: VideoPlayerProps) => {
   const [isFullscreen, setIsFullscreen] = useState(false);
 
   const [videoReady, setVideoReady] = useState(false);
 
-  const path = RNFS.DocumentDirectoryPath + '/video';
+  const path = RNFS.DocumentDirectoryPath + '/video-' + postId;
 
   useEffect(() => {
     RNFS.downloadFile({
@@ -28,10 +33,9 @@ const VideoPlayerCustom = ({uri, disableBack = true}: VideoPlayerProps) => {
       setVideoReady(true);
     });
 
-    // return RNFS.unlink(path).then(() => {
-    //   console.log('FILE DELETED');
-    // });
-    // return removeFIle();
+    return () => {
+      RNFS.unlink(path).then();
+    };
   }, [path, uri]);
 
   const fullScreenVideo = () => {

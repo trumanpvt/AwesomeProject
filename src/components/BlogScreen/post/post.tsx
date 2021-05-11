@@ -61,7 +61,9 @@ const Post = ({post, setOpenedPost, removePost}: PostModalProps) => {
           }
         />
       ) : null}
-      {post.videoUrl ? <VideoPlayerCustom uri={post.videoUrl} /> : null}
+      {post.videoUrl ? (
+        <VideoPlayerCustom uri={post.videoUrl} postId={post.id} />
+      ) : null}
     </ScrollView>
   );
 };
