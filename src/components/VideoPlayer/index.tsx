@@ -59,7 +59,6 @@ const VideoPlayerCustom = ({
       <VideoPlayer
         source={{uri: path}}
         style={style}
-        controlTimeout={0}
         tapAnywhereToPause
         onEnterFullscreen={() => setIsFullscreen(true)}
         disableBack={disableBack}
