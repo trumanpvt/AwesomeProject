@@ -41,8 +41,6 @@ const BlogScreen = () => {
   const styles = styleSheet();
 
   useEffect(() => {
-    console.log('effected posts', posts);
-
     if (user && !posts.length && state !== 'pending') {
       fetchPosts(user.uid);
     }
