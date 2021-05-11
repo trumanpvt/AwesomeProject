@@ -28,7 +28,7 @@ const BlogScreen = () => {
 
   const {blogStore, localeStore, userStore} = useStores();
 
-  const {posts, removePost, savePost, fetchPosts} = blogStore;
+  const {posts, state, removePost, savePost, fetchPosts} = blogStore;
 
   const {user} = userStore;
 
@@ -43,10 +43,10 @@ const BlogScreen = () => {
   useEffect(() => {
     console.log('effected posts', posts);
 
-    if (user && !posts.length) {
+    if (user && !posts.length && state !== 'pending') {
       fetchPosts(user.uid);
     }
-  }, [fetchPosts, posts, user]);
+  }, [fetchPosts, posts, state, user]);
 
   const handleSavePost = (post: BlogSavedPostProps) => {
     if (user) {
@@ -107,6 +107,14 @@ const BlogScreen = () => {
     );
   };
 
+  const renderPostsBlock = () => {
+    if (posts.length) {
+      return <View>{posts.map(renderPost)}</View>;
+    }
+
+    return <Text style={styles.emptyText}>{t('blog.empty')}</Text>;
+  };
+
   const createPost = () => {
     const newPostId = Math.random().toString(36).substr(2, 9);
 
@@ -115,13 +123,11 @@ const BlogScreen = () => {
 
   return (
     <View style={styles.container}>
-      <View>
-        {posts.length ? (
-          posts.map(renderPost)
-        ) : (
-          <Text style={styles.emptyText}>{t('blog.empty')}</Text>
-        )}
-      </View>
+      {state !== 'pending' ? (
+        renderPostsBlock()
+      ) : (
+        <ActivityIndicator size="large" color="#0000ff" />
+      )}
       <FAB
         icon={{
           name: 'post-add',
