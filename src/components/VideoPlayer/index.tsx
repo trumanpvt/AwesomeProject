@@ -18,7 +18,7 @@ const VideoPlayerCustom = ({uri, disableBack = true}: VideoPlayerProps) => {
 
   const [videoReady, setVideoReady] = useState(false);
 
-  const path = RNFS.DocumentDirectoryPath + '/video';
+  const path = RNFS.DocumentDirectoryPath + '/video.mp4';
 
   // const downloadFile = () => {
   //   RNFS.downloadFile({
@@ -37,8 +37,9 @@ const VideoPlayerCustom = ({uri, disableBack = true}: VideoPlayerProps) => {
     RNFS.downloadFile({
       fromUrl: uri,
       toFile: path,
-    }).promise.then(() => {
+    }).promise.then(res => {
       console.log('ready', path);
+      console.log('res', res);
       setVideoReady(true);
     });
 
@@ -53,7 +54,7 @@ const VideoPlayerCustom = ({uri, disableBack = true}: VideoPlayerProps) => {
       <Modal>
         <SafeAreaView style={styles.container}>
           <VideoPlayer
-            source={`file://${path}`}
+            source={`file://${path}`.replace('///', '//')}
             onBack={() => setIsFullscreen(false)}
             disableFullscreen
           />
@@ -63,9 +64,13 @@ const VideoPlayerCustom = ({uri, disableBack = true}: VideoPlayerProps) => {
   };
 
   const inlineVideo = () => {
+    console.log(`file://${path}`.replace('///', '//'));
     return (
       <VideoPlayer
-        source={`file://${path}`}
+        // source={`file://${path}`.replace('///', '//')}
+        source={
+          '/Users/out-kurgin-ad/Library/Developer/CoreSimulator/Devices/56F33875-3D0F-48AF-A7CE-DF40F573E9D4/data/Containers/Data/Application/DC4DE4D8-BF94-4EFC-93EA-7A9ED56EC3F1/Documents/video.mp4'
+        }
         onEnterFullscreen={() => setIsFullscreen(true)}
         disableBack={disableBack}
       />
