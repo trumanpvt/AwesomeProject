@@ -107,7 +107,7 @@ const PostEdit = ({
           onChangeText={setText}
           leftIcon={{name: 'edit'}}
         />
-        <PostUploadMedia postId={post.id} setUploadedMedia={setUploadedMedia} />
+        <PostUploadMedia post={post} setUploadedMedia={setUploadedMedia} />
       </ScrollView>
     </ActionSheetProvider>
   );

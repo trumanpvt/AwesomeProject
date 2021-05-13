@@ -1,24 +1,29 @@
 import React, {useState} from 'react';
 
-import {Platform, View} from 'react-native';
-import {useTheme} from 'react-native-elements';
+import {ActivityIndicator, Platform, Text, View} from 'react-native';
+import {Icon, Image, useTheme} from 'react-native-elements';
 
 import {useTranslation} from 'react-i18next';
 
 import styleSheet from './style';
 import Camera from '../../Camera';
 import {useActionSheet} from '@expo/react-native-action-sheet';
-import ImagePicker, {Image} from 'react-native-image-crop-picker';
+import ImagePicker from 'react-native-image-crop-picker';
 import storage from '@react-native-firebase/storage';
 import {useStores} from '../../../store';
 import ButtonCustom from '../../Button';
+import VideoPlayerCustom from '../../VideoPlayer';
 
 interface PostUploadMediaProps {
-  postId: string;
+  post: {
+    id: string;
+    imageUrl?: string;
+    videoUrl?: string;
+  };
   setUploadedMedia: (uri: string, isVideo?: boolean) => void;
 }
 
-const PostUploadMedia = ({postId, setUploadedMedia}: PostUploadMediaProps) => {
+const PostUploadMedia = ({post, setUploadedMedia}: PostUploadMediaProps) => {
   const {user} = useStores().userStore;
 
   // const [uploading, setUploading] = useState(false);
@@ -90,7 +95,7 @@ const PostUploadMedia = ({postId, setUploadedMedia}: PostUploadMediaProps) => {
         path: uri,
         // width: 80,
         // height: 80,
-      }).then((image: Image) => {
+      }).then(image => {
         setCamera({open: false});
         return uploadMedia(image.path);
       });
@@ -104,7 +109,7 @@ const PostUploadMedia = ({postId, setUploadedMedia}: PostUploadMediaProps) => {
 
     const mediaType = isVideo ? 'video' : 'image';
 
-    const mediaPath = `${user.uid}/posts/${postId}/media/${mediaType}`;
+    const mediaPath = `${user.uid}/posts/${post.id}/media/${mediaType}`;
     const uploadUri =
       Platform.OS === 'ios' ? path.replace('file://', '') : path;
 
@@ -126,10 +131,85 @@ const PostUploadMedia = ({postId, setUploadedMedia}: PostUploadMediaProps) => {
       });
   };
 
+  const renderImageBlock = () => {
+    return (
+      <View style={styles.postEditMediaContainer}>
+        <Text style={styles.postEditMediaTitle}>Change image</Text>
+        <View style={styles.postEditMedia}>
+          {post.imageUrl ? (
+            <View style={styles.postEditMediaWrap}>
+              <Image
+                resizeMode="contain"
+                style={styles.postEditImage}
+                source={{
+                  uri: post.imageUrl,
+                }}
+                PlaceholderContent={
+                  <ActivityIndicator size="large" color="#0000ff" />
+                }
+              />
+            </View>
+          ) : null}
+          <View style={styles.postEditMediaControls}>
+            <Icon
+              raised
+              size={25}
+              name="edit"
+              color={theme.colors?.secondary}
+              onPress={selectPhotoSource}
+            />
+            <Icon
+              raised
+              size={25}
+              name="delete"
+              color={theme.colors?.error}
+              onPress={() => setUploadedMedia('')}
+            />
+          </View>
+        </View>
+      </View>
+    );
+  };
+
+  const renderVideoBlock = () => {
+    return (
+      <View style={styles.postEditMediaContainer}>
+        <Text style={styles.postEditMediaTitle}>Change video</Text>
+        <View style={styles.postEditMedia}>
+          {post.videoUrl ? (
+            <View style={styles.postEditMediaWrap}>
+              <VideoPlayerCustom
+                uri={post.videoUrl}
+                postId={post.id}
+                style={styles.postEditVideo}
+              />
+            </View>
+          ) : null}
+          <View style={styles.postEditMediaControls}>
+            <Icon
+              raised
+              size={25}
+              name="edit"
+              color={theme.colors?.secondary}
+              onPress={selectVideoSource}
+            />
+            <Icon
+              raised
+              size={25}
+              name="delete"
+              color={theme.colors?.error}
+              onPress={() => setUploadedMedia('', true)}
+            />
+          </View>
+        </View>
+      </View>
+    );
+  };
+
   return (
     <View style={styles.container}>
-      <ButtonCustom onPress={selectPhotoSource} title="Upload image" />
-      <ButtonCustom onPress={selectVideoSource} title="Upload video" />
+      {renderImageBlock()}
+      {renderVideoBlock()}
       {camera.open && (
         <Camera
           setMedia={handleSetMedia}

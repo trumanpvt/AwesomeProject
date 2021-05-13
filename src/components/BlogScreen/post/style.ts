@@ -59,5 +59,33 @@ export default () => {
       flex: 1,
       fontSize: 15,
     },
+    postEditMediaContainer: {
+      marginTop: 10,
+    },
+    postEditMedia: {
+      flexDirection: 'row',
+    },
+    postEditMediaTitle: {
+      fontSize: 20,
+      textAlign: 'center',
+    },
+    postEditMediaWrap: {
+      marginTop: 20,
+      width: '70%',
+      marginRight: 20,
+    },
+    postEditImage: {
+      flex: 1,
+      height: 150,
+      width: undefined,
+    },
+    postEditVideo: {
+      // flex: 1,
+    },
+    postEditMediaControls: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
   });
 };

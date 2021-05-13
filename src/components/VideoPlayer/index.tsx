@@ -60,6 +60,7 @@ const VideoPlayerCustom = ({
         source={{uri: path}}
         style={style}
         tapAnywhereToPause
+        paused
         onEnterFullscreen={() => setIsFullscreen(true)}
         disableBack={disableBack}
       />
