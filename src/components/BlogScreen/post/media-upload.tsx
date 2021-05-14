@@ -132,24 +132,37 @@ const PostUploadMedia = ({post, setUploadedMedia}: PostUploadMediaProps) => {
   };
 
   const renderImageBlock = () => {
+    if (!post.imageUrl) {
+      return (
+        <View style={styles.postEditMediaContainer}>
+          <Text style={styles.postEditMediaTitle}>Add image</Text>
+          <Icon
+            raised
+            size={25}
+            name="add-a-photo"
+            color={theme.colors?.secondary}
+            onPress={selectPhotoSource}
+          />
+        </View>
+      );
+    }
+
     return (
       <View style={styles.postEditMediaContainer}>
         <Text style={styles.postEditMediaTitle}>Change image</Text>
         <View style={styles.postEditMedia}>
-          {post.imageUrl ? (
-            <View style={styles.postEditMediaWrap}>
-              <Image
-                resizeMode="contain"
-                style={styles.postEditImage}
-                source={{
-                  uri: post.imageUrl,
-                }}
-                PlaceholderContent={
-                  <ActivityIndicator size="large" color="#0000ff" />
-                }
-              />
-            </View>
-          ) : null}
+          <View style={styles.postEditMediaWrap}>
+            <Image
+              resizeMode="contain"
+              style={styles.postEditImage}
+              source={{
+                uri: post.imageUrl,
+              }}
+              PlaceholderContent={
+                <ActivityIndicator size="large" color="#0000ff" />
+              }
+            />
+          </View>
           <View style={styles.postEditMediaControls}>
             <Icon
               raised
@@ -172,19 +185,34 @@ const PostUploadMedia = ({post, setUploadedMedia}: PostUploadMediaProps) => {
   };
 
   const renderVideoBlock = () => {
+    if (!post.videoUrl) {
+      return (
+        <View style={styles.postEditMediaContainer}>
+          <Text style={styles.postEditMediaTitle}>Add video</Text>
+          <View style={styles.postEditMedia}>
+            <Icon
+              raised
+              size={25}
+              name="video-library"
+              color={theme.colors?.secondary}
+              onPress={selectVideoSource}
+            />
+          </View>
+        </View>
+      );
+    }
+
     return (
       <View style={styles.postEditMediaContainer}>
         <Text style={styles.postEditMediaTitle}>Change video</Text>
         <View style={styles.postEditMedia}>
-          {post.videoUrl ? (
-            <View style={styles.postEditMediaWrap}>
-              <VideoPlayerCustom
-                uri={post.videoUrl}
-                postId={post.id}
-                style={styles.postEditVideo}
-              />
-            </View>
-          ) : null}
+          <View style={styles.postEditMediaWrap}>
+            <VideoPlayerCustom
+              uri={post.videoUrl}
+              postId={post.id}
+              style={styles.postEditVideo}
+            />
+          </View>
           <View style={styles.postEditMediaControls}>
             <Icon
               raised

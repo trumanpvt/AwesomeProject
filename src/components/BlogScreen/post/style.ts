@@ -61,8 +61,11 @@ export default () => {
     },
     postEditMediaContainer: {
       marginTop: 10,
+      alignItems: 'center',
+      // paddingHorizontal: 10,
     },
     postEditMedia: {
+      marginTop: 20,
       flexDirection: 'row',
     },
     postEditMediaTitle: {
@@ -70,22 +73,19 @@ export default () => {
       textAlign: 'center',
     },
     postEditMediaWrap: {
-      marginTop: 20,
-      width: '70%',
-      marginRight: 20,
+      flexShrink: 0,
+      flex: 1,
     },
     postEditImage: {
       flex: 1,
       height: 150,
       width: undefined,
     },
-    postEditVideo: {
-      // flex: 1,
-    },
+    postEditVideo: {},
     postEditMediaControls: {
-      flex: 1,
       justifyContent: 'center',
       alignItems: 'center',
+      paddingLeft: 10,
     },
   });
 };

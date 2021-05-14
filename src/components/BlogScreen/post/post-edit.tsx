@@ -90,8 +90,6 @@ const PostEdit = ({
             />
           </View>
         </View>
-        {/*<Text style={styles.Title}>{post.title}</Text>*/}
-        {/*<Text style={styles.postText}>{post.text}</Text>*/}
         <Input
           inputStyle={styles.titleInput}
           placeholder="Title"
