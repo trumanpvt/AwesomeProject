@@ -79,9 +79,9 @@ export const facebookSignIn = async (setCredential: {
     }
 
     // Create a Firebase credential with the AccessToken
-    const facebookCredential = auth.FacebookAuthProvider.credential(
-      accessToken,
-    );
+    const facebookCredential =
+      auth.FacebookAuthProvider.credential(accessToken);
+
     setCredential(facebookCredential);
 
     // Sign-in the user with the credential

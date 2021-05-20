@@ -23,29 +23,34 @@ const VideoPlayerCustom = ({
 }: VideoPlayerProps) => {
   const [isFullscreen, setIsFullscreen] = useState(false);
 
-  const [videoReady, setVideoReady] = useState(false);
-
-  const path = RNFS.DocumentDirectoryPath + '/video-' + postId;
+  const [videoPath, setVideoPath] = useState('');
 
   useEffect(() => {
-    RNFS.downloadFile({
-      fromUrl: uri,
-      toFile: path,
-    }).promise.then(() => {
-      setVideoReady(true);
-    });
+    if (uri.includes('file://')) {
+      setVideoPath(uri);
+    } else {
+      const path = RNFS.DocumentDirectoryPath + '/video-' + postId;
 
-    return () => {
-      RNFS.unlink(path).then();
-    };
-  }, [path, uri]);
+      RNFS.downloadFile({
+        fromUrl: uri,
+        toFile: path,
+      }).promise.then(() => {
+        console.log('path', path);
+        setVideoPath(path);
+      });
+
+      return () => {
+        RNFS.unlink(path).then();
+      };
+    }
+  }, [postId, uri]);
 
   const fullScreenVideo = () => {
     return (
       <Modal>
         <SafeAreaView style={styles.container}>
           <VideoPlayer
-            source={{uri: path}}
+            source={{uri: videoPath}}
             onBack={() => setIsFullscreen(false)}
             disableFullscreen
           />
@@ -57,7 +62,7 @@ const VideoPlayerCustom = ({
   const inlineVideo = () => {
     return (
       <VideoPlayer
-        source={{uri: path}}
+        source={{uri: videoPath}}
         style={style}
         tapAnywhereToPause
         paused
@@ -67,7 +72,7 @@ const VideoPlayerCustom = ({
     );
   };
 
-  return videoReady ? (
+  return videoPath ? (
     isFullscreen ? (
       fullScreenVideo()
     ) : (

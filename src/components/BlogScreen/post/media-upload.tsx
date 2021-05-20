@@ -167,6 +167,8 @@ const PostUploadMedia = ({
   };
 
   const renderVideoBlock = () => {
+    console.log('videoUrl', videoUrl);
+
     if (!videoUrl) {
       return (
         <View style={styles.postEditMediaContainer}>
