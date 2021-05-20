@@ -9,21 +9,22 @@ import styleSheet from './style';
 import Camera from '../../Camera';
 import {useActionSheet} from '@expo/react-native-action-sheet';
 import ImagePicker from 'react-native-image-crop-picker';
-import storage from '@react-native-firebase/storage';
 import {useStores} from '../../../store';
-import ButtonCustom from '../../Button';
 import VideoPlayerCustom from '../../VideoPlayer';
 
 interface PostUploadMediaProps {
-  post: {
-    id: string;
-    imageUrl?: string;
-    videoUrl?: string;
-  };
+  postId: string;
+  videoUrl?: string;
+  imageUrl?: string;
   setUploadedMedia: (uri: string, isVideo?: boolean) => void;
 }
 
-const PostUploadMedia = ({post, setUploadedMedia}: PostUploadMediaProps) => {
+const PostUploadMedia = ({
+  postId,
+  videoUrl,
+  imageUrl,
+  setUploadedMedia,
+}: PostUploadMediaProps) => {
   const {user} = useStores().userStore;
 
   // const [uploading, setUploading] = useState(false);
@@ -93,8 +94,6 @@ const PostUploadMedia = ({post, setUploadedMedia}: PostUploadMediaProps) => {
       ImagePicker.openCropper({
         mediaType: 'photo',
         path: uri,
-        // width: 80,
-        // height: 80,
       }).then(image => {
         setCamera({open: false});
         return uploadMedia(image.path);
@@ -107,32 +106,15 @@ const PostUploadMedia = ({post, setUploadedMedia}: PostUploadMediaProps) => {
       return null;
     }
 
-    const mediaType = isVideo ? 'video' : 'image';
-
-    const mediaPath = `${user.uid}/posts/${post.id}/media/${mediaType}`;
     const uploadUri =
       Platform.OS === 'ios' ? path.replace('file://', '') : path;
 
-    return storage()
-      .ref(mediaPath)
-      .putFile(uploadUri)
-      .then(() => {
-        return saveMediaUrl(mediaPath, isVideo);
-      });
-  };
-
-  const saveMediaUrl = (imagePath: string, isVideo: boolean = false) => {
-    return storage()
-      .ref('/' + imagePath)
-      .getDownloadURL()
-      .then((url: any) => {
-        setCamera({open: false});
-        return setUploadedMedia(url, isVideo);
-      });
+    setCamera({open: false});
+    return setUploadedMedia(uploadUri, isVideo);
   };
 
   const renderImageBlock = () => {
-    if (!post.imageUrl) {
+    if (!imageUrl) {
       return (
         <View style={styles.postEditMediaContainer}>
           <Text style={styles.postEditMediaTitle}>Add image</Text>
@@ -156,7 +138,7 @@ const PostUploadMedia = ({post, setUploadedMedia}: PostUploadMediaProps) => {
               resizeMode="contain"
               style={styles.postEditImage}
               source={{
-                uri: post.imageUrl,
+                uri: imageUrl,
               }}
               PlaceholderContent={
                 <ActivityIndicator size="large" color="#0000ff" />
@@ -185,7 +167,7 @@ const PostUploadMedia = ({post, setUploadedMedia}: PostUploadMediaProps) => {
   };
 
   const renderVideoBlock = () => {
-    if (!post.videoUrl) {
+    if (!videoUrl) {
       return (
         <View style={styles.postEditMediaContainer}>
           <Text style={styles.postEditMediaTitle}>Add video</Text>
@@ -208,8 +190,8 @@ const PostUploadMedia = ({post, setUploadedMedia}: PostUploadMediaProps) => {
         <View style={styles.postEditMedia}>
           <View style={styles.postEditMediaWrap}>
             <VideoPlayerCustom
-              uri={post.videoUrl}
-              postId={post.id}
+              uri={videoUrl}
+              postId={postId}
               style={styles.postEditVideo}
             />
           </View>

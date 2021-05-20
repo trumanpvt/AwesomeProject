@@ -28,7 +28,7 @@ const BlogScreen = () => {
 
   const {blogStore, localeStore, userStore} = useStores();
 
-  const {posts, state, removePost, savePost, fetchPosts} = blogStore;
+  const {posts, state, removePost, fetchPosts} = blogStore;
 
   const {user} = userStore;
 
@@ -46,11 +46,9 @@ const BlogScreen = () => {
     }
   }, [fetchPosts, posts, state, user]);
 
-  const handleSavePost = (post: BlogSavedPostProps) => {
-    if (user) {
-      savePost(post, user.uid).then(() => fetchPosts(user.uid));
-    }
-  };
+  if (!user) {
+    return <Text>Test</Text>;
+  }
 
   const handleRemovePost = (postId: string) => {
     if (user) {
@@ -138,9 +136,9 @@ const BlogScreen = () => {
       />
       <PostModal
         post={openedPost}
+        userUid={user.uid}
         setOpenedPost={setOpenedPost}
         removePost={handleRemovePost}
-        savePost={handleSavePost}
       />
     </View>
   );

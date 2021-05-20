@@ -24,7 +24,11 @@ export default class BlogStore {
   }
 
   savePost = (post: BlogSavedPostProps, uid: string) => {
-    return pushDatabaseValue(`/users/${uid}/posts/${post.id}`, post, post.id);
+    pushDatabaseValue(`/users/${uid}/posts/${post.id}`, post, post.id).then(
+      () => {
+        return this.fetchPosts(uid);
+      },
+    );
   };
 
   removePost = (uid: string, postId: string) => {

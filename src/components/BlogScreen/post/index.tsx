@@ -11,21 +11,14 @@ export interface PostModalProps {
   post: BlogOpenedPostProps;
   setOpenedPost: (post: BlogOpenedPostProps) => void;
   removePost: (postId: string) => void;
-  savePost?: (post: {
-    date: string;
-    videoUrl: string;
-    imageUrl: string;
-    text: string;
-    id: string;
-    title: string;
-  }) => void;
+  userUid?: string;
 }
 
 const PostModal = ({
   post,
   setOpenedPost,
   removePost,
-  savePost,
+  userUid,
 }: PostModalProps) => {
   const styles = styleSheet();
 
@@ -37,7 +30,7 @@ const PostModal = ({
             post={post}
             setOpenedPost={setOpenedPost}
             removePost={removePost}
-            savePost={savePost}
+            userUid={userUid}
           />
         ) : (
           <Post

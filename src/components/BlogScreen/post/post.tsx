@@ -10,6 +10,7 @@ import styleSheet from './style';
 import {useStores} from '../../../store';
 import {getLocaleDate} from '../../../util/date';
 import VideoPlayerCustom from '../../VideoPlayer';
+import {observer} from 'mobx-react-lite';
 
 const Post = ({post, setOpenedPost, removePost}: PostModalProps) => {
   const {language} = useStores().localeStore;
@@ -72,4 +73,4 @@ const Post = ({post, setOpenedPost, removePost}: PostModalProps) => {
   );
 };
 
-export default Post;
+export default observer(Post);

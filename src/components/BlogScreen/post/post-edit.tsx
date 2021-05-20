@@ -11,17 +11,27 @@ import styleSheet from './style';
 import {PostModalProps} from './index';
 import PostUploadMedia from './media-upload';
 import {ActionSheetProvider} from '@expo/react-native-action-sheet';
+import {useStores} from '../../../store';
+import storage from '@react-native-firebase/storage';
 
 const PostEdit = ({
   post,
   setOpenedPost,
   removePost,
-  savePost,
+  userUid = '',
 }: PostModalProps) => {
+  const {savePost} = useStores().blogStore;
+
   const [title, setTitle] = useState(post.title || '');
   const [text, setText] = useState(post.text || '');
-  const [imageUrl, setImageUrl] = useState(post.imageUrl || '');
-  const [videoUrl, setVideoUrl] = useState(post.videoUrl || '');
+  const [imageUrl, setImageUrl] = useState({
+    uri: post.imageUrl || '',
+    changed: false,
+  });
+  const [videoUrl, setVideoUrl] = useState({
+    uri: post.videoUrl || '',
+    changed: false,
+  });
 
   const {t} = useTranslation();
 
@@ -29,21 +39,53 @@ const PostEdit = ({
 
   const styles = styleSheet();
 
-  const handleSavePost = () => {
+  const handleSavePost = async () => {
     const postDate = post.date || moment().toISOString();
 
-    if (savePost) {
-      savePost({
+    savePost(
+      {
         title: title,
         text: text,
-        imageUrl: imageUrl,
-        videoUrl: videoUrl,
+        imageUrl: imageUrl.changed ? await handleUploadMedia() : imageUrl.uri,
+        videoUrl: videoUrl.changed
+          ? await handleUploadMedia(true)
+          : videoUrl.uri,
         date: postDate,
         id: post.id,
-      });
-    }
+      },
+      userUid,
+    );
 
     return handleClosePost();
+  };
+
+  const handleUploadMedia = async (isVideo?: boolean) => {
+    const media = isVideo ? videoUrl : imageUrl;
+    const mediaType = isVideo ? 'video' : 'image';
+
+    const mediaPath = `${userUid}/posts/${post.id}/media/${mediaType}`;
+
+    if (!media.uri) {
+      return storage()
+        .ref(mediaPath)
+        .delete()
+        .then(() => {
+          return '';
+        });
+    } else {
+      return storage()
+        .ref(mediaPath)
+        .putFile(media.uri)
+        .then(() => {
+          return storage()
+            .ref(mediaPath)
+            .getDownloadURL()
+            .then(res => {
+              console.log(res);
+              return res;
+            });
+        });
+    }
   };
 
   const handleClosePost = () => {
@@ -56,11 +98,23 @@ const PostEdit = ({
 
   const setUploadedMedia = (uri: string, isVideo?: boolean) => {
     if (isVideo) {
-      return setVideoUrl(uri);
+      console.log(uri);
+      // user && handleSavePost({...post, videoUrl: uri}, userUid);
+      setVideoUrl({uri: uri, changed: true});
     } else {
-      setImageUrl(uri);
+      setImageUrl({uri: uri, changed: true});
     }
   };
+
+  // const saveMediaUrl = (imagePath: string, isVideo: boolean = false) => {
+  //   return storage()
+  //     .ref('/' + imagePath)
+  //     .getDownloadURL()
+  //     .then((url: any) => {
+  //       setCamera({open: false});
+  //       return setUploadedMedia(url, isVideo);
+  //     });
+  // };
 
   return (
     <ActionSheetProvider>
@@ -105,7 +159,12 @@ const PostEdit = ({
           onChangeText={setText}
           leftIcon={{name: 'edit'}}
         />
-        <PostUploadMedia post={post} setUploadedMedia={setUploadedMedia} />
+        <PostUploadMedia
+          postId={post.id}
+          videoUrl={videoUrl.uri}
+          imageUrl={imageUrl.uri}
+          setUploadedMedia={setUploadedMedia}
+        />
       </ScrollView>
     </ActionSheetProvider>
   );
