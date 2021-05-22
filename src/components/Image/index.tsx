@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 
-import {ActivityIndicator, Modal, SafeAreaView} from 'react-native';
+import {ActivityIndicator, Modal} from 'react-native';
 
 import styles from './style';
 import {Image} from 'react-native-elements';

@@ -2,7 +2,6 @@ import React, {useEffect, useMemo} from 'react';
 
 import {observer} from 'mobx-react-lite';
 import {useStores} from '../../store';
-import moment from 'moment';
 
 import {
   ActivityIndicator,

@@ -8,10 +8,11 @@ import {useTranslation} from 'react-i18next';
 import {observer} from 'mobx-react-lite';
 import {useStores} from '../../store';
 
-import styleSheet from './style';
 import PostModal from './post';
 import {BlogSavedPostProps} from '../../store/blogStore';
 import {getLocaleDate} from '../../util/date';
+
+import styles from './style';
 
 export interface BlogOpenedPostProps {
   title?: string;
@@ -37,8 +38,6 @@ const BlogScreen = () => {
   const {t} = useTranslation();
 
   const {theme} = useTheme();
-
-  const styles = styleSheet();
 
   useEffect(() => {
     if (user && !posts.length && state !== 'pending') {

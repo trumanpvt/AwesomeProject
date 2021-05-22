@@ -9,12 +9,7 @@ export const readDatabaseValue = (ref: string | undefined) => {
     });
 };
 
-export const pushDatabaseValue = (ref: string, data: any, key?: string) => {
-  // const dataKey =
-  //   key ||
-  //   database().ref(ref).push().key ||
-  //   Math.random().toString(36).substr(2, 9);
-
+export const pushDatabaseValue = (ref: string, data: any) => {
   return database().ref(ref).set(data);
 };
 
