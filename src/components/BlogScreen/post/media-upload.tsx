@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 
-import {ActivityIndicator, Platform, Text, View} from 'react-native';
-import {Icon, Image, useTheme} from 'react-native-elements';
+import {Platform, Text, View} from 'react-native';
+import {Icon, useTheme} from 'react-native-elements';
 
 import {useTranslation} from 'react-i18next';
 
@@ -11,6 +11,7 @@ import {useActionSheet} from '@expo/react-native-action-sheet';
 import ImagePicker from 'react-native-image-crop-picker';
 import {useStores} from '../../../store';
 import VideoPlayerCustom from '../../VideoPlayer';
+import ImageCustom from '../../Image';
 
 interface PostUploadMediaProps {
   postId: string;
@@ -134,16 +135,7 @@ const PostUploadMedia = ({
         <Text style={styles.postEditMediaTitle}>Change image</Text>
         <View style={styles.postEditMedia}>
           <View style={styles.postEditMediaWrap}>
-            <Image
-              resizeMode="contain"
-              style={styles.postEditImage}
-              source={{
-                uri: imageUrl,
-              }}
-              PlaceholderContent={
-                <ActivityIndicator size="large" color="#0000ff" />
-              }
-            />
+            <ImageCustom style={styles.postEditImage} uri={imageUrl} />
           </View>
           <View style={styles.postEditMediaControls}>
             <Icon
@@ -193,7 +185,7 @@ const PostUploadMedia = ({
           <View style={styles.postEditMediaWrap}>
             <VideoPlayerCustom
               uri={videoUrl}
-              postId={postId}
+              name={postId}
               style={styles.postEditVideo}
             />
           </View>

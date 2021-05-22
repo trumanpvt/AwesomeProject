@@ -1,8 +1,8 @@
 import React from 'react';
 
-import {ActivityIndicator, ScrollView, Text, View} from 'react-native';
+import {ScrollView, Text, View} from 'react-native';
 
-import {Icon, Image, useTheme} from 'react-native-elements';
+import {Icon, useTheme} from 'react-native-elements';
 
 import {PostModalProps} from './index';
 
@@ -11,6 +11,7 @@ import {useStores} from '../../../store';
 import {getLocaleDate} from '../../../util/date';
 import VideoPlayerCustom from '../../VideoPlayer';
 import {observer} from 'mobx-react-lite';
+import ImageCustom from '../../Image';
 
 const Post = ({post, setOpenedPost, removePost}: PostModalProps) => {
   const {language} = useStores().localeStore;
@@ -51,21 +52,12 @@ const Post = ({post, setOpenedPost, removePost}: PostModalProps) => {
       <Text style={styles.title}>{post.title}</Text>
       <Text style={styles.text}>{post.text}</Text>
       {post.imageUrl ? (
-        <Image
-          resizeMode="contain"
-          style={styles.postImage}
-          source={{
-            uri: post.imageUrl,
-          }}
-          PlaceholderContent={
-            <ActivityIndicator size="large" color="#0000ff" />
-          }
-        />
+        <ImageCustom style={styles.postEditImage} uri={post.imageUrl} />
       ) : null}
       {post.videoUrl ? (
         <VideoPlayerCustom
           uri={post.videoUrl}
-          postId={post.id}
+          name={post.id}
           style={styles.postVideo}
         />
       ) : null}

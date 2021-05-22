@@ -10,14 +10,14 @@ import styles from './style';
 
 interface VideoPlayerProps {
   uri: string;
-  postId: string;
+  name: string;
   style: any;
   disableBack?: boolean;
 }
 
 const VideoPlayerCustom = ({
   uri,
-  postId,
+  name,
   style,
   disableBack = true,
 }: VideoPlayerProps) => {
@@ -29,7 +29,7 @@ const VideoPlayerCustom = ({
     if (uri.includes('file://')) {
       setVideoPath(uri);
     } else {
-      const path = RNFS.DocumentDirectoryPath + '/video-' + postId;
+      const path = RNFS.DocumentDirectoryPath + '/video-' + name;
 
       RNFS.downloadFile({
         fromUrl: uri,
@@ -43,7 +43,7 @@ const VideoPlayerCustom = ({
         RNFS.unlink(path).then();
       };
     }
-  }, [postId, uri]);
+  }, [name, uri]);
 
   const fullScreenVideo = () => {
     return (
