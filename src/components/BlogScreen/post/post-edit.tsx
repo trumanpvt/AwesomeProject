@@ -99,22 +99,11 @@ const PostEdit = ({
   const setUploadedMedia = (uri: string, isVideo?: boolean) => {
     if (isVideo) {
       console.log(uri);
-      // user && handleSavePost({...post, videoUrl: uri}, userUid);
       setVideoUrl({uri: uri, changed: true});
     } else {
       setImageUrl({uri: uri, changed: true});
     }
   };
-
-  // const saveMediaUrl = (imagePath: string, isVideo: boolean = false) => {
-  //   return storage()
-  //     .ref('/' + imagePath)
-  //     .getDownloadURL()
-  //     .then((url: any) => {
-  //       setCamera({open: false});
-  //       return setUploadedMedia(url, isVideo);
-  //     });
-  // };
 
   return (
     <ActionSheetProvider>
@@ -146,7 +135,7 @@ const PostEdit = ({
         </View>
         <Input
           inputStyle={styles.titleInput}
-          placeholder="Title"
+          placeholder={t('blog.placeholder.title')}
           value={title}
           onChangeText={setTitle}
           leftIcon={{name: 'title'}}
@@ -154,7 +143,7 @@ const PostEdit = ({
         <Input
           inputStyle={styles.textInput}
           multiline={true}
-          placeholder="Text"
+          placeholder={t('blog.placeholder.text')}
           value={text}
           onChangeText={setText}
           leftIcon={{name: 'edit'}}

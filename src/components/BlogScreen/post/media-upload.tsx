@@ -28,7 +28,6 @@ const PostUploadMedia = ({
 }: PostUploadMediaProps) => {
   const {user} = useStores().userStore;
 
-  // const [uploading, setUploading] = useState(false);
   const [camera, setCamera] = useState<{open: boolean; isVideo?: boolean}>({
     open: false,
     isVideo: false,
@@ -45,9 +44,13 @@ const PostUploadMedia = ({
   const selectPhotoSource = () => {
     return showActionSheetWithOptions(
       {
-        options: ['Select from gallery', 'Take photo', 'Cancel'],
+        options: [
+          t('blog.media.gallery'),
+          t('blog.media.takePhoto'),
+          t('blog.media.cancel'),
+        ],
         cancelButtonIndex: 2,
-        title: 'Choose image source',
+        title: t('blog.media.imageSource'),
       },
       buttonIndex => {
         if (buttonIndex !== 2) {
@@ -60,9 +63,13 @@ const PostUploadMedia = ({
   const selectVideoSource = () => {
     return showActionSheetWithOptions(
       {
-        options: ['Select from gallery', 'Take video', 'Cancel'],
+        options: [
+          t('blog.media.imageSource'),
+          t('blog.media.takeVideo'),
+          t('blog.media.cancel'),
+        ],
         cancelButtonIndex: 2,
-        title: 'Choose video source',
+        title: t('blog.media.imageSource'),
       },
       buttonIndex => {
         if (buttonIndex !== 2) {
@@ -118,7 +125,9 @@ const PostUploadMedia = ({
     if (!imageUrl) {
       return (
         <View style={styles.postEditMediaContainer}>
-          <Text style={styles.postEditMediaTitle}>Add image</Text>
+          <Text style={styles.postEditMediaTitle}>
+            {t('blog.media.imageAdd')}
+          </Text>
           <Icon
             raised
             size={25}
@@ -132,7 +141,9 @@ const PostUploadMedia = ({
 
     return (
       <View style={styles.postEditMediaContainer}>
-        <Text style={styles.postEditMediaTitle}>Change image</Text>
+        <Text style={styles.postEditMediaTitle}>
+          {t('blog.media.imageChange')}
+        </Text>
         <View style={styles.postEditMedia}>
           <View style={styles.postEditMediaWrap}>
             <ImageCustom style={styles.postEditImage} uri={imageUrl} />
@@ -159,12 +170,12 @@ const PostUploadMedia = ({
   };
 
   const renderVideoBlock = () => {
-    console.log('videoUrl', videoUrl);
-
     if (!videoUrl) {
       return (
         <View style={styles.postEditMediaContainer}>
-          <Text style={styles.postEditMediaTitle}>Add video</Text>
+          <Text style={styles.postEditMediaTitle}>
+            {t('blog.media.videoAdd')}
+          </Text>
           <View style={styles.postEditMedia}>
             <Icon
               raised
@@ -180,7 +191,9 @@ const PostUploadMedia = ({
 
     return (
       <View style={styles.postEditMediaContainer}>
-        <Text style={styles.postEditMediaTitle}>Change video</Text>
+        <Text style={styles.postEditMediaTitle}>
+          {t('blog.media.videoChange')}
+        </Text>
         <View style={styles.postEditMedia}>
           <View style={styles.postEditMediaWrap}>
             <VideoPlayerCustom

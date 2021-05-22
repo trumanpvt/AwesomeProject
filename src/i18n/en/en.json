@@ -58,6 +58,22 @@
     "confirmEmailMessage": "Please confirm your email, confirmation link was sent to you"
   },
   "blog": {
-    "empty": "No posts yet"
+    "empty": "No posts yet",
+    "placeholder": {
+      "title": "Title",
+      "text": "Text"
+    },
+    "media": {
+      "takePhoto": "Take photo",
+      "takeVideo": "Take video",
+      "imageSource": "Choose image source",
+      "videoSource": "Choose video source",
+      "imageAdd": "Add image",
+      "videoAdd": "Add video",
+      "imageChange": "Change image",
+      "videoChange": "Change video",
+      "gallery": "Select from gallery",
+      "cancel": "Cancel"
+    }
   }
 }
