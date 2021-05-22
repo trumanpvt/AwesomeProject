@@ -13,6 +13,7 @@ import PostUploadMedia from './media-upload';
 import {ActionSheetProvider} from '@expo/react-native-action-sheet';
 import {useStores} from '../../../store';
 import storage from '@react-native-firebase/storage';
+import {BlogOpenedPostProps} from '..';
 
 const PostEdit = ({
   post,
@@ -42,21 +43,18 @@ const PostEdit = ({
   const handleSavePost = async () => {
     const postDate = post.date || moment().toISOString();
 
-    savePost(
-      {
-        title: title,
-        text: text,
-        imageUrl: imageUrl.changed ? await handleUploadMedia() : imageUrl.uri,
-        videoUrl: videoUrl.changed
-          ? await handleUploadMedia(true)
-          : videoUrl.uri,
-        date: postDate,
-        id: post.id,
-      },
-      userUid,
-    );
+    const savedPost = {
+      title: title,
+      text: text,
+      imageUrl: imageUrl.changed ? await handleUploadMedia() : imageUrl.uri,
+      videoUrl: videoUrl.changed ? await handleUploadMedia(true) : videoUrl.uri,
+      date: postDate,
+      id: post.id,
+    };
 
-    return handleClosePost();
+    savePost(savedPost, userUid);
+
+    return handleClosePost(savedPost);
   };
 
   const handleUploadMedia = async (isVideo?: boolean) => {
@@ -81,18 +79,17 @@ const PostEdit = ({
             .ref(mediaPath)
             .getDownloadURL()
             .then(res => {
-              console.log(res);
               return res;
             });
         });
     }
   };
 
-  const handleClosePost = () => {
+  const handleClosePost = (savedPost?: BlogOpenedPostProps) => {
     if (post.editMode === 'screen') {
       return setOpenedPost({id: ''});
-    } else {
-      return setOpenedPost({...post, editMode: ''});
+    } else if (savedPost) {
+      return setOpenedPost({...savedPost, editMode: ''});
     }
   };
 
@@ -129,7 +126,7 @@ const PostEdit = ({
               size={25}
               name="close"
               color={theme.colors?.error}
-              onPress={handleClosePost}
+              onPress={() => handleClosePost()}
             />
           </View>
         </View>
