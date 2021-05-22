@@ -146,7 +146,11 @@ const PostUploadMedia = ({
         </Text>
         <View style={styles.postEditMedia}>
           <View style={styles.postEditMediaWrap}>
-            <ImageCustom style={styles.postEditImage} uri={imageUrl} />
+            <ImageCustom
+              style={styles.postEditImage}
+              containerStyle={styles.postEditImageContainer}
+              uri={imageUrl}
+            />
           </View>
           <View style={styles.postEditMediaControls}>
             <Icon

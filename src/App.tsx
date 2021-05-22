@@ -1,3 +1,4 @@
+import 'react-native-gesture-handler';
 import React, {useEffect} from 'react';
 
 import {LogBox, Platform} from 'react-native';
@@ -23,6 +24,7 @@ import ModalContainer from './components/Modal';
 import {changeLanguage} from './i18n';
 
 import {observer} from 'mobx-react-lite';
+import LoadingOverlay from './components/LoadingOverlay';
 
 LogBox.ignoreLogs(['Remote debugger', 'Reanimated']);
 
@@ -38,9 +40,9 @@ const theme = {
 };
 
 const App = () => {
-  const {setUser} = useStores().userStore;
-
-  const {language} = useStores().localeStore;
+  const {userStore, localeStore} = useStores();
+  const {user, setUser} = userStore;
+  const {language} = localeStore;
 
   useEffect(() => {
     return auth().onAuthStateChanged(user => {
@@ -62,10 +64,10 @@ const App = () => {
   }, [language]);
 
   return (
-    <SafeAreaProvider>
-      <ActionSheetProvider>
-        <ThemeProvider theme={theme}>
-          <NavigationContainer>
+    <NavigationContainer>
+      <SafeAreaProvider>
+        <ActionSheetProvider>
+          <ThemeProvider theme={theme}>
             <Drawer.Navigator
               initialRouteName="HomeScreen"
               screenOptions={props => ({
@@ -84,15 +86,18 @@ const App = () => {
                 />
               )}>
               <Drawer.Screen name="HomeScreen" component={HomeScreen} />
-              <Drawer.Screen name="BlogScreen" component={BlogScreen} />
+              {user ? (
+                <Drawer.Screen name="BlogScreen" component={BlogScreen} />
+              ) : null}
               <Drawer.Screen name="ChatScreen" component={ChatScreen} />
               <Drawer.Screen name="ProfileScreen" component={ProfileScreen} />
             </Drawer.Navigator>
-          </NavigationContainer>
-          <ModalContainer />
-        </ThemeProvider>
-      </ActionSheetProvider>
-    </SafeAreaProvider>
+            <ModalContainer />
+            <LoadingOverlay />
+          </ThemeProvider>
+        </ActionSheetProvider>
+      </SafeAreaProvider>
+    </NavigationContainer>
   );
 };
 

@@ -5,12 +5,13 @@ import {ActivityIndicator, Modal} from 'react-native';
 import styles from './style';
 import {Image} from 'react-native-elements';
 
-interface VideoPlayerProps {
+interface ImageCustomProps {
   uri: string;
   style: any;
+  containerStyle: any;
 }
 
-const ImageCustom = ({uri, style}: VideoPlayerProps) => {
+const ImageCustom = ({uri, style, containerStyle}: ImageCustomProps) => {
   const [isFullscreen, setIsFullscreen] = useState(false);
 
   const fullScreenImage = () => {
@@ -29,8 +30,9 @@ const ImageCustom = ({uri, style}: VideoPlayerProps) => {
   const inlineImage = () => {
     return (
       <Image
-        resizeMode="contain"
+        resizeMode="cover"
         style={style}
+        containerStyle={containerStyle}
         source={{uri}}
         PlaceholderContent={<ActivityIndicator size="large" color="#0000ff" />}
         onPress={() => setIsFullscreen(true)}

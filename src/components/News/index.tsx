@@ -4,7 +4,6 @@ import {observer} from 'mobx-react-lite';
 import {useStores} from '../../store';
 
 import {
-  ActivityIndicator,
   Linking,
   RefreshControl,
   ScrollView,
@@ -18,8 +17,8 @@ import styles from './style';
 import ButtonCustom from '../Button';
 import {useActionSheet} from '@expo/react-native-action-sheet';
 import {countries} from '../../constants';
-import {Image} from 'react-native-elements';
 import {getLocaleDate} from '../../util/date';
+import ImageCustom from '../Image';
 
 const News = () => {
   const {localeStore, newsStore} = useStores();
@@ -57,15 +56,10 @@ const News = () => {
         <Text style={styles.articleTitle}>{article.title}</Text>
         <Text style={styles.articleDescription}>{article.description}</Text>
         {article.urlToImage && (
-          <Image
-            resizeMode="contain"
+          <ImageCustom
             style={styles.articleImg}
-            source={{
-              uri: article.urlToImage,
-            }}
-            PlaceholderContent={
-              <ActivityIndicator size="large" color="#0000ff" />
-            }
+            containerStyle={styles.articleImgContainer}
+            uri={article.urlToImage}
           />
         )}
         <View style={styles.articleData}>

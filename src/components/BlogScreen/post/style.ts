@@ -76,10 +76,18 @@ export default () => {
       flexShrink: 0,
       flex: 1,
     },
+    postEditImageContainer: {
+      marginTop: 20,
+      flex: 1,
+      width: '100%',
+      height: 150,
+    },
     postEditImage: {
       flex: 1,
-      height: 150,
+      // height: 150,
+      // width: undefined,
       width: undefined,
+      height: undefined,
     },
     postEditVideo: {},
     postEditMediaControls: {

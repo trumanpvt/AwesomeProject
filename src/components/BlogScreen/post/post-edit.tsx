@@ -21,7 +21,9 @@ const PostEdit = ({
   removePost,
   userUid = '',
 }: PostModalProps) => {
-  const {savePost} = useStores().blogStore;
+  const {blogStore, stateStore} = useStores();
+  const {savePost} = blogStore;
+  const {setLoading} = stateStore;
 
   const [title, setTitle] = useState(post.title || '');
   const [text, setText] = useState(post.text || '');
@@ -43,6 +45,8 @@ const PostEdit = ({
   const handleSavePost = async () => {
     const postDate = post.date || moment().toISOString();
 
+    setLoading(true);
+
     const savedPost = {
       title: title,
       text: text,
@@ -51,6 +55,8 @@ const PostEdit = ({
       date: postDate,
       id: post.id,
     };
+
+    setLoading(false);
 
     savePost(savedPost, userUid);
 
@@ -90,12 +96,13 @@ const PostEdit = ({
       return setOpenedPost({id: ''});
     } else if (savedPost) {
       return setOpenedPost({...savedPost, editMode: ''});
+    } else {
+      return setOpenedPost({...post, editMode: ''});
     }
   };
 
   const setUploadedMedia = (uri: string, isVideo?: boolean) => {
     if (isVideo) {
-      console.log(uri);
       setVideoUrl({uri: uri, changed: true});
     } else {
       setImageUrl({uri: uri, changed: true});

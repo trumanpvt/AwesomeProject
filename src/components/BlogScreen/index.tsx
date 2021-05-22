@@ -30,9 +30,7 @@ const BlogScreen = () => {
   const {blogStore, localeStore, userStore} = useStores();
 
   const {posts, state, removePost, fetchPosts} = blogStore;
-
   const {user} = userStore;
-
   const {language} = localeStore;
 
   const {t} = useTranslation();
@@ -40,10 +38,10 @@ const BlogScreen = () => {
   const {theme} = useTheme();
 
   useEffect(() => {
-    if (user && !posts.length && state !== 'pending') {
-      fetchPosts(user.uid);
-    }
-  }, [fetchPosts, posts, state, user]);
+    // if (user && !posts.length && state !== 'pending') {
+    user && fetchPosts(user.uid);
+    // }
+  }, [fetchPosts, user]);
 
   if (!user) {
     return <Text>Test</Text>;

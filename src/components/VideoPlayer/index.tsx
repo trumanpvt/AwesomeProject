@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 
-import {ActivityIndicator, Modal, SafeAreaView} from 'react-native';
+import {ActivityIndicator, Modal, SafeAreaView, View} from 'react-native';
 // @ts-ignore
 import VideoPlayer from 'react-native-video-controls';
 
@@ -79,7 +79,9 @@ const VideoPlayerCustom = ({
       inlineVideo()
     )
   ) : (
-    <ActivityIndicator size="large" color="#0000ff" />
+    <View style={style}>
+      <ActivityIndicator size="large" color="#0000ff" />
+    </View>
   );
 };
 

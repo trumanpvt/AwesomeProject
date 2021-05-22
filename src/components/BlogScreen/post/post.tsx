@@ -52,7 +52,11 @@ const Post = ({post, setOpenedPost, removePost}: PostModalProps) => {
       <Text style={styles.title}>{post.title}</Text>
       <Text style={styles.text}>{post.text}</Text>
       {post.imageUrl ? (
-        <ImageCustom style={styles.postEditImage} uri={post.imageUrl} />
+        <ImageCustom
+          style={styles.postEditImage}
+          containerStyle={styles.postEditImageContainer}
+          uri={post.imageUrl}
+        />
       ) : null}
       {post.videoUrl ? (
         <VideoPlayerCustom

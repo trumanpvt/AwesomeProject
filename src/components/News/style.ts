@@ -40,9 +40,14 @@ export default StyleSheet.create({
     fontSize: 16,
     lineHeight: 20,
   },
-  articleImg: {
+  articleImgContainer: {
     flex: 1,
     height: 200,
+    width: '100%',
+  },
+  articleImg: {
+    flex: 1,
+    height: undefined,
     width: undefined,
   },
   articleData: {
