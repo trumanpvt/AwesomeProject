@@ -40,7 +40,9 @@ const VideoPlayerCustom = ({
       });
 
       return () => {
-        RNFS.unlink(path).then();
+        RNFS.unlink(path).catch(e => {
+          console.log('RNFS.unlink error', e);
+        });
       };
     }
   }, [name, uri]);

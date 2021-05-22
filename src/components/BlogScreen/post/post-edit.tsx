@@ -75,6 +75,9 @@ const PostEdit = ({
         .delete()
         .then(() => {
           return '';
+        })
+        .catch(() => {
+          setLoading(false);
         });
     } else {
       return storage()
@@ -86,6 +89,9 @@ const PostEdit = ({
             .getDownloadURL()
             .then(res => {
               return res;
+            })
+            .catch(() => {
+              setLoading(false);
             });
         });
     }
