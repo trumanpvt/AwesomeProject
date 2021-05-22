@@ -109,14 +109,14 @@ const ProfileScreen = () => {
               rounded
               onPress={handleChangeUser}
               containerStyle={styles.button}
-              title={t('profile.button.save')}
+              title={t('misc.save')}
             />
             <ButtonCustom
               rounded
               color="error"
               onPress={handleCancelChangeUser}
               containerStyle={styles.button}
-              title={t('profile.button.cancel')}
+              title={t('misc.cancel')}
             />
           </View>
           <Text style={styles.heading}>
@@ -157,14 +157,14 @@ const ProfileScreen = () => {
               rounded
               onPress={handlePasswordChange}
               containerStyle={styles.button}
-              title={t('profile.button.save')}
+              title={t('misc.save')}
             />
             <ButtonCustom
               rounded
               color="error"
               onPress={handleCancelPasswordChange}
               containerStyle={styles.button}
-              title={t('profile.button.cancel')}
+              title={t('misc.cancel')}
             />
           </View>
         </View>

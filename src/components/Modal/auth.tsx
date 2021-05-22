@@ -271,7 +271,7 @@ const ModalAuth = ({setCloseModal, setModal}: Props): JSX.Element => {
           color="error"
           onPress={setCloseModal}
           containerStyle={styles.button}
-          title={t('modal.button.cancel')}
+          title={t('misc.cancel')}
         />
       </View>
     </>

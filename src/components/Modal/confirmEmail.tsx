@@ -31,7 +31,7 @@ const ModalConfirmEmail = ({setCloseModal}: Props) => {
         color="error"
         onPress={setCloseModal}
         containerStyle={styles.button}
-        title={t('modal.button.close')}
+        title={t('misc.close')}
       />
     </View>
   );

@@ -83,7 +83,7 @@ const ModalResetPassword = ({email = '', setModal}: Props) => {
         color="error"
         onPress={() => setModal({type: 'auth'})}
         containerStyle={styles.button}
-        title={isLinkSent ? t('modal.button.close') : t('modal.button.cancel')}
+        title={isLinkSent ? t('misc.close') : t('misc.cancel')}
       />
     </View>
   );

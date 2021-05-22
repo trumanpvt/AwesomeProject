@@ -47,7 +47,7 @@ const PostUploadMedia = ({
         options: [
           t('blog.media.gallery'),
           t('blog.media.takePhoto'),
-          t('blog.media.cancel'),
+          t('misc.cancel'),
         ],
         cancelButtonIndex: 2,
         title: t('blog.media.imageSource'),
@@ -66,7 +66,7 @@ const PostUploadMedia = ({
         options: [
           t('blog.media.imageSource'),
           t('blog.media.takeVideo'),
-          t('blog.media.cancel'),
+          t('misc.cancel'),
         ],
         cancelButtonIndex: 2,
         title: t('blog.media.imageSource'),

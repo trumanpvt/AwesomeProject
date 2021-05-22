@@ -34,10 +34,6 @@
       "passwordNew": "New password",
       "passwordConfirm": "Confirm password"
     },
-    "button": {
-      "save": "Save",
-      "cancel": "Cancel"
-    },
     "changePassword": "Change password",
     "createPassword": "Create password"
   },
@@ -49,8 +45,6 @@
       "passwordConfirm": "Confirm password"
     },
     "button": {
-      "cancel": "Cancel",
-      "close": "Close",
       "forgotPassword": "Forgot password",
       "resetPassword": "Reset password",
       "resetPasswordAgain": "Send link again"
@@ -72,8 +66,12 @@
       "videoAdd": "Add video",
       "imageChange": "Change image",
       "videoChange": "Change video",
-      "gallery": "Select from gallery",
-      "cancel": "Cancel"
+      "gallery": "Select from gallery"
     }
+  },
+  "misc": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "close": "Close"
   }
 }

@@ -34,10 +34,6 @@
       "passwordNew": "Новый пароль",
       "passwordConfirm": "Подтверждение"
     },
-    "button": {
-      "save": "Сохранить",
-      "cancel": "Сбросить"
-    },
     "changePassword": "Сменить пароль",
     "createPassword": "Создать пароль"
   },
@@ -49,8 +45,6 @@
       "passwordConfirm": "Подтверждение пароля"
     },
     "button": {
-      "cancel": "Отмена",
-      "close": "Закрыть",
       "forgotPassword": "Восстановить пароль",
       "resetPassword": "Сбросить пароль",
       "resetPasswordAgain": "Выслать новую ссылку"
@@ -73,7 +67,11 @@
       "imageChange": "Изменить изображение",
       "videoChange": "Изменить видео",
       "gallery": "Выбрать из галереи",
-      "cancel": "Отмена"
     }
+  },
+  "misc": {
+    "save": "Сохранить",
+    "cancel": "Отмена",
+    "close": "Закрыть"
   }
 }
