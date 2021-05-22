@@ -10,10 +10,6 @@ import styles from './style';
 const LoadingOverlay = () => {
   const {loading} = useStores().stateStore;
 
-  useEffect(() => {
-    console.log(loading);
-  }, [loading]);
-
   return loading ? (
     <Modal transparent={true}>
       <View style={styles.loading}>

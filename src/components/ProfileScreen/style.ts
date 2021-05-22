@@ -17,7 +17,9 @@ export default () => {
       fontSize: 20,
       textAlign: 'center',
     },
-    form: {},
+    form: {
+      paddingBottom: 20,
+    },
     input: {
       marginTop: 20,
     },

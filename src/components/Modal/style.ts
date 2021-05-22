@@ -23,6 +23,10 @@ export default () => {
       shadowRadius: 3.84,
       elevation: 3,
     },
+    modalWrapLandscape: {
+      width: '100%',
+      backgroundColor: 'white',
+    },
     modalTabsContainer: {
       borderRadius: 20,
       display: 'flex',
@@ -37,6 +41,9 @@ export default () => {
     },
     modalTabRight: {
       borderTopRightRadius: 20,
+      backgroundColor: theme.colors?.primary,
+    },
+    modalTabLandscape: {
       backgroundColor: theme.colors?.primary,
     },
     modalTabTitle: {

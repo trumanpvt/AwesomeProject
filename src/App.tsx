@@ -1,7 +1,7 @@
 import 'react-native-gesture-handler';
 import React, {useEffect} from 'react';
 
-import {LogBox, Platform} from 'react-native';
+import {LogBox, Platform, useWindowDimensions} from 'react-native';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {colors, ThemeProvider} from 'react-native-elements';
 
@@ -40,13 +40,20 @@ const theme = {
 };
 
 const App = () => {
-  const {userStore, localeStore} = useStores();
+  const {userStore, localeStore, stateStore} = useStores();
   const {user, setUser} = userStore;
   const {language} = localeStore;
+  const {setOrientation} = stateStore;
+
+  const windowDimensions = useWindowDimensions();
 
   useEffect(() => {
-    return auth().onAuthStateChanged(user => {
-      if (user && !user.emailVerified) {
+    setOrientation(windowDimensions);
+  }, [setOrientation, windowDimensions]);
+
+  useEffect(() => {
+    return auth().onAuthStateChanged(updatedUser => {
+      if (updatedUser && !updatedUser.emailVerified) {
         const currentUser = auth().currentUser;
         if (currentUser) {
           currentUser.reload().then(() => {
@@ -54,7 +61,7 @@ const App = () => {
           });
         }
       } else {
-        setUser(user);
+        setUser(updatedUser);
       }
     });
   }, [setUser]);

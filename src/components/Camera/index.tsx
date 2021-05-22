@@ -12,6 +12,7 @@ import {
 import {Icon, SpeedDial, useTheme} from 'react-native-elements';
 
 import styleSheet from './style';
+import {useStores} from '../../store';
 
 interface CameraProps {
   closeCamera: () => void;
@@ -28,6 +29,8 @@ const Camera = ({closeCamera, setMedia, enableVideo = false}: CameraProps) => {
   const {theme} = useTheme();
 
   const styles = styleSheet();
+
+  const {orientation} = useStores().stateStore;
 
   const takePicture = async function (camera: RNCamera) {
     const options = {quality: 0.5, base64: true};
@@ -74,6 +77,72 @@ const Camera = ({closeCamera, setMedia, enableVideo = false}: CameraProps) => {
 
   const flashModes: any = RNCamera.Constants.FlashMode;
 
+  const renderFlashSwitch = () => {
+    return (
+      <SpeedDial
+        isOpen={flash.isOpen}
+        icon={{name: `flash-${flash.mode}`, color: '#fff'}}
+        openIcon={{name: `flash-${flash.mode}`, color: '#fff'}}
+        onClose={() => setFlash({mode: flash.mode, isOpen: false})}
+        onOpen={() => setFlash({mode: flash.mode, isOpen: true})}
+        overlayColor="transparent"
+        transitionDuration={50}>
+        <SpeedDial.Action
+          color={theme.colors?.success}
+          icon={{name: 'flash-auto', color: '#fff'}}
+          onPress={() => handleChangeFlashMode('auto')}
+        />
+        <SpeedDial.Action
+          color={theme.colors?.error}
+          icon={{name: 'flash-off', color: '#fff'}}
+          onPress={() => handleChangeFlashMode('off')}
+        />
+        <SpeedDial.Action
+          color={theme.colors?.primary}
+          icon={{name: 'flash-on', color: '#fff'}}
+          onPress={() => handleChangeFlashMode('on')}
+        />
+      </SpeedDial>
+    );
+  };
+
+  const renderControls = (camera: RNCamera) => {
+    console.log(orientation);
+    return (
+      <SafeAreaView style={styles.controls}>
+        <View style={styles.controlsTop}>{renderFlashSwitch()}</View>
+        <View style={styles.controlsBottom}>
+          <TouchableOpacity
+            onPress={() => closeCamera()}
+            style={styles.controlBtn}>
+            <Icon type="ionicon" name="ios-backspace-outline" />
+          </TouchableOpacity>
+          {enableVideo ? (
+            renderVideoControls(camera)
+          ) : (
+            <TouchableOpacity
+              onPress={() => takePicture(camera)}
+              style={styles.controlBtn}>
+              <Icon type="ionicon" name="camera-outline" />
+            </TouchableOpacity>
+          )}
+          <TouchableOpacity
+            onPress={() => setIsBack(!isBack)}
+            style={styles.controlBtn}>
+            <Icon type="ionicon" name="camera-reverse-outline" />
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              console.log(camera);
+            }}
+            style={styles.controlBtn}>
+            <Icon type="ionicon" name="camera-reverse-outline" />
+          </TouchableOpacity>
+        </View>
+      </SafeAreaView>
+    );
+  };
+
   return (
     <Modal style={styles.container}>
       <RNCamera
@@ -92,57 +161,7 @@ const Camera = ({closeCamera, setMedia, enableVideo = false}: CameraProps) => {
             return <ActivityIndicator size="large" color="#0000ff" />;
           }
 
-          return (
-            <SafeAreaView style={styles.controls}>
-              <View style={styles.controlsTop}>
-                <SpeedDial
-                  isOpen={flash.isOpen}
-                  icon={{name: `flash-${flash.mode}`, color: '#fff'}}
-                  openIcon={{name: `flash-${flash.mode}`, color: '#fff'}}
-                  onClose={() => setFlash({mode: flash.mode, isOpen: false})}
-                  onOpen={() => setFlash({mode: flash.mode, isOpen: true})}
-                  overlayColor="transparent"
-                  transitionDuration={50}>
-                  <SpeedDial.Action
-                    color={theme.colors?.success}
-                    icon={{name: 'flash-auto', color: '#fff'}}
-                    onPress={() => handleChangeFlashMode('auto')}
-                  />
-                  <SpeedDial.Action
-                    color={theme.colors?.error}
-                    icon={{name: 'flash-off', color: '#fff'}}
-                    onPress={() => handleChangeFlashMode('off')}
-                  />
-                  <SpeedDial.Action
-                    color={theme.colors?.primary}
-                    icon={{name: 'flash-on', color: '#fff'}}
-                    onPress={() => handleChangeFlashMode('on')}
-                  />
-                </SpeedDial>
-              </View>
-              <View style={styles.controlsBottom}>
-                <TouchableOpacity
-                  onPress={() => closeCamera()}
-                  style={styles.controlBtn}>
-                  <Icon type="ionicon" name="ios-backspace-outline" />
-                </TouchableOpacity>
-                {enableVideo ? (
-                  renderVideoControls(camera)
-                ) : (
-                  <TouchableOpacity
-                    onPress={() => takePicture(camera)}
-                    style={styles.controlBtn}>
-                    <Icon type="ionicon" name="camera-outline" />
-                  </TouchableOpacity>
-                )}
-                <TouchableOpacity
-                  onPress={() => setIsBack(!isBack)}
-                  style={styles.controlBtn}>
-                  <Icon type="ionicon" name="camera-reverse-outline" />
-                </TouchableOpacity>
-              </View>
-            </SafeAreaView>
-          );
+          return renderControls(camera);
         }}
       </RNCamera>
     </Modal>

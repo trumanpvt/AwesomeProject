@@ -20,9 +20,14 @@ import {useTranslation} from 'react-i18next';
 interface Props {
   setModal: (data: {type?: string; email?: string}) => void;
   setCloseModal: () => void;
+  orientation: 'PORTRAIT' | 'LANDSCAPE';
 }
 
-const ModalAuth = ({setCloseModal, setModal}: Props): JSX.Element => {
+const ModalAuth = ({
+  setCloseModal,
+  setModal,
+  orientation,
+}: Props): JSX.Element => {
   const {setCredential} = useStores().userStore;
 
   const [email, setEmail] = useState('');
@@ -125,21 +130,24 @@ const ModalAuth = ({setCloseModal, setModal}: Props): JSX.Element => {
 
   const renderChangeModeTabs = (): JSX.Element => {
     return (
-      <Tab
-        onChange={changeSignMode}
-        value={isSignUp ? 1 : 0}
-        disableIndicator
-        // indicatorStyle={styles.tabIndicator}
-      >
+      <Tab onChange={changeSignMode} value={isSignUp ? 1 : 0} disableIndicator>
         <Tab.Item
-          containerStyle={styles.modalTabLeft}
+          containerStyle={
+            orientation === 'PORTRAIT'
+              ? styles.modalTabLeft
+              : styles.modalTabLandscape
+          }
           titleStyle={styles.modalTabTitle}
           title={t('signIn')}
           active={!isSignUp}
           disabled={!isSignUp}
         />
         <Tab.Item
-          containerStyle={styles.modalTabRight}
+          containerStyle={
+            orientation === 'PORTRAIT'
+              ? styles.modalTabRight
+              : styles.modalTabLandscape
+          }
           titleStyle={styles.modalTabTitle}
           title={t('signUp')}
           active={isSignUp}

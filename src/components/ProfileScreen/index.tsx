@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 
 import {useStores} from '../../store';
 
-import {Text, View} from 'react-native';
+import {ScrollView, Text, View} from 'react-native';
 
 import ProfileAvatar from './avatar';
 import {observer} from 'mobx-react-lite';
@@ -93,7 +93,7 @@ const ProfileScreen = () => {
   };
 
   return user && user.emailVerified ? (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <>
         <ProfileAvatar user={user} changeUser={changeUser} />
         <View style={styles.form}>
@@ -169,7 +169,7 @@ const ProfileScreen = () => {
           </View>
         </View>
       </>
-    </View>
+    </ScrollView>
   ) : null;
 };
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import {Modal, View} from 'react-native';
+import {Modal, ScrollView, View} from 'react-native';
 import styleSheet from './style';
 import ModalResetPassword from './resetPassword';
 import ModalAuth from './auth';
@@ -9,15 +9,23 @@ import {useStores} from '../../store';
 import ModalConfirmEmail from './confirmEmail';
 import ModalEmailExist from './emailExist';
 
-const ModalContainer = observer(() => {
-  const {modal, setModal, setCloseModal} = useStores().modalStore;
+const ModalContainer = () => {
+  const {modalStore, stateStore} = useStores();
+  const {modal, setModal, setCloseModal} = modalStore;
+  const {orientation} = stateStore;
 
   const styles = styleSheet();
 
   const renderModal = () => {
     switch (modal.type) {
       case 'auth': {
-        return <ModalAuth setCloseModal={setCloseModal} setModal={setModal} />;
+        return (
+          <ModalAuth
+            setCloseModal={setCloseModal}
+            setModal={setModal}
+            orientation={orientation}
+          />
+        );
       }
       case 'resetPassword': {
         return <ModalResetPassword setModal={setModal} email={modal.email} />;
@@ -40,11 +48,17 @@ const ModalContainer = observer(() => {
 
   return (
     <Modal animationType="fade" transparent={true} visible={!!modal.type}>
-      <View style={styles.centeredView}>
-        <View style={styles.modalWrap}>{renderModal()}</View>
-      </View>
+      {orientation === 'PORTRAIT' ? (
+        <View style={styles.centeredView}>
+          <View style={styles.modalWrap}>{renderModal()}</View>
+        </View>
+      ) : (
+        <ScrollView style={styles.modalWrapLandscape}>
+          {renderModal()}
+        </ScrollView>
+      )}
     </Modal>
   );
-});
+};
 
-export default ModalContainer;
+export default observer(ModalContainer);
