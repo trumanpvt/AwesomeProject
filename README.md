@@ -11,8 +11,9 @@ Stack:
 Features:
 - SignUp/SignIn with login/password or with OAuth (Google/Facebook)
 - User management, like changing name or avatar
+- Blog page
 - News feed
-- EN/RU languages
+- Translation (EN/RU with normal translation, ar, de, es, fr, he, it, nl, pt, zh - with IBM-Watson machine translation)
 
 Todo:
 - everything else
