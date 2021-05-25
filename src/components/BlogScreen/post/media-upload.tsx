@@ -10,8 +10,8 @@ import Camera from '../../Camera';
 import {useActionSheet} from '@expo/react-native-action-sheet';
 import ImagePicker from 'react-native-image-crop-picker';
 import {useStores} from '../../../store';
-import VideoPlayerCustom from '../../VideoPlayer';
-import ImageCustom from '../../Image';
+import VideoPlayerCustom from '../../Elements/VideoPlayer';
+import ImageCustom from '../../Elements/Image';
 
 interface PostUploadMediaProps {
   postId: string;

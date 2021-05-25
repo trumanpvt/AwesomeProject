@@ -9,9 +9,9 @@ import {PostModalProps} from './index';
 import styleSheet from './style';
 import {useStores} from '../../../store';
 import {getLocaleDate} from '../../../util/date';
-import VideoPlayerCustom from '../../VideoPlayer';
+import VideoPlayerCustom from '../../Elements/VideoPlayer';
 import {observer} from 'mobx-react-lite';
-import ImageCustom from '../../Image';
+import ImageCustom from '../../Elements/Image';
 
 const Post = ({post, setOpenedPost, removePost}: PostModalProps) => {
   const {language} = useStores().localeStore;

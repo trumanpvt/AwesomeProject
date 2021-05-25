@@ -24,7 +24,7 @@ import ModalContainer from './components/Modal';
 import {changeLanguage, setRTL} from './i18n';
 
 import {observer} from 'mobx-react-lite';
-import LoadingOverlay from './components/LoadingOverlay';
+import LoadingOverlay from './components/Elements/LoadingOverlay';
 import i18n from './i18n';
 
 LogBox.ignoreLogs(['Remote debugger', 'Reanimated']);

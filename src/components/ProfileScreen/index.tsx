@@ -10,11 +10,11 @@ import {getCurrentUser, reloadCurrentUser} from '../../util/auth';
 
 import {useNavigation} from '@react-navigation/native';
 
-import {Input} from 'react-native-elements';
+import InputCustom from '../Elements/Input';
+import ButtonCustom from '../Elements/Button';
+import {useTranslation} from 'react-i18next';
 
 import styleSheet from './style';
-import ButtonCustom from '../Button';
-import {useTranslation} from 'react-i18next';
 
 const ProfileScreen = () => {
   const {userStore, modalStore} = useStores();
@@ -97,7 +97,7 @@ const ProfileScreen = () => {
       <>
         <ProfileAvatar user={user} changeUser={changeUser} />
         <View style={styles.form}>
-          <Input
+          <InputCustom
             autoCapitalize="none"
             placeholder={t('profile.placeholder.username')}
             value={displayName}
@@ -125,7 +125,7 @@ const ProfileScreen = () => {
               : t('profile.createPassword')}
           </Text>
           {isPasswordProvider() && (
-            <Input
+            <InputCustom
               autoCapitalize="none"
               textContentType="password"
               placeholder={t('profile.placeholder.passwordOld')}
@@ -134,7 +134,7 @@ const ProfileScreen = () => {
               leftIcon={{type: 'material', name: 'lock'}}
             />
           )}
-          <Input
+          <InputCustom
             autoCapitalize="none"
             textContentType="password"
             placeholder={t('profile.placeholder.passwordNew')}
@@ -143,7 +143,7 @@ const ProfileScreen = () => {
             onChangeText={setNewPassword}
             leftIcon={{type: 'material', name: 'lock'}}
           />
-          <Input
+          <InputCustom
             autoCapitalize="none"
             textContentType="password"
             placeholder={t('profile.placeholder.passwordConfirm')}

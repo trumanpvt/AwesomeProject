@@ -1,19 +1,21 @@
 import React, {useState} from 'react';
 
 import {ScrollView, View} from 'react-native';
-import {Icon, Input, useTheme} from 'react-native-elements';
+import {Icon, useTheme} from 'react-native-elements';
 
 import {useTranslation} from 'react-i18next';
 
 import moment from 'moment';
 
-import styleSheet from './style';
 import {PostModalProps} from './index';
 import PostUploadMedia from './media-upload';
 import {ActionSheetProvider} from '@expo/react-native-action-sheet';
 import {useStores} from '../../../store';
 import storage from '@react-native-firebase/storage';
 import {BlogOpenedPostProps} from '..';
+import InputCustom from '../../Elements/Input';
+
+import styleSheet from './style';
 
 const PostEdit = ({
   post,
@@ -144,14 +146,14 @@ const PostEdit = ({
             />
           </View>
         </View>
-        <Input
+        <InputCustom
           inputStyle={styles.titleInput}
           placeholder={t('blog.placeholder.title')}
           value={title}
           onChangeText={setTitle}
           leftIcon={{name: 'title'}}
         />
-        <Input
+        <InputCustom
           inputStyle={styles.textInput}
           multiline={true}
           placeholder={t('blog.placeholder.text')}

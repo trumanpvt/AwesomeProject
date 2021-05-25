@@ -4,10 +4,11 @@ import {Text, View} from 'react-native';
 
 import {sendPasswordResetEmail} from '../../util/auth';
 
-import styleSheet from './style';
-import ButtonCustom from '../Button';
-import {Input} from 'react-native-elements';
+import ButtonCustom from '../Elements/Button';
+import InputCustom from '../Elements/Input';
 import {useTranslation} from 'react-i18next';
+
+import styleSheet from './style';
 
 interface Props {
   email: string | undefined;
@@ -53,7 +54,7 @@ const ModalResetPassword = ({email = '', setModal}: Props) => {
   const renderEmail = () => {
     return (
       <>
-        <Input
+        <InputCustom
           autoCapitalize="none"
           textContentType="emailAddress"
           keyboardType="email-address"

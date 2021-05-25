@@ -11,11 +11,12 @@ import {
 } from '../../util/auth';
 
 import {useStores} from '../../store';
-import {Input, SocialIcon, Tab} from 'react-native-elements';
-import ButtonCustom from '../Button';
+import {SocialIcon, Tab} from 'react-native-elements';
+import ButtonCustom from '../Elements/Button';
 
 import styleSheet from './style';
 import {useTranslation} from 'react-i18next';
+import InputCustom from '../Elements/Input';
 
 interface Props {
   setModal: (data: {type?: string; email?: string}) => void;
@@ -186,7 +187,7 @@ const ModalAuth = ({
             style={styles.socialButton}
           />
         </View>
-        <Input
+        <InputCustom
           autoCapitalize="none"
           textContentType="emailAddress"
           keyboardType="email-address"
@@ -195,7 +196,7 @@ const ModalAuth = ({
           onChangeText={setEmail}
           leftIcon={{type: 'material', name: 'email'}}
         />
-        <Input
+        <InputCustom
           autoCapitalize="none"
           textContentType="password"
           secureTextEntry
@@ -227,7 +228,7 @@ const ModalAuth = ({
   const renderSignUp = (): JSX.Element => {
     return (
       <>
-        <Input
+        <InputCustom
           autoCapitalize="none"
           textContentType="emailAddress"
           keyboardType="email-address"
@@ -236,7 +237,7 @@ const ModalAuth = ({
           onChangeText={setEmail}
           leftIcon={{type: 'material', name: 'email'}}
         />
-        <Input
+        <InputCustom
           autoCapitalize="none"
           textContentType="password"
           secureTextEntry
@@ -245,7 +246,7 @@ const ModalAuth = ({
           onChangeText={setPassword}
           leftIcon={{type: 'material', name: 'lock'}}
         />
-        <Input
+        <InputCustom
           autoCapitalize="none"
           textContentType="password"
           secureTextEntry

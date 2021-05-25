@@ -14,11 +14,11 @@ import {
 
 import {useTranslation} from 'react-i18next';
 import styles from './style';
-import ButtonCustom from '../Button';
+import ButtonCustom from '../Elements/Button';
 import {useActionSheet} from '@expo/react-native-action-sheet';
 import {countries} from '../../constants';
 import {getLocaleDate} from '../../util/date';
-import ImageCustom from '../Image';
+import ImageCustom from '../Elements/Image';
 
 const News = () => {
   const {localeStore, newsStore} = useStores();

@@ -13,8 +13,10 @@ import {
 import {useStores} from '../../store';
 import {FirebaseAuthTypes} from '@react-native-firebase/auth';
 
-import {Input, SocialIcon} from 'react-native-elements';
-import ButtonCustom from '../Button';
+import {SocialIcon} from 'react-native-elements';
+import ButtonCustom from '../Elements/Button';
+import InputCustom from '../Elements/Input';
+
 import styleSheet from './style';
 
 interface Props {
@@ -100,7 +102,7 @@ const ModalEmailExist = ({setModal, setCloseModal}: Props) => {
         style={styles.socialButtonExist}
       />
       <Text style={styles.messageText}>Or with email/password</Text>
-      <Input
+      <InputCustom
         autoCapitalize="none"
         textContentType="emailAddress"
         keyboardType="email-address"
@@ -109,7 +111,7 @@ const ModalEmailExist = ({setModal, setCloseModal}: Props) => {
         onChangeText={setEmail}
         leftIcon={{type: 'material', name: 'email'}}
       />
-      <Input
+      <InputCustom
         autoCapitalize="none"
         textContentType="password"
         secureTextEntry

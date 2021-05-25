@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {Text, View} from 'react-native';
-import ButtonCustom from '../Button';
+import ButtonCustom from '../Elements/Button';
 
 import styleSheet from './style';
 
