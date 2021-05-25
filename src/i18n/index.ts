@@ -18,28 +18,40 @@ const resources = {
 } as const;
 
 export const changeLanguage = (language: string) => {
-  console.log(language);
   if (i18n.hasResourceBundle(language, 'default')) {
     return setLanguage(language);
   } else {
-    return getTranslatedArray(language, en).then(json => {
-      i18n.addResourceBundle(language, 'default', json);
-      return setLanguage(language);
+    return AsyncStorage.getItem(`language-${language}`).then(res => {
+      if (res) {
+        i18n.addResourceBundle(language, 'default', JSON.parse(res));
+        return setLanguage(language);
+      } else {
+        return fetchLanguage(language);
+      }
     });
   }
 };
+
+const fetchLanguage = (language: string) => {
+  return getTranslatedArray(language, en).then(json => {
+    i18n.addResourceBundle(language, 'default', json);
+    setLanguage(language).then(() =>
+      AsyncStorage.setItem(`language-${language}`, JSON.stringify(json)),
+    );
+  });
+};
+
 const setLanguage = (language: string) => {
-  setRTL(language);
   return i18n.changeLanguage(language).then(() => {
     return AsyncStorage.setItem('language', language);
   });
 };
 
-const setRTL = (language: string) => {
+export const setRTL = (language: string) => {
   if (RTLLanguages.includes(language) && !I18nManager.isRTL) {
     I18nManager.forceRTL(true);
     DevSettings.reload();
-  } else if (I18nManager.isRTL) {
+  } else if (!RTLLanguages.includes(language) && I18nManager.isRTL) {
     I18nManager.forceRTL(false);
     DevSettings.reload();
   }

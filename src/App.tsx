@@ -21,7 +21,7 @@ import SideBar from './components/SideBar';
 import BlogScreen from './components/BlogScreen';
 import ModalContainer from './components/Modal';
 
-import {changeLanguage} from './i18n';
+import {changeLanguage, setRTL} from './i18n';
 
 import {observer} from 'mobx-react-lite';
 import LoadingOverlay from './components/LoadingOverlay';
@@ -68,11 +68,11 @@ const App = () => {
   }, [setUser]);
 
   useEffect(() => {
-    if (language !== i18n.language) {
+    if (language && language !== i18n.language) {
       changeLanguage(language)
         .then(() => {
-          console.log('changed');
           setLoading(false);
+          return setRTL(language);
         })
         .catch(() => {
           changeLanguage(i18n.language).then(() => setLoading(false));
