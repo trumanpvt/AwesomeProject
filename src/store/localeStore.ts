@@ -4,6 +4,8 @@ import RNLocalize from 'react-native-localize';
 export default class LocaleStore {
   language = RNLocalize.getLocales()[0].languageCode;
 
+  loading = false;
+
   country = RNLocalize.getCountry();
 
   constructor() {
@@ -16,5 +18,9 @@ export default class LocaleStore {
 
   setCountry = (country: string) => {
     this.country = country;
+  };
+
+  setLoading = (value: boolean) => {
+    this.loading = value;
   };
 }

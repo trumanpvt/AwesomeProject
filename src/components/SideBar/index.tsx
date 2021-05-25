@@ -13,6 +13,7 @@ import User from './user';
 import styleSheet from './style';
 import {languageCodes} from '../../constants';
 import {useActionSheet} from '@expo/react-native-action-sheet';
+import {observer} from 'mobx-react-lite';
 
 interface Props {
   routeNames: string[];
@@ -20,7 +21,7 @@ interface Props {
 }
 
 const SideBar = ({navigation, routeNames}: Props) => {
-  const {language, setLanguage} = useStores().localeStore;
+  const {language, setLanguage, loading, setLoading} = useStores().localeStore;
 
   const {showActionSheetWithOptions} = useActionSheet();
 
@@ -59,6 +60,7 @@ const SideBar = ({navigation, routeNames}: Props) => {
       },
       buttonIndex => {
         if (buttonIndex !== languageCodes.length) {
+          setLoading(true);
           setLanguage(languageCodes[buttonIndex]);
         }
       },
@@ -80,6 +82,7 @@ const SideBar = ({navigation, routeNames}: Props) => {
           color: 'white',
         }}
         title={language}
+        loading={loading}
         containerStyle={styles.languageBtnContainer}
         buttonStyle={styles.languageBtn}
         titleStyle={styles.languageBtnText}
@@ -89,4 +92,4 @@ const SideBar = ({navigation, routeNames}: Props) => {
   );
 };
 
-export default SideBar;
+export default observer(SideBar);

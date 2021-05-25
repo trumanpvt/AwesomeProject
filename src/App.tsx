@@ -25,6 +25,7 @@ import {changeLanguage} from './i18n';
 
 import {observer} from 'mobx-react-lite';
 import LoadingOverlay from './components/LoadingOverlay';
+import i18n from 'i18next';
 
 LogBox.ignoreLogs(['Remote debugger', 'Reanimated']);
 
@@ -42,7 +43,7 @@ const theme = {
 const App = () => {
   const {userStore, localeStore, stateStore} = useStores();
   const {user, setUser} = userStore;
-  const {language} = localeStore;
+  const {language, setLoading} = localeStore;
   const {setOrientation} = stateStore;
 
   const windowDimensions = useWindowDimensions();
@@ -67,8 +68,14 @@ const App = () => {
   }, [setUser]);
 
   useEffect(() => {
-    changeLanguage(language);
-  }, [language]);
+    if (language !== i18n.language) {
+      changeLanguage(language)
+        .then(() => setLoading(false))
+        .catch(() => {
+          changeLanguage(i18n.language).then(() => setLoading(false));
+        });
+    }
+  }, [language, setLoading]);
 
   return (
     <NavigationContainer>

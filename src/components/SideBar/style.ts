@@ -54,6 +54,7 @@ export default () => {
       width: 100,
     },
     languageBtn: {
+      height: 50,
       backgroundColor: theme.colors?.primary,
     },
     languageBtnText: {
