@@ -128,6 +128,7 @@ const Camera = ({closeCamera, setMedia, enableVideo = false}: CameraProps) => {
           )}
           <TouchableOpacity
             onPress={() => setIsBack(!isBack)}
+            disabled={isVideoRecording}
             style={styles.controlBtn}>
             <Icon type="ionicon" name="camera-reverse-outline" />
           </TouchableOpacity>
@@ -136,7 +137,7 @@ const Camera = ({closeCamera, setMedia, enableVideo = false}: CameraProps) => {
               console.log(camera);
             }}
             style={styles.controlBtn}>
-            <Icon type="ionicon" name="camera-reverse-outline" />
+            <Icon type="ionicon" name="at-sharp" />
           </TouchableOpacity>
         </View>
       </SafeAreaView>

@@ -14,7 +14,6 @@ export default () => {
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
-      // marginBottom: 10,
     },
     headerEdit: {
       justifyContent: 'flex-end',
@@ -40,7 +39,6 @@ export default () => {
       textAlign: 'center',
     },
     text: {
-      // flex: 1,
       fontSize: 15,
     },
     postImage: {
@@ -60,15 +58,14 @@ export default () => {
       fontSize: 15,
     },
     postEditMediaContainer: {
-      marginTop: 10,
+      marginTop: 20,
       alignItems: 'center',
-      // paddingHorizontal: 10,
     },
     postEditMedia: {
-      marginTop: 20,
       flexDirection: 'row',
     },
     postEditMediaTitle: {
+      marginBottom: 20,
       fontSize: 20,
       textAlign: 'center',
     },
@@ -77,15 +74,12 @@ export default () => {
       flex: 1,
     },
     postEditImageContainer: {
-      marginTop: 20,
       flex: 1,
       width: '100%',
       height: 150,
     },
     postEditImage: {
       flex: 1,
-      // height: 150,
-      // width: undefined,
       width: undefined,
       height: undefined,
     },
