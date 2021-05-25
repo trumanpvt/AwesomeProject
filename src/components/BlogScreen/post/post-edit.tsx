@@ -126,6 +126,7 @@ const PostEdit = ({
               name="save"
               color={theme.colors?.secondary}
               onPress={handleSavePost}
+              disabled={!title && !text && !imageUrl.uri && !videoUrl.uri}
             />
             <Icon
               raised

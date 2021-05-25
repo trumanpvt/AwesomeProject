@@ -49,7 +49,12 @@ const BlogScreen = () => {
 
   const handleRemovePost = (postId: string) => {
     if (user) {
-      removePost(user.uid, postId).then(() => fetchPosts(user.uid));
+      removePost(user.uid, postId).then(() => {
+        if (openedPost.id) {
+          setOpenedPost({id: ''});
+        }
+        fetchPosts(user.uid);
+      });
     }
   };
 
