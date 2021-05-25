@@ -25,7 +25,7 @@ import {changeLanguage} from './i18n';
 
 import {observer} from 'mobx-react-lite';
 import LoadingOverlay from './components/LoadingOverlay';
-import i18n from 'i18next';
+import i18n from './i18n';
 
 LogBox.ignoreLogs(['Remote debugger', 'Reanimated']);
 
@@ -70,7 +70,10 @@ const App = () => {
   useEffect(() => {
     if (language !== i18n.language) {
       changeLanguage(language)
-        .then(() => setLoading(false))
+        .then(() => {
+          console.log('changed');
+          setLoading(false);
+        })
         .catch(() => {
           changeLanguage(i18n.language).then(() => setLoading(false));
         });

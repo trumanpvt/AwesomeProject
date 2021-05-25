@@ -97,3 +97,5 @@ export const countries = [
   've',
   'za',
 ];
+
+export const RTLLanguages = ['ar', 'he'];

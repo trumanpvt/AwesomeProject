@@ -61,7 +61,7 @@ const SideBar = ({navigation, routeNames}: Props) => {
       buttonIndex => {
         if (buttonIndex !== languageCodes.length) {
           setLoading(true);
-          setLanguage(languageCodes[buttonIndex]);
+          return setLanguage(languageCodes[buttonIndex]);
         }
       },
     );
