@@ -19,14 +19,22 @@ export default () => {
       justifyContent: 'space-between',
       alignItems: 'center',
     },
-    controlsTop: {
+    controlsLandscape: {
+      flex: 1,
+      height: '100%',
+      width: '100%',
+      flexDirection: 'row',
+      justifyContent: 'flex-end',
+      // alignItems: 'flex-start',
+    },
+    controlsAdditional: {
       flex: 1,
       width: '100%',
       marginBottom: 50,
     },
-    flashContainer: {
-      borderRadius: 50,
-      overflow: 'hidden',
+    controlsAdditionalLandscape: {
+      flex: 1,
+      marginRight: 20,
     },
     flashAuto: {
       backgroundColor: '#34A34F',
@@ -37,7 +45,7 @@ export default () => {
     flashOn: {
       backgroundColor: '#DD5144',
     },
-    controlsBottom: {
+    controlsMain: {
       marginBottom: 20,
       flex: 0,
       width: '90%',
@@ -45,11 +53,21 @@ export default () => {
       flexDirection: 'row',
       justifyContent: 'space-between',
     },
+    controlsMainLandscape: {
+      marginRight: 20,
+      flex: 0,
+      height: '90%',
+      maxHeight: 250,
+      alignSelf: 'center',
+      flexDirection: 'column-reverse',
+      justifyContent: 'space-between',
+    },
     controlBtn: {
       flex: 0,
       backgroundColor: '#fff',
       borderRadius: 50,
       padding: 15,
+      elevation: 5,
     },
     pending: {
       flex: 1,

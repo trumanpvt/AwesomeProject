@@ -13,6 +13,7 @@ import {Icon, SpeedDial, useTheme} from 'react-native-elements';
 
 import styleSheet from './style';
 import {useStores} from '../../store';
+import {observer} from 'mobx-react-lite';
 
 interface CameraProps {
   closeCamera: () => void;
@@ -107,11 +108,23 @@ const Camera = ({closeCamera, setMedia, enableVideo = false}: CameraProps) => {
   };
 
   const renderControls = (camera: RNCamera) => {
-    console.log(orientation);
+    const isPortrait = orientation === 'PORTRAIT';
+
     return (
-      <SafeAreaView style={styles.controls}>
-        <View style={styles.controlsTop}>{renderFlashSwitch()}</View>
-        <View style={styles.controlsBottom}>
+      <SafeAreaView
+        style={isPortrait ? styles.controls : styles.controlsLandscape}>
+        <View
+          style={
+            isPortrait
+              ? styles.controlsAdditional
+              : styles.controlsAdditionalLandscape
+          }>
+          {renderFlashSwitch()}
+        </View>
+        <View
+          style={
+            isPortrait ? styles.controlsMain : styles.controlsMainLandscape
+          }>
           <TouchableOpacity
             onPress={() => closeCamera()}
             style={styles.controlBtn}>
@@ -131,13 +144,6 @@ const Camera = ({closeCamera, setMedia, enableVideo = false}: CameraProps) => {
             disabled={isVideoRecording}
             style={styles.controlBtn}>
             <Icon type="ionicon" name="camera-reverse-outline" />
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => {
-              console.log(camera);
-            }}
-            style={styles.controlBtn}>
-            <Icon type="ionicon" name="at-sharp" />
           </TouchableOpacity>
         </View>
       </SafeAreaView>
@@ -169,4 +175,4 @@ const Camera = ({closeCamera, setMedia, enableVideo = false}: CameraProps) => {
   );
 };
 
-export default Camera;
+export default observer(Camera);
