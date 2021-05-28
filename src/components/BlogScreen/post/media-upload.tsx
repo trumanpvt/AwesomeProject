@@ -64,12 +64,12 @@ const PostUploadMedia = ({
     return showActionSheetWithOptions(
       {
         options: [
-          t('blog.media.imageSource'),
+          t('blog.media.gallery'),
           t('blog.media.takeVideo'),
           t('misc.cancel'),
         ],
         cancelButtonIndex: 2,
-        title: t('blog.media.imageSource'),
+        title: t('blog.media.videoSource'),
       },
       buttonIndex => {
         if (buttonIndex !== 2) {
@@ -80,13 +80,17 @@ const PostUploadMedia = ({
   };
 
   const handleUploadMedia = (isCamera: boolean, isVideo: boolean = false) => {
-    const options = {
-      cropping: true,
-    };
-
     if (isCamera) {
       return setCamera({open: true, isVideo});
     }
+
+    const options: {
+      cropping: boolean;
+      mediaType?: 'video' | 'photo';
+    } = {
+      cropping: !isVideo,
+      mediaType: isVideo ? 'video' : 'photo',
+    };
 
     return ImagePicker.openPicker(options)
       .then((media: {path: string}) => {
