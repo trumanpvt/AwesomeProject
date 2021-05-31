@@ -48,7 +48,7 @@ export default () => {
       width: undefined,
     },
     postVideo: {
-      marginTop: 20,
+      marginTop: 40,
     },
     titleInput: {
       fontSize: 20,
@@ -58,7 +58,7 @@ export default () => {
       fontSize: 15,
     },
     postEditMediaContainer: {
-      marginTop: 20,
+      marginBottom: 20,
       alignItems: 'center',
     },
     postEditMedia: {
@@ -83,7 +83,9 @@ export default () => {
       width: undefined,
       height: undefined,
     },
-    postEditVideo: {},
+    postEditVideo: {
+      height: 150,
+    },
     postEditMediaControls: {
       justifyContent: 'center',
       alignItems: 'center',

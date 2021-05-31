@@ -1,6 +1,14 @@
 import React, {useEffect, useState} from 'react';
 
-import {ActivityIndicator, Modal, SafeAreaView, View} from 'react-native';
+import {
+  ActivityIndicator,
+  Modal,
+  Platform,
+  SafeAreaView,
+  View,
+} from 'react-native';
+
+import Video from 'react-native-video';
 // @ts-ignore
 import VideoPlayer from 'react-native-video-controls';
 
@@ -29,19 +37,27 @@ const VideoPlayerCustom = ({
     if (uri.includes('file://')) {
       setVideoPath(uri);
     } else {
-      const path = RNFS.DocumentDirectoryPath + '/video-' + name;
+      const path = RNFS.DocumentDirectoryPath + '/video-' + name + '.mp4';
 
+      console.log(path);
       RNFS.downloadFile({
         fromUrl: uri,
         toFile: path,
       }).promise.then(() => {
         console.log('path', path);
-        setVideoPath(path);
+        setVideoPath('file://' + path);
       });
 
       return () => {
-        RNFS.unlink(path).catch(e => {
-          console.log('RNFS.unlink error', e);
+        RNFS.readDir(RNFS.DocumentDirectoryPath).then(result => {
+          console.log('GOT RESULT', result);
+          return result.forEach(file => {
+            if (file.name.includes('video')) {
+              RNFS.unlink(file.path).catch(e => {
+                console.log('RNFS.unlink error', e);
+              });
+            }
+          });
         });
       };
     }
@@ -62,6 +78,24 @@ const VideoPlayerCustom = ({
   };
 
   const inlineVideo = () => {
+    if (Platform.OS === 'ios') {
+      return (
+        <Video
+          // source={{
+          //   uri: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+          // }}
+          source={{
+            uri: videoPath,
+          }}
+          style={style}
+          onError={(e: any) => {
+            console.log(e);
+          }}
+          controls
+        />
+      );
+    }
+
     return (
       <VideoPlayer
         source={{uri: videoPath}}

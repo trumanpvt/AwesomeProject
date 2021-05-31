@@ -96,7 +96,9 @@ const PostUploadMedia = ({
       .then((media: {path: string}) => {
         return uploadMedia(media.path, isVideo);
       })
-      .catch();
+      .catch(e => {
+        console.log('ImagePicker.openPicker error', e);
+      });
   };
 
   const handleSetMedia = (uri: string, isVideo: boolean = false) => {
@@ -128,7 +130,7 @@ const PostUploadMedia = ({
   const renderImageBlock = () => {
     if (!imageUrl) {
       return (
-        <View style={styles.postEditMediaContainer}>
+        <View style={styles.container}>
           <Text style={styles.postEditMediaTitle}>
             {t('blog.media.imageAdd')}
           </Text>
