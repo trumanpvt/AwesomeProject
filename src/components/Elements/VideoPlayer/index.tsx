@@ -89,6 +89,7 @@ const VideoPlayerCustom = ({
           }}
           style={style}
           onError={(e: any) => {
+            console.log(videoPath);
             console.log(e);
           }}
           controls
@@ -115,7 +116,7 @@ const VideoPlayerCustom = ({
       inlineVideo()
     )
   ) : (
-    <View style={style}>
+    <View style={[style, styles.loading]}>
       <ActivityIndicator size="large" color="#0000ff" />
     </View>
   );
