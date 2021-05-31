@@ -47,7 +47,11 @@ const ModalContainer = () => {
   };
 
   return (
-    <Modal animationType="fade" transparent={true} visible={!!modal.type}>
+    <Modal
+      animationType="fade"
+      transparent={true}
+      visible={!!modal.type}
+      supportedOrientations={['portrait', 'landscape']}>
       {orientation === 'PORTRAIT' ? (
         <View style={styles.centeredView}>
           <View style={styles.modalWrap}>{renderModal()}</View>

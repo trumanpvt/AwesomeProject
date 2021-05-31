@@ -151,7 +151,9 @@ const Camera = ({closeCamera, setMedia, enableVideo = false}: CameraProps) => {
   };
 
   return (
-    <Modal style={styles.container}>
+    <Modal
+      style={styles.container}
+      supportedOrientations={['portrait', 'landscape']}>
       <RNCamera
         style={styles.preview}
         type={isBack ? 'back' : 'front'}

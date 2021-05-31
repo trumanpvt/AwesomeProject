@@ -23,7 +23,7 @@ const PostModal = ({
   const styles = styleSheet();
 
   return post.id ? (
-    <Modal>
+    <Modal supportedOrientations={['portrait', 'landscape']}>
       <SafeAreaView style={styles.container}>
         {post.editMode ? (
           <PostEdit

@@ -16,7 +16,7 @@ const ImageCustom = ({uri, style, containerStyle}: ImageCustomProps) => {
 
   const fullScreenImage = () => {
     return (
-      <Modal>
+      <Modal supportedOrientations={['portrait', 'landscape']}>
         <Image
           source={{uri}}
           onPress={() => setIsFullscreen(false)}

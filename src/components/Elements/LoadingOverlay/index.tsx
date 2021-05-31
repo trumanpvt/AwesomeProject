@@ -11,7 +11,7 @@ const LoadingOverlay = () => {
   const {loading} = useStores().stateStore;
 
   return loading ? (
-    <Modal transparent={true}>
+    <Modal transparent={true} supportedOrientations={['portrait', 'landscape']}>
       <View style={styles.loading}>
         <ActivityIndicator size="large" color="#0000ff" />
       </View>

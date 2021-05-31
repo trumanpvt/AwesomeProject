@@ -65,7 +65,7 @@ const VideoPlayerCustom = ({
 
   const fullScreenVideo = () => {
     return (
-      <Modal>
+      <Modal supportedOrientations={['portrait', 'landscape']}>
         <SafeAreaView style={styles.container}>
           <VideoPlayer
             source={{uri: videoPath}}
