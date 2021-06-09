@@ -23,8 +23,11 @@ export const guidGenerator = () => {
 
 export const getFilePath = async (uri: string, tag: string) => {
   const fileName = getFileNameFromUrl(uri);
+
   const tagWithDash = tag ? tag + '-' : '';
+
   const path = RNFS.DocumentDirectoryPath + '/' + tagWithDash + fileName;
+
   if (uri.includes('file://')) {
     console.log("uri.includes('file://')");
     return uri;

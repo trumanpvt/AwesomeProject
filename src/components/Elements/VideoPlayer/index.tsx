@@ -34,7 +34,7 @@ const VideoPlayerCustom = ({
 
   useEffect(() => {
     getFilePath(uri, fileTag).then(path => setVideoPath(path));
-  }, [uri]);
+  }, [uri, fileTag]);
 
   const fullScreenVideo = () => {
     return (

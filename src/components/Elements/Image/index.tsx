@@ -27,7 +27,7 @@ const ImageCustom = ({
     getFilePath(uri, fileTag).then(path => {
       setImagePath(path);
     });
-  }, [uri]);
+  }, [uri, fileTag]);
 
   const fullScreenImage = () => {
     return (
