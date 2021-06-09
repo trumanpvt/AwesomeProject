@@ -2,6 +2,7 @@ import RNFS from 'react-native-fs';
 
 export const guidGenerator = () => {
   const S4 = function () {
+    // eslint-disable-next-line no-bitwise
     return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
   };
   return (
@@ -20,22 +21,42 @@ export const guidGenerator = () => {
   );
 };
 
-export const getFilePath = async (uri: string, fileName: string) => {
-  const path = RNFS.DocumentDirectoryPath + '/' + fileName;
-
+export const getFilePath = async (uri: string, tag: string) => {
+  const fileName = getFileNameFromUrl(uri);
+  const tagWithDash = tag ? tag + '-' : '';
+  const path = RNFS.DocumentDirectoryPath + '/' + tagWithDash + fileName;
   if (uri.includes('file://')) {
+    console.log("uri.includes('file://')");
     return uri;
-  } else if (await RNFS.exists(path)) {
-    return path;
-  } else {
-    return RNFS.downloadFile({
-      fromUrl: uri,
-      toFile: path,
-    }).promise.then(() => {
-      console.log('downloaded', path);
-      return 'file://' + path;
-    });
   }
+
+  return RNFS.exists('blah').then(exists => {
+    if (exists) {
+      console.log('await RNFS.exists(path)');
+      return path;
+    } else {
+      return RNFS.downloadFile({
+        fromUrl: uri,
+        toFile: path,
+      }).promise.then(() => {
+        console.log('downloaded', path);
+        return 'file://' + path;
+      });
+    }
+  });
+
+  // else if (await RNFS.exists(path)) {
+  //     console.log('await RNFS.exists(path)');
+  //     return path;
+  //   } else {
+  //     return RNFS.downloadFile({
+  //       fromUrl: uri,
+  //       toFile: path,
+  //     }).promise.then(() => {
+  //       console.log('downloaded', path);
+  //       return 'file://' + path;
+  //     });
+  //   }
 };
 
 export const clearCache = (tag: string) => {
@@ -52,9 +73,8 @@ export const clearCache = (tag: string) => {
 };
 
 export const getFileNameFromUrl = (url: string) => {
-  const matches = url.match(/\/([^\/?#]+)[^\/]*$/);
-  if (matches && matches.length > 1) {
-    return matches[1];
-  }
-  return '';
+  return (
+    url.replace('/', '%2F').split('%2F').pop()?.split('#')[0].split('?')[0] ||
+    ''
+  );
 };

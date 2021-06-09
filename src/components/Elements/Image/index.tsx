@@ -4,35 +4,30 @@ import {ActivityIndicator, Modal, View} from 'react-native';
 
 import styles from './style';
 import {Image} from 'react-native-elements';
-import {getFileNameFromUrl, getFilePath} from '../../../util/media';
+import {getFilePath} from '../../../util/media';
 
 interface ImageCustomProps {
   uri: string;
   style: any;
   containerStyle: any;
-  fileName: string;
+  fileTag?: string;
 }
 
 const ImageCustom = ({
   uri,
   style,
   containerStyle,
-  fileName,
+  fileTag = '',
 }: ImageCustomProps) => {
   const [isFullscreen, setIsFullscreen] = useState(false);
 
   const [imagePath, setImagePath] = useState('');
 
   useEffect(() => {
-    const tag = 'image';
-    getFilePath(uri, tag + getFileNameFromUrl(uri)).then(path => {
+    getFilePath(uri, fileTag).then(path => {
       setImagePath(path);
     });
-
-    // return () => {
-    //   clearCache(tag);
-    // };
-  }, [fileName, uri]);
+  }, [uri]);
 
   const fullScreenImage = () => {
     return (

@@ -65,6 +65,7 @@ export default () => {
       flex: 1,
     },
     postImageContainer: {
+      marginTop: 30,
       flex: 1,
       width: '100%',
       height: 200,
@@ -85,7 +86,7 @@ export default () => {
       height: undefined,
     },
     postVideo: {
-      marginTop: 40,
+      marginTop: 30,
       height: 200,
     },
     postEditVideo: {

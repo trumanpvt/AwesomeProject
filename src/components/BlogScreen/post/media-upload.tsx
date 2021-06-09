@@ -130,7 +130,7 @@ const PostUploadMedia = ({
   const renderImageBlock = () => {
     if (!imageUrl) {
       return (
-        <View style={styles.container}>
+        <View style={styles.postEditMediaContainer}>
           <Text style={styles.postEditMediaTitle}>
             {t('blog.media.imageAdd')}
           </Text>
@@ -156,7 +156,7 @@ const PostUploadMedia = ({
               style={styles.postEditImage}
               containerStyle={styles.postEditImageContainer}
               uri={imageUrl}
-              fileName={postId}
+              fileTag={postId}
             />
           </View>
           <View style={styles.postEditMediaControls}>
@@ -209,8 +209,7 @@ const PostUploadMedia = ({
           <View style={styles.postEditMediaWrap}>
             <VideoPlayerCustom
               uri={videoUrl}
-              fileName={postId}
-              // fileExt=".mp4"
+              fileTag={postId}
               style={styles.postEditVideo}
             />
           </View>

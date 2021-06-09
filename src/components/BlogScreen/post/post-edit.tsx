@@ -70,7 +70,7 @@ const PostEdit = ({
     const mediaType = isVideo ? 'video' : 'image';
 
     const mediaPath = `${userUid}/posts/${post.id}/media/${mediaType}${
-      isVideo ? '.mp4' : ''
+      isVideo ? '.mp4' : '.jpg'
     }`;
 
     if (!media.uri) {
@@ -164,10 +164,10 @@ const PostEdit = ({
           leftIcon={{name: 'edit'}}
         />
         <PostUploadMedia
-          postId={post.id}
           videoUrl={videoUrl.uri}
           imageUrl={imageUrl.uri}
           setUploadedMedia={setUploadedMedia}
+          postId={post.id}
         />
       </ScrollView>
     </ActionSheetProvider>
