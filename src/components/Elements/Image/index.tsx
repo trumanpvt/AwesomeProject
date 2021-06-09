@@ -4,7 +4,7 @@ import {ActivityIndicator, Modal, View} from 'react-native';
 
 import styles from './style';
 import {Image} from 'react-native-elements';
-import {getFilePath} from '../../../util/media';
+import {getFileNameFromUrl, getFilePath} from '../../../util/media';
 
 interface ImageCustomProps {
   uri: string;
@@ -25,8 +25,7 @@ const ImageCustom = ({
 
   useEffect(() => {
     const tag = 'image';
-    getFilePath(uri, tag + fileName).then(path => {
-      console.log(path);
+    getFilePath(uri, tag + getFileNameFromUrl(uri)).then(path => {
       setImagePath(path);
     });
 
@@ -39,6 +38,7 @@ const ImageCustom = ({
     return (
       <Modal supportedOrientations={['portrait', 'landscape']}>
         <Image
+          resizeMode="contain"
           source={{uri: imagePath}}
           onPress={() => setIsFullscreen(false)}
           style={styles.imageFullScreen}

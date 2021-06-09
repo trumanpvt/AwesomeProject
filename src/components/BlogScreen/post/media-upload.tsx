@@ -210,6 +210,7 @@ const PostUploadMedia = ({
             <VideoPlayerCustom
               uri={videoUrl}
               fileName={postId}
+              // fileExt=".mp4"
               style={styles.postEditVideo}
             />
           </View>

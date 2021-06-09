@@ -13,11 +13,12 @@ import Video from 'react-native-video';
 import VideoPlayer from 'react-native-video-controls';
 
 import styles from './style';
-import {getFilePath} from '../../../util/media';
+import {getFileNameFromUrl, getFilePath} from '../../../util/media';
 
 interface VideoPlayerProps {
   uri: string;
   fileName: string;
+  // fileExt?: string;
   style: any;
   disableBack?: boolean;
 }
@@ -25,6 +26,7 @@ interface VideoPlayerProps {
 const VideoPlayerCustom = ({
   uri,
   fileName,
+  // fileExt = '',
   style,
   disableBack = true,
 }: VideoPlayerProps) => {
@@ -34,12 +36,14 @@ const VideoPlayerCustom = ({
 
   useEffect(() => {
     const tag = 'video';
-    getFilePath(uri, tag + fileName).then(path => setVideoPath(path));
+    getFilePath(uri, tag + getFileNameFromUrl(uri)).then(path =>
+      setVideoPath(path),
+    );
 
     // return () => {
     //   clearCache(tag);
     // };
-  }, [fileName, uri]);
+  }, [fileName, fileExt, uri]);
 
   const fullScreenVideo = () => {
     return (

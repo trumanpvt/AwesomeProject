@@ -26,15 +26,13 @@ export const getFilePath = async (uri: string, fileName: string) => {
   if (uri.includes('file://')) {
     return uri;
   } else if (await RNFS.exists(path)) {
-    console.log('RNFS.exists(path)');
     return path;
   } else {
-    console.log('!RNFS.exists(path)');
     return RNFS.downloadFile({
       fromUrl: uri,
       toFile: path,
     }).promise.then(() => {
-      console.log('path', path);
+      console.log('downloaded', path);
       return 'file://' + path;
     });
   }
@@ -51,4 +49,8 @@ export const clearCache = (tag: string) => {
       }
     });
   });
+};
+
+export const getFileNameFromUrl = (url: string): string => {
+  return url.split('/')?.pop()?.split('#')[0].split('?')[0] || '';
 };
