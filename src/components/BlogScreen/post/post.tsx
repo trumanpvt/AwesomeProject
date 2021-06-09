@@ -62,7 +62,7 @@ const Post = ({post, setOpenedPost, removePost}: PostModalProps) => {
       {post.videoUrl ? (
         <VideoPlayerCustom
           uri={post.videoUrl}
-          name={post.id}
+          fileName={post.id}
           style={styles.postVideo}
         />
       ) : null}

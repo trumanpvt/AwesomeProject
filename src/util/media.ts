@@ -20,8 +20,8 @@ export const guidGenerator = () => {
   );
 };
 
-export const getFilePath = async (uri: string, name: string) => {
-  const path = RNFS.DocumentDirectoryPath + '/' + name;
+export const getFilePath = async (uri: string, fileName: string) => {
+  const path = RNFS.DocumentDirectoryPath + '/' + fileName;
 
   if (uri.includes('file://')) {
     return uri;

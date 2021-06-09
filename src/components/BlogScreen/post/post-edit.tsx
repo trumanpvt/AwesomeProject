@@ -69,7 +69,9 @@ const PostEdit = ({
     const media = isVideo ? videoUrl : imageUrl;
     const mediaType = isVideo ? 'video' : 'image';
 
-    const mediaPath = `${userUid}/posts/${post.id}/media/${mediaType}`;
+    const mediaPath = `${userUid}/posts/${post.id}/media/${mediaType}${
+      isVideo ? '.mp4' : ''
+    }`;
 
     if (!media.uri) {
       return storage()

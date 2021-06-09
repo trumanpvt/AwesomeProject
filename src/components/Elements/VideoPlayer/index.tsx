@@ -12,10 +12,8 @@ import Video from 'react-native-video';
 // @ts-ignore
 import VideoPlayer from 'react-native-video-controls';
 
-import RNFS from 'react-native-fs';
-
 import styles from './style';
-import {clearCache, getFilePath} from '../../../util/media';
+import {getFilePath} from '../../../util/media';
 
 interface VideoPlayerProps {
   uri: string;
@@ -35,12 +33,12 @@ const VideoPlayerCustom = ({
   const [videoPath, setVideoPath] = useState('');
 
   useEffect(() => {
-    const tag = 'image';
+    const tag = 'video';
     getFilePath(uri, tag + fileName).then(path => setVideoPath(path));
 
-    return () => {
-      clearCache(tag);
-    };
+    // return () => {
+    //   clearCache(tag);
+    // };
   }, [fileName, uri]);
 
   const fullScreenVideo = () => {
@@ -73,6 +71,7 @@ const VideoPlayerCustom = ({
             console.log('video error', e);
           }}
           controls
+          paused
         />
       );
     }

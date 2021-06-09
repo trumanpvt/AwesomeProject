@@ -7,4 +7,5 @@ export default StyleSheet.create({
     height: '100%',
     width: undefined,
   },
+  loading: {justifyContent: 'center'},
 });

@@ -99,3 +99,5 @@ export const countries = [
 ];
 
 export const RTLLanguages = ['ar', 'he'];
+
+export const cacheTags = ['image', 'video'];

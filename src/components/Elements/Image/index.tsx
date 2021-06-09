@@ -1,11 +1,10 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
-import {ActivityIndicator, Modal} from 'react-native';
+import {ActivityIndicator, Modal, View} from 'react-native';
 
 import styles from './style';
 import {Image} from 'react-native-elements';
-import RNFS from 'react-native-fs';
-import {clearCache, getFilePath} from '../../../util/media';
+import {getFilePath} from '../../../util/media';
 
 interface ImageCustomProps {
   uri: string;
@@ -26,11 +25,14 @@ const ImageCustom = ({
 
   useEffect(() => {
     const tag = 'image';
-    getFilePath(uri, tag + fileName).then(path => setImagePath(path));
+    getFilePath(uri, tag + fileName).then(path => {
+      console.log(path);
+      setImagePath(path);
+    });
 
-    return () => {
-      clearCache(tag);
-    };
+    // return () => {
+    //   clearCache(tag);
+    // };
   }, [fileName, uri]);
 
   const fullScreenImage = () => {
@@ -47,15 +49,19 @@ const ImageCustom = ({
   };
 
   const inlineImage = () => {
-    return (
+    return imagePath ? (
       <Image
         resizeMode="cover"
         style={style}
         containerStyle={containerStyle}
-        source={{uri}}
+        source={{uri: imagePath}}
         PlaceholderContent={<ActivityIndicator size="large" color="#0000ff" />}
         onPress={() => setIsFullscreen(true)}
       />
+    ) : (
+      <View style={[style, styles.loading]}>
+        <ActivityIndicator size="large" color="#0000ff" />
+      </View>
     );
   };
 
