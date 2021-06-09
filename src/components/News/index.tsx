@@ -19,6 +19,7 @@ import {useActionSheet} from '@expo/react-native-action-sheet';
 import {countries} from '../../constants';
 import {getLocaleDate} from '../../util/date';
 import ImageCustom from '../Elements/Image';
+import {guidGenerator} from '../../util/media';
 
 const News = () => {
   const {localeStore, newsStore} = useStores();
@@ -60,6 +61,7 @@ const News = () => {
             style={styles.articleImg}
             containerStyle={styles.articleImgContainer}
             uri={article.urlToImage}
+            fileName={guidGenerator()}
           />
         )}
         <View style={styles.articleData}>

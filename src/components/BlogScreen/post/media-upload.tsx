@@ -156,6 +156,7 @@ const PostUploadMedia = ({
               style={styles.postEditImage}
               containerStyle={styles.postEditImageContainer}
               uri={imageUrl}
+              fileName={postId}
             />
           </View>
           <View style={styles.postEditMediaControls}>
@@ -208,7 +209,7 @@ const PostUploadMedia = ({
           <View style={styles.postEditMediaWrap}>
             <VideoPlayerCustom
               uri={videoUrl}
-              name={postId}
+              fileName={postId}
               style={styles.postEditVideo}
             />
           </View>

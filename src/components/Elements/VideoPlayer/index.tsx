@@ -15,17 +15,18 @@ import VideoPlayer from 'react-native-video-controls';
 import RNFS from 'react-native-fs';
 
 import styles from './style';
+import {clearCache, getFilePath} from '../../../util/media';
 
 interface VideoPlayerProps {
   uri: string;
-  name: string;
+  fileName: string;
   style: any;
   disableBack?: boolean;
 }
 
 const VideoPlayerCustom = ({
   uri,
-  name,
+  fileName,
   style,
   disableBack = true,
 }: VideoPlayerProps) => {
@@ -34,34 +35,13 @@ const VideoPlayerCustom = ({
   const [videoPath, setVideoPath] = useState('');
 
   useEffect(() => {
-    if (uri.includes('file://')) {
-      setVideoPath(uri);
-    } else {
-      const path = RNFS.DocumentDirectoryPath + '/video-' + name + '.mp4';
+    const tag = 'image';
+    getFilePath(uri, tag + fileName).then(path => setVideoPath(path));
 
-      console.log(path);
-      RNFS.downloadFile({
-        fromUrl: uri,
-        toFile: path,
-      }).promise.then(() => {
-        console.log('path', path);
-        setVideoPath('file://' + path);
-      });
-
-      return () => {
-        RNFS.readDir(RNFS.DocumentDirectoryPath).then(result => {
-          console.log('GOT RESULT', result);
-          return result.forEach(file => {
-            if (file.name.includes('video')) {
-              RNFS.unlink(file.path).catch(e => {
-                console.log('RNFS.unlink error', e);
-              });
-            }
-          });
-        });
-      };
-    }
-  }, [name, uri]);
+    return () => {
+      clearCache(tag);
+    };
+  }, [fileName, uri]);
 
   const fullScreenVideo = () => {
     return (

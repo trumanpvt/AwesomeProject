@@ -55,6 +55,7 @@ const Post = ({post, setOpenedPost, removePost}: PostModalProps) => {
         <ImageCustom
           style={styles.postImage}
           containerStyle={styles.postImageContainer}
+          fileName={post.id}
           uri={post.imageUrl}
         />
       ) : null}
