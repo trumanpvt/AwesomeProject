@@ -89,8 +89,8 @@ const VideoPlayerCustom = ({
           }}
           style={style}
           onError={(e: any) => {
-            console.log(videoPath);
-            console.log(e);
+            console.log('videoPath', videoPath);
+            console.log('video error', e);
           }}
           controls
         />

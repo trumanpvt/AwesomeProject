@@ -41,15 +41,6 @@ export default () => {
     text: {
       fontSize: 15,
     },
-    postImage: {
-      marginTop: 20,
-      flex: 1,
-      height: 200,
-      width: undefined,
-    },
-    postVideo: {
-      marginTop: 40,
-    },
     titleInput: {
       fontSize: 20,
     },
@@ -73,6 +64,16 @@ export default () => {
       flexShrink: 0,
       flex: 1,
     },
+    postImageContainer: {
+      flex: 1,
+      width: '100%',
+      height: 200,
+    },
+    postImage: {
+      flex: 1,
+      width: undefined,
+      height: undefined,
+    },
     postEditImageContainer: {
       flex: 1,
       width: '100%',
@@ -82,6 +83,10 @@ export default () => {
       flex: 1,
       width: undefined,
       height: undefined,
+    },
+    postVideo: {
+      marginTop: 40,
+      height: 200,
     },
     postEditVideo: {
       height: 150,

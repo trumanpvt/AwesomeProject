@@ -53,8 +53,8 @@ const Post = ({post, setOpenedPost, removePost}: PostModalProps) => {
       <Text style={styles.text}>{post.text}</Text>
       {post.imageUrl ? (
         <ImageCustom
-          style={styles.postEditImage}
-          containerStyle={styles.postEditImageContainer}
+          style={styles.postImage}
+          containerStyle={styles.postImageContainer}
           uri={post.imageUrl}
         />
       ) : null}
