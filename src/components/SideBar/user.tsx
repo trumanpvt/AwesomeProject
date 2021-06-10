@@ -10,6 +10,8 @@ import {useStores} from '../../store';
 
 import styleSheet from './style';
 import {useTranslation} from 'react-i18next';
+import {clearCache} from '../../util/media';
+import {cacheTags} from '../../constants';
 
 interface Props {
   navigation: any;
@@ -26,7 +28,9 @@ const User = ({navigation}: Props) => {
   const styles = styleSheet();
 
   const handleSignOut = () => {
-    signOut().then(() => {
+    clearCache(cacheTags);
+
+    return signOut().then(() => {
       navigation.navigate('HomeScreen');
     });
   };

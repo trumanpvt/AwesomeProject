@@ -100,4 +100,4 @@ export const countries = [
 
 export const RTLLanguages = ['ar', 'he'];
 
-export const cacheTags = ['image', 'video'];
+export const cacheTags = ['image', 'video', 'news'];

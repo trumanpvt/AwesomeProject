@@ -67,7 +67,7 @@ export const getFilePath = async (uri: string, tag: string) => {
   //   }
 };
 
-export const clearCache = (tag: string) => {
+export const clearCacheByTag = (tag: string) => {
   RNFS.readDir(RNFS.DocumentDirectoryPath).then(result => {
     console.log('GOT RESULT', result);
     return result.forEach(file => {
@@ -78,6 +78,10 @@ export const clearCache = (tag: string) => {
       }
     });
   });
+};
+
+export const clearCache = (tags: string[]) => {
+  tags.forEach(clearCacheByTag);
 };
 
 export const getFileNameFromUrl = (url: string) => {
