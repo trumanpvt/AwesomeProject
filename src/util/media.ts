@@ -33,7 +33,7 @@ export const getFilePath = async (uri: string, tag: string) => {
     return uri;
   }
 
-  return RNFS.exists('blah').then(exists => {
+  return RNFS.exists(path).then(exists => {
     if (exists) {
       console.log('await RNFS.exists(path)');
       return path;
