@@ -82,13 +82,7 @@ export const clearCache = (tag: string) => {
 
 export const getFileNameFromUrl = (url: string) => {
   return (
-    url
-      .split('/')
-      .pop()
-      ?.split('%2F')
-      .pop()
-      ?.split('?')[0]
-      // eslint-disable-next-line no-control-regex
-      .replace(/[^\x00-\xFF]/g, '') || ''
+    url.split('/').pop()?.split('%2F').pop()?.split('?')[0].replace('%', '') ||
+    ''
   );
 };
