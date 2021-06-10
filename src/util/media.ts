@@ -76,8 +76,5 @@ export const clearCache = (tag: string) => {
 };
 
 export const getFileNameFromUrl = (url: string) => {
-  return (
-    url.replace('/', '%2F').split('%2F').pop()?.split('#')[0].split('?')[0] ||
-    ''
-  );
+  return url.split('/').pop()?.split('?')[0] || '';
 };

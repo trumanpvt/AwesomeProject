@@ -49,11 +49,6 @@ const News = () => {
   };
 
   const renderArticle = (article: any, index: number): JSX.Element => {
-    const imageTag = (article.publishedAt + article.title.substr(0, 4)).replace(
-      ' ',
-      '',
-    );
-
     return (
       <TouchableOpacity
         key={index}
@@ -66,7 +61,6 @@ const News = () => {
             style={styles.articleImg}
             containerStyle={styles.articleImgContainer}
             uri={article.urlToImage}
-            fileTag={imageTag}
           />
         )}
         <View style={styles.articleData}>
