@@ -20,6 +20,7 @@ interface VideoPlayerProps {
   style: any;
   fileTag?: string;
   disableBack?: boolean;
+  cache?: boolean;
 }
 
 const VideoPlayerCustom = ({
@@ -27,14 +28,17 @@ const VideoPlayerCustom = ({
   style,
   disableBack = true,
   fileTag = '',
+  cache = false,
 }: VideoPlayerProps) => {
   const [isFullscreen, setIsFullscreen] = useState(false);
 
-  const [videoPath, setVideoPath] = useState('');
+  const [videoPath, setVideoPath] = useState(cache ? '' : uri);
 
   useEffect(() => {
-    getFilePath(uri, fileTag).then(path => setVideoPath(path));
-  }, [uri, fileTag]);
+    if (cache && !videoPath) {
+      getFilePath(uri, fileTag).then(path => setVideoPath(path));
+    }
+  }, [cache, uri, fileTag]);
 
   const fullScreenVideo = () => {
     return (

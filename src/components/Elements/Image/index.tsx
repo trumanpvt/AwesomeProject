@@ -11,6 +11,7 @@ interface ImageCustomProps {
   style: any;
   containerStyle: any;
   fileTag?: string;
+  cache?: boolean;
 }
 
 const ImageCustom = ({
@@ -18,16 +19,19 @@ const ImageCustom = ({
   style,
   containerStyle,
   fileTag = '',
+  cache = false,
 }: ImageCustomProps) => {
   const [isFullscreen, setIsFullscreen] = useState(false);
 
-  const [imagePath, setImagePath] = useState('');
+  const [imagePath, setImagePath] = useState(cache ? '' : uri);
 
   useEffect(() => {
-    getFilePath(uri, fileTag).then(path => {
-      setImagePath(path);
-    });
-  }, [uri, fileTag]);
+    if (cache && !imagePath) {
+      getFilePath(uri, fileTag).then(path => {
+        setImagePath(path);
+      });
+    }
+  }, [cache, uri, fileTag]);
 
   const fullScreenImage = () => {
     return (
