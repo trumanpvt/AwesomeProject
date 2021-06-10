@@ -19,7 +19,7 @@ const ImageCustom = ({
   style,
   containerStyle,
   fileTag = '',
-  cache = false,
+  cache = true,
 }: ImageCustomProps) => {
   const [isFullscreen, setIsFullscreen] = useState(false);
 

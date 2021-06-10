@@ -28,7 +28,7 @@ const VideoPlayerCustom = ({
   style,
   disableBack = true,
   fileTag = '',
-  cache = false,
+  cache = true,
 }: VideoPlayerProps) => {
   const [isFullscreen, setIsFullscreen] = useState(false);
 
