@@ -38,7 +38,7 @@ const VideoPlayerCustom = ({
     if (cache && !videoPath) {
       getFilePath(uri, fileTag).then(path => setVideoPath(path));
     }
-  }, [cache, uri, fileTag]);
+  }, [cache, uri, fileTag, videoPath]);
 
   const fullScreenVideo = () => {
     return (

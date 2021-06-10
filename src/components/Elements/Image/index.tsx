@@ -31,7 +31,7 @@ const ImageCustom = ({
         setImagePath(path);
       });
     }
-  }, [cache, uri, fileTag]);
+  }, [cache, uri, fileTag, imagePath]);
 
   const fullScreenImage = () => {
     return (
