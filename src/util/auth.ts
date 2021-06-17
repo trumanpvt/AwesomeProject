@@ -71,16 +71,17 @@ export const facebookSignIn = async (setCredential: {
     }
 
     // Once signed in, get the users AccessToken
-    const {accessToken} = await AccessToken.getCurrentAccessToken();
+    const currentAccessToken = await AccessToken.getCurrentAccessToken();
 
-    if (!accessToken) {
+    if (!currentAccessToken || !currentAccessToken.accessToken) {
       // throw 'Something went wrong obtaining access token';
       return Promise.reject('Something went wrong obtaining access token');
     }
 
     // Create a Firebase credential with the AccessToken
-    const facebookCredential =
-      auth.FacebookAuthProvider.credential(accessToken);
+    const facebookCredential = auth.FacebookAuthProvider.credential(
+      currentAccessToken.accessToken,
+    );
 
     setCredential(facebookCredential);
 
