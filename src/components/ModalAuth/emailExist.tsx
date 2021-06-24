@@ -18,6 +18,7 @@ import ButtonCustom from '../Elements/Button';
 import InputCustom from '../Elements/Input';
 
 import styleSheet from './style';
+import {useTranslation} from 'react-i18next';
 
 interface Props {
   setModal: (data: {type: string}) => void;
@@ -30,6 +31,8 @@ const ModalEmailExist = ({setModal, setCloseModal}: Props) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
+
+  const {t} = useTranslation();
 
   const styles = styleSheet();
 
@@ -115,7 +118,7 @@ const ModalEmailExist = ({setModal, setCloseModal}: Props) => {
         autoCapitalize="none"
         textContentType="password"
         secureTextEntry
-        placeholder="Password"
+        placeholder={t('modal.placeholder.password')}
         value={password}
         onChangeText={setPassword}
         leftIcon={{type: 'material', name: 'lock'}}
@@ -126,7 +129,7 @@ const ModalEmailExist = ({setModal, setCloseModal}: Props) => {
         disabled={!email || !password}
         onPress={handlePasswordSignIn}
         buttonStyle={styles.button}
-        title="Sign In"
+        title={t('misc.signIn')}
       />
       <Text style={styles.messageText}>Or choose another Facebook user</Text>
       <SocialIcon
@@ -147,7 +150,7 @@ const ModalEmailExist = ({setModal, setCloseModal}: Props) => {
         color="error"
         onPress={() => setModal({type: 'auth'})}
         buttonStyle={styles.button}
-        title="Cancel"
+        title={t('misc.cancel')}
       />
     </View>
   );

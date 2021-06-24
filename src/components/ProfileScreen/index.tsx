@@ -17,9 +17,9 @@ import {useTranslation} from 'react-i18next';
 import styleSheet from './style';
 
 const ProfileScreen = () => {
-  const {userStore, modalStore} = useStores();
+  const {userStore, modalAuthStore} = useStores();
   const {user, changeUser, setUser} = userStore;
-  const {setModal} = modalStore;
+  const {setModal} = modalAuthStore;
 
   const [displayName, setDisplayName] = useState(
     (user && user.displayName) || '',

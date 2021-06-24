@@ -18,8 +18,8 @@ interface Props {
 }
 
 const User = ({navigation}: Props) => {
-  const {modalStore, userStore} = useStores();
-  const {setModal} = modalStore;
+  const {modalAuthStore, userStore} = useStores();
+  const {setModal} = modalAuthStore;
 
   const {user} = userStore;
 

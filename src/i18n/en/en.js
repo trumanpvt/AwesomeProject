@@ -71,6 +71,7 @@ export const en = {
     },
   },
   misc: {
+    ok: 'Ok',
     save: 'Save',
     cancel: 'Cancel',
     close: 'Close',

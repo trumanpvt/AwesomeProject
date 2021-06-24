@@ -12,7 +12,7 @@ interface Props {
 
 const AppHeader = ({openDrawer, name}: Props) => {
   const {
-    modalStore,
+    modalAuthStore,
     footerStore,
     userStore,
     localeStore,
@@ -21,7 +21,7 @@ const AppHeader = ({openDrawer, name}: Props) => {
   } = useStores();
 
   const showStores = () => {
-    console.log('modalStore', modalStore);
+    console.log('modalAuthStore', modalAuthStore);
     console.log('footerStore', footerStore);
     console.log('userStore', userStore);
     console.log('localeStore', localeStore);

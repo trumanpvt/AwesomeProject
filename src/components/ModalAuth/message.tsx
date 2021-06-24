@@ -4,6 +4,7 @@ import {Text, View} from 'react-native';
 import ButtonCustom from '../Elements/Button';
 
 import styleSheet from './style';
+import {useTranslation} from 'react-i18next';
 
 interface Props {
   message: string | undefined;
@@ -11,7 +12,10 @@ interface Props {
 }
 
 const ModalMessage = ({message = '', setCloseModal}: Props) => {
+  const {t} = useTranslation();
+
   const styles = styleSheet();
+
   return (
     <View style={styles.form}>
       <Text style={styles.headerText}>{message}</Text>
@@ -20,7 +24,7 @@ const ModalMessage = ({message = '', setCloseModal}: Props) => {
         color="error"
         onPress={setCloseModal}
         buttonStyle={styles.button}
-        title="OK"
+        title={t('misc.ok')}
       />
     </View>
   );

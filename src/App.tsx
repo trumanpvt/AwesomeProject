@@ -19,7 +19,7 @@ import ProfileScreen from './components/ProfileScreen';
 import ChatScreen from './components/ChatScreen';
 import SideBar from './components/SideBar';
 import BlogScreen from './components/BlogScreen';
-import ModalContainer from './components/Modal';
+import ModalAuthContainer from './components/ModalAuth';
 
 import {changeLanguage, setRTL} from './i18n';
 
@@ -109,7 +109,7 @@ const App = () => {
               <Drawer.Screen name="ChatScreen" component={ChatScreen} />
               <Drawer.Screen name="ProfileScreen" component={ProfileScreen} />
             </Drawer.Navigator>
-            <ModalContainer />
+            <ModalAuthContainer />
             <LoadingOverlay />
           </ThemeProvider>
         </ActionSheetProvider>

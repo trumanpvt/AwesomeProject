@@ -1,6 +1,6 @@
 import {makeAutoObservable} from 'mobx';
 
-export default class ModalStore {
+export default class modalAuthStore {
   modal: {
     type?: string;
     email?: string;

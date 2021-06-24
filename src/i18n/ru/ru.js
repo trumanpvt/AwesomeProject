@@ -71,6 +71,7 @@ export const ru = {
     },
   },
   misc: {
+    ok: 'Ок',
     save: 'Сохранить',
     cancel: 'Отмена',
     close: 'Закрыть',

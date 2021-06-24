@@ -9,9 +9,9 @@ import {useStores} from '../../store';
 import ModalConfirmEmail from './confirmEmail';
 import ModalEmailExist from './emailExist';
 
-const ModalContainer = () => {
-  const {modalStore, stateStore} = useStores();
-  const {modal, setModal, setCloseModal} = modalStore;
+const ModalAuthContainer = () => {
+  const {modalAuthStore, stateStore} = useStores();
+  const {modal, setModal, setCloseModal} = modalAuthStore;
   const {orientation} = stateStore;
 
   const styles = styleSheet();
@@ -65,4 +65,4 @@ const ModalContainer = () => {
   );
 };
 
-export default observer(ModalContainer);
+export default observer(ModalAuthContainer);
