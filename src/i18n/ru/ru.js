@@ -51,6 +51,8 @@ export const ru = {
     },
     confirmEmailMessage:
       'Пожалуйста подтвердите ваш email используя ссылку в письме',
+    exist: 'Для данного email уже зарегистрирован аккаунт',
+    googleLogin: 'Пожалуйста зайдите сначала через Google',
   },
   blog: {
     empty: 'Пока нет постов',

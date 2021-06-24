@@ -90,8 +90,9 @@ const ModalEmailExist = ({setModal, setCloseModal}: Props) => {
     <View style={styles.form}>
       <Text style={styles.headerText}>
         Account already exist for provided email.
+        {t('modal.exist')}
       </Text>
-      <Text style={styles.messageText}>Please first login with Google</Text>
+      <Text style={styles.messageText}>{t('modal.googleLogin')}</Text>
       <SocialIcon
         title="Google"
         button

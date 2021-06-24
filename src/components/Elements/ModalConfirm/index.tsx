@@ -24,7 +24,6 @@ const ModalConfirm = ({onOk, onCancel}: ModalConfirmProps) => {
           Account already exist for provided email.
         </Text>
         <Text style={styles.messageText}>Please first login with Google</Text>
-
         <ButtonCustom
           rounded
           color="primary"

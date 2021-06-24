@@ -51,6 +51,8 @@ export const en = {
     },
     confirmEmailMessage:
       'Please confirm your email, confirmation link was sent to you',
+    exist: 'Account already exist for provided email',
+    googleLogin: 'Please login with Google account first',
   },
   blog: {
     empty: 'No posts yet',
