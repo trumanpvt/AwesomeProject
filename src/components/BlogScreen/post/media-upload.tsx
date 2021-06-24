@@ -120,11 +120,8 @@ const PostUploadMedia = ({
       return null;
     }
 
-    const uploadUri =
-      Platform.OS === 'ios' ? path.replace('file://', '') : path;
-
     setCamera({open: false});
-    return setUploadedMedia(uploadUri, isVideo);
+    return setUploadedMedia('file://' + path, isVideo);
   };
 
   const renderImageBlock = () => {

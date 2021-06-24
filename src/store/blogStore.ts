@@ -40,6 +40,7 @@ export default class BlogStore {
 
     readDatabaseValue(`/users/${uid}/posts`).then(
       action('fetchSuccess', (posts: BlogSavedPostProps[]) => {
+        console.log('done');
         this.state = 'done';
         this.posts = posts ? Object.values(posts) : [];
       }),

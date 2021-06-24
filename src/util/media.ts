@@ -1,4 +1,5 @@
 import RNFS from 'react-native-fs';
+import storage from '@react-native-firebase/storage';
 
 export const guidGenerator = () => {
   const S4 = function () {
@@ -24,6 +25,7 @@ export const guidGenerator = () => {
 export const getFilePath = async (uri: string, tag: string) => {
   const fileName = getFileNameFromUrl(uri);
 
+  console.log(uri);
   const tagWithDash = tag ? tag + '-' : '';
 
   const path = RNFS.DocumentDirectoryPath + '/' + tagWithDash + fileName;
@@ -36,7 +38,7 @@ export const getFilePath = async (uri: string, tag: string) => {
   return RNFS.exists(path).then(exists => {
     if (exists) {
       console.log('await RNFS.exists(path)');
-      return path;
+      return 'file://' + path;
     } else {
       return RNFS.downloadFile({
         fromUrl: uri,
@@ -69,6 +71,11 @@ export const clearCacheByTag = (tag: string) => {
 
 export const clearCache = (tags: string[]) => {
   tags.forEach(clearCacheByTag);
+};
+
+export const removeFromStorage = (path: string) => {
+  const ref = storage().ref(path);
+  return ref.delete();
 };
 
 export const getFileNameFromUrl = (url: string) => {

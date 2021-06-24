@@ -16,6 +16,7 @@ import {BlogOpenedPostProps} from '..';
 import InputCustom from '../../Elements/Input';
 
 import styleSheet from './style';
+import {removeFromStorage} from '../../../util/media';
 
 const PostEdit = ({
   post,
@@ -62,7 +63,23 @@ const PostEdit = ({
 
     savePost(savedPost, userUid);
 
+    removeMediaFromStorage().catch(e => {
+      console.log('removeMediaFromStorage error', e);
+    });
+
     return handleClosePost(savedPost);
+  };
+
+  const removeMediaFromStorage = async () => {
+    const path = userUid + '/' + post.id + '/';
+
+    if (imageUrl.changed && !imageUrl.uri) {
+      await removeFromStorage(path + 'image');
+    }
+
+    if (videoUrl.changed && !videoUrl.uri) {
+      await removeFromStorage(path + 'video');
+    }
   };
 
   const handleUploadMedia = async (isVideo?: boolean) => {
@@ -112,6 +129,7 @@ const PostEdit = ({
   };
 
   const setUploadedMedia = (uri: string, isVideo?: boolean) => {
+    console.log(uri);
     if (isVideo) {
       setVideoUrl({uri: uri, changed: true});
     } else {

@@ -48,6 +48,7 @@ const ImageCustom = ({
   };
 
   const inlineImage = () => {
+    console.log('imagePath', imagePath);
     return imagePath ? (
       <Image
         resizeMode="cover"

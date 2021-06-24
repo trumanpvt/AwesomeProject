@@ -13,6 +13,7 @@ import {BlogSavedPostProps} from '../../store/blogStore';
 import {getLocaleDate} from '../../util/date';
 
 import styles from './style';
+import {removeFromStorage} from '../../util/media';
 
 export interface BlogOpenedPostProps {
   title?: string;
@@ -54,6 +55,11 @@ const BlogScreen = () => {
           setOpenedPost({id: ''});
         }
         fetchPosts(user.uid);
+      });
+
+      const path = user.uid + '/' + postId;
+      removeFromStorage(path).catch(e => {
+        console.log('removeFromStorage error', e);
       });
     }
   };
