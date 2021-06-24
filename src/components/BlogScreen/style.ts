@@ -5,7 +5,7 @@ export default StyleSheet.create({
     flex: 1,
     justifyContent: 'space-between',
     paddingTop: 10,
-    paddingBottom: 20,
+    paddingBottom: 30,
     backgroundColor: 'white',
   },
   emptyText: {

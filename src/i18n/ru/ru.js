@@ -71,6 +71,7 @@ export const ru = {
       videoChange: 'Изменить видео',
       gallery: 'Выбрать из галереи',
     },
+    removePost: 'Удалить пост?',
   },
   misc: {
     ok: 'Ок',

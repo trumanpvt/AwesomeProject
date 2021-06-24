@@ -71,6 +71,7 @@ export const en = {
       videoChange: 'Change video',
       gallery: 'Select from gallery',
     },
+    removePost: 'Remove post?',
   },
   misc: {
     ok: 'Ok',

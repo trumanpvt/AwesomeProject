@@ -129,7 +129,7 @@ const ModalEmailExist = ({setModal, setCloseModal}: Props) => {
         color="success"
         disabled={!email || !password}
         onPress={handlePasswordSignIn}
-        buttonStyle={styles.button}
+        containerStyle={styles.button}
         title={t('misc.signIn')}
       />
       <Text style={styles.messageText}>Or choose another Facebook user</Text>
@@ -150,7 +150,7 @@ const ModalEmailExist = ({setModal, setCloseModal}: Props) => {
         rounded
         color="error"
         onPress={() => setModal({type: 'auth'})}
-        buttonStyle={styles.button}
+        containerStyle={styles.button}
         title={t('misc.cancel')}
       />
     </View>

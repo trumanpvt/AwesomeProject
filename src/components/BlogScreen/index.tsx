@@ -14,6 +14,7 @@ import {getLocaleDate} from '../../util/date';
 
 import styles from './style';
 import {removeFromStorage} from '../../util/media';
+import ModalConfirm from '../Elements/ModalConfirm';
 
 export interface BlogOpenedPostProps {
   title?: string;
@@ -27,6 +28,7 @@ export interface BlogOpenedPostProps {
 
 const BlogScreen = () => {
   const [openedPost, setOpenedPost] = useState<BlogOpenedPostProps>({id: ''});
+  const [removingPostId, setRemovingPostId] = useState('');
 
   const {blogStore, localeStore, userStore} = useStores();
 
@@ -61,6 +63,8 @@ const BlogScreen = () => {
       removeFromStorage(path).catch(e => {
         console.log('removeFromStorage error', e);
       });
+
+      setRemovingPostId('');
     }
   };
 
@@ -90,7 +94,7 @@ const BlogScreen = () => {
               size={20}
               name="delete"
               color={theme.colors?.error}
-              onPress={() => handleRemovePost(post.id)}
+              onPress={() => setRemovingPostId(post.id)}
             />
           </View>
         </View>
@@ -148,6 +152,13 @@ const BlogScreen = () => {
         setOpenedPost={setOpenedPost}
         removePost={handleRemovePost}
       />
+      {removingPostId ? (
+        <ModalConfirm
+          message={t('blog.removePost')}
+          onOk={() => handleRemovePost(removingPostId)}
+          onCancel={() => setRemovingPostId('')}
+        />
+      ) : null}
     </View>
   );
 };
