@@ -1,17 +1,28 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useMemo} from 'react';
 
 import firestore from '@react-native-firebase/firestore';
 
-import {ScrollView, Text, View} from 'react-native';
+import {ScrollView, Text, TouchableOpacity, View} from 'react-native';
 
 // import {useTranslation} from 'react-i18next';
 
 import styles from './style';
 import {getLocaleDate} from '../../util/date';
 import {useStores} from '../../store';
+import Chat from './chat';
+
+import {IMessage} from 'react-native-gifted-chat/lib/Models';
+export interface ChatProps {
+  name: string;
+  messages: IMessage[];
+  latestMessage: string;
+  latestMessageDate: string;
+  id: string;
+}
 
 const ChatScreen = () => {
-  const [chats, setChats] = useState<any[]>([]);
+  const [chats, setChats] = useState<ChatProps[]>([]);
+  const [openedChatId, setOpenedChatId] = useState('');
 
   const {language} = useStores().localeStore;
 
@@ -24,8 +35,8 @@ const ChatScreen = () => {
         querySnapshot.forEach(documentSnapshot => {
           console.log('Chat: ', documentSnapshot.id, documentSnapshot.data());
           updatedChats.push({
+            ...documentSnapshot.data(),
             id: documentSnapshot.id,
-            data: documentSnapshot.data(),
           });
         });
 
@@ -37,17 +48,20 @@ const ChatScreen = () => {
 
   // const {t} = useTranslation();
 
-  const renderChat = (chat: any, index: number) => {
+  const renderChat = (chat: ChatProps, index: number) => {
     return (
-      <View key={index} style={styles.chat}>
-        <Text style={styles.chatTitle}>{chat.data.name}</Text>
+      <TouchableOpacity
+        key={index}
+        style={styles.chat}
+        onPress={() => setOpenedChatId(chat.id)}>
+        <Text style={styles.chatTitle}>{chat.name}</Text>
         <View key={index} style={styles.chatBody}>
-          <Text style={styles.chatMessage}>{chat.data.latestMessage}</Text>
+          <Text style={styles.chatMessage}>{chat.latestMessage}</Text>
           <Text style={styles.chatDate}>
-            {getLocaleDate(chat.data.latestMessageDate, language)}
+            {getLocaleDate(chat.latestMessageDate, language)}
           </Text>
         </View>
-      </View>
+      </TouchableOpacity>
     );
   };
 
@@ -55,6 +69,9 @@ const ChatScreen = () => {
     <ScrollView style={styles.container}>
       {/*<Text style={styles.text}>{t('chats.text')}</Text>*/}
       {chats.map(renderChat)}
+      {chats.length && openedChatId ? (
+        <Chat chat={chats.find(chat => chat.id === openedChatId)} />
+      ) : null}
     </ScrollView>
   );
 };

@@ -41,4 +41,7 @@ export default StyleSheet.create({
     lineHeight: 20,
   },
   chatDate: {},
+  chatContainer: {
+    flex: 1,
+  },
 });
