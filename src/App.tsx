@@ -106,7 +106,9 @@ const App = () => {
               {user ? (
                 <Drawer.Screen name="BlogScreen" component={BlogScreen} />
               ) : null}
-              <Drawer.Screen name="ChatScreen" component={ChatScreen} />
+              {user ? (
+                <Drawer.Screen name="ChatScreen" component={ChatScreen} />
+              ) : null}
               <Drawer.Screen name="ProfileScreen" component={ProfileScreen} />
             </Drawer.Navigator>
             <ModalAuthContainer />
