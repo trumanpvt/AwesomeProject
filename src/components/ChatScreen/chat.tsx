@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 
 import {GiftedChat} from 'react-native-gifted-chat';
 
@@ -12,7 +12,8 @@ import {ChatProps} from './index';
 import styles from './style';
 import {IMessage} from 'react-native-gifted-chat/lib/Models';
 import {useStores} from '../../store';
-
+import moment from 'moment';
+import 'dayjs/locale/';
 const Chat = ({chat}: {chat: ChatProps | undefined}) => {
   // const {t} = useTranslation();
 
@@ -20,15 +21,24 @@ const Chat = ({chat}: {chat: ChatProps | undefined}) => {
 
   const onSend = (messagesNew: IMessage[]) => {
     console.log('messagesNew', messagesNew);
-    firestore()
-      .collection('MESSAGE_THREADS')
-      .doc(chat && chat.id)
-      .update({
-        messages: chat ? [...chat.messages, ...messagesNew] : messagesNew,
-      })
-      .then(() => {
-        console.log('MESSAGE_THREADS updated!');
+    if (chat) {
+      const messagesFormatted = messagesNew.map((message: IMessage) => {
+        return {
+          ...message,
+          createdAt: moment().format(),
+        };
       });
+      firestore()
+        .collection('MESSAGE_THREADS')
+        .doc(chat && chat.id)
+        .update({
+          // @ts-ignore
+          messages: GiftedChat.append(chat.messages, messagesFormatted),
+        })
+        .then(() => {
+          console.log('MESSAGE_THREADS updated!');
+        });
+    }
   };
 
   return (
@@ -36,9 +46,10 @@ const Chat = ({chat}: {chat: ChatProps | undefined}) => {
       <SafeAreaView style={styles.chatContainer}>
         <GiftedChat
           messages={chat?.messages}
-          onSend={message => onSend(message)}
+          onSend={messages => onSend(messages)}
           user={{
-            _id: user ? user.uid : 1,
+            _id: user ? user.uid : '',
+            name: user ? user.displayName || user.email || '' : '',
           }}
         />
       </SafeAreaView>
