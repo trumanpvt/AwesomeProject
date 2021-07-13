@@ -1,10 +1,8 @@
-import React, {useState, useEffect, useMemo} from 'react';
+import React, {useEffect, useState} from 'react';
 
 import firestore from '@react-native-firebase/firestore';
 
 import {ScrollView, Text, TouchableOpacity, View} from 'react-native';
-
-// import {useTranslation} from 'react-i18next';
 
 import styles from './style';
 import {getLocaleDate} from '../../util/date';
@@ -40,7 +38,6 @@ const ChatScreen = () => {
         let updatedChats: any[] = [];
 
         querySnapshot.forEach(documentSnapshot => {
-          console.log('Chat: ', documentSnapshot.id, documentSnapshot.data());
           updatedChats.push({
             ...documentSnapshot.data(),
             id: documentSnapshot.id,
@@ -57,8 +54,6 @@ const ChatScreen = () => {
     return () => subscriber();
   }, []);
 
-  // const {t} = useTranslation();
-
   const createChat = (name: string) => {
     const newChatId = guidGenerator();
 
@@ -74,7 +69,6 @@ const ChatScreen = () => {
   };
 
   const renderChat = (chat: SingleChat, index: number) => {
-    console.log(chat);
     return (
       <TouchableOpacity
         key={index}
@@ -93,7 +87,6 @@ const ChatScreen = () => {
 
   return (
     <View style={styles.container}>
-      {/*<Text style={styles.text}>{t('chats.text')}</Text>*/}
       <ScrollView style={styles.chats}>{chats.map(renderChat)}</ScrollView>
       <FAB
         icon={{

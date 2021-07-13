@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 
 import {GiftedChat} from 'react-native-gifted-chat';
 
@@ -6,7 +6,6 @@ import firestore from '@react-native-firebase/firestore';
 
 import {Modal, SafeAreaView, Text, View} from 'react-native';
 
-// import {useTranslation} from 'react-i18next';
 import {SingleChat} from './index';
 
 import styles from './style';
@@ -21,8 +20,6 @@ interface ChatProps {
   onClose: () => void;
 }
 const Chat = ({chat, onClose}: ChatProps) => {
-  // const {t} = useTranslation();
-
   const {user} = useStores().userStore;
 
   const {theme} = useTheme();
