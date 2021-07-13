@@ -43,7 +43,12 @@ export default StyleSheet.create({
   postDate: {},
   Title: {},
   postText: {},
-  postImg: {},
+  postImg: {
+    marginTop: 30,
+    // flex: 1,
+    width: '100%',
+    height: 200,
+  },
   postEdit: {},
   postModal: {},
   newPostBtn: {
