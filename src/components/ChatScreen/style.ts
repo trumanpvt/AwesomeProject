@@ -51,10 +51,24 @@ export default StyleSheet.create({
   newChatBtn: {
     borderRadius: 50,
   },
+  chatHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    padding: 10,
+  },
+  chatHeaderBlank: {
+    width: 54,
+  },
+  chatHeaderTitle: {
+    // paddingLeft: 140,
+    textAlign: 'center',
+    fontSize: 22,
+  },
   closeChatBtn: {
     borderRadius: 50,
     alignSelf: 'flex-end',
-    marginRight: 10,
-    marginTop: 10,
+    // marginRight: 10,
+    // marginTop: 10,
   },
 });

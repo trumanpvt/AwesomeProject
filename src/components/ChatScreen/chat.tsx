@@ -4,7 +4,7 @@ import {GiftedChat} from 'react-native-gifted-chat';
 
 import firestore from '@react-native-firebase/firestore';
 
-import {Modal, SafeAreaView} from 'react-native';
+import {Modal, SafeAreaView, Text, View} from 'react-native';
 
 // import {useTranslation} from 'react-i18next';
 import {SingleChat} from './index';
@@ -53,14 +53,18 @@ const Chat = ({chat, onClose}: ChatProps) => {
   return (
     <Modal supportedOrientations={['portrait', 'landscape']}>
       <SafeAreaView style={styles.chatContainer}>
-        <Icon
-          raised
-          size={25}
-          name="close"
-          color={theme.colors?.error}
-          onPress={onClose}
-          containerStyle={styles.closeChatBtn}
-        />
+        <View style={styles.chatHeader}>
+          <View style={styles.chatHeaderBlank} />
+          <Text style={styles.chatHeaderTitle}>{chat?.name}</Text>
+          <Icon
+            raised
+            size={25}
+            name="close"
+            color={theme.colors?.error}
+            onPress={onClose}
+            containerStyle={styles.closeChatBtn}
+          />
+        </View>
         <GiftedChat
           messages={chat?.messages}
           onSend={messages => onSend(messages)}
