@@ -1,6 +1,6 @@
 {
   "name": "awesomeproject",
-  "version": "0.1",
+  "version": "0.2",
   "private": true,
   "scripts": {
     "android": "react-native run-android --port 8999",
