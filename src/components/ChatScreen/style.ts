@@ -4,8 +4,11 @@ export default StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: 10,
+    paddingBottom: 30,
+    justifyContent: 'space-between',
     // paddingHorizontal: 10,
   },
+  chats: {},
   text: {
     fontSize: 20,
     textAlign: 'center',
@@ -43,5 +46,15 @@ export default StyleSheet.create({
   chatDate: {},
   chatContainer: {
     flex: 1,
+    // alignItems: 'flex-end',
+  },
+  newChatBtn: {
+    borderRadius: 50,
+  },
+  closeChatBtn: {
+    borderRadius: 50,
+    alignSelf: 'flex-end',
+    marginRight: 10,
+    marginTop: 10,
   },
 });

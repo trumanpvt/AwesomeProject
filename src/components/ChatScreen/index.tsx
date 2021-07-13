@@ -12,7 +12,13 @@ import {useStores} from '../../store';
 import Chat from './chat';
 
 import {IMessage} from 'react-native-gifted-chat/lib/Models';
-export interface ChatProps {
+import {FAB} from 'react-native-elements';
+import {guidGenerator} from '../../util/media';
+
+import ModalChat from './ModalChat';
+import {observer} from 'mobx-react-lite';
+
+export interface SingleChat {
   name: string;
   messages: IMessage[];
   latestMessage: string;
@@ -21,8 +27,9 @@ export interface ChatProps {
 }
 
 const ChatScreen = () => {
-  const [chats, setChats] = useState<ChatProps[]>([]);
+  const [chats, setChats] = useState<SingleChat[]>([]);
   const [openedChatId, setOpenedChatId] = useState('');
+  const [createChatModal, setCreateChatModal] = useState(false);
 
   const {language} = useStores().localeStore;
 
@@ -40,6 +47,10 @@ const ChatScreen = () => {
           });
         });
 
+        if (!updatedChats.length) {
+          return null;
+        }
+
         setChats(updatedChats);
       });
 
@@ -48,7 +59,22 @@ const ChatScreen = () => {
 
   // const {t} = useTranslation();
 
-  const renderChat = (chat: ChatProps, index: number) => {
+  const createChat = (name: string) => {
+    const newChatId = guidGenerator();
+
+    firestore()
+      .collection('MESSAGE_THREADS')
+      .doc(newChatId)
+      .set({name})
+      .then(() => {
+        console.log('new chat added!');
+        setOpenedChatId(newChatId);
+        setCreateChatModal(false);
+      });
+  };
+
+  const renderChat = (chat: SingleChat, index: number) => {
+    console.log(chat);
     return (
       <TouchableOpacity
         key={index}
@@ -66,14 +92,33 @@ const ChatScreen = () => {
   };
 
   return (
-    <ScrollView style={styles.container}>
+    <View style={styles.container}>
       {/*<Text style={styles.text}>{t('chats.text')}</Text>*/}
-      {chats.map(renderChat)}
-      {chats.length && openedChatId ? (
-        <Chat chat={chats.find(chat => chat.id === openedChatId)} />
+      <ScrollView style={styles.chats}>{chats.map(renderChat)}</ScrollView>
+      <FAB
+        icon={{
+          name: 'post-add',
+          size: 25,
+          color: 'white',
+        }}
+        onPress={() => setCreateChatModal(true)}
+        raised
+        buttonStyle={styles.newChatBtn}
+      />
+      {createChatModal ? (
+        <ModalChat
+          onCancel={() => setCreateChatModal(false)}
+          onOk={createChat}
+        />
       ) : null}
-    </ScrollView>
+      {chats.length && openedChatId ? (
+        <Chat
+          chat={chats.find(chat => chat.id === openedChatId)}
+          onClose={() => setOpenedChatId('')}
+        />
+      ) : null}
+    </View>
   );
 };
 
-export default ChatScreen;
+export default observer(ChatScreen);

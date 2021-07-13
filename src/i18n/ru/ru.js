@@ -26,6 +26,10 @@ export const ru = {
   },
   chats: {
     text: 'Текст чатов',
+    createNew: 'Созать новый чат',
+    placeholder: {
+      createNew: 'Название чата',
+    },
   },
   profile: {
     placeholder: {

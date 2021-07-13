@@ -7,20 +7,27 @@ import firestore from '@react-native-firebase/firestore';
 import {Modal, SafeAreaView} from 'react-native';
 
 // import {useTranslation} from 'react-i18next';
-import {ChatProps} from './index';
+import {SingleChat} from './index';
 
 import styles from './style';
 import {IMessage} from 'react-native-gifted-chat/lib/Models';
 import {useStores} from '../../store';
 import moment from 'moment';
 import 'dayjs/locale/';
-const Chat = ({chat}: {chat: ChatProps | undefined}) => {
+import {Icon, useTheme} from 'react-native-elements';
+
+interface ChatProps {
+  chat: SingleChat | undefined;
+  onClose: () => void;
+}
+const Chat = ({chat, onClose}: ChatProps) => {
   // const {t} = useTranslation();
 
   const {user} = useStores().userStore;
 
+  const {theme} = useTheme();
+
   const onSend = (messagesNew: IMessage[]) => {
-    console.log('messagesNew', messagesNew);
     if (chat) {
       const messagesFormatted = messagesNew.map((message: IMessage) => {
         return {
@@ -34,6 +41,8 @@ const Chat = ({chat}: {chat: ChatProps | undefined}) => {
         .update({
           // @ts-ignore
           messages: GiftedChat.append(chat.messages, messagesFormatted),
+          latestMessage: messagesFormatted[messagesFormatted.length - 1].text,
+          latestMessageDate: moment().format(),
         })
         .then(() => {
           console.log('MESSAGE_THREADS updated!');
@@ -44,6 +53,14 @@ const Chat = ({chat}: {chat: ChatProps | undefined}) => {
   return (
     <Modal supportedOrientations={['portrait', 'landscape']}>
       <SafeAreaView style={styles.chatContainer}>
+        <Icon
+          raised
+          size={25}
+          name="close"
+          color={theme.colors?.error}
+          onPress={onClose}
+          containerStyle={styles.closeChatBtn}
+        />
         <GiftedChat
           messages={chat?.messages}
           onSend={messages => onSend(messages)}

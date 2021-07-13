@@ -1,6 +1,12 @@
 import React, {useEffect, useState} from 'react';
 
-import {ActivityIndicator, Text, TouchableOpacity, View} from 'react-native';
+import {
+  ActivityIndicator,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import {FAB, Icon, Image, useTheme} from 'react-native-elements';
 
 import {useTranslation} from 'react-i18next';
@@ -117,7 +123,7 @@ const BlogScreen = () => {
 
   const renderPostsBlock = () => {
     if (posts.length) {
-      return <View>{posts.map(renderPost)}</View>;
+      return <ScrollView>{posts.map(renderPost)}</ScrollView>;
     }
 
     return <Text style={styles.emptyText}>{t('blog.empty')}</Text>;

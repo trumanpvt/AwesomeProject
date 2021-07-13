@@ -26,6 +26,10 @@ export const en = {
   },
   chats: {
     text: 'Chats text',
+    createNew: 'Create new chat',
+    placeholder: {
+      createNew: 'Chat name',
+    },
   },
   profile: {
     placeholder: {
