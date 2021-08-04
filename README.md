@@ -17,5 +17,6 @@ Features:
 - Translation (EN/RU with normal translation, ar, de, es, fr, he, it, nl, pt, zh - with IBM-Watson machine translation)
 
 Todo:
+- push
 - everything else
 - fix current
